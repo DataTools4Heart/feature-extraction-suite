@@ -1,0 +1,39 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+  "name": "patient_demographics",
+  "title": "Patient demographics",
+  "description": "Patient demographics related features",
+  "version": "0.1",
+  "date": "2023-01-26",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "Patient",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Patient",
+  "fhirSearch": "?_id={{Patient}}",
+  "entities": {
+    "pid": "Patient"
+  },
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Unique patient identifier",
+      "description": "Unique patient identifier",
+      "dataType": "id",
+      "fhirPath": "Patient.id"
+    },
+    {
+      "name": "gender",
+      "title": "Gender",
+      "description": "Gender of the patient (male | female | other | unknown)",
+      "dataType": "code",
+      "fhirPath": "Patient.gender"
+    },
+    {
+      "name": "birthDate",
+      "title": "Birth Date",
+      "description": "Birth Date of the patient (format: YYYY-MM-DD or YYYY-MM)",
+      "dataType": "date",
+      "fhirPath": "Patient.birthDate"
+    }
+  ]
+}

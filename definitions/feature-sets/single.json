@@ -1,0 +1,72 @@
+{
+  "url": "https://datatools4heart.eu/feature-sets/single",
+  "name": "single",
+  "title": "Time series data for study-1",
+  "description": "Time series data for study-1",
+  "version": "0.1",
+  "date": "2023-01-26",
+  "fhirVersion": "4.0.1",
+  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "referenceTimePoints": {
+    "method": "feature-group"
+  },
+  "featureGroup": [
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "feature": [
+        {
+          "name": "encounterClass"
+        },
+        {
+          "name": "admissionYear"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "feature": [
+        {
+          "name": "icd10Code"
+        },
+        {
+          "name": "conditionName"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "isHeartFailure",
+        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "feature": [
+        {
+          "name": "earliestHeartFailureCode",
+          "valueExpr": {
+            "fhirPath": "icd10Code",
+            "dataType": "code"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromFirstHeartFailure",
+          "valueExpr": {
+            "fhirPath": "utl:getPeriod(onsetDate, %referenceTimePoint,'mo').toInteger()",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+

@@ -1,0 +1,77 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+  "name": "encounters",
+  "title": "Encounters",
+  "description": "Encounter related features",
+  "version": "0.1",
+  "date": "2023-02-28",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "Encounter",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Encounter",
+  "fhirSearch": "?patient={{Patient}}",
+  "entities": {
+    "pid": "Patient"
+  },
+  "timestamp": "startTime",
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Patient identifier",
+      "description": "Patient identifier",
+      "dataType": "id",
+      "fhirPath": "Encounter.subject"
+    },
+    {
+      "name": "startTime",
+      "title": "Encounter start time ",
+      "description": "Encounter start time",
+      "dataType": "dateTime",
+      "fhirPath": "Encounter.period.start"
+    },
+    {
+      "name": "admissionYear",
+      "title": "Year of the admission time ",
+      "description": "Year of the admission time",
+      "dataType": "string",
+      "fhirPath": "Encounter.period.start.toString().substring(0,4)"
+    },
+    {
+      "name": "endTime",
+      "title": "Encounter end time ",
+      "description": "Encounter end time",
+      "dataType": "dateTime",
+      "fhirPath": "Encounter.period.end"
+    },
+    {
+      "name": "encounterType",
+      "title": "Encounter type",
+      "description": "Type of this encounter",
+      "dataType": "id",
+      "fhirPath": "Encounter.type.coding.where(system='http://snomed.info/sct').code.first()"
+    },
+    {
+      "name": "encounterClass",
+      "title": "Encounter class",
+      "description": "Class of this encounter",
+      "dataType": "code",
+      "fhirPath": "Encounter.class.code"
+    },
+    {
+      "name": "encounterId",
+      "title": "Encounter identifier",
+      "description": "Identifier of this encounter",
+      "dataType": "id",
+      "fhirPath": "Encounter.id"
+    },
+    {
+      "name": "duration",
+      "title": "Duration of stay",
+      "description": "Duration of stay in the hospital",
+      "dataType": "integer",
+      "fhirPath": "utl:getPeriod(Encounter.period.start, Encounter.period.end, 'hours')"
+    }
+  ]
+}
+
+

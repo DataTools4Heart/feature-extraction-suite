@@ -1,0 +1,49 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+  "name": "conditions",
+  "title": "Conditions",
+  "description": "Condition related features",
+  "version": "0.1",
+  "date": "2023-02-24",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "Condition",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Condition",
+  "fhirSearch": "?patient={{Patient}}",
+  "entities": {
+    "pid": "Patient"
+  },
+  "timestamp": "onsetDate",
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Patient identifier",
+      "description": "Patient identifier",
+      "dataType": "id",
+      "fhirPath": "Condition.subject"
+    },
+    {
+      "name": "onsetDate",
+      "title": "Condition onset date",
+      "description": "Condition onset date",
+      "dataType": "dateTime",
+      "fhirPath": "Condition.onsetDateTime.toDate()"
+    },
+    {
+      "name": "icd10Code",
+      "title": "Condition code (ICD-10)",
+      "description": "ICD-10 code for the condition",
+      "dataType": "code",
+      "fhirPath": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
+    },
+    {
+      "name": "conditionName",
+      "title": "Condition name",
+      "description": "Name of the condition",
+      "dataType": "string",
+      "fhirPath": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').display.first()"
+    }
+  ]
+}
+
+

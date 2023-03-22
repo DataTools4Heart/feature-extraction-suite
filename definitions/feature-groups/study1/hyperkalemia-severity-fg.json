@@ -1,0 +1,40 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/hyperkalemia_severity",
+  "name": "hyperkalemia_severity",
+  "title": "Hyperkalemia severity",
+  "description": "Hyperkalemia severity-related features",
+  "version": "0.1",
+  "date": "2023-02-27",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "Observation",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-LabResult",
+  "fhirSearch": "?patient={{Patient}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/DT4H-LabResult&code=http://loinc.org|2823-3",
+  "entities": {
+    "pid": "Patient"
+  },
+  "timestamp": "time",
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Patient identifier",
+      "description": "Patient identifier",
+      "dataType": "id",
+      "fhirPath": "Observation.subject"
+    },
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime",
+      "fhirPath": "Observation.effectiveDateTime"
+    },
+    {
+      "name": "categorizedValue",
+      "title": "Hyperkalemia severity",
+      "description": "Categorized value for the severity of hyperkalemia based on potassium measurements",
+      "dataType": "string",
+      "fhirPath": "Observation.valueQuantity.value.fst:categorize('normal' | 5 | 'mild' | 5.5 | 'moderate' | 6 | 'severe')"
+    }
+  ]
+}

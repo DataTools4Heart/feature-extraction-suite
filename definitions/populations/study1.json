@@ -1,0 +1,25 @@
+{
+  "url": "https://datatools4heart.eu/cohorts/study1",
+  "name": "study_1_cohort",
+  "title": "Patients hospitalized with a primary discharge diagnosis of heart failure",
+  "description": "Patients hospitalized with a primary discharge diagnosis of heart failure where the primary discharge diagnosis refers to the main reason for admission.",
+  "version": "0.1",
+  "date": "2023-01-24T00:00:00",
+  "fhirVersion": "4.3.0",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entityType": ["Patient"],
+  "eligibilityCriteria": [
+    {
+      "fhirSearch": "?",
+      "description": "All patients with a primary discharge diagnosis of heart failure",
+      "filter": [
+        {
+          "resourceType": "Condition",
+          "fhirSearch": "?patient={{Patient}}",
+          "entities": ["Condition.subject"],
+          "eventTime": "Condition.onsetDateTime"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/electrocardiographs",
+  "name": "electrocardiographs",
+  "title": "Electrocardiographs",
+  "description": "Electrocardiograph related features",
+  "version": "0.1",
+  "date": "2023-03-17",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "Observation",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Electrocardiograph",
+  "fhirSearch": "?patient={{Patient}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Electrocardiograph",
+  "entities": {
+    "pid": "Patient"
+  },
+  "timestamp": "time",
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Patient identifier",
+      "description": "Patient identifier",
+      "dataType": "id",
+      "fhirPath": "Observation.subject"
+    },
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime",
+      "fhirPath": "Observation.effectiveDateTime"
+    },
+    {
+      "name": "ecg_qrs_duration",
+      "title": "QRS duration",
+      "description": "QRS duration",
+      "dataType": "decimal",
+      "fhirPath": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8633-0')).valueQuantity.value.first()"
+    },
+    {
+      "name": "ecg_qrs_axis",
+      "title": "QRS axis",
+      "description": "QRS axis",
+      "dataType": "decimal",
+      "fhirPath": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8632-2')).valueQuantity.value.first()"
+    },
+    {
+      "name": "ecg_qt_duration_corrected",
+      "title": "Q-T interval corrected",
+      "description": "Normalized value for individual QT measurement from a given study into a single measurement that would represent the QT interval if the patient had a heart rate of 60 beats per minute",
+      "dataType": "decimal",
+      "fhirPath": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8636-3')).valueQuantity.value.first()"
+    }
+  ]
+}
+
+

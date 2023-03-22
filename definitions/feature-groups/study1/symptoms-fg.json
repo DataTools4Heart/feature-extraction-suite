@@ -1,0 +1,47 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/symptoms",
+  "name": "symptoms",
+  "title": "Symptoms",
+  "description": "Symptom related features",
+  "version": "0.1",
+  "date": "2023-03-09",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "Observation",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Symptom",
+  "fhirSearch": "?patient={{Patient}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Symptom",
+  "entities": {
+    "pid": "Patient"
+  },
+  "timestamp": "time",
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Patient identifier",
+      "description": "Patient identifier",
+      "dataType": "id",
+      "fhirPath": "Observation.subject"
+    },
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime",
+      "fhirPath": "Observation.effectiveDateTime"
+    },
+    {
+      "name": "code",
+      "title": "Snomed code for the symptom",
+      "description": "Snomed code for the symptom",
+      "dataType": "code",
+      "fhirPath": "Observation.code.coding.where(system='http://snomed.info/sct').first().code"
+    },
+    {
+      "name": "display",
+      "title": "Name of the symptom",
+      "description": "Name of the symptom",
+      "dataType": "string",
+      "fhirPath": "Observation.code.coding.where(system='http://snomed.info/sct').first().display"
+    }
+  ]
+}

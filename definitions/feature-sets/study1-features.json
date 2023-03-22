@@ -1,0 +1,440 @@
+{
+  "url": "https://datatools4heart.eu/feature-sets/study1_features",
+  "name": "study1_features",
+  "title": "Time series data for study-1",
+  "description": "Time series data for study-1",
+  "version": "0.1",
+  "date": "2023-01-26",
+  "fhirVersion": "4.0.1",
+  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "referenceTimePoints": {
+    "method": "feature-group"
+  },
+  "featureGroup": [
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "feature": [
+        {
+          "name": "encounterClass"
+        },
+        {
+          "name": "admissionYear"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "feature": [
+        {
+          "name": "gender"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at reference point",
+          "valueExpr": {
+            "fhirPath": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "weight",
+            "value": "29463-7"
+          },
+          {
+            "name": "height",
+            "value": "8302-2"
+          },
+          {
+            "name": "systolicBp",
+            "value": "8480-6"
+          },
+          {
+            "name": "diastolicBp",
+            "value": "8462-4"
+          },
+          {
+            "name": "heartRate",
+            "value": "8867-4"
+          },
+          {
+            "name": "oxygenSaturation",
+            "value": "2708-6"
+          }
+        ]
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/lab_results",
+      "pivot": {
+        "name": "code",
+        "description": "Important lab results to be evaluated features",
+        "values": [
+          {
+            "name": "hemoglobin",
+            "value": "718-7"
+          },
+          {
+            "name": "ferritin",
+            "value": "2276-4"
+          },
+          {
+            "name": "tfs",
+            "value": "2502-3"
+          },
+          {
+            "name": "ntProBnp",
+            "value": "33762-6"
+          },
+          {
+            "name": "bnp",
+            "value": "30934-4"
+          },
+          {
+            "name": "crpHs",
+            "value": "1988-5"
+          },
+          {
+            "name": "crpNonHs",
+            "value": "30522-7"
+          },
+          {
+            "name": "tropIHs",
+            "value": "89579-7"
+          },
+          {
+            "name": "tropInHs",
+            "value": "10839-9"
+          },
+          {
+            "name": "tropTHs",
+            "value": "67151-1"
+          },
+          {
+            "name": "tropTnHs",
+            "value": "6598-7"
+          },
+          {
+            "name": "triGly",
+            "value": "14927-8"
+          },
+          {
+            "name": "cholTot",
+            "value": "14647-2"
+          },
+          {
+            "name": "hdl",
+            "value": "14646-4"
+          },
+          {
+            "name": "ldl",
+            "value": "22748-8"
+          },
+          {
+            "name": "potassium",
+            "value": "2823-3"
+          },
+          {
+            "name": "sodium",
+            "value": "2951-2"
+          },
+          {
+            "name": "creatBS",
+            "value": "2160-0"
+          },
+          {
+            "name": "creatUS",
+            "value": "2161-8"
+          },
+          {
+            "name": "albuminBS",
+            "value": "1751-7"
+          },
+          {
+            "name": "albuminUS",
+            "value": "1754-1"
+          },
+          {
+            "name": "eGFR",
+            "value": "69405-9"
+          },
+          {
+            "name": "bun",
+            "value": "14937-7"
+          },
+          {
+            "name": "acr",
+            "value": "32294-1"
+          },
+          {
+            "name": "hba1c%",
+            "value": "4548-4"
+          },
+          {
+            "name": "hba1c",
+            "value": "41995-2"
+          }
+        ]
+      },
+      "join": {
+        "type": "future",
+        "duration": "1d"
+      },
+      "feature": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "feature": [
+        {
+          "name": "icd10Code"
+        },
+        {
+          "name": "conditionName"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "heartFailure",
+        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "feature": [
+        {
+          "name": "earliest",
+          "valueExpr": {
+            "fhirPath": "icd10Code",
+            "dataType": "code"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromEarliest",
+          "valueExpr": {
+            "fhirPath": "utl:getPeriod(onsetDate, %referenceTimePoint,'mo').toInteger()",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/symptoms",
+      "pivot": {
+        "name": "code",
+        "description": "Important lab results to be evaluated features",
+        "values": [
+          {
+            "name": "dyspnea",
+            "value": "267036007"
+          },
+          {
+            "name": "pleuralEffusion",
+            "value": "60046008"
+          },
+          {
+            "name": "edema",
+            "value": "267038008"
+          },
+          {
+            "name": "fatigue",
+            "value": "84229001"
+          }
+        ]
+      },
+      "join": {
+        "type": "future",
+        "duration": "1d"
+      },
+      "feature": [
+        {
+          "name": "display",
+          "valueExpr": {
+            "fhirPath": "code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
+      "feature": [
+        {
+          "name": "lvef"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/electrocardiographs",
+      "feature": [
+        {
+          "name": "ecg_qrs_duration"
+        },
+        {
+          "name": "ecg_qrs_axis"
+        },
+        {
+          "name": "ecg_qt_duration_corrected"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "join": {
+        "type": "past",
+        "duration": "1a"
+      },
+      "feature": [
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "endTime"
+        },
+        {
+          "name": "dose"
+        },
+        {
+          "name": "formerSmoker",
+          "description": "Whether the patient smoked within 1 year prior to the admission",
+          "valueExpr": {
+            "fhirPath": "endTime.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "feature": [
+        {
+          "name": "smoker",
+          "description": "Whether the patient is smoking currently. We check the last smoking status record and expect that it does not have an end date indicating that the patient is a current smoker",
+          "valueExpr": {
+            "fhirPath": "startTime.exists() and endTime.exists().not()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/nyha",
+      "feature": [
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/hyperkalemia_severity",
+      "feature": [
+        {
+          "name": "categorizedValue"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/ckd_severity",
+      "feature": [
+        {
+          "name": "categorizedValue"
+        }
+      ]
+    }
+  ],
+  "combinedFeature": [
+    {
+      "name": "meanBp",
+      "description": "Mean blood pressure",
+      "combinedFeatures": [
+        {
+          "alias": "diastolicBp",
+          "featureNamePattern": "vital_signs_diastolicBp_value_f"
+        },
+        {
+          "alias": "systolicBp",
+          "featureNamePattern": "vital_signs_systolicBp_value_f"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "diastolicBp + (systolicBp - diastolicBp) / 3",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "bmi",
+      "description": "Body mass index",
+      "combinedFeatures": [
+        {
+          "alias": "weight",
+          "featureNamePattern": "vital_signs_weight_value_f"
+        },
+        {
+          "alias": "height",
+          "featureNamePattern": "vital_signs_height_value_f"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif(height != 0, weight / (height * height / 10000), {})",
+        "dataType": "decimal"
+      }
+    }
+  ]
+}
