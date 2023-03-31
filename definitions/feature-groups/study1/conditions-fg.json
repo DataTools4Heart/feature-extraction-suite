@@ -27,7 +27,7 @@
       "title": "Condition onset date",
       "description": "Condition onset date",
       "dataType": "dateTime",
-      "fhirPath": "Condition.onsetDateTime.toDate()"
+      "fhirPath": "Condition.onsetDateTime"
     },
     {
       "name": "icd10Code",

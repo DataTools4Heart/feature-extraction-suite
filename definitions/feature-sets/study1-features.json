@@ -397,6 +397,117 @@
           "name": "categorizedValue"
         }
       ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "cardiomyopathy",
+        "fhirPath": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "cardiomyopathy",
+        "fhirPath": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["first"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["first"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["first"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["first"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["first"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["first"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
     }
   ],
   "combinedFeature": [
