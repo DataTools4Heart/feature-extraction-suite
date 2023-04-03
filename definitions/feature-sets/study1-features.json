@@ -528,7 +528,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
         "name": "diuretics",
-        "fhirPath": "medicationCode.startsWith('C03A') or medicationCode.startsWith('C03D') or medicationCode.startsWith('C03E') or medicationCode.startsWith('C03XA') or (medicationCode.startsWith('C03BA') and medicationCode.startsWith('C03BA82').not()) or medicationCode.startsWith('C03BB') or medicationCode.startsWith('C03CA') or medicationCode.startsWith('C03CB') or medicationCode.startsWith('C03EB') or medicationCode.startsWith('C03XA') or medicationCode.startsWith('C03CC') or medicationCode.startsWith('C03CX')"
+        "fhirPath": "medicationCode.startsWith('C03A') or medicationCode.startsWith('C03D') or medicationCode.startsWith('C03E') or medicationCode.startsWith('C03XA') or (medicationCode.startsWith('C03BA') and medicationCode.startsWith('C03BA82').not()) or medicationCode.startsWith('C03BB') or medicationCode.startsWith('C03CA') or medicationCode.startsWith('C03CB') or medicationCode.startsWith('C03EB') or medicationCode.startsWith('C03CC') or medicationCode.startsWith('C03CX') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG') or medicationCode.startsWith('C07DZ') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C08GA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BX') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DX') or medicationCode.startsWith('C02LA') or medicationCode.startsWith('C02LB') or medicationCode.startsWith('C02LC') or medicationCode.startsWith('C02LG') or medicationCode.startsWith('C02LK') or medicationCode.startsWith('C02LL') or medicationCode.startsWith('C02LX')"
       },
       "feature": [
         {
@@ -628,7 +628,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
         "name": "bb",
-        "fhirPath": "medicationCode.startsWith('C07AA') or medicationCode.startsWith('C07AB') or medicationCode.startsWith('C07AG') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07BG') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('CG') or medicationCode.startsWith('C07DA') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C07DG') or medicationCode.startsWith('C07FB') or medicationCode.startsWith('C07FX')"
+        "fhirPath": "medicationCode.startsWith('C07AA') or medicationCode.startsWith('C07AB') or medicationCode.startsWith('C07AG') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07BG') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG') or medicationCode.startsWith('C07DA') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C07DG') or medicationCode.startsWith('C07FB') or medicationCode.startsWith('C07FX')"
       },
       "feature": [
         {
@@ -778,7 +778,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
         "name": "lipid_lowering",
-        "fhirPath": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AX16') or medicationCode.startsWith('C10AX09')"
+        "fhirPath": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AC16') or medicationCode.startsWith('C10AX09')"
       },
       "feature": [
         {
@@ -878,7 +878,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
         "name": "oral_antidiabetic",
-        "fhirPath": "medicationCode.startsWith('A10BA') or medicationCode.startsWith('A10BB') or medicationCode.startsWith('A10BG') or medicationCode.startsWith('A10BF') or medicationCode.startsWith('A10BH') or medicationCode.startsWith('A10BJ') or medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
+        "fhirPath": "medicationCode.startsWith('A10BA') or medicationCode.startsWith('A10BB') or medicationCode.startsWith('A10BG') or medicationCode.startsWith('A10BF') or medicationCode.startsWith('A10BH') or medicationCode.startsWith('A10BJ') or medicationCode.startsWith('A10BD') or medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
       },
       "feature": [
         {
