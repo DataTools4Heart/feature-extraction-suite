@@ -398,6 +398,658 @@
         }
       ]
     },
+
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "rasi",
+        "fhirPath": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09B') or medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09D') or medicationCode.startsWith('C09X')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "arni",
+        "fhirPath": "medicationCode.startsWith('C09DX04')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "acei",
+        "fhirPath": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BB0') or medicationCode.startsWith('C09BB10') or medicationCode.startsWith('C09BB11') or medicationCode.startsWith('C09BB12') or medicationCode.startsWith('C09BX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "arb",
+        "fhirPath": "medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DB') or medicationCode.startsWith('C09DX01') or medicationCode.startsWith('C09DX02') or medicationCode.startsWith('C09DX03') or medicationCode.startsWith('C09DX05') or medicationCode.startsWith('C09DX06') or medicationCode.startsWith('C09DX07')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "mra",
+        "fhirPath": "medicationCode.startsWith('C03DA') or medicationCode.startsWith('C03EA') or medicationCode.startsWith('C03EB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics",
+        "fhirPath": "medicationCode.startsWith('C03A') or medicationCode.startsWith('C03D') or medicationCode.startsWith('C03E') or medicationCode.startsWith('C03XA') or (medicationCode.startsWith('C03BA') and medicationCode.startsWith('C03BA82').not()) or medicationCode.startsWith('C03BB') or medicationCode.startsWith('C03CA') or medicationCode.startsWith('C03CB') or medicationCode.startsWith('C03EB') or medicationCode.startsWith('C03XA') or medicationCode.startsWith('C03CC') or medicationCode.startsWith('C03CX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_coag",
+        "fhirPath": "medicationCode.startsWith('BO1AA') or medicationCode.startsWith('BO1AB') or medicationCode.startsWith('BO1AX04') or medicationCode.startsWith('BO1AX05') or medicationCode.startsWith('BO1AF') or medicationCode.startsWith('BO1AE') or medicationCode.startsWith('BO1AX01') or medicationCode.startsWith('BO1AD12') pr medicationCode.startsWith('BO1AB02')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat",
+        "fhirPath": "medicationCode.startsWith('BO1AC13') or medicationCode.startsWith('BO1AC17') or medicationCode.startsWith('BO1AC16') or medicationCode.startsWith('BO1AC04') or medicationCode.startsWith('BO1AC22') or medicationCode.startsWith('BO1AC05') or medicationCode.startsWith('BO1AC25') or medicationCode.startsWith('BO1AC24') or medicationCode.startsWith('BO1AC19') or medicationCode.startsWith('BO1AC11') or medicationCode.startsWith('BO1AC21') or medicationCode.startsWith('BO1AC06') or medicationCode.startsWith('BO1AC15') or medicationCode.startsWith('BO1AC08') or medicationCode.startsWith('BO1AC10') or medicationCode.startsWith('BO1AC18') or medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC03') or medicationCode.startsWith('BO1AC23') or medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC18') or medicationCode.startsWith('BO1AC01') or medicationCode.startsWith('BO1AC02') or medicationCode.startsWith('BO1AC26')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "thrombolytic",
+        "fhirPath": "medicationCode.startsWith('BO1AD02') or medicationCode.startsWith('BO1AD07') or medicationCode.startsWith('BO1AD11') or medicationCode.startsWith('BO1AD08') or medicationCode.startsWith('BO1AD04') or medicationCode.startsWith('BO1AD03') or medicationCode.startsWith('BO1AD01') or medicationCode.startsWith('BO1AD09') or medicationCode.startsWith('BO1AD06') or medicationCode.startsWith('BO1AD05')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "bb",
+        "fhirPath": "medicationCode.startsWith('C07AA') or medicationCode.startsWith('C07AB') or medicationCode.startsWith('C07AG') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07BG') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('CG') or medicationCode.startsWith('C07DA') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C07DG') or medicationCode.startsWith('C07FB') or medicationCode.startsWith('C07FX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "calciumcb",
+        "fhirPath": "medicationCode.startsWith('C08C') or medicationCode.startsWith('C08D') or medicationCode.startsWith('C08E') or medicationCode.startsWith('C08GA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "digitalis",
+        "fhirPath": "medicationCode.startsWith('C01AA01') or medicationCode.startsWith('C01AA02') or medicationCode.startsWith('C01AA03') or medicationCode.startsWith('C01AA04') or medicationCode.startsWith('C01AA05') or medicationCode.startsWith('C01AA06') or medicationCode.startsWith('C01AA07') or medicationCode.startsWith('C01AA08')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "antiarr",
+        "fhirPath": "medicationCode.startsWith('C01BA') or medicationCode.startsWith('C01BB') or medicationCode.startsWith('C01BC') or medicationCode.startsWith('C01BD') or medicationCode.startsWith('C01BG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "inotropes",
+        "fhirPath": "medicationCode.startsWith('C01CA') or medicationCode.startsWith('C01CE') or medicationCode.startsWith('C01CX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "vasodil",
+        "fhirPath": "medicationCode.startsWith('C01DA') or medicationCode.startsWith('C01DB') or medicationCode.startsWith('C01DX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "lipid_lowering",
+        "fhirPath": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AX16') or medicationCode.startsWith('C10AX09')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "ivabradine",
+        "fhirPath": "medicationCode.startsWith('C01EB17')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "pot_bin",
+        "fhirPath": "medicationCode.startsWith('V03AE01') or medicationCode.startsWith('V03AE10') or medicationCode.startsWith('V03AE09')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "insulins",
+        "fhirPath": "medicationCode.startsWith('A10AB') or medicationCode.startsWith('A10AC') or medicationCode.startsWith('A10AD') or medicationCode.startsWith('A10AE') or medicationCode.startsWith('A10AF')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic",
+        "fhirPath": "medicationCode.startsWith('A10BA') or medicationCode.startsWith('A10BB') or medicationCode.startsWith('A10BG') or medicationCode.startsWith('A10BF') or medicationCode.startsWith('A10BH') or medicationCode.startsWith('A10BJ') or medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "hypog",
+        "fhirPath": "medicationCode.startsWith('V03AH01')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "ari",
+        "fhirPath": "medicationCode.startsWith('A10XA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal",
+        "fhirPath": "medicationCode.startsWith('R03AA') or medicationCode.startsWith('R03AB') or medicationCode.startsWith('R03AC') or medicationCode.startsWith('R03AH') or medicationCode.startsWith('R03AK') or medicationCode.startsWith('R03AL') or medicationCode.startsWith('R03BA') or medicationCode.startsWith('R03BB') or medicationCode.startsWith('R03BC') or medicationCode.startsWith('R03BX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst",
+        "fhirPath": "medicationCode.startsWith('R03CA') or medicationCode.startsWith('R03CB') or medicationCode.startsWith('R03CC') or medicationCode.startsWith('R03CK') or medicationCode.startsWith('R03DA') or medicationCode.startsWith('R03DB') or medicationCode.startsWith('R03DC') or medicationCode.startsWith('R03DX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "cortico_syst",
+        "fhirPath": "medicationCode.startsWith('H02A') or medicationCode.startsWith('H02BX') or medicationCode.startsWith('H02C')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "aid",
+        "fhirPath": "medicationCode.startsWith('M01AB') or medicationCode.startsWith('M01AX') or medicationCode.startsWith('C01EB16')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
