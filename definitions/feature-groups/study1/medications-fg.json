@@ -1,0 +1,49 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+  "name": "medications",
+  "title": "Medications",
+  "description": "Medication related features",
+  "version": "0.1",
+  "date": "2023-03-31",
+  "fhirVersion": "4.0.1",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "targetResourceType": "MedicationStatement",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-MedicationUsed",
+  "fhirSearch": "?patient={{Patient}}",
+  "entities": {
+    "pid": "Patient"
+  },
+  "timestamp": "startTime",
+  "feature": [
+    {
+      "name": "pid",
+      "title": "Patient identifier",
+      "description": "Patient identifier",
+      "dataType": "id",
+      "fhirPath": "MedicationStatement.subject"
+    },
+    {
+      "name": "startTime",
+      "title": "Medication start date",
+      "description": "Medication start date",
+      "dataType": "dateTime",
+      "fhirPath": "MedicationStatement.effective.start"
+    },
+    {
+      "name": "medicationCode",
+      "title": "Medication code (ATC)",
+      "description": "ATC code for the medication",
+      "dataType": "code",
+      "fhirPath": "MedicationStatement.medicationCodeableConcept.coding.where(system='http://www.whocc.no/atc').code.first()"
+    },
+    {
+      "name": "dose",
+      "title": "Medication dose",
+      "description": "ATC code for the medication",
+      "dataType": "decimal",
+      "fhirPath": "MedicationStatement.dosage.first().doseAndRate.first().doseQuantity.value"
+    }
+  ]
+}
+
+
