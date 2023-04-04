@@ -578,7 +578,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
         "name": "acei",
-        "fhirPath": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BB0') or medicationCode.startsWith('C09BB10') or medicationCode.startsWith('C09BB11') or medicationCode.startsWith('C09BB12') or medicationCode.startsWith('C09BX')"
+        "fhirPath": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BB') or medicationCode.startsWith('C09BX')"
       },
       "feature": [
         {
@@ -703,7 +703,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
         "name": "arb",
-        "fhirPath": "medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DB') or medicationCode.startsWith('C09DX01') or medicationCode.startsWith('C09DX02') or medicationCode.startsWith('C09DX03') or medicationCode.startsWith('C09DX05') or medicationCode.startsWith('C09DX06') or medicationCode.startsWith('C09DX07')"
+        "fhirPath": "medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DB') or medicationCode.startsWith('C09DX01') or medicationCode.startsWith('C09DX02') or medicationCode.startsWith('C09DX03') or medicationCode.startsWith('C09DX05') or medicationCode.startsWith('C09DX06') or medicationCode.startsWith('C09DX07') or medicationCode.startsWith('C09DX07')"
       },
       "feature": [
         {
@@ -3675,10 +3675,172 @@
       ]
     },
 
+
+
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "cardiomyopathy",
+        "name": "ap",
+        "fhirPath": "icd10Code.startsWith('I20')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ap",
+        "fhirPath": "icd10Code.startsWith('I20')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "af",
+        "fhirPath": "icd10Code.startsWith('I48')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "af",
+        "fhirPath": "icd10Code.startsWith('I48')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "cm",
         "fhirPath": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')"
       },
       "feature": [
@@ -3694,7 +3856,7 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "cardiomyopathy",
+        "name": "cm",
         "fhirPath": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')"
       },
       "join": {
@@ -3754,7 +3916,1690 @@
           }
         }
       ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "hyp",
+        "fhirPath": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "hyp",
+        "fhirPath": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ihd",
+        "fhirPath": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ihd",
+        "fhirPath": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "mi",
+        "fhirPath": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "mi",
+        "fhirPath": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "pad",
+        "fhirPath": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "pad",
+        "fhirPath": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "stroke",
+        "fhirPath": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "stroke",
+        "fhirPath": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "tia",
+        "fhirPath": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "tia",
+        "fhirPath": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "vd",
+        "fhirPath": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "vd",
+        "fhirPath": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "revasc",
+        "fhirPath": "icd10Code.startsWith('Z95.5')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "revasc",
+        "fhirPath": "icd10Code.startsWith('Z95.5')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "devices",
+        "fhirPath": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "devices",
+        "fhirPath": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "aidshiv",
+        "fhirPath": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "aidshiv",
+        "fhirPath": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "copd",
+        "fhirPath": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "copd",
+        "fhirPath": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dm",
+        "fhirPath": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dm",
+        "fhirPath": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dem",
+        "fhirPath": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dem",
+        "fhirPath": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dep",
+        "fhirPath": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dep",
+        "fhirPath": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dia",
+        "fhirPath": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dia",
+        "fhirPath": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "hypert",
+        "fhirPath": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "hypert",
+        "fhirPath": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ld",
+        "fhirPath": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ld",
+        "fhirPath": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "mc",
+        "fhirPath": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "mc",
+        "fhirPath": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "osa",
+        "fhirPath": "icd10Code.startsWith('G47.3')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "osa",
+        "fhirPath": "icd10Code.startsWith('G47.3')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "rd",
+        "fhirPath": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "rd",
+        "fhirPath": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ckd_chronic",
+        "fhirPath": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ckd_chronic",
+        "fhirPath": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "date",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
+            "dataType": "date"
+          }
+        },
+        {
+          "name": "timeFromDischarge",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "dataType": "integer"
+          }
+        }
+      ]
     }
+
+
+
   ],
   "combinedFeature": [
     {
