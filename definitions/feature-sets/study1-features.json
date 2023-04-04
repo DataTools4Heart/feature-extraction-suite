@@ -427,6 +427,131 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "rasi_acei",
+        "fhirPath": "medicationCode.startsWith('C09AA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "rasi_acei_combinations",
+        "fhirPath": "medicationCode.startsWith('C09B')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "rasi_plain_angiotensin_II_antagonist",
+        "fhirPath": "medicationCode.startsWith('C09CA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "rasi_angiotension_II_antagonists_combinations",
+        "fhirPath": "medicationCode.startsWith('C09D')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "rasi_other_agents_acting_on_ras",
+        "fhirPath": "medicationCode.startsWith('C09X')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "arni",
         "fhirPath": "medicationCode.startsWith('C09DX04')"
       },
@@ -477,8 +602,208 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "acei_plain",
+        "fhirPath": "medicationCode.startsWith('C09AA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "acei_combination_with_diuretics",
+        "fhirPath": "medicationCode.startsWith('C09BA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "acei_combination_with_calcium_channel_blocker",
+        "fhirPath": "medicationCode.startsWith('C09BB0') or medicationCode.startsWith('C09BB10') or medicationCode.startsWith('C09BB11')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "acei_combination_with_other",
+        "fhirPath": "medicationCode.startsWith('C09BX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "arb",
         "fhirPath": "medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DB') or medicationCode.startsWith('C09DX01') or medicationCode.startsWith('C09DX02') or medicationCode.startsWith('C09DX03') or medicationCode.startsWith('C09DX05') or medicationCode.startsWith('C09DX06') or medicationCode.startsWith('C09DX07')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "arb_plain",
+        "fhirPath": "medicationCode.startsWith('C09CA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "arb_combination_with_diuretics",
+        "fhirPath": "medicationCode.startsWith('C09DA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "arb_combination_with_ccb",
+        "fhirPath": "medicationCode.startsWith('C09DB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "arb_combination_with_other",
+        "fhirPath": "medicationCode.startsWith('C09DX01') or medicationCode.startsWith('C09DX02') or medicationCode.startsWith('C09DX03') or medicationCode.startsWith('C09DX05') or medicationCode.startsWith('C09DX06') or medicationCode.startsWith('C09DX07')"
       },
       "feature": [
         {
@@ -527,8 +852,308 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "mra_aldosterone_antagonists",
+        "fhirPath": "medicationCode.startsWith('C03DA') or medicationCode.startsWith('C03EA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "mra_combination_potassium_sparing_agents",
+        "fhirPath": "medicationCode.startsWith('C03EB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "diuretics",
         "fhirPath": "medicationCode.startsWith('C03A') or medicationCode.startsWith('C03D') or medicationCode.startsWith('C03E') or medicationCode.startsWith('C03XA') or (medicationCode.startsWith('C03BA') and medicationCode.startsWith('C03BA82').not()) or medicationCode.startsWith('C03BB') or medicationCode.startsWith('C03CA') or medicationCode.startsWith('C03CB') or medicationCode.startsWith('C03EB') or medicationCode.startsWith('C03CC') or medicationCode.startsWith('C03CX') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG') or medicationCode.startsWith('C07DZ') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C08GA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BX') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DX') or medicationCode.startsWith('C02LA') or medicationCode.startsWith('C02LB') or medicationCode.startsWith('C02LC') or medicationCode.startsWith('C02LG') or medicationCode.startsWith('C02LK') or medicationCode.startsWith('C02LL') or medicationCode.startsWith('C02LX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_thiazide",
+        "fhirPath": "medicationCode.startsWith('C03A')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_potassium_sparing_agents",
+        "fhirPath": "medicationCode.startsWith('C03D')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_and_potassium_sparing_agents_in_combination",
+        "fhirPath": "medicationCode.startsWith('C03E')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_vasopressin_antagonists",
+        "fhirPath": "medicationCode.startsWith('C03XA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_sulfonamides_plain",
+        "fhirPath": "medicationCode.startsWith('C03BA') and medicationCode.startsWith('C03BA82').not()"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_sulfonamides_and_potassium_in_combination",
+        "fhirPath": "medicationCode.startsWith('C03BB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_loop_diuretics",
+        "fhirPath": "medicationCode.startsWith('C03CA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_loop_diuretics_with_potassium",
+        "fhirPath": "medicationCode.startsWith('C03CB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_loop_diuretics_with_potassium_sparing_agents",
+        "fhirPath": "medicationCode.startsWith('C03EB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "diuretics_other_loop_diuretics",
+        "fhirPath": "medicationCode.startsWith('C03CC') or medicationCode.startsWith('C03CX')"
       },
       "feature": [
         {
@@ -577,8 +1202,308 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "anti_coag_vitamin_k_antagonists",
+        "fhirPath": "medicationCode.startsWith('BO1AA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_coag_heparin_group_glycosaminoglycans",
+        "fhirPath": "medicationCode.startsWith('BO1AB') or medicationCode.startsWith('BO1AX04') or medicationCode.startsWith('BO1AX05')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_coag_direct_factor_xa_inhibitors",
+        "fhirPath": "medicationCode.startsWith('BO1AF')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_coag_direct_thrombin_inhibitors",
+        "fhirPath": "medicationCode.startsWith('B01AE')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_coag_other_defibrotide_proteinC_antithrombinIII",
+        "fhirPath": "medicationCode.startsWith('BO1AX01') or medicationCode.startsWith('BO1AD12') pr medicationCode.startsWith('BO1AB02')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "anti_plat",
         "fhirPath": "medicationCode.startsWith('BO1AC13') or medicationCode.startsWith('BO1AC17') or medicationCode.startsWith('BO1AC16') or medicationCode.startsWith('BO1AC04') or medicationCode.startsWith('BO1AC22') or medicationCode.startsWith('BO1AC05') or medicationCode.startsWith('BO1AC25') or medicationCode.startsWith('BO1AC24') or medicationCode.startsWith('BO1AC19') or medicationCode.startsWith('BO1AC11') or medicationCode.startsWith('BO1AC21') or medicationCode.startsWith('BO1AC06') or medicationCode.startsWith('BO1AC15') or medicationCode.startsWith('BO1AC08') or medicationCode.startsWith('BO1AC10') or medicationCode.startsWith('BO1AC18') or medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC03') or medicationCode.startsWith('BO1AC23') or medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC18') or medicationCode.startsWith('BO1AC01') or medicationCode.startsWith('BO1AC02') or medicationCode.startsWith('BO1AC26')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_glycoprotein_IIb_IIa_inhibitors",
+        "fhirPath": "medicationCode.startsWith('BO1AC13') or medicationCode.startsWith('BO1AC17') or medicationCode.startsWith('BO1AC16')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_adp_receptor_p2y12_inhibitors",
+        "fhirPath": "medicationCode.startsWith('BO1AC04') or medicationCode.startsWith('BO1AC22') or medicationCode.startsWith('BO1AC05') or medicationCode.startsWith('BO1AC25') or medicationCode.startsWith('BO1AC24')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_prostaglandin_analogue_pg12",
+        "fhirPath": "medicationCode.startsWith('BO1AC19') or medicationCode.startsWith('BO1AC11') or medicationCode.startsWith('BO1AC21')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_cox_inhibitors",
+        "fhirPath": "medicationCode.startsWith('BO1AC06') or medicationCode.startsWith('BO1AC15') or medicationCode.startsWith('BO1AC08') or medicationCode.startsWith('BO1AC10') or medicationCode.startsWith('BO1AC18')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_trombaxane_inhibitors",
+        "fhirPath": "medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC03')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_phosphodiesterase_inhibitors",
+        "fhirPath": "medicationCode.startsWith('BO1AC23') or medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC18')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "anti_plat_other",
+        "fhirPath": "medicationCode.startsWith('BO1AC01') or medicationCode.startsWith('BO1AC02') or medicationCode.startsWith('BO1AC26')"
       },
       "feature": [
         {
@@ -627,6 +1552,81 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "thrombolytic_plasminogen_activators",
+        "fhirPath": "medicationCode.startsWith('BO1AD02') or medicationCode.startsWith('BO1AD07') or medicationCode.startsWith('BO1AD11')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "thrombolytic_upa",
+        "fhirPath": "medicationCode.startsWith('BO1AD08') or medicationCode.startsWith('BO1AD04')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "thrombolytic_other",
+        "fhirPath": "medicationCode.startsWith('BO1AD03') or medicationCode.startsWith('BO1AD01') or medicationCode.startsWith('BO1AD09') or medicationCode.startsWith('BO1AD06') or medicationCode.startsWith('BO1AD05')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "bb",
         "fhirPath": "medicationCode.startsWith('C07AA') or medicationCode.startsWith('C07AB') or medicationCode.startsWith('C07AG') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07BG') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG') or medicationCode.startsWith('C07DA') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C07DG') or medicationCode.startsWith('C07FB') or medicationCode.startsWith('C07FX')"
       },
@@ -652,8 +1652,233 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "bb_beta_blocking_agents",
+        "fhirPath": "medicationCode.startsWith('C07AA') or medicationCode.startsWith('C07AB') or medicationCode.startsWith('C07AG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "bb_combination_with_thiazides",
+        "fhirPath": "medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07BG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "bb_combination_with_diuretics",
+        "fhirPath": "medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "bb_combination_with_other",
+        "fhirPath": "medicationCode.startsWith('C07DA') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C07DG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "bb_combination_with_ras",
+        "fhirPath": "medicationCode.startsWith('C07FB') or medicationCode.startsWith('C07FX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "calciumcb",
         "fhirPath": "medicationCode.startsWith('C08C') or medicationCode.startsWith('C08D') or medicationCode.startsWith('C08E') or medicationCode.startsWith('C08GA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "calciumcb_selective_ccb_with_mainly_vascular_effects",
+        "fhirPath": "medicationCode.startsWith('C08C')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "calciumcb_selective_ccb_with_direct_cardiac_effects",
+        "fhirPath": "medicationCode.startsWith('C08D')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "calciumcb_nonselective_ccb",
+        "fhirPath": "medicationCode.startsWith('C08E')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "calciumcb_ccb_and_diuretics",
+        "fhirPath": "medicationCode.startsWith('C08GA')"
       },
       "feature": [
         {
@@ -727,8 +1952,208 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "antiarr_class_1a_antiarrhythmic_drugs",
+        "fhirPath": "medicationCode.startsWith('C01BA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "antiarr_class_1b_antiarrhythmic_drugs",
+        "fhirPath": "medicationCode.startsWith('C01BB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "antiarr_class_1c_antiarrhythmic_drugs",
+        "fhirPath": "medicationCode.startsWith('C01BC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "antiarr_class_3_antiarrhythmic_drugs",
+        "fhirPath": "medicationCode.startsWith('C01BD')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "antiarr_class_1_and_3_antiarrhythmic_drugs",
+        "fhirPath": "medicationCode.startsWith('C01BG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "inotropes",
         "fhirPath": "medicationCode.startsWith('C01CA') or medicationCode.startsWith('C01CE') or medicationCode.startsWith('C01CX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "inotropes_adrenergic_and_dopaminergic_agents",
+        "fhirPath": "medicationCode.startsWith('C01CA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "inotropes_phosphodieterase_inhibitors_drugs",
+        "fhirPath": "medicationCode.startsWith('C01CE')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "inotropes_other_cardiac_stimulant_drugs",
+        "fhirPath": "medicationCode.startsWith('C01CX')"
       },
       "feature": [
         {
@@ -777,8 +2202,208 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "vasodil_organic_nitrates",
+        "fhirPath": "medicationCode.startsWith('C01DA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "vasodil_quinolone_vasodilators",
+        "fhirPath": "medicationCode.startsWith('C01DB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "vasodil_all_other_vasodilators_used_in_cardiac_diseases",
+        "fhirPath": "medicationCode.startsWith('C01DX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "lipid_lowering",
         "fhirPath": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AC16') or medicationCode.startsWith('C10AX09')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "lipid_lowering_statins",
+        "fhirPath": "medicationCode.startsWith('C10AA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "lipid_lowering_statins_with_other_lipid_modifying_agents",
+        "fhirPath": "medicationCode.startsWith('C10BA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "lipid_lowering_statins_with_other_drugs",
+        "fhirPath": "medicationCode.startsWith('C10BX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "lipid_lowering_pcsk9_inhibitors",
+        "fhirPath": "medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AC16')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "lipid_lowering_ezetimibe",
+        "fhirPath": "medicationCode.startsWith('C10AX09')"
       },
       "feature": [
         {
@@ -827,8 +2452,83 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
-        "name": "pot_bin",
+        "name": "potassium_binders",
         "fhirPath": "medicationCode.startsWith('V03AE01') or medicationCode.startsWith('V03AE10') or medicationCode.startsWith('V03AE09')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "potassium_binders_sodium_polystyrene_sulfonate",
+        "fhirPath": "medicationCode.startsWith('V03AE01')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "potassium_binders_sodium_zirconium_cyclosilicate",
+        "fhirPath": "medicationCode.startsWith('V03AE10')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "potassium_binders_patiromer",
+        "fhirPath": "medicationCode.startsWith('V03AE09')"
       },
       "feature": [
         {
@@ -877,8 +2577,333 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "insulins_and_analogues_for_injection_fast_acting",
+        "fhirPath": "medicationCode.startsWith('A10AB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "insulins_and_analogues_for_injection_intermediate_acting",
+        "fhirPath": "medicationCode.startsWith('A10AC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "ia_for_inj_int_or_long_acting_comb_with_fast_acting",
+        "fhirPath": "medicationCode.startsWith('A10AD')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "insulins_and_analogues_for_injection_long_acting",
+        "fhirPath": "medicationCode.startsWith('A10AE')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "insulins_and_analogues_for_injection_inhalation",
+        "fhirPath": "medicationCode.startsWith('A10AF')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "oral_antidiabetic",
         "fhirPath": "medicationCode.startsWith('A10BA') or medicationCode.startsWith('A10BB') or medicationCode.startsWith('A10BG') or medicationCode.startsWith('A10BF') or medicationCode.startsWith('A10BH') or medicationCode.startsWith('A10BJ') or medicationCode.startsWith('A10BD') or medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_biguanides_incl_metformin",
+        "fhirPath": "medicationCode.startsWith('A10BA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_sulfonylureas",
+        "fhirPath": "medicationCode.startsWith('A10BB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_thiazolidinediones",
+        "fhirPath": "medicationCode.startsWith('A10BG')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_alpha_glucosidase_inhibitors",
+        "fhirPath": "medicationCode.startsWith('A10BF')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_dipeptidyl_peptidase4_DPP4_inhibitors",
+        "fhirPath": "medicationCode.startsWith('A10BH')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_glucagon1_like_peptide1_glp1_analogues",
+        "fhirPath": "medicationCode.startsWith('A10BJ')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_comb_of_oral_bg_lowering_drugs",
+        "fhirPath": "medicationCode.startsWith('A10BD')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_sglt2_inhibitors_excl_chronic_HF",
+        "fhirPath": "medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
       },
       "feature": [
         {
@@ -977,8 +3002,458 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "resp_opd_inhal_alpha_and_beta_adrenoreceptor_agonists",
+        "fhirPath": "medicationCode.startsWith('R03AA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_non_selective_beta_adrenoreceptor_agonists",
+        "fhirPath": "medicationCode.startsWith('R03AB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_selective_beta2_adrenoreceptor_agonists",
+        "fhirPath": "medicationCode.startsWith('R03AC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_combination_of_adrenergics",
+        "fhirPath": "medicationCode.startsWith('R03AH')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_adrenergics_in_comb_with_corticosteroids",
+        "fhirPath": "medicationCode.startsWith('R03AK')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_adrenergics_in_comb_with_anticholinergics",
+        "fhirPath": "medicationCode.startsWith('R03AL')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_glucocorticoids",
+        "fhirPath": "medicationCode.startsWith('R03BA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_anticholinergics",
+        "fhirPath": "medicationCode.startsWith('R03BB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_antiallergic_agents_excl_corticostreoids",
+        "fhirPath": "medicationCode.startsWith('R03BC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_inhal_other_drugs_for_obst_airway_dis_inhalants",
+        "fhirPath": "medicationCode.startsWith('R03BX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "resp_opd_syst",
         "fhirPath": "medicationCode.startsWith('R03CA') or medicationCode.startsWith('R03CB') or medicationCode.startsWith('R03CC') or medicationCode.startsWith('R03CK') or medicationCode.startsWith('R03DA') or medicationCode.startsWith('R03DB') or medicationCode.startsWith('R03DC') or medicationCode.startsWith('R03DX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_alpha_and_beta_adrenoreceptor_agonists",
+        "fhirPath": "medicationCode.startsWith('R03CA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_non_selective_beta_adrenoreceptor_agonists",
+        "fhirPath": "medicationCode.startsWith('R03CB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_selective_beta2_adrenoreceptor_agonists",
+        "fhirPath": "medicationCode.startsWith('R03CC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_adrenergics_and_oth_drugs_for_oad",
+        "fhirPath": "medicationCode.startsWith('R03CK')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_xanthines",
+        "fhirPath": "medicationCode.startsWith('R03DA')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_xanthines_and_adrenergics",
+        "fhirPath": "medicationCode.startsWith('R03DB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_leukotriene_receptor_antogonists",
+        "fhirPath": "medicationCode.startsWith('R03DC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "resp_opd_syst_other_systemic_drugs_for_oad",
+        "fhirPath": "medicationCode.startsWith('R03DX')"
       },
       "feature": [
         {
@@ -1027,8 +3502,158 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "cortico_syst_corticosteroids_for_systemic_use_plain",
+        "fhirPath": "medicationCode.startsWith('H02A')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "cortico_syst_corticosteroids_for_systemic_use_comb",
+        "fhirPath": "medicationCode.startsWith('H02BX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "cortico_syst_antiadrenal_preparations_trilostane",
+        "fhirPath": "medicationCode.startsWith('H02C')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "aid",
         "fhirPath": "medicationCode.startsWith('M01AB') or medicationCode.startsWith('M01AX') or medicationCode.startsWith('C01EB16')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "aid_acetic_acid_derivatives_and_related_substances",
+        "fhirPath": "medicationCode.startsWith('M01AB')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "aid_other_anti_inf_and_anti_rheumatic_agents_non_steroids",
+        "fhirPath": "medicationCode.startsWith('M01AX')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "medicationCode"
+        },
+        {
+          "name": "dose"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "aid_ibuprofen",
+        "fhirPath": "medicationCode.startsWith('C01EB16')"
       },
       "feature": [
         {
@@ -1119,38 +3744,7 @@
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
             "dataType": "date"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["first"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["first"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["first"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["first"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["first"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["first"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
+          }
         },
         {
           "name": "timeFromDischarge",

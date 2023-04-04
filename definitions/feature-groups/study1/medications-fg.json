@@ -1,6 +1,6 @@
 {
   "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-  "name": "medications",
+  "name": "med",
   "title": "Medications",
   "description": "Medication related features",
   "version": "0.1",
