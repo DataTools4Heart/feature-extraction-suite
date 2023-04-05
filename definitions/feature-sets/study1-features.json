@@ -3742,18 +3742,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -3822,18 +3832,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -3902,18 +3922,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -3982,18 +4012,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4062,18 +4102,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4142,18 +4192,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4222,18 +4282,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4302,18 +4372,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4382,18 +4462,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4462,18 +4552,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4542,18 +4642,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4622,18 +4732,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4702,18 +4822,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4782,18 +4912,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4862,18 +5002,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -4942,18 +5092,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5022,18 +5182,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5102,18 +5272,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5182,18 +5362,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5262,18 +5452,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5342,18 +5542,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5422,18 +5632,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5502,18 +5722,28 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     },
@@ -5582,23 +5812,153 @@
           ]
         },
         {
-          "name": "date",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), onsetDate.toDate(), {})",
-            "dataType": "date"
-          }
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         },
         {
           "name": "timeFromDischarge",
           "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), -1)",
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
-          }
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+
+
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "htx_proc",
+        "fhirPath": "icd10PcsCode.startsWith('02YA')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "htx_cond",
+        "fhirPath": "icd10Code.startsWith('Z94.3') or icd10Code.startsWith('Z94.1') or icd10Code.startsWith('Z95.812')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
         }
       ]
     }
-
-
 
   ],
   "combinedFeature": [
@@ -5636,6 +5996,42 @@
       "valueExpr": {
         "fhirPath": "iif(height != 0, weight / (height * height / 10000), {})",
         "dataType": "decimal"
+      }
+    },
+    {
+      "name": "htx_occurence",
+      "description": "Heart transplant",
+      "combinedFeatures": [
+        {
+          "alias": "htx_cond",
+          "featureNamePattern": "conditions_htx_cond_occurred_*"
+        },
+        {
+          "alias": "htx_proc",
+          "featureNamePattern": "procedures_htx_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "htx_cond or htx_proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "htx_date",
+      "description": "Heart transplant",
+      "combinedFeatures": [
+        {
+          "alias": "htx_cond_date",
+          "featureNamePattern": "conditions_htx_cond_onsetDate_*"
+        },
+        {
+          "alias": "htx_proc_date",
+          "featureNamePattern": "procedures_htx_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (htx_proc_date.exists(), htx_proc_date, htx_cond_date)",
+        "dataType": "dateTime"
       }
     }
   ]
