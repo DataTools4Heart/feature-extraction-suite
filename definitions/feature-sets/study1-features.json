@@ -5958,6 +5958,1089 @@
           ]
         }
       ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "vad_proc",
+        "fhirPath": "icd10PcsCode.startsWith('02RK0JZ') or icd10PcsCode.startsWith('02RL0JZ') or icd10PcsCode.startsWith('02HA4QZ') or icd10PcsCode.startsWith('02HA3QZ') or icd10PcsCode.startsWith('02HA0QZ')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "vad_cond",
+        "fhirPath": "icd10Code.startsWith('Z95.811')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "icdtd_proc",
+        "fhirPath": "icd10PcsCode.startsWith('0JH607') or icd10PcsCode.startsWith('0JH608') or icd10PcsCode.startsWith('0JH609') or icd10PcsCode.startsWith('0JH638') or icd10PcsCode.startsWith('0JH639') or icd10PcsCode.startsWith('0JH808') or icd10PcsCode.startsWith('0JH809') or icd10PcsCode.startsWith('0JH838') or icd10PcsCode.startsWith('0JH839')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "icdtd_cond",
+        "fhirPath": "icd10Code.startsWith('Z95.810')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "pacemaker_proc",
+        "fhirPath": "icd10PcsCode.startsWith('0JH604') or icd10PcsCode.startsWith('0JH605') or icd10PcsCode.startsWith('0JH606') or icd10PcsCode.startsWith('0JH634') or icd10PcsCode.startsWith('0JH635') or icd10PcsCode.startsWith('0JH636') or icd10PcsCode.startsWith('0JH804') or icd10PcsCode.startsWith('0JH805') or icd10PcsCode.startsWith('0JH805') or icd10PcsCode.startsWith('0JH834') or icd10PcsCode.startsWith('0JH835') or icd10PcsCode.startsWith('0JH836')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "pacemaker_cond",
+        "fhirPath": "icd10Code.startsWith('Z95.0')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "mi_proc",
+        "fhirPath": "icd10PcsCode.startsWith('02Q0') or icd10PcsCode.startsWith('02Q1') or icd10PcsCode.startsWith('02Q2') or icd10PcsCode.startsWith('02Q3') or icd10PcsCode.startsWith('0210') or icd10PcsCode.startsWith('0211') or icd10PcsCode.startsWith('0212') or icd10PcsCode.startsWith('0213') or icd10PcsCode.startsWith('02C0') or icd10PcsCode.startsWith('02C1') or icd10PcsCode.startsWith('02C2') or icd10PcsCode.startsWith('02C3') or icd10PcsCode.startsWith('0270') or icd10PcsCode.startsWith('0271') or icd10PcsCode.startsWith('0272') or icd10PcsCode.startsWith('0273') or icd10PcsCode.startsWith('3E07')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "mi_cond",
+        "fhirPath": "icd10Code.startsWith('Z95.1') or icd10Code.startsWith('Z95.5')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "arrest_proc",
+        "fhirPath": "icd10PcsCode.startsWith('5A12012')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "arrest_cond",
+        "fhirPath": "icd10Code.startsWith('I46.2') or icd10Code.startsWith('I46.8') or icd10Code.startsWith('I46.9')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "rhythmcorr_proc",
+        "fhirPath": "icd10PcsCode.startsWith('5A2204Z')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "rhythmcorr_cond",
+        "fhirPath": "icd10Code.startsWith('I47') or icd10Code.startsWith('I48') or icd10Code.startsWith('I49')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "shock",
+        "fhirPath": "icd10Code.startsWith('R57.0')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "valves_proc",
+        "fhirPath": "icd10PcsCode.startsWith('027F') or icd10PcsCode.startsWith('027G') or icd10PcsCode.startsWith('027H') or icd10PcsCode.startsWith('027J') or icd10PcsCode.startsWith('02RF') or icd10PcsCode.startsWith('02RG') or icd10PcsCode.startsWith('02RH') or icd10PcsCode.startsWith('02RJ')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "valves_cond",
+        "fhirPath": "icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+
+
+
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dialysis",
+        "fhirPath": "icd10Code.startsWith('Z49') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
+      "filter": {
+        "name": "rtx_proc",
+        "fhirPath": "icd10PcsCode.startsWith('0TY0') or icd10PcsCode.startsWith('0TY1')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10PcsCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "performedDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "rtx_cond",
+        "fhirPath": "icd10Code.startsWith('Z94.0')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
     }
 
   ],
@@ -6000,37 +7083,325 @@
     },
     {
       "name": "htx_occurence",
-      "description": "Heart transplant",
+      "description": "Heart transplant occurrence",
       "combinedFeatures": [
         {
-          "alias": "htx_cond",
+          "alias": "cond",
           "featureNamePattern": "conditions_htx_cond_occurred_*"
         },
         {
-          "alias": "htx_proc",
+          "alias": "proc",
           "featureNamePattern": "procedures_htx_proc_occurred_*"
         }
       ],
       "valueExpr": {
-        "fhirPath": "htx_cond or htx_proc",
+        "fhirPath": "cond or proc",
         "dataType": "boolean"
       }
     },
     {
       "name": "htx_date",
-      "description": "Heart transplant",
+      "description": "Heart transplant occurrence date",
       "combinedFeatures": [
         {
-          "alias": "htx_cond_date",
+          "alias": "cond_date",
           "featureNamePattern": "conditions_htx_cond_onsetDate_*"
         },
         {
-          "alias": "htx_proc_date",
+          "alias": "proc_date",
           "featureNamePattern": "procedures_htx_proc_performedDate_*"
         }
       ],
       "valueExpr": {
-        "fhirPath": "iif (htx_proc_date.exists(), htx_proc_date, htx_cond_date)",
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "vad_occurrence",
+      "description": "Implantation ventricular assist device occurrence",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_vad_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_vad_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "vad_date",
+      "description": "Implantation ventricular assist device occurrence date",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_vad_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_vad_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "icdtd_occurrence",
+      "description": "Occurrence of implantation internal cardiac defibrillator or cardiac resynchronization therapy device",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_icdtd_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_icdtd_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "icdtd_date",
+      "description": "Occurrence date of implantation internal cardiac defibrillator or cardiac resynchronization therapy device",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_icdtd_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_icdtd_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "pacemaker_occurrence",
+      "description": "Occurrence of pacemaker implantation",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_pacemaker_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_pacemaker_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "pacemaker_date",
+      "description": "Occurrence date of pacemaker implantation",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_pacemaker_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_pacemaker_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "mi_occurrence",
+      "description": "Occurrence of procedures related to myocardial infarction",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_mi_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_mi_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "mi_date",
+      "description": "Occurrence date of procedures related to myocardial infarction",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_mi_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_mi_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "arrest_occurrence",
+      "description": "Occurrence of cardiac arrest",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_arrest_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_arrest_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "arrest_date",
+      "description": "Occurrence date of cardiac arrest",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_arrest_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_arrest_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "rhythmcorr_occurrence",
+      "description": "Occurrence of rhythm correction",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_rhythmcorr_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_rhythmcorr_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "rhythmcorr_date",
+      "description": "Occurrence date of rhythm correction",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_rhythmcorr_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_rhythmcorr_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "valves_occurrence",
+      "description": "Occurrence of heart valves",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_valves_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_valves_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "valves_date",
+      "description": "Occurrence date of heart valves",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_valves_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_valves_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
+        "dataType": "dateTime"
+      }
+    },
+    {
+      "name": "rtx_occurrence",
+      "description": "Occurrence of renal transplant",
+      "combinedFeatures": [
+        {
+          "alias": "cond",
+          "featureNamePattern": "conditions_rtx_cond_occurred_*"
+        },
+        {
+          "alias": "proc",
+          "featureNamePattern": "procedures_rtx_proc_occurred_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "cond or proc",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "valves_date",
+      "description": "Occurrence date of renal transplant",
+      "combinedFeatures": [
+        {
+          "alias": "cond_date",
+          "featureNamePattern": "conditions_rtx_cond_onsetDate_*"
+        },
+        {
+          "alias": "proc_date",
+          "featureNamePattern": "procedures_rtx_proc_performedDate_*"
+        }
+      ],
+      "valueExpr": {
+        "fhirPath": "iif (proc_date.exists(), proc_date, cond_date)",
         "dataType": "dateTime"
       }
     }
