@@ -71,18 +71,8 @@
         ]
       },
       "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "value"
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
-      "join": {
-        "type": "future"
+        "type": "past",
+        "duration": "1d"
       },
       "feature": [
         {
@@ -203,7 +193,7 @@
         ]
       },
       "join": {
-        "type": "future",
+        "type": "past",
         "duration": "1d"
       },
       "feature": [
@@ -281,7 +271,7 @@
         ]
       },
       "join": {
-        "type": "future",
+        "type": "past",
         "duration": "1d"
       },
       "feature": [
@@ -323,39 +313,6 @@
     },
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
-      "join": {
-        "type": "past",
-        "duration": "1a"
-      },
-      "feature": [
-        {
-          "name": "startTime"
-        },
-        {
-          "name": "endTime"
-        },
-        {
-          "name": "dose"
-        },
-        {
-          "name": "formerSmoker",
-          "description": "Whether the patient smoked within 1 year prior to the admission",
-          "valueExpr": {
-            "fhirPath": "endTime.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
       "feature": [
         {
           "name": "smoker",
@@ -368,6 +325,63 @@
             {
               "aggOp": [
                 "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "filter": {
+        "name": "smokingStatus",
+        "fhirPath": "startTime.exists()"
+      },
+      "feature": [
+        {
+          "name": "startTime"
+        },
+        {
+          "name": "endTime"
+        },
+        {
+          "name": "dose"
+        },
+        {
+          "name": "totalSmokingDuration",
+          "description": "Duration of smoking",
+          "valueExpr": {
+            "fhirPath": "utl:getPeriod(startTime, iif(endTime.exists(), (endTime | %referenceTimePoint).min(), %referenceTimePoint), 'days').toInteger()",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "sum"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "startTime",
+          "description": "Total number of smoking periods.",
+          "temporalAgg": [
+            {
+              "aggOp": ["count"]
+            }
+          ]
+        },
+        {
+          "name": "formerSmoker",
+          "description": "Whether the patient smoked within 1 year prior to the admission.",
+          "valueExpr": {
+            "fhirPath": "endTime.exists() and utl:getPeriod(startTime, endTime, 'days').toInteger() > 365",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
               ]
             }
           ]
