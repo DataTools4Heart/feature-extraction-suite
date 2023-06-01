@@ -15,6 +15,7 @@
     "encounterId": "Encounter"
   },
   "timestamp": "startTime",
+  "periodEnd": "endTime",
   "feature": [
     {
       "name": "pid",
