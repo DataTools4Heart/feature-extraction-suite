@@ -8,7 +8,8 @@
   "fhirVersion": "4.0.1",
   "publisher": "DT4H WP2 Team (SRDC Corp.)",
   "referenceTimePoints": {
-    "method": "feature-group"
+    "method": "feature-group",
+    "useEndTime": true
   },
   "featureGroup": [
     {
@@ -250,7 +251,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/symptoms",
       "pivot": {
         "name": "code",
-        "description": "Important lab results to be evaluated features",
+        "description": "Symptoms to be evaluated as features",
         "values": [
           {
             "name": "dyspnea",
