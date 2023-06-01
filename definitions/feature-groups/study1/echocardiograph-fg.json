@@ -11,7 +11,8 @@
   "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Echocardiograph",
   "fhirSearch": "?patient={{Patient}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Echocardiograph",
   "entities": {
-    "pid": "Patient"
+    "pid": "Patient",
+    "encounterId": "Encounter"
   },
   "timestamp": "time",
   "feature": [
@@ -21,6 +22,13 @@
       "description": "Patient identifier",
       "dataType": "id",
       "fhirPath": "Observation.subject"
+    },
+    {
+      "name": "encounterId",
+      "title": "Encounter identifier",
+      "description": "Encounter identifier",
+      "dataType": "id",
+      "fhirPath": "Observation.encounter"
     },
     {
       "name": "time",

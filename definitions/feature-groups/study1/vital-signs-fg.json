@@ -11,7 +11,8 @@
   "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-VitalSign",
   "fhirSearch": "?patient={{Patient}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/DT4H-VitalSign",
   "entities": {
-    "pid": "Patient"
+    "pid": "Patient",
+    "encounterId": "Encounter"
   },
   "timestamp": "time",
   "feature": [
