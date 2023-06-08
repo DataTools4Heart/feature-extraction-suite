@@ -16,10 +16,12 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
       "feature": [
         {
-          "name": "encounterClass"
+          "name": "encounterClass",
+          "description": "Type of encounter (emergency, impatient, outpatient, etc)"
         },
         {
-          "name": "admissionYear"
+          "name": "admissionYear",
+          "description": "Year of admission"
         }
       ]
     },
@@ -27,7 +29,8 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
       "feature": [
         {
-          "name": "gender"
+          "name": "gender",
+          "description": "Gender of the patient"
         },
         {
           "name": "age",
@@ -77,7 +80,8 @@
       },
       "feature": [
         {
-          "name": "value"
+          "name": "value",
+          "description": "Value of the vital sign"
         }
       ]
     },
@@ -199,7 +203,8 @@
       },
       "feature": [
         {
-          "name": "value"
+          "name": "value",
+          "description": "Value of the lab result"
         }
       ]
     },
@@ -207,10 +212,12 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "feature": [
         {
-          "name": "icd10Code"
+          "name": "icd10Code",
+          "description": "ICD10 code of the observed condition"
         },
         {
-          "name": "conditionName"
+          "name": "conditionName",
+          "description": "Name of the observed condition"
         }
       ]
     },
@@ -223,6 +230,7 @@
       "feature": [
         {
           "name": "earliest",
+          "description": "Code for heart failure observed for the first time",
           "valueExpr": {
             "fhirPath": "icd10Code",
             "dataType": "code"
@@ -235,6 +243,7 @@
         },
         {
           "name": "timeFromEarliest",
+          "description": "Time elapsed since heart failure is observed for the first time relative to the data point",
           "valueExpr": {
             "fhirPath": "utl:getPeriod(onsetDate, %referenceTimePoint,'mo').toInteger()",
             "dataType": "integer"
@@ -278,6 +287,7 @@
       "feature": [
         {
           "name": "display",
+          "description": "Whether the symptom is observed or not",
           "valueExpr": {
             "fhirPath": "code.exists()",
             "dataType": "boolean"
@@ -294,7 +304,8 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
       "feature": [
         {
-          "name": "lvef"
+          "name": "lvef",
+          "description": "Value of left ventricular ejection fraction"
         }
       ]
     },
@@ -302,13 +313,16 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/electrocardiographs",
       "feature": [
         {
-          "name": "ecg_qrs_duration"
+          "name": "ecg_qrs_duration",
+          "description": "Duration of QRS wave"
         },
         {
-          "name": "ecg_qrs_axis"
+          "name": "ecg_qrs_axis",
+          "description": "Axis of QRS wave"
         },
         {
-          "name": "ecg_qt_duration_corrected"
+          "name": "ecg_qt_duration_corrected",
+          "description": "Duration of QT wave corrected"
         }
       ]
     },
@@ -340,17 +354,19 @@
       },
       "feature": [
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of smoking period"
         },
         {
-          "name": "endTime"
+          "name": "endTime",
+          "description": "End time of smoking period"
         },
         {
           "name": "dose"
         },
         {
           "name": "totalSmokingDuration",
-          "description": "Duration of smoking",
+          "description": "Total duration of smoking",
           "valueExpr": {
             "fhirPath": "utl:getPeriod(startTime, iif(endTime.exists(), (endTime | %referenceTimePoint).min(), %referenceTimePoint), 'days').toInteger()",
             "dataType": "integer"
@@ -393,7 +409,8 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/nyha",
       "feature": [
         {
-          "name": "value"
+          "name": "value",
+          "description": "New York Heart Assessment value"
         }
       ]
     },
@@ -401,7 +418,8 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/hyperkalemia_severity",
       "feature": [
         {
-          "name": "categorizedValue"
+          "name": "categorizedValue",
+          "description": "Severity of hyperkalemia"
         }
       ]
     },
@@ -409,7 +427,8 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/ckd_severity",
       "feature": [
         {
-          "name": "categorizedValue"
+          "name": "categorizedValue",
+          "description": "Severity of chronic kidney disease"
         }
       ]
     },
@@ -423,19 +442,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with renin-angiotensin-system (RAS)-inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of renin-angiotensin-system (RAS)-inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of renin-angiotensin-system (RAS)-inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of renin-angiotensin-system (RAS)-inhibitors administered"
         }
       ]
     },
@@ -448,19 +471,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with plain angiotensin-converting enzime (ACE) inhibitor during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of plain angiotensin-converting enzime (ACE) inhibitor administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the plain angiotensin-converting enzime (ACE) inhibitor administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of plain angiotensin-converting enzime (ACE) inhibitor administered"
         }
       ]
     },
@@ -473,19 +500,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with ACE inhibitors combinations during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of ACE inhibitors combinations administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the ACE inhibitors combinations administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of ACE inhibitors combinations administered"
         }
       ]
     },
@@ -498,19 +529,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with plain angiotensin II antagonist during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of plain angiotensin II antagonist administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the plain angiotensin II antagonist administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of plain angiotensin II antagonist administered"
         }
       ]
     },
@@ -523,19 +558,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin II antagonists combinations  during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin II antagonists combinations administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin II antagonists combinations administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin II antagonists combinations administered"
         }
       ]
     },
@@ -548,19 +587,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other agents acting on the RAS during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other agents acting on the RAS administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other agents acting on the RAS administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other agents acting on the RAS administered"
         }
       ]
     },
@@ -573,19 +616,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin receptor-neprilysin inhibitor (ARNi) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin receptor-neprilysin inhibitor (ARNi) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin receptor-neprilysin inhibitor (ARNi) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin receptor-neprilysin inhibitor (ARNi) administered"
         }
       ]
     },
@@ -598,19 +645,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin-converting enzyme (ACE)-inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin-converting enzyme (ACE)-inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin-converting enzyme (ACE)-inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin-converting enzyme (ACE)-inhibitors administered"
         }
       ]
     },
@@ -623,19 +674,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with plain angiotensin-converting enzyme (ACE)-inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of plain angiotensin-converting enzyme (ACE)-inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the plain angiotensin-converting enzyme (ACE)-inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of plain angiotensin-converting enzyme (ACE)-inhibitors administered"
         }
       ]
     },
@@ -648,19 +703,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin-converting enzyme (ACE)-inhibitors in combination with diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin-converting enzyme (ACE)-inhibitors in combination with diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin-converting enzyme (ACE)-inhibitors in combination with diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin-converting enzyme (ACE)-inhibitors in combination with diuretics administered"
         }
       ]
     },
@@ -673,19 +732,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin-converting enzyme (ACE)-inhibitors in combination with calcium channel blocker during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin-converting enzyme (ACE)-inhibitors in combination with calcium channel blocker administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin-converting enzyme (ACE)-inhibitors in combination with calcium channel blocker administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin-converting enzyme (ACE)-inhibitors in combination with calcium channel blocker administered"
         }
       ]
     },
@@ -698,19 +761,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin-converting enzyme (ACE)-inhibitors in combination with other during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin-converting enzyme (ACE)-inhibitors in combination with other administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin-converting enzyme (ACE)-inhibitors in combination with other administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin-converting enzyme (ACE)-inhibitors in combination with other administered"
         }
       ]
     },
@@ -723,19 +790,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin receptor blocker (ARB) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin receptor blocker (ARB) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin receptor blocker (ARB) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin receptor blocker (ARB) administered"
         }
       ]
     },
@@ -748,19 +819,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with plain angiotensin receptor blocker (ARB) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of plain angiotensin receptor blocker (ARB) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the plain angiotensin receptor blocker (ARB) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of plain angiotensin receptor blocker (ARB) administered"
         }
       ]
     },
@@ -773,19 +848,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin receptor blocker (ARB) in combination with diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin receptor blocker (ARB) in combination with diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin receptor blocker (ARB) in combination with diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin receptor blocker (ARB) in combination with diuretics administered"
         }
       ]
     },
@@ -798,19 +877,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin receptor blocker (ARB) in combination with CCB during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin receptor blocker (ARB) in combination with CCB administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin receptor blocker (ARB) in combination with CCB administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin receptor blocker (ARB) in combination with CCB administered"
         }
       ]
     },
@@ -823,19 +906,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with angiotensin receptor blocker (ARB) in combination with other during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of angiotensin receptor blocker (ARB) in combination with other administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the angiotensin receptor blocker (ARB) in combination with other administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of angiotensin receptor blocker (ARB) in combination with other administered"
         }
       ]
     },
@@ -848,19 +935,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with mineralcorticoid receptor antagonist during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of mineralcorticoid receptor antagonist administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the mineralcorticoid receptor antagonist administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of mineralcorticoid receptor antagonist administered"
         }
       ]
     },
@@ -873,19 +964,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with aldosterone antagonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of aldosterone antagonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the aldosterone antagonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of aldosterone antagonists administered"
         }
       ]
     },
@@ -898,19 +993,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with mineralcorticoid receptor antagonist in combination potassium sparing agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of mineralcorticoid receptor antagonist in combination potassium sparing agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the mineralcorticoid receptor antagonist in combination potassium sparing agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of mineralcorticoid receptor antagonist in combination potassium sparing agents administered"
         }
       ]
     },
@@ -923,19 +1022,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of diuretics administered"
         }
       ]
     },
@@ -948,19 +1051,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with thiazide diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of thiazide diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the thiazide diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of thiazide diuretics administered"
         }
       ]
     },
@@ -973,19 +1080,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with potassium sparing agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of potassium sparing agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the potassium sparing agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of potassium sparing agents administered"
         }
       ]
     },
@@ -998,19 +1109,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with diuretics and potassium-sparing agents in combination during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of diuretics and potassium-sparing agents in combination administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the diuretics and potassium-sparing agents in combination administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of diuretics and potassium-sparing agents in combination administered"
         }
       ]
     },
@@ -1023,19 +1138,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with vasopressin antagonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of vasopressin antagonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the vasopressin antagonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of vasopressin antagonists administered"
         }
       ]
     },
@@ -1048,19 +1167,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with plain sulfonamides during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of plain sulfonamides administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the plain sulfonamides administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of plain sulfonamides administered"
         }
       ]
     },
@@ -1073,19 +1196,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with sulfonamides and potassium in combination during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of sulfonamides and potassium in combination administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the sulfonamides and potassium in combination administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of sulfonamides and potassium in combination administered"
         }
       ]
     },
@@ -1098,19 +1225,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with loop diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of loop diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the loop diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of loop diuretics administered"
         }
       ]
     },
@@ -1123,19 +1254,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with loop diuretics with potassium during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of loop diuretics with potassium administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the loop diuretics with potassium administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of loop diuretics with potassium administered"
         }
       ]
     },
@@ -1148,19 +1283,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with loop diuretics with potassium-sparing agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of loop diuretics with potassium-sparing agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the loop diuretics with potassium-sparing agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of loop diuretics with potassium-sparing agents administered"
         }
       ]
     },
@@ -1173,19 +1312,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other loop diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other loop diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other loop diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other loop diuretics administered"
         }
       ]
     },
@@ -1198,19 +1341,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with anticoagulant agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of anticoagulant agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the anticoagulant agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of anticoagulant agents administered"
         }
       ]
     },
@@ -1223,19 +1370,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with vitamin K antagonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of vitamin K antagonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the vitamin K antagonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of vitamin K antagonists administered"
         }
       ]
     },
@@ -1248,19 +1399,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with heparin group/glycosaminoglycans during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of heparin group/glycosaminoglycans administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the heparin group/glycosaminoglycans administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of heparin group/glycosaminoglycans administered"
         }
       ]
     },
@@ -1273,19 +1428,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with direct factor Xa inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of direct factor Xa inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the direct factor Xa inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of direct factor Xa inhibitors administered"
         }
       ]
     },
@@ -1298,19 +1457,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with direct thrombin inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of direct thrombin inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the direct thrombin inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of direct thrombin inhibitors administered"
         }
       ]
     },
@@ -1323,19 +1486,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other AntiCoag (Defibrotide, Protein C, antithrombin III) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other AntiCoag (Defibrotide, Protein C, antithrombin III) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other AntiCoag (Defibrotide, Protein C, antithrombin III) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other AntiCoag (Defibrotide, Protein C, antithrombin III) administered"
         }
       ]
     },
@@ -1348,19 +1515,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with antiplatelet agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of antiplatelet agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the antiplatelet agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of antiplatelet agents administered"
         }
       ]
     },
@@ -1373,19 +1544,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with glycoprotein IIb/IIIa inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of glycoprotein IIb/IIIa inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the glycoprotein IIb/IIIa inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of glycoprotein IIb/IIIa inhibitors administered"
         }
       ]
     },
@@ -1398,19 +1573,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with ADP receptor/P2Y12 inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of ADP receptor/P2Y12 inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the ADP receptor/P2Y12 inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of ADP receptor/P2Y12 inhibitors administered"
         }
       ]
     },
@@ -1423,19 +1602,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with prostaglandin analogue (PGI2) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of prostaglandin analogue (PGI2) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the prostaglandin analogue (PGI2) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of prostaglandin analogue (PGI2) administered"
         }
       ]
     },
@@ -1448,19 +1631,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with COX inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of COX inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the COX inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of COX inhibitors administered"
         }
       ]
     },
@@ -1473,19 +1660,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with trombaxane inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of trombaxane inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the trombaxane inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of trombaxane inhibitors administered"
         }
       ]
     },
@@ -1498,19 +1689,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with phosphodiesterase inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of phosphodiesterase inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the phosphodiesterase inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of phosphodiesterase inhibitors administered"
         }
       ]
     },
@@ -1523,19 +1718,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other antiplatelet agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other antiplatelet agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other antiplatelet agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other antiplatelet agents administered"
         }
       ]
     },
@@ -1548,19 +1747,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with thrombolytic drugs/fibrinolytics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of thrombolytic drugs/fibrinolytics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the thrombolytic drugs/fibrinolytics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of thrombolytic drugs/fibrinolytics administered"
         }
       ]
     },
@@ -1573,19 +1776,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with plasminogen activators during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of plasminogen activators administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the plasminogen activators administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of plasminogen activators administered"
         }
       ]
     },
@@ -1598,19 +1805,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with urokinase plasminogen activators(UPA) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of urokinase plasminogen activators(UPA) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the urokinase plasminogen activators(UPA) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of urokinase plasminogen activators(UPA) administered"
         }
       ]
     },
@@ -1623,19 +1834,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other thrombolytic drugs/fibrinolytics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other thrombolytic drugs/fibrinolytics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other thrombolytic drugs/fibrinolytics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other thrombolytic drugs/fibrinolytics administered"
         }
       ]
     },
@@ -1648,19 +1863,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with beta blockers during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of beta blockers administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the beta blockers administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of beta blockers administered"
         }
       ]
     },
@@ -1673,19 +1892,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with beta blocking agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of beta blocking agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the beta blocking agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of beta blocking agents administered"
         }
       ]
     },
@@ -1698,19 +1921,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with beta blockers in combination with thiazides during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of beta blockers in combination with thiazides administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the beta blockers in combination with thiazides administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of beta blockers in combination with thiazides administered"
         }
       ]
     },
@@ -1723,19 +1950,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with beta blockers in combination with diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of beta blockers in combination with diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the beta blockers in combination with diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of beta blockers in combination with diuretics administered"
         }
       ]
     },
@@ -1748,19 +1979,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with beta blockers in combination with other during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of beta blockers in combination with other administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the beta blockers in combination with other administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of beta blockers in combination with other administered"
         }
       ]
     },
@@ -1773,19 +2008,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with beta blockers in combination with RAS during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of beta blockers in combination with RAS administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the beta blockers in combination with RAS administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of beta blockers in combination with RAS administered"
         }
       ]
     },
@@ -1798,19 +2037,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with calcium channel blockers during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of calcium channel blockers administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the calcium channel blockers administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of calcium channel blockers administered"
         }
       ]
     },
@@ -1823,19 +2066,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with selective calcium channel blockers with mainly vascular effects during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of selective calcium channel blockers with mainly vascular effects administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the selective calcium channel blockers with mainly vascular effects administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of selective calcium channel blockers with mainly vascular effects administered"
         }
       ]
     },
@@ -1848,19 +2095,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with selective calcium channel blockers with direct cardiac effects during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of selective calcium channel blockers with direct cardiac effects administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the selective calcium channel blockers with direct cardiac effects administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of selective calcium channel blockers with direct cardiac effects administered"
         }
       ]
     },
@@ -1873,19 +2124,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with non-selective calcium channel blockers during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of non-selective calcium channel blockers administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the non-selective calcium channel blockers administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of non-selective calcium channel blockers administered"
         }
       ]
     },
@@ -1898,19 +2153,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with calcium channel blockers and diuretics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of calcium channel blockers and diuretics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the calcium channel blockers and diuretics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of calcium channel blockers and diuretics administered"
         }
       ]
     },
@@ -1923,19 +2182,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with digitalis glycosides during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of digitalis glycosides administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the digitalis glycosides administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of digitalis glycosides administered"
         }
       ]
     },
@@ -1948,19 +2211,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with antiarrhythmic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of antiarrhythmic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the antiarrhythmic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of antiarrhythmic drugs administered"
         }
       ]
     },
@@ -1973,19 +2240,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with class 1a antiarrhythmic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of class 1a antiarrhythmic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the class 1a antiarrhythmic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of class 1a antiarrhythmic drugs administered"
         }
       ]
     },
@@ -1998,19 +2269,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with class 1b antiarrhythmic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of class 1b antiarrhythmic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the class 1b antiarrhythmic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of class 1b antiarrhythmic drugs administered"
         }
       ]
     },
@@ -2023,19 +2298,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with class 1c antiarrhythmic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of class 1c antiarrhythmic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the class 1c antiarrhythmic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of class 1c antiarrhythmic drugs administered"
         }
       ]
     },
@@ -2048,19 +2327,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with class 3 antiarrhythmic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of class 3 antiarrhythmic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the class 3 antiarrhythmic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of class 3 antiarrhythmic drugs administered"
         }
       ]
     },
@@ -2073,19 +2356,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with class 1 and 3 antiarrhythmic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of class 1 and 3 antiarrhythmic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the class 1 and 3 antiarrhythmic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of class 1 and 3 antiarrhythmic drugs administered"
         }
       ]
     },
@@ -2098,19 +2385,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with inotropes during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of inotropes administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the inotropes administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of inotropes administered"
         }
       ]
     },
@@ -2123,19 +2414,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with adrenergic and dopaminergic agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of adrenergic and dopaminergic agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the adrenergic and dopaminergic agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of adrenergic and dopaminergic agents administered"
         }
       ]
     },
@@ -2148,19 +2443,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with phosphodieterase inhibitors drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of phosphodieterase inhibitors drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the phosphodieterase inhibitors drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of phosphodieterase inhibitors drugs administered"
         }
       ]
     },
@@ -2173,19 +2472,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other cardiac stimulants drugs (angiotensinamide, Xamoterol, Levosimendan, Angiotensin II) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other cardiac stimulants drugs (angiotensinamide, Xamoterol, Levosimendan, Angiotensin II) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other cardiac stimulants drugs (angiotensinamide, Xamoterol, Levosimendan, Angiotensin II) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other cardiac stimulants drugs (angiotensinamide, Xamoterol, Levosimendan, Angiotensin II) administered"
         }
       ]
     },
@@ -2198,19 +2501,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with vasodilators used in cardiac diseases during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of vasodilators used in cardiac diseases administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the vasodilators used in cardiac diseases administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of vasodilators used in cardiac diseases administered"
         }
       ]
     },
@@ -2223,19 +2530,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with organic nitrates during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of organic nitrates administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the organic nitrates administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of organic nitrates administered"
         }
       ]
     },
@@ -2248,19 +2559,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with quinolone vasodilators during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of quinolone vasodilators administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the quinolone vasodilators administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of quinolone vasodilators administered"
         }
       ]
     },
@@ -2273,19 +2588,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with any other vasodilators used in cardiac diseases during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of any other vasodilators used in cardiac diseases administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the any other vasodilators used in cardiac diseases administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of any other vasodilators used in cardiac diseases administered"
         }
       ]
     },
@@ -2298,19 +2617,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with lipid lowering agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of lipid lowering agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the lipid lowering agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of lipid lowering agents administered"
         }
       ]
     },
@@ -2323,19 +2646,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with statins during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of statins administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the statins administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of statins administered"
         }
       ]
     },
@@ -2348,19 +2675,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with statins with other lipid modifying agents during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of statins with other lipid modifying agents administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the statins with other lipid modifying agents administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of statins with other lipid modifying agents administered"
         }
       ]
     },
@@ -2373,19 +2704,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with statins with other drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of statins with other drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the statins with other drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of statins with other drugs administered"
         }
       ]
     },
@@ -2398,19 +2733,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with PCSK9 inhibitors (evolocumab, alirocumab, inclisiran) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of PCSK9 inhibitors (evolocumab, alirocumab, inclisiran) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the PCSK9 inhibitors (evolocumab, alirocumab, inclisiran) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of PCSK9 inhibitors (evolocumab, alirocumab, inclisiran) administered"
         }
       ]
     },
@@ -2423,19 +2762,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with ezetimibe during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of ezetimibe administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the ezetimibe administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of ezetimibe administered"
         }
       ]
     },
@@ -2448,19 +2791,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with ivabradine during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of ivabradine administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the ivabradine administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of ivabradine administered"
         }
       ]
     },
@@ -2473,19 +2820,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with potassium binders during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of potassium binders administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the potassium binders administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of potassium binders administered"
         }
       ]
     },
@@ -2498,19 +2849,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with sodium polystyrene sulfonate during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of sodium polystyrene sulfonate administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the sodium polystyrene sulfonate administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of sodium polystyrene sulfonate administered"
         }
       ]
     },
@@ -2523,19 +2878,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with sodium zirconium cyclosilicate during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of sodium zirconium cyclosilicate administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the sodium zirconium cyclosilicate administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of sodium zirconium cyclosilicate administered"
         }
       ]
     },
@@ -2548,19 +2907,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with patiromer during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of patiromer administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the patiromer administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of patiromer administered"
         }
       ]
     },
@@ -2573,19 +2936,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with insulins, injections/inhalation during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of insulins, injections/inhalation administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the insulins, injections/inhalation administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of insulins, injections/inhalation administered"
         }
       ]
     },
@@ -2598,19 +2965,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with insulins and analogues for injection, fast-acting during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of insulins and analogues for injection, fast-acting administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the insulins and analogues for injection, fast-acting administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of insulins and analogues for injection, fast-acting administered"
         }
       ]
     },
@@ -2623,19 +2994,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with insulins and analogues for injection, intermediate-acting during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of insulins and analogues for injection, intermediate-acting administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the insulins and analogues for injection, intermediate-acting administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of insulins and analogues for injection, intermediate-acting administered"
         }
       ]
     },
@@ -2648,19 +3023,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with insulins and analogues for injection, intermediateor long-acting combined with fast-acting during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of insulins and analogues for injection, intermediateor long-acting combined with fast-acting administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the insulins and analogues for injection, intermediateor long-acting combined with fast-acting administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of insulins and analogues for injection, intermediateor long-acting combined with fast-acting administered"
         }
       ]
     },
@@ -2673,19 +3052,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with insulins and analogues for injection, long-acting during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of insulins and analogues for injection, long-acting administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the insulins and analogues for injection, long-acting administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of insulins and analogues for injection, long-acting administered"
         }
       ]
     },
@@ -2698,19 +3081,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with insulins and analogues for inhalation during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of insulins and analogues for inhalation administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the insulins and analogues for inhalation administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of insulins and analogues for inhalation administered"
         }
       ]
     },
@@ -2723,19 +3110,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with oral antidiabetic drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of oral antidiabetic drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the oral antidiabetic drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of oral antidiabetic drugs administered"
         }
       ]
     },
@@ -2748,19 +3139,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with biguanides (incl. metformin) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of biguanides (incl. metformin) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the biguanides (incl. metformin) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of biguanides (incl. metformin) administered"
         }
       ]
     },
@@ -2773,19 +3168,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with sulfonylureas during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of sulfonylureas administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the sulfonylureas administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of sulfonylureas administered"
         }
       ]
     },
@@ -2798,19 +3197,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with thiazolidinediones during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of thiazolidinediones administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the thiazolidinediones administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of thiazolidinediones administered"
         }
       ]
     },
@@ -2823,19 +3226,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with alpha glucosidase inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of alpha glucosidase inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the alpha glucosidase inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of alpha glucosidase inhibitors administered"
         }
       ]
     },
@@ -2848,19 +3255,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with dipeptidyl peptidase 4 (DPP4) inhibitors during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of dipeptidyl peptidase 4 (DPP4) inhibitors administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the dipeptidyl peptidase 4 (DPP4) inhibitors administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of dipeptidyl peptidase 4 (DPP4) inhibitors administered"
         }
       ]
     },
@@ -2873,19 +3284,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with glucagon-llike peptide 1 (GLP-1) analogues during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of glucagon-llike peptide 1 (GLP-1) analogues administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the glucagon-llike peptide 1 (GLP-1) analogues administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of glucagon-llike peptide 1 (GLP-1) analogues administered"
         }
       ]
     },
@@ -2898,44 +3313,81 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with combinations of oral blood glucose lowering drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of combinations of oral blood glucose lowering drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the combinations of oral blood glucose lowering drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of combinations of oral blood glucose lowering drugs administered"
         }
       ]
     },
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
-        "name": "oral_antidiabetic_sglt2_inhibitors_excl_chronic_HF",
+        "name": "oral_antidiabetic_sglt2_inhibitors_w_chronic_HF",
         "fhirPath": "medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
       },
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with SGLT-2 inhibitors in patients with chronic HF (Dapagliflozin, empagliflozin) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of SGLT-2 inhibitors in patients with chronic HF (Dapagliflozin, empagliflozin) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the SGLT-2 inhibitors in patients with chronic HF (Dapagliflozin, empagliflozin) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of SGLT-2 inhibitors in patients with chronic HF (Dapagliflozin, empagliflozin) administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "oral_antidiabetic_sglt2_inhibitors_wo_chronic_HF",
+        "fhirPath": "medicationCode.startsWith('A10BX11') or medicationCode.startsWith('A10BK02') or medicationCode.startsWith('A10BK04') or medicationCode.startsWith('A10BK05') or medicationCode.startsWith('A10BK06')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with SGLT-2 inhibitor in patients without chronic HF (canagliflozin, Ertugliflozin, Ipragliflozin, Sotagliflozin) during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of SGLT-2 inhibitor in patients without chronic HF (canagliflozin, Ertugliflozin, Ipragliflozin, Sotagliflozin) administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the drugs for treatment of hypoglycaemia administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of drugs for treatment of hypoglycaemia administered"
         }
       ]
     },
@@ -2948,19 +3400,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with drugs for treatment of hypoglycaemia during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of drugs for treatment of hypoglycaemia administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the SGLT-2 inhibitor in patients without chronic HF (canagliflozin, Ertugliflozin, Ipragliflozin, Sotagliflozin) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of SGLT-2 inhibitor in patients without chronic HF (canagliflozin, Ertugliflozin, Ipragliflozin, Sotagliflozin) administered"
         }
       ]
     },
@@ -2973,19 +3429,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with drugs to prevent nerve damage in diabetes during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of drugs to prevent nerve damage in diabetes administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the drugs to prevent nerve damage in diabetes administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of drugs to prevent nerve damage in diabetes administered"
         }
       ]
     },
@@ -2998,19 +3458,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with respiratory drugs for obstructive airway diseases, inhalants during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of respiratory drugs for obstructive airway diseases, inhalants administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the respiratory drugs for obstructive airway diseases, inhalants administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of respiratory drugs for obstructive airway diseases, inhalants administered"
         }
       ]
     },
@@ -3023,19 +3487,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with alpha and beta adrenoreceptor agonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of alpha and beta adrenoreceptor agonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the alpha and beta adrenoreceptor agonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of alpha and beta adrenoreceptor agonists administered"
         }
       ]
     },
@@ -3048,19 +3516,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with non-selective beta-adrenoreceptor agonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of non-selective beta-adrenoreceptor agonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the non-selective beta-adrenoreceptor agonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of non-selective beta-adrenoreceptor agonists administered"
         }
       ]
     },
@@ -3073,19 +3545,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with selective beta-2-adrenoreceptor agonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of selective beta-2-adrenoreceptor agonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the selective beta-2-adrenoreceptor agonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of selective beta-2-adrenoreceptor agonists administered"
         }
       ]
     },
@@ -3098,19 +3574,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with combinations of adrenergics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of combinations of adrenergics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the combinations of adrenergics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of combinations of adrenergics administered"
         }
       ]
     },
@@ -3123,19 +3603,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with adrenergics in combination with corticosteroids or other drugs, excl. anticholinergics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of adrenergics in combination with corticosteroids or other drugs, excl. anticholinergics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the adrenergics in combination with corticosteroids or other drugs, excl. anticholinergics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of adrenergics in combination with corticosteroids or other drugs, excl. anticholinergics administered"
         }
       ]
     },
@@ -3148,19 +3632,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with adrenergics in combination with anticholinergics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of adrenergics in combination with anticholinergics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the adrenergics in combination with anticholinergics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of adrenergics in combination with anticholinergics administered"
         }
       ]
     },
@@ -3173,19 +3661,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with glucocorticoids during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of glucocorticoids administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the glucocorticoids administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of glucocorticoids administered"
         }
       ]
     },
@@ -3198,19 +3690,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with anticholinergics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of anticholinergics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the anticholinergics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of anticholinergics administered"
         }
       ]
     },
@@ -3223,19 +3719,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with antiallergic agents, excluding corticosteroids during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of antiallergic agents, excluding corticosteroids administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the antiallergic agents, excluding corticosteroids administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of antiallergic agents, excluding corticosteroids administered"
         }
       ]
     },
@@ -3248,19 +3748,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other drugs for obstructive airway diseases, inhalants during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other drugs for obstructive airway diseases, inhalants administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other drugs for obstructive airway diseases, inhalants administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other drugs for obstructive airway diseases, inhalants administered"
         }
       ]
     },
@@ -3273,19 +3777,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with respiratory drugs for obstructive airway diseases, systemic use during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of respiratory drugs for obstructive airway diseases, systemic use administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the respiratory drugs for obstructive airway diseases, systemic use administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of respiratory drugs for obstructive airway diseases, systemic use administered"
         }
       ]
     },
@@ -3298,19 +3806,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with alpha- and beta-adrenoreceptor agonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of alpha- and beta-adrenoreceptor agonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the alpha- and beta-adrenoreceptor agonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of alpha- and beta-adrenoreceptor agonists administered"
         }
       ]
     },
@@ -3323,19 +3835,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with non-selective beta-adrenoreceptor agonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of non-selective beta-adrenoreceptor agonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the non-selective beta-adrenoreceptor agonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of non-selective beta-adrenoreceptor agonists administered"
         }
       ]
     },
@@ -3348,19 +3864,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with selective beta-2-adrenoreceptor agonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of selective beta-2-adrenoreceptor agonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the selective beta-2-adrenoreceptor agonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of selective beta-2-adrenoreceptor agonists administered"
         }
       ]
     },
@@ -3373,19 +3893,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with adrenergics and other drugs for obstructive airway diseases during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of adrenergics and other drugs for obstructive airway diseases administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the adrenergics and other drugs for obstructive airway diseases administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of adrenergics and other drugs for obstructive airway diseases administered"
         }
       ]
     },
@@ -3398,19 +3922,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with xanthines during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of xanthines administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the xanthines administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of xanthines administered"
         }
       ]
     },
@@ -3423,19 +3951,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with xanthines and adrenergics during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of xanthines and adrenergics administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the xanthines and adrenergics administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of xanthines and adrenergics administered"
         }
       ]
     },
@@ -3448,19 +3980,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with leukotriene receptor antagonists during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of leukotriene receptor antagonists administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the leukotriene receptor antagonists administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of leukotriene receptor antagonists administered"
         }
       ]
     },
@@ -3473,19 +4009,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other systemic drugs for obstructive airway diseases during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other systemic drugs for obstructive airway diseases administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other systemic drugs for obstructive airway diseases administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other systemic drugs for obstructive airway diseases administered"
         }
       ]
     },
@@ -3498,19 +4038,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with corticosteroids systemic during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of corticosteroids systemic administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the corticosteroids systemic administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of corticosteroids systemic administered"
         }
       ]
     },
@@ -3523,19 +4067,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with corticosteroids for systemic use, plain (mineralcorticosteriods, glucocorticoids) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of corticosteroids for systemic use, plain (mineralcorticosteriods, glucocorticoids) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the corticosteroids for systemic use, plain (mineralcorticosteriods, glucocorticoids) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of corticosteroids for systemic use, plain (mineralcorticosteriods, glucocorticoids) administered"
         }
       ]
     },
@@ -3548,19 +4096,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with corticosteroids for systemic use, combinations (methylprednisolone) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of corticosteroids for systemic use, combinations (methylprednisolone) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the corticosteroids for systemic use, combinations (methylprednisolone) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of corticosteroids for systemic use, combinations (methylprednisolone) administered"
         }
       ]
     },
@@ -3573,19 +4125,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with antiadrenal preparations (trilostane) during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of antiadrenal preparations (trilostane) administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the antiadrenal preparations (trilostane) administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of antiadrenal preparations (trilostane) administered"
         }
       ]
     },
@@ -3598,19 +4154,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with anti-inflammatory drugs during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of anti-inflammatory drugs administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the anti-inflammatory drugs administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of anti-inflammatory drugs administered"
         }
       ]
     },
@@ -3623,19 +4183,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with acetic acid derivatives and related substances during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of acetic acid derivatives and related substances administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the acetic acid derivatives and related substances administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of acetic acid derivatives and related substances administered"
         }
       ]
     },
@@ -3648,19 +4212,24 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with other anti-inflammatory and antirheumatic agents, non-steroids during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of other anti-inflammatory and antirheumatic agents, non-steroids administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the other anti-inflammatory and antirheumatic agents, non-steroids administered"
+
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of other anti-inflammatory and antirheumatic agents, non-steroids administered"
         }
       ]
     },
@@ -3673,19 +4242,23 @@
       "feature": [
         {
           "name": "taken",
+          "description": "Whether the patient is administered with ibuprofen during the hospitalization",
           "valueExpr": {
             "fhirPath": "medicationCode.exists()",
             "dataType": "boolean"
           }
         },
         {
-          "name": "startTime"
+          "name": "startTime",
+          "description": "Start time of ibuprofen administration"
         },
         {
-          "name": "medicationCode"
+          "name": "medicationCode",
+          "description": "ATC code of the ibuprofen administered"
         },
         {
-          "name": "dose"
+          "name": "dose",
+          "description": "Dose of ibuprofen administered"
         }
       ]
     },
@@ -3701,6 +4274,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has angina pectoris in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3720,6 +4294,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has angina pectoris in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3758,6 +4333,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when angina pectoris is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -3768,6 +4344,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until angina pectoris is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -3791,6 +4368,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has atrial fibrillation in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3810,6 +4388,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has atrial fibrillation in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3848,6 +4427,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when atrial fibrillation is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -3858,6 +4438,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until atrial fibrillation is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -3881,6 +4462,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has cardiomyopathy in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3900,6 +4482,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has cardiomyopathy in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3938,6 +4521,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when cardiomyopathy is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -3948,6 +4532,195 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until cardiomyopathy is seen within 5 years",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dysl",
+        "fhirPath": "icd10Code.startsWith('E78')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the patient has dyslipidemia in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "dysl",
+        "fhirPath": "icd10Code.startsWith('E78')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the patient has dyslipidemia in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "description": "Date when dyslipidemia is seen within 5 years after the data point",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until dyslipidemia is seen within 5 years",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "hf",
+        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the patient has heart failure in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "hf",
+        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the patient has heart failure in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "description": "Date when heart failure is seen within 5 years after the data point",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until heart failure is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -3971,6 +4744,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has hypertension in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -3990,6 +4764,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has hypertension in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4028,6 +4803,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when hypertension is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4038,6 +4814,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until hypertension is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4061,6 +4838,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has ischemic heart disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4080,6 +4858,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has ischemic heart disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4118,6 +4897,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when ischemic heart disease is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4128,6 +4908,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until ischemic heart disease is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4151,6 +4932,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has myocardial infarction in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4170,6 +4952,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has myocardial infarction in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4208,6 +4991,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when myocardial infarction is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4218,6 +5002,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until myocardial infarction is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4241,6 +5026,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has peripheral artery disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4260,6 +5046,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has peripheral artery disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4298,6 +5085,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when peripheral artery disease is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4308,6 +5096,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until peripheral artery disease is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4331,6 +5120,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has stroke in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4350,6 +5140,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has stroke in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4388,6 +5179,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when stroke is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4398,6 +5190,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until stroke is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4421,6 +5214,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has transient ischemic attack in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4440,6 +5234,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has transient ischemic attack in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4478,6 +5273,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when transient ischemic attack is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4488,6 +5284,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until transient ischemic attack is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4511,6 +5308,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has valvular disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4530,6 +5328,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has valvular disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4568,6 +5367,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when valvular disease is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4578,6 +5378,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until valvular disease is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4601,6 +5402,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has revascularized CABG, PCI in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4620,6 +5422,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has revascularized CABG, PCI in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4658,6 +5461,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when revascularized CABG, PCI is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4668,6 +5472,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until revascularized CABG, PCI is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4691,6 +5496,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4710,6 +5516,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has cardiac and vascular implants and grafts in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4748,6 +5555,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when cardiac and vascular implants and grafts is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4758,6 +5566,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until cardiac and vascular implants and grafts is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4781,6 +5590,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has AIDS or HIV in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4800,6 +5610,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has AIDS or HIV in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4838,6 +5649,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when AIDS or HIV is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4848,6 +5660,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until AIDS or HIV is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4871,6 +5684,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has COPD in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4890,6 +5704,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has COPD in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4928,6 +5743,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when COPD is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -4938,6 +5754,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until COPD is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -4961,6 +5778,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has diabetes mellitus in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4980,6 +5798,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has diabetes mellitus in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5018,6 +5837,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when diabetes mellitus is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5028,6 +5848,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until diabetes mellitus is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5051,6 +5872,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has dementia in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5070,6 +5892,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has dementia in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5108,6 +5931,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when dementia is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5118,6 +5942,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until dementia is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5141,6 +5966,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has depression in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5160,6 +5986,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has depression in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5198,6 +6025,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when depression is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5208,6 +6036,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until depression is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5231,6 +6060,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has dialysis in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5250,6 +6080,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has dialysis in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5288,6 +6119,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when dialysis is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5298,6 +6130,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until dialysis is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5321,6 +6154,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has hyperthyroidism in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5340,6 +6174,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has hyperthyroidism in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5378,6 +6213,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when hyperthyroidism is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5388,6 +6224,101 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until hyperthyroidism is seen within 5 years",
+          "valueExpr": {
+            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ibd",
+        "fhirPath": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the patient has inflammable bowel disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "ibd",
+        "fhirPath": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')"
+      },
+      "join": {
+        "type": "future"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the patient has inflammable bowel disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
+          "valueExpr": {
+            "fhirPath": "icd10Code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "onsetDate",
+          "description": "Date when inflammable bowel disease is seen within 5 years after the data point",
+          "temporalAgg": [
+            {
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until inflammable bowel disease is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5411,6 +6342,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has liver disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5430,6 +6362,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has liver disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5468,6 +6401,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when liver disease is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5478,6 +6412,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until liver disease is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5501,6 +6436,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has malignant cancer in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5520,6 +6456,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has malignant cancer in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5558,6 +6495,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when malignant cancer is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5568,6 +6506,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until malignant cancer is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5591,6 +6530,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has obstructive sleep apnea in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5610,6 +6550,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has obstructive sleep apnea in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5648,6 +6589,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when obstructive sleep apnea is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5658,6 +6600,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until obstructive sleep apnea is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5681,6 +6624,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has rheumatic disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5700,6 +6644,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has rheumatic disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5738,6 +6683,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when rheumatic disease is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5748,6 +6694,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until rheumatic disease is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5771,6 +6718,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has renal disease chronic in their clinical history relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5790,6 +6738,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has renal disease chronic in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5828,6 +6777,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when renal disease chronic is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5838,6 +6788,7 @@
         },
         {
           "name": "timeFromDischarge",
+          "description": "Duration in months that passed since the data point until renal disease chronic is seen within 5 years",
           "valueExpr": {
             "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
             "dataType": "integer"
@@ -5866,6 +6817,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has heart transplant (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -5904,6 +6856,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when heart transplant (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5926,6 +6879,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has heart transplant (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5964,6 +6918,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when heart transplant (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -5986,6 +6941,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted ventricular assist device  (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6024,6 +6980,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when ventricular assist device is implanted (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6046,6 +7003,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted ventricular assist device (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6084,6 +7042,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when ventricular assist device is implanted (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6106,6 +7065,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted internal cardiac defibrillator or cardiac resynchronization therapy device (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6144,6 +7104,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when internal cardiac defibrillator or cardiac resynchronization therapy device is implanted (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6166,6 +7127,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted internal cardiac defibrillator or cardiac resynchronization therapy device (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6204,6 +7166,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when internal cardiac defibrillator or cardiac resynchronization therapy device is implanted (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6226,6 +7189,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted pacemaker (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6264,6 +7228,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when pacemaker is implanted (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6286,6 +7251,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted pacemaker (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6324,6 +7290,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when pacemaker is implanted (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6346,6 +7313,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has procedure related to myocardial infarction (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6384,6 +7352,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when procedure related to myocardial infarction (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6406,6 +7375,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has procedure related to myocardial infarction (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6444,6 +7414,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when procedure related to myocardial infarction (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6466,6 +7437,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has cardiac arrest (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6504,6 +7476,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when cardiac arrest (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6526,6 +7499,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has cardiac arrest (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6564,6 +7538,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when cardiac arrest (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6586,6 +7561,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has rhythm correction (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6624,6 +7600,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when rhythm correction (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6646,6 +7623,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has rhythm correction (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6684,6 +7662,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when rhythm correction (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6706,6 +7685,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has shock in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6744,6 +7724,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when shock is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6766,6 +7747,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted heart valves (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6804,6 +7786,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when heart valves is implanted (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6826,6 +7809,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient is implanted heart valves (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6864,6 +7848,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when heart valves is implanted (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6889,6 +7874,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has dialysis in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6927,6 +7913,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when dialysis is seen within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -6949,6 +7936,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has renal transplant (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10PcsCode.exists()",
             "dataType": "boolean"
@@ -6987,6 +7975,7 @@
         },
         {
           "name": "performedDate",
+          "description": "Date when renal transplant (recorded as procedure) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
@@ -7009,6 +7998,7 @@
       "feature": [
         {
           "name": "occurred",
+          "description": "Whether the patient has renal transplant (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -7047,6 +8037,7 @@
         },
         {
           "name": "onsetDate",
+          "description": "Date when renal transplant (recorded as condition) is performed within 5 years after the data point",
           "temporalAgg": [
             {
               "windowPeriod": "a",
