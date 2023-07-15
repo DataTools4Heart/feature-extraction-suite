@@ -22,6 +22,10 @@
         {
           "name": "admissionYear",
           "description": "Year of admission"
+        },
+        {
+          "name": "primaryReasonCode",
+          "description": "ICD 10 code of the primary reason for the encounter"
         }
       ]
     },
@@ -74,14 +78,15 @@
           }
         ]
       },
-      "join": {
-        "type": "past",
-        "duration": "1d"
-      },
       "feature": [
         {
           "name": "value",
-          "description": "Value of the vital sign"
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": ["first", "last", "avg", "min", "max", "stddev", "variance", "set"]
+            }
+          ]
         }
       ]
     },
@@ -197,60 +202,13 @@
           }
         ]
       },
-      "join": {
-        "type": "past",
-        "duration": "1d"
-      },
       "feature": [
         {
           "name": "value",
-          "description": "Value of the lab result"
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "feature": [
-        {
-          "name": "icd10Code",
-          "description": "ICD10 code of the observed condition"
-        },
-        {
-          "name": "conditionName",
-          "description": "Name of the observed condition"
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "heartFailure",
-        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
-      },
-      "feature": [
-        {
-          "name": "earliest",
-          "description": "Code for heart failure observed for the first time",
-          "valueExpr": {
-            "fhirPath": "icd10Code",
-            "dataType": "code"
-          },
+          "description": "Value of the lab result",
           "temporalAgg": [
             {
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromEarliest",
-          "description": "Time elapsed since heart failure is observed for the first time relative to the data point",
-          "valueExpr": {
-            "fhirPath": "utl:getPeriod(onsetDate, %referenceTimePoint,'mo').toInteger()",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": ["first"]
+              "aggOp": ["first", "last", "avg", "min", "max", "stddev", "variance", "set"]
             }
           ]
         }
@@ -263,26 +221,122 @@
         "description": "Symptoms to be evaluated as features",
         "values": [
           {
-            "name": "dyspnea",
+            "name": "Ankle swelling",
+            "value": "267039000"
+          },
+          {
+            "name": "Ascites",
+            "value": "389026000"
+          },
+          {
+            "name": "Breathlessness",
             "value": "267036007"
           },
           {
-            "name": "pleuralEffusion",
+            "name": "Cardiac murmur",
+            "value": "59495006"
+          },
+          {
+            "name": "Chest pain",
+            "value": "29857009"
+          },
+          {
+            "name": "Cheyne-stokes respiration",
+            "value": "90480005"
+          },
+          {
+            "name": "Depression",
+            "value": "35489007"
+          },
+          {
+            "name": "Dizziness",
+            "value": "404640003"
+          },
+          {
+            "name": "Elevated jugular venous pressure",
+            "value": "22447003"
+          },
+          {
+            "name": "Fatigue",
+            "value": "84229001"
+          },
+          {
+            "name": "Hepatojugular reflux",
+            "value": "72196001"
+          },
+          {
+            "name": "Hepatomegaly",
+            "value": "80515008"
+          },
+          {
+            "name": "Irregular pulse",
+            "value": "361137007"
+          },
+          {
+            "name": "Loss of appetite",
+            "value": "79890006"
+          },
+          {
+            "name": "Nocturnal cough",
+            "value": "161947006"
+          },
+          {
+            "name": "Oliguria",
+            "value": "83128009"
+          },
+          {
+            "name": "Orthopnoea",
+            "value": "62744007"
+          },
+          {
+            "name": "Palpitations",
+            "value": "80313002"
+          },
+          {
+            "name": "Paroxysmal nocturnal dyspnea",
+            "value": "55442000"
+          },
+          {
+            "name": "Peripheral edema",
+            "value": "271809000"
+          },
+          {
+            "name": "Pleural effusion",
             "value": "60046008"
           },
           {
-            "name": "edema",
-            "value": "267038008"
+            "name": "Pulmonary crepitations",
+            "value": "48409008"
           },
           {
-            "name": "fatigue",
-            "value": "84229001"
+            "name": "Reduced exercise tolerance",
+            "value": "267044007"
+          },
+          {
+            "name": "Syncope",
+            "value": "272030005"
+          },
+          {
+            "name": "Tachycardia",
+            "value": "3424008"
+          },
+          {
+            "name": "Tachypnoea",
+            "value": "271823003"
+          },
+          {
+            "name": "Third heart sound",
+            "value": "1285004"
+          },
+          {
+            "name": "Weight gain",
+            "value": "8943002"
+          },
+          {
+            "name": "Weight loss",
+            "value": "89362005"
           }
         ]
-      },
-      "join": {
-        "type": "past",
-        "duration": "1d"
       },
       "feature": [
         {
@@ -450,15 +504,30 @@
         },
         {
           "name": "startTime",
-          "description": "Start time of renin-angiotensin-system (RAS)-inhibitors administration"
+          "description": "Start time of renin-angiotensin-system (RAS)-inhibitors administration",
+          "temporalAgg": [
+            {
+              "aggOp": ["first", "last"]
+            }
+          ]
         },
         {
           "name": "medicationCode",
-          "description": "ATC code of renin-angiotensin-system (RAS)-inhibitors administered"
+          "description": "ATC code of renin-angiotensin-system (RAS)-inhibitors administered",
+          "temporalAgg": [
+            {
+              "aggOp": ["set"]
+            }
+          ]
         },
         {
           "name": "dose",
-          "description": "Dose of renin-angiotensin-system (RAS)-inhibitors administered"
+          "description": "Dose of renin-angiotensin-system (RAS)-inhibitors administered",
+          "temporalAgg": [
+            {
+              "aggOp": ["first", "last", "avg", "min", "max", "stddev", "variance", "set"]
+            }
+          ]
         }
       ]
     },
@@ -2780,6 +2849,7 @@
           "name": "dose",
           "description": "Dose of ezetimibe administered"
         }
+
       ]
     },
     {
@@ -4263,7 +4333,54 @@
       ]
     },
 
-
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "feature": [
+        {
+          "name": "icd10Code",
+          "description": "ICD10 code of the observed condition"
+        },
+        {
+          "name": "conditionName",
+          "description": "Name of the observed condition"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "filter": {
+        "name": "heartFailure",
+        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "feature": [
+        {
+          "name": "earliest",
+          "description": "Code for heart failure observed for the first time",
+          "valueExpr": {
+            "fhirPath": "icd10Code",
+            "dataType": "code"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["first"]
+            }
+          ]
+        },
+        {
+          "name": "timeFromEarliest",
+          "description": "Time elapsed since heart failure is observed for the first time relative to the data point",
+          "valueExpr": {
+            "fhirPath": "utl:getPeriod(onsetDate, %referenceTimePoint,'mo').toInteger()",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
 
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
@@ -8043,6 +8160,361 @@
               "windowPeriod": "a",
               "windowSize": 5,
               "aggOp": ["first"]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "hospitalization_for_heart_failure",
+        "fhirPath": "primaryReasonCode.startsWith('I50') or primaryReasonCode.startsWith('I11') or primaryReasonCode.startsWith('I13.0') or primaryReasonCode.startsWith('I13.2') or primaryReasonCode.startsWith('I26.0')"
+      },
+      "feature": [
+        {
+          "name": "exists",
+          "valueExpr": {
+            "fhirPath": "primaryReasonCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "hosp_for_CV_disease",
+        "fhirPath": "primaryReasonCode.startsWith('I') or primaryReasonCode.startsWith('G45') or primaryReasonCode.startsWith('J81') or primaryReasonCode.startsWith('K76.1') or primaryReasonCode.startsWith('R57')"
+      },
+      "feature": [
+        {
+          "name": "exists",
+          "valueExpr": {
+            "fhirPath": "primaryReasonCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "hosp_for_non_cv_disease",
+        "fhirPath": "(primaryReasonCode.startsWith('I') or primaryReasonCode.startsWith('G45') or primaryReasonCode.startsWith('J81') or primaryReasonCode.startsWith('K76.1') or primaryReasonCode.startsWith('R57')).not()"
+      },
+      "feature": [
+        {
+          "name": "exists",
+          "valueExpr": {
+            "fhirPath": "primaryReasonCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "hospitalization_for_renal_complications",
+        "fhirPath": "primaryReasonCode.startsWith('N18') or primaryReasonCode.startsWith('N19')"
+      },
+      "feature": [
+        {
+          "name": "exists",
+          "valueExpr": {
+            "fhirPath": "primaryReasonCode.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "isCardivascular",
+        "fhirPath": "causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')"
+      },
+      "feature": [
+        {
+          "name": "causeOfDeath",
+          "description": "ICD10 code of the condition as the cause of death",
+          "valueExpr": {
+            "fhirPath": "causeOfDeath.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "isRenal",
+        "fhirPath": "causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')"
+      },
+      "feature": [
+        {
+          "name": "causeOfDeath",
+          "description": "ICD10 code of the condition as the cause of death",
+          "valueExpr": {
+            "fhirPath": "causeOfDeath.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "type": "future"
+      },
+      "filter": {
+        "name": "isNonRenalAndNonCV",
+        "fhirPath": "(causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()"
+      },
+      "feature": [
+        {
+          "name": "causeOfDeath",
+          "description": "ICD10 code of the condition as the cause of death",
+          "valueExpr": {
+            "fhirPath": "causeOfDeath.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowPeriod": "d",
+              "windowSize": 7,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "mo",
+              "windowSize": 6,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 1,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 3,
+              "aggOp": ["any"]
+            },{
+              "windowPeriod": "a",
+              "windowSize": 5,
+              "aggOp": ["any"]
             }
           ]
         }
