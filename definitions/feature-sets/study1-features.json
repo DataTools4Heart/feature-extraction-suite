@@ -377,54 +377,6 @@
         {
           "name": "ecg_qt_duration_corrected",
           "description": "Duration of QT wave corrected"
-        },
-        {
-          "name": "ecg_I_raw",
-          "description": "Raw values for lead I"
-        },
-        {
-          "name": "ecg_II_raw",
-          "description": "Raw values for lead II"
-        },
-        {
-          "name": "ecg_III_raw",
-          "description": "Raw values for lead III"
-        },
-        {
-          "name": "ecg_aVR_raw",
-          "description": "Raw data for lead aVR separated by spaces"
-        },
-        {
-          "name": "ecg_aVL_raw",
-          "description": "Raw data for lead AVL separated by spaces"
-        },
-        {
-          "name": "ecg_aVF_raw",
-          "description": "Raw data for lead aVF separated by spaces"
-        },
-        {
-          "name": "ecg_V1_raw",
-          "description": "Raw data for lead V1 separated by spaces"
-        },
-        {
-          "name": "ecg_V2_raw",
-          "description": "Raw data for lead V2 separated by spaces"
-        },
-        {
-          "name": "ecg_V3_raw",
-          "description": "Raw data for lead V3 separated by spaces"
-        },
-        {
-          "name": "ecg_V4_raw",
-          "description": "Raw data for lead V4 separated by spaces"
-        },
-        {
-          "name": "ecg_V5_raw",
-          "description": "Raw data for lead V5 separated by spaces"
-        },
-        {
-          "name": "ecg_V6_raw",
-          "description": "Raw data for lead V6 separated by spaces"
         }
       ]
     },
