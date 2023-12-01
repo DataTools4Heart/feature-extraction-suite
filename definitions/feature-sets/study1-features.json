@@ -21,7 +21,7 @@
         },
         {
           "name": "admissionYear",
-          "description": "Year of admission"
+          "description": "Year of admission to hospital"
         },
         {
           "name": "primaryReasonCode",
@@ -420,7 +420,7 @@
         },
         {
           "name": "totalSmokingDuration",
-          "description": "Total duration of smoking",
+          "description": "Total duration of smoking in days.",
           "valueExpr": {
             "fhirPath": "utl:getPeriod(startTime, iif(endTime.exists(), (endTime | %referenceTimePoint).min(), %referenceTimePoint), 'days').toInteger()",
             "dataType": "integer"
@@ -446,7 +446,7 @@
           "name": "formerSmoker",
           "description": "Whether the patient smoked within 1 year prior to the admission.",
           "valueExpr": {
-            "fhirPath": "endTime.exists() and utl:getPeriod(startTime, endTime, 'days').toInteger() > 365",
+            "fhirPath": "endTime.exists() and utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() > 365",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -4335,19 +4335,6 @@
 
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "feature": [
-        {
-          "name": "icd10Code",
-          "description": "ICD10 code of the observed condition"
-        },
-        {
-          "name": "conditionName",
-          "description": "Name of the observed condition"
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
         "name": "heartFailure",
         "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
@@ -4355,7 +4342,7 @@
       "feature": [
         {
           "name": "earliest",
-          "description": "Code for heart failure observed for the first time",
+          "description": "ICD code representing the heart failure diagnosis observed for the first time.",
           "valueExpr": {
             "fhirPath": "icd10Code",
             "dataType": "code"
@@ -4368,7 +4355,7 @@
         },
         {
           "name": "timeFromEarliest",
-          "description": "Time elapsed since heart failure is observed for the first time relative to the data point",
+          "description": "Time elapsed (in months) since heart failure is observed for the first time until the reference time point.",
           "valueExpr": {
             "fhirPath": "utl:getPeriod(onsetDate, %referenceTimePoint,'mo').toInteger()",
             "dataType": "integer"
@@ -4391,7 +4378,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has angina pectoris in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has angina pectoris in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4485,7 +4472,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has atrial fibrillation in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has atrial fibrillation in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4579,7 +4566,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has cardiomyopathy in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4673,7 +4660,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has dyslipidemia in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has dyslipidemia in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4767,7 +4754,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has heart failure in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has heart failure in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4861,7 +4848,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has hypertension in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has hypertension in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -4955,7 +4942,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has ischemic heart disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has ischemic heart disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5049,7 +5036,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has myocardial infarction in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has myocardial infarction in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5143,7 +5130,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has peripheral artery disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5237,7 +5224,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has stroke in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has stroke in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5331,7 +5318,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has transient ischemic attack in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has transient ischemic attack in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5425,7 +5412,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has valvular disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has valvular disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5519,7 +5506,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has revascularized CABG, PCI in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has revascularized CABG, PCI in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5613,7 +5600,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5707,7 +5694,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has AIDS or HIV in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has AIDS or HIV in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5801,7 +5788,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has COPD in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has COPD in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5895,7 +5882,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has diabetes mellitus in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has diabetes mellitus in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -5989,7 +5976,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has dementia in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has dementia in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6083,7 +6070,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has depression in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has depression in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6177,7 +6164,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has dialysis in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has dialysis in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6271,7 +6258,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has hyperthyroidism in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6365,7 +6352,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has inflammable bowel disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has inflammable bowel disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6459,7 +6446,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has liver disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has liver disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6553,7 +6540,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has malignant cancer in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has malignant cancer in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6647,7 +6634,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has obstructive sleep apnea in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has obstructive sleep apnea in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6741,7 +6728,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has rheumatic disease in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -6835,7 +6822,7 @@
       "feature": [
         {
           "name": "occurred",
-          "description": "Whether the patient has renal disease chronic in their clinical history relative to the date of the data point (i.e. the reference time point)",
+          "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
@@ -8178,6 +8165,7 @@
       "feature": [
         {
           "name": "exists",
+          "description": "Whether the patient is hospitalized because of heart failure after the reference time point.",
           "valueExpr": {
             "fhirPath": "primaryReasonCode.exists()",
             "dataType": "boolean"
@@ -8228,6 +8216,7 @@
       "feature": [
         {
           "name": "exists",
+          "description": "Whether the patient is hospitalized because of any cardiovascular condition after the reference time point.",
           "valueExpr": {
             "fhirPath": "primaryReasonCode.exists()",
             "dataType": "boolean"
@@ -8278,6 +8267,7 @@
       "feature": [
         {
           "name": "exists",
+          "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the reference time point.",
           "valueExpr": {
             "fhirPath": "primaryReasonCode.exists()",
             "dataType": "boolean"
@@ -8328,6 +8318,7 @@
       "feature": [
         {
           "name": "exists",
+          "description": "Whether the patient is hospitalized because of any renal complication after the reference time point.",
           "valueExpr": {
             "fhirPath": "primaryReasonCode.exists()",
             "dataType": "boolean"
@@ -8379,7 +8370,7 @@
       "feature": [
         {
           "name": "causeOfDeath",
-          "description": "ICD10 code of the condition as the cause of death",
+          "description": "Whether the patient dies because of any cardiovascular condition after the reference time point.",
           "valueExpr": {
             "fhirPath": "causeOfDeath.exists()",
             "dataType": "boolean"
@@ -8430,7 +8421,7 @@
       "feature": [
         {
           "name": "causeOfDeath",
-          "description": "ICD10 code of the condition as the cause of death",
+          "description": "Whether the patient dies because of any renal complication after the reference time point.",
           "valueExpr": {
             "fhirPath": "causeOfDeath.exists()",
             "dataType": "boolean"
@@ -8481,7 +8472,7 @@
       "feature": [
         {
           "name": "causeOfDeath",
-          "description": "ICD10 code of the condition as the cause of death",
+          "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
           "valueExpr": {
             "fhirPath": "causeOfDeath.exists()",
             "dataType": "boolean"
@@ -8524,7 +8515,7 @@
   ],
   "combinedFeature": [
     {
-      "name": "meanBp",
+      "name": "vital_signs_meanBp",
       "description": "Mean blood pressure",
       "combinedFeatures": [
         {
@@ -8542,7 +8533,7 @@
       }
     },
     {
-      "name": "bmi",
+      "name": "vital_signs_bmi",
       "description": "Body mass index",
       "combinedFeatures": [
         {
@@ -8560,7 +8551,7 @@
       }
     },
     {
-      "name": "htx_occurence",
+      "name": "procedures_htx_occurence",
       "description": "Heart transplant occurrence",
       "combinedFeatures": [
         {
@@ -8578,7 +8569,7 @@
       }
     },
     {
-      "name": "htx_date",
+      "name": "procedures_htx_date",
       "description": "Heart transplant occurrence date",
       "combinedFeatures": [
         {
@@ -8596,7 +8587,7 @@
       }
     },
     {
-      "name": "vad_occurrence",
+      "name": "procedures_vad_occurrence",
       "description": "Implantation ventricular assist device occurrence",
       "combinedFeatures": [
         {
@@ -8614,7 +8605,7 @@
       }
     },
     {
-      "name": "vad_date",
+      "name": "procedures_vad_date",
       "description": "Implantation ventricular assist device occurrence date",
       "combinedFeatures": [
         {
@@ -8632,7 +8623,7 @@
       }
     },
     {
-      "name": "icdtd_occurrence",
+      "name": "procedures_icdtd_occurrence",
       "description": "Occurrence of implantation internal cardiac defibrillator or cardiac resynchronization therapy device",
       "combinedFeatures": [
         {
@@ -8650,7 +8641,7 @@
       }
     },
     {
-      "name": "icdtd_date",
+      "name": "procedures_icdtd_date",
       "description": "Occurrence date of implantation internal cardiac defibrillator or cardiac resynchronization therapy device",
       "combinedFeatures": [
         {
@@ -8668,7 +8659,7 @@
       }
     },
     {
-      "name": "pacemaker_occurrence",
+      "name": "procedures_pacemaker_occurrence",
       "description": "Occurrence of pacemaker implantation",
       "combinedFeatures": [
         {
@@ -8686,7 +8677,7 @@
       }
     },
     {
-      "name": "pacemaker_date",
+      "name": "procedures_pacemaker_date",
       "description": "Occurrence date of pacemaker implantation",
       "combinedFeatures": [
         {
@@ -8704,7 +8695,7 @@
       }
     },
     {
-      "name": "mi_occurrence",
+      "name": "procedures_mi_occurrence",
       "description": "Occurrence of procedures related to myocardial infarction",
       "combinedFeatures": [
         {
@@ -8722,7 +8713,7 @@
       }
     },
     {
-      "name": "mi_date",
+      "name": "procedures_mi_date",
       "description": "Occurrence date of procedures related to myocardial infarction",
       "combinedFeatures": [
         {
@@ -8740,7 +8731,7 @@
       }
     },
     {
-      "name": "arrest_occurrence",
+      "name": "procedures_arrest_occurrence",
       "description": "Occurrence of cardiac arrest",
       "combinedFeatures": [
         {
@@ -8758,7 +8749,7 @@
       }
     },
     {
-      "name": "arrest_date",
+      "name": "procedures_arrest_date",
       "description": "Occurrence date of cardiac arrest",
       "combinedFeatures": [
         {
@@ -8776,7 +8767,7 @@
       }
     },
     {
-      "name": "rhythmcorr_occurrence",
+      "name": "procedures_rhythmcorr_occurrence",
       "description": "Occurrence of rhythm correction",
       "combinedFeatures": [
         {
@@ -8794,7 +8785,7 @@
       }
     },
     {
-      "name": "rhythmcorr_date",
+      "name": "procedures_rhythmcorr_date",
       "description": "Occurrence date of rhythm correction",
       "combinedFeatures": [
         {
@@ -8812,7 +8803,7 @@
       }
     },
     {
-      "name": "valves_occurrence",
+      "name": "procedures_valves_occurrence",
       "description": "Occurrence of heart valves",
       "combinedFeatures": [
         {
@@ -8830,7 +8821,7 @@
       }
     },
     {
-      "name": "valves_date",
+      "name": "procedures_valves_date",
       "description": "Occurrence date of heart valves",
       "combinedFeatures": [
         {
@@ -8848,7 +8839,7 @@
       }
     },
     {
-      "name": "rtx_occurrence",
+      "name": "procedures_rtx_occurrence",
       "description": "Occurrence of renal transplant",
       "combinedFeatures": [
         {
@@ -8866,7 +8857,7 @@
       }
     },
     {
-      "name": "valves_date",
+      "name": "procedures_rtx_date",
       "description": "Occurrence date of renal transplant",
       "combinedFeatures": [
         {
