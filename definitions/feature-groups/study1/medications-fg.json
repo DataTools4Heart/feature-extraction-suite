@@ -8,7 +8,7 @@
   "fhirVersion": "4.0.1",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "targetResourceType": "MedicationAdministration",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-MedicationAdministration",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-MedicationAdministration",
   "fhirSearch": "?patient={{Patient}}&context={{Encounter}}",
   "entities": {
     "pid": "Patient",

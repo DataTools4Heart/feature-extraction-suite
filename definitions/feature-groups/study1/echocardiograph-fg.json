@@ -8,8 +8,8 @@
   "fhirVersion": "4.0.1",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "targetResourceType": "Observation",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Echocardiograph",
-  "fhirSearch": "?patient={{Patient}}&encounter={{Encounter}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/DT4H-Echocardiograph",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Echocardiograph",
+  "fhirSearch": "?patient={{Patient}}&encounter={{Encounter}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/HFR-Echocardiograph",
   "entities": {
     "pid": "Patient",
     "encounterId": "Encounter"
