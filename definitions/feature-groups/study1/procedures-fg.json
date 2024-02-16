@@ -20,7 +20,7 @@
       "title": "Patient identifier",
       "description": "Patient identifier",
       "dataType": "id",
-      "fhirPath": "Condition.subject"
+      "fhirPath": "Procedure.subject"
     },
     {
       "name": "performedDate",
@@ -34,14 +34,14 @@
       "title": "Procedure code (ICD-10-PCS)",
       "description": "ICD-10-PCS code for the procedure",
       "dataType": "code",
-      "fhirPath": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/ex-icd-10-procedures').code.first()"
+      "fhirPath": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10-pcs').code.first()"
     },
     {
       "name": "procedureName",
       "title": "Procedure name",
       "description": "Name of the procedure",
       "dataType": "string",
-      "fhirPath": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').display.first()"
+      "fhirPath": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10-pcs').display.first()"
     }
   ]
 }
