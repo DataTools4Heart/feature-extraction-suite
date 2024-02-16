@@ -1,0 +1,50 @@
+{
+  "url": "https://datatools4heart.eu/feature-sets/study1_features_minimal",
+  "name": "study1_features_minimal",
+  "title": "Time series data for study-1",
+  "description": "Time series data for study-1",
+  "version": "0.1",
+  "date": "2024-02-15",
+  "fhirVersion": "4.0.1",
+  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "referenceTimePoints": {
+    "method": "feature-group",
+    "useEndTime": true
+  },
+  "featureGroup": [
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "feature": [
+        {
+          "name": "encounterClass",
+          "description": "Type of encounter (emergency, impatient, outpatient, etc)"
+        },
+        {
+          "name": "admissionYear",
+          "description": "Year of admission to hospital"
+        },
+        {
+          "name": "primaryReasonCode",
+          "description": "ICD 10 code of the primary reason for the encounter"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "feature": [
+        {
+          "name": "gender",
+          "description": "Gender of the patient"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at reference point",
+          "valueExpr": {
+            "fhirPath": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    }
+  ]
+}
