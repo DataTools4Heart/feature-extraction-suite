@@ -98,3 +98,5 @@ services:
 #  fhirdb: {}
 networks:
   onfhir-network:
+    name: onfhir-network
+    external: true
