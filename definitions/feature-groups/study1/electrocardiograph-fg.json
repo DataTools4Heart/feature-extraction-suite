@@ -57,6 +57,20 @@
       "description": "Normalized value for individual QT measurement from a given study into a single measurement that would represent the QT interval if the patient had a heart rate of 60 beats per minute",
       "dataType": "decimal",
       "fhirPath": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8636-3')).valueQuantity.value.first()"
+    },
+    {
+      "name": "ecg_st",
+      "title": "ST-elevation",
+      "description": "ST-elevation",
+      "dataType": "boolean",
+      "fhirPath": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='164931005')).valueBoolean"
+    },
+    {
+      "name": "ecg_ischemia_without_st",
+      "title": "Ischemia without st-elevation",
+      "description": "Ischemia without st-elevation",
+      "dataType": "boolean",
+      "fhirPath": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='52674009')).valueBoolean"
     }
   ]
 }

@@ -377,6 +377,14 @@
         {
           "name": "ecg_qt_duration_corrected",
           "description": "Duration of QT wave corrected"
+        },
+        {
+          "name": "ecg_st",
+          "description": "ST-elevation"
+        },
+        {
+          "name": "ecg_ischemia_without_st",
+          "description": "Ischemia without st-elevation"
         }
       ]
     },
