@@ -28,21 +28,21 @@
       "title": "Encounter identifier",
       "description": "Encounter identifier",
       "dataType": "id",
-      "fhirPath": "MedicationAdministration.context"
+      "fhirPath": "MedicationAdministration.encounter"
     },
     {
       "name": "startTime",
       "title": "Medication start date",
       "description": "Medication start date",
       "dataType": "dateTime",
-      "fhirPath": "MedicationAdministration.effective.start"
+      "fhirPath": "MedicationAdministration.occurencePeriod.start"
     },
     {
       "name": "medicationCode",
       "title": "Medication code (ATC)",
       "description": "ATC code for the medication",
       "dataType": "code",
-      "fhirPath": "MedicationAdministration.medicationCodeableConcept.coding.where(system='http://www.whocc.no/atc').code.first()"
+      "fhirPath": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code.first()"
     },
     {
       "name": "dose",

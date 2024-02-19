@@ -8,7 +8,7 @@
   "fhirVersion": "4.0.1",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "targetResourceType": "Observation",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
+  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-CauseOfDeath",
   "fhirSearch": "?patient={{Patient}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/HFR-CauseOfDeath",
   "entities": {
     "pid": "Patient"

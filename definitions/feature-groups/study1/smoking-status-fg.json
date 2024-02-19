@@ -36,13 +36,6 @@
       "description": "End date of the period of smoking",
       "dataType": "dateTime",
       "fhirPath": "Observation.effectivePeriod.end"
-    },
-    {
-      "name": "dose",
-      "title": "Smoking dose",
-      "description": "Smoking dose (unit to be clarified)",
-      "dataType": "decimal",
-      "fhirPath": "Observation.valueQuantity.value"
     }
   ]
 }

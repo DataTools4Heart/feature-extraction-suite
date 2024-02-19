@@ -416,9 +416,6 @@
           "description": "End time of smoking period"
         },
         {
-          "name": "dose"
-        },
-        {
           "name": "totalSmokingDuration",
           "description": "Total duration of smoking in days.",
           "valueExpr": {
