@@ -269,6 +269,10 @@
             "value": "80515008"
           },
           {
+            "name": "Intermittent claudication",
+            "value": "63491006"
+          },
+          {
             "name": "Irregular pulse",
             "value": "361137007"
           },
@@ -377,6 +381,18 @@
         {
           "name": "ecg_qt_duration_corrected",
           "description": "Duration of QT wave corrected"
+        },
+        {
+          "name": "ecg_st",
+          "description": "ST-elevation"
+        },
+        {
+          "name": "ecg_ischemia_without_st",
+          "description": "Ischemia without st-elevation"
+        },
+        {
+          "name": "ecg_type_of_rhythm",
+          "description": "Type of rhythm"
         }
       ]
     },
@@ -483,7 +499,6 @@
         }
       ]
     },
-
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
@@ -2677,6 +2692,151 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "platelet",
+        "fhirPath": "medicationCode.startsWith('B01AC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with platelet inhibitor during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of platelet inhibitor administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the platelet inhibitor administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of platelet inhibitor administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_asa",
+        "fhirPath": "medicationCode.startsWith('B01AC06')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with acetylic salicylic acid during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of acetylic salicylic acid administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the acetylic salicylic acid administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of acetylic salicylic acid administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_clopidrogrel",
+        "fhirPath": "medicationCode.startsWith('B01AC04')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with P2Y12 inhibitor, clopidrogrel during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of P2Y12 inhibitor, clopidrogrel administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the P2Y12 inhibitor, clopidrogrel administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of P2Y12 inhibitor, clopidrogrel administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_ticagrelor",
+        "fhirPath": "medicationCode.startsWith('B01AC24')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with ticagrelor during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of ticagrelor administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the ticagrelor administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of ticagrelor administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_prasugrel",
+        "fhirPath": "medicationCode.startsWith('B01AC22')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with prasugrel during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of prasugrel administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the prasugrel administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of prasugrel administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "lipid_lowering",
         "fhirPath": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AC16') or medicationCode.startsWith('C10AX09')"
       },
@@ -4329,7 +4489,6 @@
         }
       ]
     },
-
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
@@ -4365,7 +4524,6 @@
         }
       ]
     },
-
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
@@ -4380,83 +4538,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "ap",
-        "fhirPath": "icd10Code.startsWith('I20')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has angina pectoris in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when angina pectoris is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until angina pectoris is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -4480,83 +4561,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "af",
-        "fhirPath": "icd10Code.startsWith('I48')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has atrial fibrillation in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when atrial fibrillation is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until atrial fibrillation is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "cm",
         "fhirPath": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')"
       },
@@ -4568,83 +4572,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "cm",
-        "fhirPath": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has cardiomyopathy in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when cardiomyopathy is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until cardiomyopathy is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -4668,83 +4595,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "dysl",
-        "fhirPath": "icd10Code.startsWith('E78')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has dyslipidemia in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when dyslipidemia is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until dyslipidemia is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "hf",
         "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
       },
@@ -4756,83 +4606,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "hf",
-        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has heart failure in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when heart failure is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until heart failure is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -4856,83 +4629,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "hyp",
-        "fhirPath": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has hypertension in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when hypertension is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until hypertension is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "ihd",
         "fhirPath": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')"
       },
@@ -4944,83 +4640,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "ihd",
-        "fhirPath": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has ischemic heart disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when ischemic heart disease is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until ischemic heart disease is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -5044,83 +4663,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "mi",
-        "fhirPath": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has myocardial infarction in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when myocardial infarction is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until myocardial infarction is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "pad",
         "fhirPath": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')"
       },
@@ -5132,83 +4674,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "pad",
-        "fhirPath": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has peripheral artery disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when peripheral artery disease is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until peripheral artery disease is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -5232,83 +4697,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "stroke",
-        "fhirPath": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has stroke in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when stroke is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until stroke is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "tia",
         "fhirPath": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')"
       },
@@ -5320,83 +4708,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "tia",
-        "fhirPath": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has transient ischemic attack in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when transient ischemic attack is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until transient ischemic attack is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -5420,83 +4731,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "vd",
-        "fhirPath": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has valvular disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when valvular disease is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until valvular disease is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "revasc",
         "fhirPath": "icd10Code.startsWith('Z95.5')"
       },
@@ -5508,83 +4742,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "revasc",
-        "fhirPath": "icd10Code.startsWith('Z95.5')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has revascularized CABG, PCI in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when revascularized CABG, PCI is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until revascularized CABG, PCI is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -5608,83 +4765,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "devices",
-        "fhirPath": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has cardiac and vascular implants and grafts in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when cardiac and vascular implants and grafts is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until cardiac and vascular implants and grafts is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "aidshiv",
         "fhirPath": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')"
       },
@@ -5696,83 +4776,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "aidshiv",
-        "fhirPath": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has AIDS or HIV in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when AIDS or HIV is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until AIDS or HIV is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -5796,83 +4799,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "copd",
-        "fhirPath": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has COPD in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when COPD is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until COPD is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "dm",
         "fhirPath": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')"
       },
@@ -5884,83 +4810,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "dm",
-        "fhirPath": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has diabetes mellitus in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when diabetes mellitus is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until diabetes mellitus is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -5984,83 +4833,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "dem",
-        "fhirPath": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has dementia in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when dementia is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until dementia is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "dep",
         "fhirPath": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')"
       },
@@ -6072,83 +4844,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "dep",
-        "fhirPath": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has depression in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when depression is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until depression is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -6172,83 +4867,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "dia",
-        "fhirPath": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has dialysis in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when dialysis is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until dialysis is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "hypert",
         "fhirPath": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')"
       },
@@ -6260,83 +4878,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "hypert",
-        "fhirPath": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has hyperthyroidism in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when hyperthyroidism is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until hyperthyroidism is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -6360,83 +4901,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "ibd",
-        "fhirPath": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has inflammable bowel disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when inflammable bowel disease is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until inflammable bowel disease is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "ld",
         "fhirPath": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')"
       },
@@ -6448,83 +4912,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "ld",
-        "fhirPath": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has liver disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when liver disease is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until liver disease is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -6548,83 +4935,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "mc",
-        "fhirPath": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has malignant cancer in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when malignant cancer is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until malignant cancer is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "osa",
         "fhirPath": "icd10Code.startsWith('G47.3')"
       },
@@ -6636,83 +4946,6 @@
             "fhirPath": "icd10Code.exists()",
             "dataType": "boolean"
           }
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "osa",
-        "fhirPath": "icd10Code.startsWith('G47.3')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has obstructive sleep apnea in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when obstructive sleep apnea is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until obstructive sleep apnea is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
         }
       ]
     },
@@ -6736,83 +4969,6 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
-        "name": "rd",
-        "fhirPath": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has rheumatic disease in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when rheumatic disease is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until rheumatic disease is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
         "name": "ckd_chronic",
         "fhirPath": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')"
       },
@@ -6827,1329 +4983,6 @@
         }
       ]
     },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "ckd_chronic",
-        "fhirPath": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has renal disease chronic in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when renal disease chronic is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        },
-        {
-          "name": "timeFromDischarge",
-          "description": "Duration in months that passed since the data point until renal disease chronic is seen within 5 years",
-          "valueExpr": {
-            "fhirPath": "iif(onsetDate.exists(), utl:getPeriod(%referenceTimePoint, onsetDate, 'mo').toInteger(), {})",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-
-
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "htx_proc",
-        "fhirPath": "icd10PcsCode.startsWith('02YA')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has heart transplant (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when heart transplant (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "htx_cond",
-        "fhirPath": "icd10Code.startsWith('Z94.3') or icd10Code.startsWith('Z94.1') or icd10Code.startsWith('Z95.812')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has heart transplant (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when heart transplant (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "vad_proc",
-        "fhirPath": "icd10PcsCode.startsWith('02RK0JZ') or icd10PcsCode.startsWith('02RL0JZ') or icd10PcsCode.startsWith('02HA4QZ') or icd10PcsCode.startsWith('02HA3QZ') or icd10PcsCode.startsWith('02HA0QZ')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted ventricular assist device  (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when ventricular assist device is implanted (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "vad_cond",
-        "fhirPath": "icd10Code.startsWith('Z95.811')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted ventricular assist device (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when ventricular assist device is implanted (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "icdtd_proc",
-        "fhirPath": "icd10PcsCode.startsWith('0JH607') or icd10PcsCode.startsWith('0JH608') or icd10PcsCode.startsWith('0JH609') or icd10PcsCode.startsWith('0JH638') or icd10PcsCode.startsWith('0JH639') or icd10PcsCode.startsWith('0JH808') or icd10PcsCode.startsWith('0JH809') or icd10PcsCode.startsWith('0JH838') or icd10PcsCode.startsWith('0JH839')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted internal cardiac defibrillator or cardiac resynchronization therapy device (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when internal cardiac defibrillator or cardiac resynchronization therapy device is implanted (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "icdtd_cond",
-        "fhirPath": "icd10Code.startsWith('Z95.810')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted internal cardiac defibrillator or cardiac resynchronization therapy device (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when internal cardiac defibrillator or cardiac resynchronization therapy device is implanted (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "pacemaker_proc",
-        "fhirPath": "icd10PcsCode.startsWith('0JH604') or icd10PcsCode.startsWith('0JH605') or icd10PcsCode.startsWith('0JH606') or icd10PcsCode.startsWith('0JH634') or icd10PcsCode.startsWith('0JH635') or icd10PcsCode.startsWith('0JH636') or icd10PcsCode.startsWith('0JH804') or icd10PcsCode.startsWith('0JH805') or icd10PcsCode.startsWith('0JH805') or icd10PcsCode.startsWith('0JH834') or icd10PcsCode.startsWith('0JH835') or icd10PcsCode.startsWith('0JH836')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted pacemaker (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when pacemaker is implanted (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "pacemaker_cond",
-        "fhirPath": "icd10Code.startsWith('Z95.0')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted pacemaker (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when pacemaker is implanted (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "mi_proc",
-        "fhirPath": "icd10PcsCode.startsWith('02Q0') or icd10PcsCode.startsWith('02Q1') or icd10PcsCode.startsWith('02Q2') or icd10PcsCode.startsWith('02Q3') or icd10PcsCode.startsWith('0210') or icd10PcsCode.startsWith('0211') or icd10PcsCode.startsWith('0212') or icd10PcsCode.startsWith('0213') or icd10PcsCode.startsWith('02C0') or icd10PcsCode.startsWith('02C1') or icd10PcsCode.startsWith('02C2') or icd10PcsCode.startsWith('02C3') or icd10PcsCode.startsWith('0270') or icd10PcsCode.startsWith('0271') or icd10PcsCode.startsWith('0272') or icd10PcsCode.startsWith('0273') or icd10PcsCode.startsWith('3E07')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has procedure related to myocardial infarction (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when procedure related to myocardial infarction (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "mi_cond",
-        "fhirPath": "icd10Code.startsWith('Z95.1') or icd10Code.startsWith('Z95.5')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has procedure related to myocardial infarction (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when procedure related to myocardial infarction (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "arrest_proc",
-        "fhirPath": "icd10PcsCode.startsWith('5A12012')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has cardiac arrest (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when cardiac arrest (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "arrest_cond",
-        "fhirPath": "icd10Code.startsWith('I46.2') or icd10Code.startsWith('I46.8') or icd10Code.startsWith('I46.9')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has cardiac arrest (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when cardiac arrest (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "rhythmcorr_proc",
-        "fhirPath": "icd10PcsCode.startsWith('5A2204Z')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has rhythm correction (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when rhythm correction (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "rhythmcorr_cond",
-        "fhirPath": "icd10Code.startsWith('I47') or icd10Code.startsWith('I48') or icd10Code.startsWith('I49')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has rhythm correction (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when rhythm correction (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "shock",
-        "fhirPath": "icd10Code.startsWith('R57.0')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has shock in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when shock is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "valves_proc",
-        "fhirPath": "icd10PcsCode.startsWith('027F') or icd10PcsCode.startsWith('027G') or icd10PcsCode.startsWith('027H') or icd10PcsCode.startsWith('027J') or icd10PcsCode.startsWith('02RF') or icd10PcsCode.startsWith('02RG') or icd10PcsCode.startsWith('02RH') or icd10PcsCode.startsWith('02RJ')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted heart valves (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when heart valves is implanted (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "valves_cond",
-        "fhirPath": "icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient is implanted heart valves (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when heart valves is implanted (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-
-
-
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "dialysis",
-        "fhirPath": "icd10Code.startsWith('Z49') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has dialysis in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when dialysis is seen within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/procedures",
-      "filter": {
-        "name": "rtx_proc",
-        "fhirPath": "icd10PcsCode.startsWith('0TY0') or icd10PcsCode.startsWith('0TY1')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has renal transplant (recorded as procedure) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10PcsCode.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "performedDate",
-          "description": "Date when renal transplant (recorded as procedure) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "filter": {
-        "name": "rtx_cond",
-        "fhirPath": "icd10Code.startsWith('Z94.0')"
-      },
-      "join": {
-        "type": "future"
-      },
-      "feature": [
-        {
-          "name": "occurred",
-          "description": "Whether the patient has renal transplant (recorded as condition) in the future, within 7 days, 1 month, 3 months, 6 months, 1 year, 3 years and 5 years periods; relative to the date of the data point (i.e. the reference time point)",
-          "valueExpr": {
-            "fhirPath": "icd10Code.exists()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "windowPeriod": "d",
-              "windowSize": 7,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "mo",
-              "windowSize": 6,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 1,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 3,
-              "aggOp": ["any"]
-            },{
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["any"]
-            }
-          ]
-        },
-        {
-          "name": "onsetDate",
-          "description": "Date when renal transplant (recorded as condition) is performed within 5 years after the data point",
-          "temporalAgg": [
-            {
-              "windowPeriod": "a",
-              "windowSize": 5,
-              "aggOp": ["first"]
-            }
-          ]
-        }
-      ]
-    },
-
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/encounters",
       "join": {
@@ -8354,7 +5187,6 @@
         }
       ]
     },
-
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
       "join": {
@@ -8508,7 +5340,6 @@
         }
       ]
     }
-
   ],
   "combinedFeature": [
     {
