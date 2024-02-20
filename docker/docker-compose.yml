@@ -3,7 +3,7 @@ services:
   onfhir-feast:
     image: srdc/onfhir-feast
     container_name: dt4h-onfhir-feast
-    command: ["extract-dataset --pipeline https://datatools4heart.eu/feature-sets/study1_dataset_minimal"]
+    command: ["extract-dataset --pipeline https://datatools4heart.eu/feature-sets/study1_dataset"]
     environment:
       DB_HOST: feast-postgres
       KAFKA_SERVER_0: feast-kafka-1:29092

@@ -389,6 +389,10 @@
         {
           "name": "ecg_ischemia_without_st",
           "description": "Ischemia without st-elevation"
+        },
+        {
+          "name": "ecg_type_of_rhythm",
+          "description": "Type of rhythm"
         }
       ]
     },

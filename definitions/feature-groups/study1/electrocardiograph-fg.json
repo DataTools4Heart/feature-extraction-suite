@@ -71,6 +71,13 @@
       "description": "Ischemia without st-elevation",
       "dataType": "boolean",
       "fhirPath": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='52674009')).valueBoolean"
+    },
+    {
+      "name": "ecg_type_of_rhythm",
+      "title": "Type of rhythm",
+      "description": "Type of rhythm",
+      "dataType": "code",
+      "fhirPath": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='76281-5')).valueCodeableConcept.coding.where(system='http://loinc.org').first().code"
     }
   ]
 }
