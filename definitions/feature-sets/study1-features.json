@@ -2688,6 +2688,151 @@
     {
       "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
       "filter": {
+        "name": "platelet",
+        "fhirPath": "medicationCode.startsWith('B01AC')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with platelet inhibitor during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of platelet inhibitor administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the platelet inhibitor administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of platelet inhibitor administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_asa",
+        "fhirPath": "medicationCode.startsWith('B01AC06')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with acetylic salicylic acid during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of acetylic salicylic acid administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the acetylic salicylic acid administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of acetylic salicylic acid administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_clopidrogrel",
+        "fhirPath": "medicationCode.startsWith('B01AC04')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with P2Y12 inhibitor, clopidrogrel during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of P2Y12 inhibitor, clopidrogrel administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the P2Y12 inhibitor, clopidrogrel administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of P2Y12 inhibitor, clopidrogrel administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_ticagrelor",
+        "fhirPath": "medicationCode.startsWith('B01AC24')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with ticagrelor during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of ticagrelor administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the ticagrelor administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of ticagrelor administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
+        "name": "platelet_prasugrel",
+        "fhirPath": "medicationCode.startsWith('B01AC22')"
+      },
+      "feature": [
+        {
+          "name": "taken",
+          "description": "Whether the patient is administered with prasugrel during the hospitalization",
+          "valueExpr": {
+            "fhirPath": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "startTime",
+          "description": "Start time of prasugrel administration"
+        },
+        {
+          "name": "medicationCode",
+          "description": "ATC code of the prasugrel administered"
+        },
+        {
+          "name": "dose",
+          "description": "Dose of prasugrel administered"
+        }
+      ]
+    },
+    {
+      "reference": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "filter": {
         "name": "lipid_lowering",
         "fhirPath": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AC16') or medicationCode.startsWith('C10AX09')"
       },
