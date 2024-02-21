@@ -4989,7 +4989,7 @@
         "type": "future"
       },
       "filter": {
-        "name": "hospitalization_for_heart_failure",
+        "name": "hosp_for_heart_failure",
         "fhirPath": "primaryReasonCode.startsWith('I50') or primaryReasonCode.startsWith('I11') or primaryReasonCode.startsWith('I13.0') or primaryReasonCode.startsWith('I13.2') or primaryReasonCode.startsWith('I26.0')"
       },
       "feature": [
@@ -5142,7 +5142,7 @@
         "type": "future"
       },
       "filter": {
-        "name": "hospitalization_for_renal_complications",
+        "name": "hosp_for_renal_complications",
         "fhirPath": "primaryReasonCode.startsWith('N18') or primaryReasonCode.startsWith('N19')"
       },
       "feature": [
