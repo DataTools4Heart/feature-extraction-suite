@@ -1,6 +1,6 @@
 {
   "url": "https://datatools4heart.eu/cohorts/study1",
-  "name": "study_1_cohort",
+  "name": "study1",
   "title": "Patients hospitalized with a primary discharge diagnosis of heart failure",
   "description": "Patients hospitalized with a primary discharge diagnosis of heart failure where the primary discharge diagnosis refers to the main reason for admission.",
   "version": "0.1",
