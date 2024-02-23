@@ -571,7 +571,7 @@
           "name": "dailyDoseAvg",
           "description": "Average of the total daily dose amount.",
           "valueExpr": {
-            "fhirPath": "dose / utl:getPeriod(%eligibilityEventTime, %eligibilityExitTime, 'days')",
+            "fhirPath": "dose / (utl:getPeriod(%eligibilityEventTime, %eligibilityExitTime, 'days') + 1)",
             "dataType": "decimal"
           },
           "temporalAgg": [
@@ -582,7 +582,7 @@
           "name": "dailyNumberAvg",
           "description": "Average of the number of times the medication is administered during the hospitalization.",
           "valueExpr": {
-            "fhirPath": "1 / utl:getPeriod(%eligibilityEventTime, %eligibilityExitTime, 'days')",
+            "fhirPath": "1 / (utl:getPeriod(%eligibilityEventTime, %eligibilityExitTime, 'days') + 1)",
             "dataType": "decimal"
           },
           "temporalAgg": [
