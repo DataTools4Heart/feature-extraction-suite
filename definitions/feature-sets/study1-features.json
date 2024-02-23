@@ -84,7 +84,7 @@
           "description": "Value of the vital sign",
           "temporalAgg": [
             {
-              "aggOp": ["first", "last", "avg", "min", "max", "stddev", "variance", "set"]
+              "aggOp": ["set"]
             }
           ]
         }
@@ -208,7 +208,7 @@
           "description": "Value of the lab result",
           "temporalAgg": [
             {
-              "aggOp": ["first", "last", "avg", "min", "max", "stddev", "variance", "set"]
+              "aggOp": ["set"]
             }
           ]
         }
