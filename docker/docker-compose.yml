@@ -34,7 +34,7 @@ services:
   onfhir-feast:
     image: srdc/onfhir-feast:dt4h
     container_name: dt4h-feast-server
-    command: [ "extract-dataset --pipeline https://datatools4heart.eu/datasets/study1_dataset"]
+    command: [ "extract-dataset --pipeline https://datatools4heart.eu/datasets/study1"]
     ports:
       - "6087:8087"
     environment:
