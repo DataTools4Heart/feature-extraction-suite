@@ -43,6 +43,7 @@ services:
       - onfhir-network
     volumes:
       - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
+      - ./feature-extraction-suite/datasets:/usr/local/onfhir-feast/datasets
 networks:
   onfhir-network:
     name: onfhir-network
