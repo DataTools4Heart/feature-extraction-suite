@@ -1,13 +1,13 @@
 {
-  "url": "https://datatools4heart.eu/feature-sets/study1_dataset",
-  "name": "study1_dataset",
+  "url": "https://datatools4heart.eu/datasets/study1",
+  "name": "study1",
   "title": "Dataset for DataTools4Heart study-1",
   "description": "Dataset for DataTools4Heart study-1",
   "version": "0.1",
   "date": "2023-01-24",
   "fhirVersion": "4.3.0",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "featureSet": "https://datatools4heart.eu/feature-sets/study1_features",
+  "featureSet": "https://datatools4heart.eu/feature-sets/study1",
   "population": "https://datatools4heart.eu/cohorts/study1",
   "agentSettings": [
     {

@@ -1,6 +1,6 @@
 {
-  "url": "https://datatools4heart.eu/feature-sets/single",
-  "name": "single",
+  "url": "https://datatools4heart.eu/feature-sets/single_dataset",
+  "name": "single_dataset",
   "title": "Time series data for study-1",
   "description": "Time series data for study-1",
   "version": "0.1",

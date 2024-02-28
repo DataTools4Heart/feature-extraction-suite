@@ -12,7 +12,9 @@
     {
       "fhirSearch": "?",
       "description": "All patients with a primary discharge diagnosis of heart failure",
-      "entities": ["Encounter.subject"]
+      "entities": ["Encounter.subject"],
+      "eventTime": "Encounter.actualPeriod.start",
+      "exitTime": "Encounter.actualPeriod.end"
     }
   ]
 }
