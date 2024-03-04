@@ -9,6 +9,230 @@
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "targetResourceType": "MedicationAdministration",
   "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-MedicationAdministration",
+  "context": [
+    {
+      "name": "therapies",
+      "description": "Medication therapy categories specified for this use case in terms of ATC code. 'sw' indicates the list of prefixes that the given code is expected to start with at least once. 'nsw' indicates the list of codes that the code should not start with",
+      "item": [
+        {
+          "key": "rasi",
+          "description": "Renin–angiotensin system inhibitor",
+          "content": {
+            "sw": ["C09AA", "C09B","C09CA", "C09D", "C09X"]
+          }
+        },
+        {
+          "key": "arni",
+          "description": "Angiotensin receptor-neprilysin inhibitor (ARNi)",
+          "content": {
+            "eq": ["C09DX04"]
+          }
+        },
+        {
+          "key": "acei",
+          "description": "Angiotensin-converting enzyme (ACE)-inhibitors",
+          "content": {
+            "sw": ["C09AA", "C09BA", "C09BB", "C09BX"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "arb",
+          "description": "Angiotensin receptor blocker (ARB) ",
+          "content": {
+            "sw": ["C09C", "C09D"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "mra",
+          "description": "mineralcorticoid receptor antagonist",
+          "content": {
+            "sw": ["C03DA", "C03EA", "C03EB"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "diuretics",
+          "description": "diuretics",
+          "content": {
+            "sw": ["C03A", "C03D", "C03E", "C03XA", "C03BA", "C03BB", "C03CA", "C03CB", "C03CC", "C03CX", "C07BA", "C07BB", "C07CA", "C07CB", "C07CG", "C07DZ", "C07DB", "C08GA", "C09BA", "C09BX", "C09DA", "C09DX", "C02LA", "C02LB", "C02LC", "C02LG", "C02LK", "C02LL", "C02LX"],
+            "nsw": ["C03BA82"]
+          }
+        },
+        {
+          "key": "diuretics_loop",
+          "description": "Loop diuretics",
+          "content": {
+            "sw": ["C03CA"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "anti_coag",
+          "description": "anticoagulant agents",
+          "content": {
+            "sw": ["BO1AA", "BO1AB", "BO1AX04", "BO1AX05", "BO1AF", "BO1AE", "BO1AX01", "BO1AD12", "BO1AB02"],
+            "nsw": []
+          }
+        },
+
+        {
+          "key": "anti_plat",
+          "description": "antiplatelet agents",
+          "content": {
+            "sw": ["BO1AC13", "BO1AC17", "BO1AC16", "BO1AC04", "BO1AC22", "BO1AC05", "BO1AC25", "BO1AC24", "BO1AC19", "BO1AC11", "BO1AC21", "BO1AC06", "BO1AC15", "BO1AC08", "BO1AC10", "BO1AC18", "BO1AC07", "BO1AC03", "BO1AC23", "BO1AC01", "BO1AC02", "BO1AC26"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "thrombolytic",
+          "description": "thrombolytic drugs/fibrinolytics",
+          "content": {
+            "sw": ["BO1AD02", "BO1AD07", "BO1AD11", "BO1AD08", "BO1AD04", "BO1AD03", "BO1AD01", "BO1AD09", "BO1AD06", "BO1AD05"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "bb",
+          "description": "beta blockers",
+          "content": {
+            "sw": ["C07"],
+            "nsw": ["C07E"]
+          }
+        },
+        {
+          "key": "ccb",
+          "description": "calcium channel blockers",
+          "content": {
+            "sw": ["C08C", "C08D", "C08E", "C08GA"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "digitalis",
+          "description": "Digitalis glycosides",
+          "content": {
+            "sw": ["C01AA"],
+            "nsw": ["C01AA09", "C01AA52"]
+          }
+        },
+        {
+          "key": "antiarrhytmic",
+          "description": "antiarrhythmic drugs",
+          "content": {
+            "sw": ["C01B"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "inotropes",
+          "description": "inotropes",
+          "content": {
+            "sw": ["C01CA", "C01CE", "C01CX"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "vasodil",
+          "description": "vasodilators",
+          "content": {
+            "sw": ["C01D"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "platelet",
+          "description": "platelets",
+          "content": {
+            "sw": ["B01AC"],
+            "nsw": []
+          }
+        },
+
+        {
+          "key": "ll",
+          "description": "lipid lowering agents",
+          "content": {
+            "sw": ["C10AA", "C10BA", "C10BX", "C10AX13", "C10AX14", "C10AC16", "C10AX09"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "ivabradine",
+          "description": "ivabradine",
+          "content": {
+            "sw": ["C01EB17"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "potassium_binders",
+          "description": "potassium binders",
+          "content": {
+            "sw": ["V03AE01", "V03AE10", "V03AE09"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "insulins",
+          "description": "insulins and analogs",
+          "content": {
+            "sw": ["A10A"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "oral_antidiabetic",
+          "description": "insulins and analogs",
+          "content": {
+            "sw": ["A10BA", "A10BB", "A10BG", "A10BF", "A10BH", "A10BJ", "A10BD", "A10BX09", "A10BK01", "A10BX12", "A10BK03"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "ari",
+          "description": "drugs to prevent nerve damage in diabetes",
+          "content": {
+            "sw": ["A10XA"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "rdoad",
+          "description": "respiratory drugs for obstructive airway diseases, inhalants",
+          "content": {
+            "sw": ["R03A", "R03B"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "rdoad_syst",
+          "description": "respiratory drugs for obstructive airway diseases, systemic use",
+          "content": {
+            "sw": ["R03C", "R03D"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "cortico_syst",
+          "description": "corticosteroids systemic",
+          "content": {
+            "sw": ["H02A", "H02BX", "H02C"],
+            "nsw": []
+          }
+        },
+        {
+          "key": "antiinfl",
+          "description": "anti-inflammatory drugs",
+          "content": {
+            "sw": ["M01AB", "M01AX", "C01EB16"],
+            "nsw": []
+          }
+        }
+      ]
+    }
+  ],
   "fhirSearch": "?patient={{Patient}}&context={{Encounter}}",
   "entities": {
     "pid": "Patient",
@@ -43,6 +267,14 @@
       "description": "ATC code for the medication",
       "dataType": "code",
       "fhirPath": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code.first()"
+    },
+    {
+      "name": "therapy",
+      "title": "Logical grouping for the medication",
+      "description": "Logical grouping for the medication",
+      "dataType": "code",
+      "isArray": true,
+      "fhirPath": "fst:findContextKeysForCodeMatching(%therapies, %medicationCode)"
     },
     {
       "name": "dose",

@@ -63,7 +63,7 @@
       "title": "Encounter identifier",
       "description": "Identifier of the encounter that this assessment is done",
       "dataType": "id",
-      "fhirPath": "Observation.encounter.reference"
+      "fhirPath": "Observation.encounter"
     }
   ]
 }

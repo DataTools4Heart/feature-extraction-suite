@@ -7,7 +7,7 @@
   "date": "2023-01-24",
   "fhirVersion": "4.3.0",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "featureSet": "https://datatools4heart.eu/feature-sets/study1",
+  "featureSet": "https://datatools4heart.eu/feature-sets/study1_features_new",
   "population": "https://datatools4heart.eu/cohorts/study1",
   "agentSettings": [
     {
