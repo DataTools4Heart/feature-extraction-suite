@@ -486,7 +486,7 @@
       "reference": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "filter": {
         "name": "heartFailure",
-        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+        "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
       },
       "feature": [
         {
@@ -576,7 +576,7 @@
           "name": "hf",
           "description": "Whether the patient has heart failure in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
-            "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')",
+            "fhirPath": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -589,7 +589,7 @@
           "name": "hyp",
           "description": "Whether the patient has hypertension in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "valueExpr": {
-            "fhirPath": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')",
+            "fhirPath": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1043,7 +1043,7 @@
           "name": "hosp_for_heart_failure",
           "description": "Whether the patient is hospitalized because of heart failure after the reference time point.",
           "valueExpr": {
-            "fhirPath": "primaryReasonCode.startsWith('I50') or primaryReasonCode.startsWith('I11') or primaryReasonCode.startsWith('I13.0') or primaryReasonCode.startsWith('I13.2') or primaryReasonCode.startsWith('I26.0')",
+            "fhirPath": "primaryReasonCode.startsWith('I50') or primaryReasonCode.startsWith('I11.0') or primaryReasonCode.startsWith('I13.0') or primaryReasonCode.startsWith('I13.2') or primaryReasonCode.startsWith('I26.0')",
             "dataType": "boolean"
           },
           "temporalAgg": [
