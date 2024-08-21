@@ -233,7 +233,7 @@
       ]
     }
   ],
-  "fhirSearch": "?patient={{Patient}}&context={{Encounter}}",
+  "fhirSearch": "?patient={{Patient}}",
   "entities": {
     "pid": "Patient",
     "encounterId": "Encounter"

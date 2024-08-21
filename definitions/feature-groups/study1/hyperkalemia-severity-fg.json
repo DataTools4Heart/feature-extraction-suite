@@ -9,7 +9,7 @@
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "targetResourceType": "Observation",
   "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
-  "fhirSearch": "?patient={{Patient}}&encounter={{Encounter}}&_profile=https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult&code=http://loinc.org|2823-3",
+  "fhirSearch": "?patient={{Patient}}&code=http://loinc.org|2823-3",
   "entities": {
     "pid": "Patient",
     "encounterId": "Encounter"

@@ -4,3 +4,4 @@ application.conf
 logs/*
 .idea/
 data-catalog/*
+datasets/
