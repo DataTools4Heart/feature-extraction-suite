@@ -9,7 +9,7 @@
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "targetResourceType": "Observation",
   "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-VitalSign",
-  "fhirSearch": "?patient={{Patient}}&category=http://hl7.org/fhir/ValueSet/observation-category|vital-signs",
+  "fhirSearch": "?patient={{Patient}}&category=http://terminology.hl7.org/CodeSystem/observation-category|vital-signs",
   "entities": {
     "pid": "Patient",
     "encounterId": "Encounter"
