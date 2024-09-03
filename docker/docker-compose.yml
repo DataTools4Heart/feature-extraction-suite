@@ -35,7 +35,7 @@ services:
     networks:
       - onfhir-network
   onfhir-feast:
-    image: srdc/onfhir-feast:dt4h
+    image: srdc/onfhir-feast:latest
     container_name: dt4h-feast-server
     ports:
       - "6087:8087"
