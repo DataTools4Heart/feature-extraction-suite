@@ -40,7 +40,8 @@ services:
     ports:
       - "6087:8087"
     environment:
-      APP_CONF_FILE: /usr/local/onfhir-feast/conf/docker/feast-server.conf
+      - APP_CONF_FILE=/usr/local/onfhir-feast/conf/docker/feast-server.conf
+      - JAVA_OPTIONS=-Xms512m -Xmx16g
     networks:
       - onfhir-network
     volumes:
