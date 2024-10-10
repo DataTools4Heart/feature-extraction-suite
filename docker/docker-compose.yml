@@ -11,6 +11,8 @@ services:
       POSTGRES_MAX_CONNECTIONS: 100
     networks:
       - onfhir-network
+    volumes:
+      - feast-postgres-data:/var/lib/postgresql/data
   feast-kafka-1:
     image: bitnami/kafka:latest
     container_name: dt4h-feast-kafka-1
@@ -47,6 +49,9 @@ services:
     volumes:
       - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
       - ./feature-extraction-suite/datasets:/usr/local/onfhir-feast/datasets
+volumes:
+  feast-postgres-data:
+    driver: local
 networks:
   onfhir-network:
     name: onfhir-network
