@@ -3,6 +3,7 @@ services:
   feast-postgres:
     image: postgres:14.10
     container_name: dt4h-feast-postgres
+    restart: always
     ports:
       - 6433:5432
     environment:
@@ -16,6 +17,7 @@ services:
   feast-kafka-1:
     image: bitnami/kafka:latest
     container_name: dt4h-feast-kafka-1
+    restart: always
     ports:
       - 6092:9092
     environment:
@@ -39,6 +41,7 @@ services:
   onfhir-feast:
     image: srdc/onfhir-feast:latest
     container_name: dt4h-feast-server
+    restart: always
     ports:
       - "6087:8087"
     environment:
