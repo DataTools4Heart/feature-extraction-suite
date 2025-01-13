@@ -1,0 +1,64 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+  "name": "conditions",
+  "title": "Conditions",
+  "description": "Condition related features",
+  "version": "0.1",
+  "status": "draft",
+  "date": "2024-01-15",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "icd10Code",
+      "title": "Condition code (ICD-10)",
+      "description": "ICD-10 code for the condition",
+      "dataType": "code"
+    }
+  ],
+  "pipeline": [
+    {
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from Condition.",
+          "resourceType": "Condition",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Condition",
+          "query": "?clinical-status=active",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Condition.subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Condition.encounter.reference"
+            }
+          ],
+          "feature": [
+            {
+              "name": "icd10Code",
+              "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

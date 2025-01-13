@@ -1,0 +1,74 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+  "name": "vital_signs",
+  "title": "Vital signs",
+  "description": "Vital sign related features",
+  "version": "0.1",
+  "status": "draft",
+  "date": "2024-01-15",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "code",
+      "title": "LOINC code for the vital-sign",
+      "description": "LOINC code for the vital-sign",
+      "dataType": "code"
+    },
+    {
+      "name": "value",
+      "title": "Numeric lab result",
+      "description": "Numeric result",
+      "dataType": "decimal"
+    }
+  ],
+  "pipeline": [
+    {
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from Vital Sign Observation.",
+          "resourceType": "Observation",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-NYHAAssessment",
+          "query": "?category=vital-signs",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Observation.subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Observation.encounter.reference"
+            }
+          ],
+          "feature": [
+            {
+              "name": "code",
+              "path": "Observation.code.coding.where(system='http://loinc.org').first().code"
+            },
+            {
+              "name": "value",
+              "path": "Observation.valueQuantity.value"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

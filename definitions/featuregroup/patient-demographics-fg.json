@@ -1,0 +1,63 @@
+{
+  "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+  "name": "patient_demographics",
+  "title": "Patient demographics",
+  "description": "Patient demographics related features",
+  "version": "0.1",
+  "status": "draft",
+  "date": "2023-01-26",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    }
+  ],
+  "feature": [
+    {
+      "name": "gender",
+      "title": "Gender",
+      "description": "Gender of the patient (male | female | other | unknown)",
+      "dataType": "code"
+    },
+    {
+      "name": "birthDate",
+      "title": "Birth Date",
+      "description": "Birth Date of the patient (format: YYYY-MM-DD or YYYY-MM)",
+      "dataType": "date"
+    }
+  ],
+  "pipeline": [
+    {
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from Patient resource.",
+          "resourceType": "Patient",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Patient",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "Patient.id"
+            }
+          ],
+          "feature": [
+            {
+              "name": "gender",
+              "path": "Patient.gender"
+            },
+            {
+              "name": "birthDate",
+              "path": "Patient.birthDate.toDate()"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

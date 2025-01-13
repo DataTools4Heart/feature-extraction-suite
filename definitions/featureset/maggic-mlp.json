@@ -1,0 +1,161 @@
+{
+  "url": "https://datatools4heart.eu/feature-sets/maggic-mlp",
+  "name": "maggic-mlp",
+  "title": "MAGGIC-MLP Features",
+  "description": "Set of extracted features for MAGGIC-MLP",
+  "version": "0.1",
+  "status": "draft",
+  "date": "2025-01-09",
+  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "sampling": {
+    "description": "The time period is divided into 1a periods.",
+    "period": "1a"
+  },
+  "feature": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "gender",
+          "description": "Gender of the patient"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at reference point",
+          "value": {
+            "path": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/nyha",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "nyha",
+          "description": "Value of the New York Heart Assessment as LOINC Code"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Important vital signs",
+        "values": [
+          {
+            "name": "systolic-blood-pressure",
+            "value": "8480-6"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Numeric result"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Important lab results",
+        "values": [
+          {
+            "name": "sodium",
+            "value": "2951-2"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Numeric result"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "diabetes",
+        "description": "Find the diabetes.",
+        "filter": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "stroke",
+        "description": "Find the strokes.",
+        "filter": "icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64') or icd10Code.startsWith('I60')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    }
+  ]
+}
