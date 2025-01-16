@@ -228,6 +228,54 @@
           }
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "beta-blocker-use",
+        "description": "Find Beta Blocker medications.",
+        "filter": "medicationCode.startsWith('C07AA') or medicationCode.startsWith('C07AB') or medicationCode.startsWith('C07AG') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07BG') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG') or medicationCode.startsWith('C07DA') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C07DG') or medicationCode.startsWith('C07FB') or medicationCode.startsWith('C07FX')"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "ace-inhibitors-arb-use",
+        "description": "Find ACE Inhibitors / ARB Use medications.",
+        "filter": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BB02') or medicationCode.startsWith('C09BB03') or medicationCode.startsWith('C09BB04') or medicationCode.startsWith('C09BB05') or medicationCode.startsWith('C09BB06') or medicationCode.startsWith('C09BB07') or medicationCode.startsWith('C09BB08') or medicationCode.startsWith('C09BB09') or medicationCode.startsWith('C09BB010') or medicationCode.startsWith('C09BB011') or medicationCode.startsWith('C09BB012') or medicationCode.startsWith('C09BX01') or medicationCode.startsWith('C09BX02') or medicationCode.startsWith('C09BX03') or medicationCode.startsWith('C09BX04') or medicationCode.startsWith('C09BX05') or medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DB') or medicationCode.startsWith('C09DX01') or medicationCode.startsWith('C09DX02') or medicationCode.startsWith('C09DX03') or medicationCode.startsWith('C09DX04') or medicationCode.startsWith('C09DX05') or medicationCode.startsWith('C09DX06') or medicationCode.startsWith('C09DX07') or medicationCode.startsWith('C09DX04')"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCode.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
     }
   ]
 }
