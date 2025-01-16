@@ -156,6 +156,78 @@
           }
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "myocardial-infarction",
+        "description": "Find the Myocardial Infarctions.",
+        "filter": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "atrial-fibrillation",
+        "description": "Find the Atrial Fibrillations.",
+        "filter": "icd10Code.startsWith('I48')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "chronic-obstructive-pulmonary-disease",
+        "description": "Find the Chronic Obstructive Pulmonary Disease (COPD).",
+        "filter": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
     }
   ]
 }
