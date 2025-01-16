@@ -166,6 +166,54 @@
         }
       },
       "filter": {
+        "name": "cabg",
+        "description": "Find the Coronary Artery Bypass Graft (CABG) Surgeries.",
+        "filter": "icd10Code.startsWith('Z95.5')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "pci",
+        "description": "Find the Percutaneous Coronary Intervention (PCI).",
+        "filter": "icd10Code.startsWith('Z95.5')"
+      },
+      "feature": [
+        {
+          "name": "occurred",
+          "description": "Whether the condition occurred.",
+          "value": {
+            "path": "icd10Code.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
         "name": "myocardial-infarction",
         "description": "Find the Myocardial Infarctions.",
         "filter": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')"
