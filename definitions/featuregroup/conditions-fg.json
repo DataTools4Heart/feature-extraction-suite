@@ -23,6 +23,12 @@
       "title": "Condition code (ICD-10)",
       "description": "ICD-10 code for the condition",
       "dataType": "code"
+    },
+    {
+      "name": "date",
+      "title": "The date of the condition.",
+      "description": "The date of the condition.",
+      "dataType": "date"
     }
   ],
   "pipeline": [
@@ -55,6 +61,10 @@
             {
               "name": "icd10Code",
               "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
+            },
+            {
+              "name": "date",
+              "path": "Condition.onsetDateTime.toDate()"
             }
           ]
         }

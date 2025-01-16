@@ -113,6 +113,29 @@
       "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
       "join": {
         "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "heart-failure",
+        "description": "Find the Heart Failures.",
+        "filter": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "feature": [
+        {
+          "name": "occurred_prior_to_18_months",
+          "description": "Indicates whether the condition was diagnosed 18 months or more before the reference time point, corresponding to the criteria for 'Heart Failure (HF) ≥ 18 Months Prior.'",
+          "value": {
+            "path": "icd10Code.exists() and utl:getPeriod(%referenceTimePoint, date, 'months') >= 18",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
           "pid": "pid",
           "encounterId": "encounterId"
         }
