@@ -55,7 +55,14 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "Value of the New York Heart Assessment as LOINC Code"
+          "description": "The latest value of the New York Heart Assessment as LOINC Code",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -80,7 +87,14 @@
       "feature": [
         {
           "name": "value",
-          "description": "Numeric result"
+          "description": "The latest numeric result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -113,7 +127,14 @@
       "feature": [
         {
           "name": "value",
-          "description": "Numeric result"
+          "description": "The latest numeric result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
         }
       ]
     },
