@@ -81,6 +81,10 @@
           {
             "name": "systolic-blood-pressure",
             "value": "8480-6"
+          },
+          {
+            "name": "bmi",
+            "value": "39156-5"
           }
         ]
       },
