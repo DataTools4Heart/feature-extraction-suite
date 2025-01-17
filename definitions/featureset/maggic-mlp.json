@@ -347,6 +347,25 @@
           }
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "in-reference-time-point",
+        "description": "Determines if the smoking status is valid at the specified reference time point.",
+        "filter": "iif(endTime.exists(),startTime <= referenceTimePoint and endTime >= referenceTimePoint,startTime <= referenceTimePoint)"
+      },
+      "feature": [
+        {
+          "name": "code",
+          "description": "Smoking status code"
+        }
+      ]
     }
   ]
 }

@@ -4,38 +4,71 @@
   "title": "Smoking status",
   "description": "Smoking status related features",
   "version": "0.1",
-  "date": "2023-03-20",
-  "fhirVersion": "4.0.1",
+  "status": "draft",
+  "date": "2024-01-17",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "targetResourceType": "Observation",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-SmokingStatus",
-  "fhirSearch": "?patient={{Patient}}&code=http://loinc.org|72166-2",
-  "entities": {
-    "pid": "Patient"
-  },
-  "timestamp": "startTime",
-  "periodEnd": "endTime",
-  "feature": [
+  "entity": [
     {
       "name": "pid",
-      "title": "Patient identifier",
-      "description": "Patient identifier",
-      "dataType": "id",
-      "fhirPath": "Observation.subject"
-    },
+      "description": "A unique identifier assigned to each patient in the cohort."
+    }
+  ],
+  "feature": [
     {
       "name": "startTime",
       "title": "Period start time",
       "description": "Start date of the period of smoking",
-      "dataType": "dateTime",
-      "fhirPath": "Observation.effectivePeriod.start"
+      "dataType": "dateTime"
     },
     {
       "name": "endTime",
       "title": "Period end time",
       "description": "End date of the period of smoking",
-      "dataType": "dateTime",
-      "fhirPath": "Observation.effectivePeriod.end"
+      "dataType": "dateTime"
+    },
+    {
+      "name": "code",
+      "title": "Smoking status code",
+      "description": "A SNOMED code representing the individual's smoking status.",
+      "dataType": "code"
+    }
+  ],
+  "pipeline": [
+    {
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from Smoking Status Observation.",
+          "resourceType": "Observation",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-SmokingStatus",
+          "query": "?code=72166-2",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Observation.subject.reference"
+            }
+          ],
+          "feature": [
+            {
+              "name": "code",
+              "path": "Observation.valueCodeableConcept.coding.where(system='http://snomed.info/sct').first().code"
+            },
+            {
+              "name": "startTime",
+              "path": "Observation.effectivePeriod.start.toDateTime()"
+            },
+            {
+              "name": "endTime",
+              "path": "Observation.effectivePeriod.end.toDateTime()"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
