@@ -99,6 +99,14 @@
           {
             "name": "sodium",
             "value": "2951-2"
+          },
+          {
+            "name": "creatinine",
+            "value": "2160-0"
+          },
+          {
+            "name": "urinary_creatinine",
+            "value": "2161-8"
           }
         ]
       },
