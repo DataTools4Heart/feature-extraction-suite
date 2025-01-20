@@ -41,8 +41,7 @@
               "path": "id"
             }
           ],
-          "eventTime": "Encounter.actualPeriod.start",
-          "exitTime": "Encounter.actualPeriod.end"
+          "eventTime": "Encounter.actualPeriod.start"
         }
       ],
       "period": {

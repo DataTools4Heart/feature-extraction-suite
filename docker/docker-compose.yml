@@ -1,60 +1,15 @@
-version: '3.9'
 services:
-  feast-postgres:
-    image: postgres:14.10
-    container_name: dt4h-feast-postgres
-    restart: always
-    ports:
-      - 6433:5432
+  onfhir-feast-cli:
+    image: srdc/onfhir-feast-cli:latest
+    container_name: dt4h-onfhir-feast-cli
     environment:
-      POSTGRES_PASSWORD: 'postgres'
-      POSTGRES_DB: 'onfhir-feast-server'
-      POSTGRES_MAX_CONNECTIONS: 100
-    networks:
-      - onfhir-network
-    volumes:
-      - feast-postgres-data:/var/lib/postgresql/data
-  feast-kafka-1:
-    image: bitnami/kafka:latest
-    container_name: dt4h-feast-kafka-1
-    restart: always
-    ports:
-      - 6092:9092
-    environment:
-      KAFKA_CFG_NODE_ID: 1
-      KAFKA_CFG_BROKER_ID: 1
-      KAFKA_CFG_PROCESS_ROLES: 'broker,controller'
-      KAFKA_KRAFT_CLUSTER_ID: abcdefghijklmnopqrstuv
-      ALLOW_PLAINTEXT_LISTENER: 'yes'
-      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
-      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: 'PLAINTEXT'
-      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
-      KAFKA_CFG_LISTENERS: 'PLAINTEXT://feast-kafka-1:29092,CONTROLLER://feast-kafka-1:29093,PLAINTEXT_HOST://0.0.0.0:9092'
-      KAFKA_CFG_ADVERTISED_LISTENERS: 'PLAINTEXT://feast-kafka-1:29092,PLAINTEXT_HOST://localhost:9092'
-      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: '1@feast-kafka-1:29093'
-      KAFKA_CFG_MESSAGE_MAX_BYTES: 50000000
-      KAFKA_CFG_MAX_REQUEST_SIZE: 50000000
-      KAFKA_CFG_FETCH_MESSAGE_MAX_BYTES: 50000000
-      KAFKA_CFG_SOCKET_REQUEST_MAX_BYTES: 50000000
-    networks:
-      - onfhir-network
-  onfhir-feast:
-    image: srdc/onfhir-feast:latest
-    container_name: dt4h-feast-server
-    restart: always
-    ports:
-      - "6087:8087"
-    environment:
-      - APP_CONF_FILE=/usr/local/onfhir-feast/conf/docker/feast-server.conf
-      - JAVA_OPTIONS=-Xms512m -Xmx16g
+      - APP_CONF_FILE=/usr/local/onfhir-feast/conf/docker/feast-cli.conf
+      - JAVA_OPTIONS=-Xms2g -Xmx24g
     networks:
       - onfhir-network
     volumes:
       - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
-      - ./feature-extraction-suite/datasets:/usr/local/onfhir-feast/datasets
-volumes:
-  feast-postgres-data:
-    driver: local
+      - ./feature-extraction-suite/output-data:/usr/local/onfhir-feast/output-data
 networks:
   onfhir-network:
     name: onfhir-network
