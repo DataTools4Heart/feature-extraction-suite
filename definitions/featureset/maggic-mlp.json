@@ -414,5 +414,26 @@
         }
       ]
     }
+  ],
+  "outcome": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "12mo"
+      },
+      "feature": [
+        {
+          "name": "deceased",
+          "description": "Mortality recorded within the 12 months following the reference time point, which corresponds to the end of the encounter.",
+          "value": {
+            "path": "deceasedDateTime.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    }
   ]
 }

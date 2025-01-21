@@ -7,6 +7,9 @@
   "status": "draft",
   "date": "2023-01-26",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "eventTime": {
+    "start": "deceasedDateTime"
+  },
   "entity": [
     {
       "name": "pid",
@@ -24,6 +27,12 @@
       "name": "birthDate",
       "title": "Birth Date",
       "description": "Birth Date of the patient (format: YYYY-MM-DD or YYYY-MM)",
+      "dataType": "date"
+    },
+    {
+      "name": "deceasedDateTime",
+      "title": "Deceased date time",
+      "description": "Deceased date time",
       "dataType": "date"
     }
   ],
@@ -53,7 +62,11 @@
             },
             {
               "name": "birthDate",
-              "path": "Patient.birthDate.toDate()"
+              "path": "Patient.birthDate"
+            },
+            {
+              "name": "deceasedDateTime",
+              "path": "Patient.deceasedDateTime"
             }
           ]
         }
