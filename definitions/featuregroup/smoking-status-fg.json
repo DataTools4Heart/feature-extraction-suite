@@ -64,11 +64,11 @@
             },
             {
               "name": "startTime",
-              "path": "Observation.effectivePeriod.start.toDateTime()"
+              "path": "Observation.effectivePeriod.start"
             },
             {
               "name": "endTime",
-              "path": "Observation.effectivePeriod.end.toDateTime()"
+              "path": "Observation.effectivePeriod.end"
             }
           ]
         }

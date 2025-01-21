@@ -23,8 +23,24 @@
       "title": "Medication code (ATC)",
       "description": "ATC code for the medication",
       "dataType": "code"
+    },
+    {
+      "name": "startTime",
+      "title": "MedicationAdministration start time",
+      "description": "MedicationAdministration start time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "endTime",
+      "title": "MedicationAdministration end time",
+      "description": "MedicationAdministration end time",
+      "dataType": "dateTime"
     }
   ],
+  "eventTime": {
+    "start": "startTime",
+    "end": "endTime"
+  },
   "pipeline": [
     {
       "interface": "FHIR",
@@ -54,6 +70,14 @@
             {
               "name": "medicationCode",
               "path": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code.first()"
+            },
+            {
+              "name": "startTime",
+              "path": "MedicationAdministration.occurencePeriod.start"
+            },
+            {
+              "name": "endTime",
+              "path": "MedicationAdministration.occurencePeriod.end"
             }
           ]
         }

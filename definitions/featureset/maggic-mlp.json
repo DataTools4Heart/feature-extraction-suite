@@ -18,8 +18,19 @@
     }
   ],
   "sampling": {
-    "description": "The time period is divided into 1a periods.",
-    "period": "1a"
+    "description": "Use the end time of encounters as the reference time point.",
+    "events": [
+      {
+        "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+        "join": {
+          "on": {
+            "pid": "pid",
+            "encounterId": "encounterId"
+          }
+        },
+        "useEndTime": true
+      }
+    ]
   },
   "feature": [
     {
@@ -55,14 +66,7 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "The latest value of the New York Heart Assessment as LOINC Code",
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first"
-              ]
-            }
-          ]
+          "description": "The latest value of the New York Heart Assessment as LOINC Code"
         }
       ]
     },
@@ -91,14 +95,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "The latest numeric result",
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first"
-              ]
-            }
-          ]
+          "description": "The latest numeric result"
         }
       ]
     },
@@ -131,14 +128,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "The latest numeric result",
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first"
-              ]
-            }
-          ]
+          "description": "The latest numeric result"
         }
       ]
     },

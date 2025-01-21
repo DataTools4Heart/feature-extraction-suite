@@ -23,8 +23,17 @@
       "title": "NYHA Value",
       "description": "Value of the New York Heart Assessment as LOINC Code",
       "dataType": "code"
+    },
+    {
+      "name": "date",
+      "title": "The date of the observation.",
+      "description": "The date of the observation.",
+      "dataType": "date"
     }
   ],
+  "eventTime": {
+    "start": "date"
+  },
   "pipeline": [
     {
       "interface": "FHIR",
@@ -55,6 +64,10 @@
             {
               "name": "nyha",
               "path": "Observation.valueCodeableConcept.coding.where(system='http://loinc.org').first().code"
+            },
+            {
+              "name": "date",
+              "path": "Observation.effectiveDateTime"
             }
           ]
         }

@@ -29,8 +29,17 @@
       "title": "Numeric lab result",
       "description": "Numeric lab result",
       "dataType": "decimal"
+    },
+    {
+      "name": "date",
+      "title": "The date of the observation.",
+      "description": "The date of the observation.",
+      "dataType": "date"
     }
   ],
+  "eventTime": {
+    "start": "date"
+  },
   "pipeline": [
     {
       "interface": "FHIR",
@@ -65,6 +74,10 @@
             {
               "name": "value",
               "path": "Observation.valueQuantity.value"
+            },
+            {
+              "name": "date",
+              "path": "Observation.effectiveDateTime"
             }
           ]
         }
