@@ -4,76 +4,74 @@
   "title": "Encounters",
   "description": "Encounter related features",
   "version": "0.1",
-  "date": "2023-02-28",
-  "fhirVersion": "4.0.1",
+  "status": "draft",
+  "date": "2025-01-21",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "targetResourceType": "Encounter",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Encounter",
-  "fhirSearch": "?patient={{Patient}}",
-  "entities": {
-    "pid": "Patient",
-    "encounterId": "Encounter"
-  },
-  "timestamp": "startTime",
-  "periodEnd": "endTime",
-  "feature": [
+  "entity": [
     {
       "name": "pid",
-      "title": "Patient identifier",
-      "description": "Patient identifier",
-      "dataType": "id",
-      "fhirPath": "Encounter.subject"
+      "description": "A unique identifier assigned to each patient in the cohort."
     },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
     {
       "name": "startTime",
       "title": "Encounter start time ",
       "description": "Encounter start time",
-      "dataType": "dateTime",
-      "fhirPath": "Encounter.actualPeriod.start"
-    },
-    {
-      "name": "admissionYear",
-      "title": "Year of the admission time ",
-      "description": "Year of the admission time",
-      "dataType": "string",
-      "fhirPath": "Encounter.actualPeriod.start.toString().substring(0,4)"
+      "dataType": "dateTime"
     },
     {
       "name": "endTime",
       "title": "Encounter end time ",
       "description": "Encounter end time",
-      "dataType": "dateTime",
-      "fhirPath": "Encounter.actualPeriod.end"
-    },
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "startTime",
+    "end": "endTime"
+  },
+  "pipeline": [
     {
-      "name": "encounterType",
-      "title": "Encounter type",
-      "description": "Type of this encounter",
-      "dataType": "id",
-      "fhirPath": "Encounter.type.coding.where(system='http://snomed.info/sct').code.first()"
-    },
-    {
-      "name": "encounterClass",
-      "title": "Encounter class",
-      "description": "Class of this encounter",
-      "dataType": "code",
-      "fhirPath": "Encounter.class.coding.where(system='http://terminology.hl7.org/CodeSystem/v3-ActCode').code.first()"
-    },
-    {
-      "name": "encounterId",
-      "title": "Encounter identifier",
-      "description": "Identifier of this encounter",
-      "dataType": "id",
-      "fhirPath": "Encounter.id"
-    },
-    {
-      "name": "primaryReasonCode",
-      "title": "Primary reason code",
-      "description": "ICD 10 code of the primary reason for the encounter",
-      "dataType": "string",
-      "fhirPath": "Encounter.reason.use.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from Encounter.",
+          "resourceType": "Encounter",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Encounter",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Encounter.subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "_id",
+              "path": "Encounter.id"
+            }
+          ],
+          "feature": [
+            {
+              "name": "startTime",
+              "path": "Encounter.actualPeriod.start"
+            },
+            {
+              "name": "endTime",
+              "path": "Encounter.actualPeriod.end"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
-
-
