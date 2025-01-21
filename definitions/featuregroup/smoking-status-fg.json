@@ -13,6 +13,10 @@
       "description": "A unique identifier assigned to each patient in the cohort."
     }
   ],
+  "eventTime": {
+    "start": "startTime",
+    "end": "endTime"
+  },
   "feature": [
     {
       "name": "startTime",
