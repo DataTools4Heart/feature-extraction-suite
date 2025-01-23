@@ -7,9 +7,6 @@
   "status": "draft",
   "date": "2023-01-26",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "eventTime": {
-    "start": "deceasedDateTime"
-  },
   "entity": [
     {
       "name": "pid",

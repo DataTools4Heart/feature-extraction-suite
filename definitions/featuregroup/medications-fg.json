@@ -29,17 +29,10 @@
       "title": "MedicationAdministration start time",
       "description": "MedicationAdministration start time",
       "dataType": "dateTime"
-    },
-    {
-      "name": "endTime",
-      "title": "MedicationAdministration end time",
-      "description": "MedicationAdministration end time",
-      "dataType": "dateTime"
     }
   ],
   "eventTime": {
-    "start": "startTime",
-    "end": "endTime"
+    "start": "startTime"
   },
   "pipeline": [
     {
@@ -74,10 +67,6 @@
             {
               "name": "startTime",
               "path": "MedicationAdministration.occurencePeriod.start"
-            },
-            {
-              "name": "endTime",
-              "path": "MedicationAdministration.occurencePeriod.end"
             }
           ]
         }

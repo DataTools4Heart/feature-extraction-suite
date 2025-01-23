@@ -149,9 +149,16 @@
           "name": "occurred_prior_to_18_months",
           "description": "Indicates whether the condition was diagnosed 18 months or more before the reference time point, corresponding to the criteria for 'Heart Failure (HF) ≥ 18 Months Prior.'",
           "value": {
-            "path": "icd10Code.exists() and utl:getPeriod(%referenceTimePoint, date, 'months') >= 18",
+            "path": "icd10Code.exists() and utl:getPeriod(date, %referenceTimePoint, 'months') >= 18",
             "dataType": "boolean"
-          }
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -163,163 +170,111 @@
           "encounterId": "encounterId"
         }
       },
-      "filter": {
-        "name": "diabetes",
-        "description": "Find the diabetes.",
-        "filter": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')"
-      },
       "feature": [
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_chronic_obstructive_pulmonary_disease",
+          "description": "Whether the patient has the Chronic Obstructive Pulmonary Disease (COPD).",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "stroke",
-        "description": "Find the strokes.",
-        "filter": "icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64') or icd10Code.startsWith('I60')"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_atrial_fibrillation",
+          "description": "Whether the patient has the Atrial Fibrillations.",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('I48')",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "cabg",
-        "description": "Find the Coronary Artery Bypass Graft (CABG) Surgeries.",
-        "filter": "icd10Code.startsWith('Z95.5')"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_myocardial_infarction",
+          "description": "Whether the patient has the Myocardial Infarctions.",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "pci",
-        "description": "Find the Percutaneous Coronary Intervention (PCI).",
-        "filter": "icd10Code.startsWith('Z95.5')"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_pci",
+          "description": "Whether the patient has the Percutaneous Coronary Intervention (PCI).",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('Z95.5')",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "myocardial-infarction",
-        "description": "Find the Myocardial Infarctions.",
-        "filter": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_cabg",
+          "description": "Whether the patient has the Coronary Artery Bypass Graft (CABG) Surgeries.",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('Z95.5')",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "atrial-fibrillation",
-        "description": "Find the Atrial Fibrillations.",
-        "filter": "icd10Code.startsWith('I48')"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_stroke",
+          "description": "Whether the patient has the strokes.",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64') or icd10Code.startsWith('I60')",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "chronic-obstructive-pulmonary-disease",
-        "description": "Find the Chronic Obstructive Pulmonary Disease (COPD).",
-        "filter": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "occurred",
-          "description": "Whether the condition occurred.",
+          "name": "has_diabetes",
+          "description": "Whether the patient has the diabetes.",
           "value": {
-            "path": "icd10Code.exists()",
+            "path": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')",
             "dataType": "boolean"
-          }
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -384,7 +339,7 @@
           "name": "current_smoker",
           "description": "Indicates whether the patient's latest smoking status, collected within the last three years before the reference time point, indicates s/he is a current smoker. This includes codes for active tobacco use.",
           "value": {
-            "path": "code.exists() and (code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001')",
+            "path": "code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001'",
             "dataType": "boolean"
           }
         },
@@ -392,7 +347,7 @@
           "name": "ex_smoker",
           "description": "Indicates whether the patient's latest smoking status, collected within the last three years before the reference time point, specifies that s/he is a former smoker. This status is represented by the code for 'Ex-smoker' (SNOMED code: 8517006).",
           "value": {
-            "path": "code.exists() and code = '8517006'",
+            "path": "code = '8517006'",
             "dataType": "boolean"
           }
         },
@@ -400,7 +355,7 @@
           "name": "never_smoker",
           "description": "Indicates whether the patient's latest smoking status, collected within the last three years before the reference time point, specifies that s/he has never smoked. This status is represented by the code for 'Never smoked' (SNOMED code: 266919005).",
           "value": {
-            "path": "code.exists() and code = '266919005'",
+            "path": "code = '266919005'",
             "dataType": "boolean"
           }
         },
@@ -408,7 +363,7 @@
           "name": "unknown_smoker",
           "description": "Indicates whether the patient's smoking status, collected within the last three years before the reference time point, is unknown. This includes cases where the code for 'Smoking status unknown' (SNOMED code: 266927001) is present or when no smoking status code is available.",
           "value": {
-            "path": "code.exists().not() or code = '266927001'",
+            "path": "code = '266927001'",
             "dataType": "boolean"
           }
         }
@@ -421,15 +376,14 @@
       "join": {
         "on": {
           "pid": "pid"
-        },
-        "duration": "12mo"
+        }
       },
       "feature": [
         {
           "name": "deceased",
           "description": "Mortality recorded within the 12 months following the reference time point, which corresponds to the end of the encounter.",
           "value": {
-            "path": "deceasedDateTime.exists()",
+            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
             "dataType": "boolean"
           }
         }
