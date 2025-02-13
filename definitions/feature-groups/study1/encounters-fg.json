@@ -67,13 +67,6 @@
       "fhirPath": "Encounter.id"
     },
     {
-      "name": "duration",
-      "title": "Duration of stay",
-      "description": "Duration of stay in the hospital",
-      "dataType": "integer",
-      "fhirPath": "utl:getPeriod(Encounter.actualPeriod.start, Encounter.actualPeriod.end, 'hours')"
-    },
-    {
       "name": "primaryReasonCode",
       "title": "Primary reason code",
       "description": "ICD 10 code of the primary reason for the encounter",
