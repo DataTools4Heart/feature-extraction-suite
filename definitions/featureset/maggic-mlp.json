@@ -331,40 +331,15 @@
       "join": {
         "on": {
           "pid": "pid"
-        },
-        "duration": "3a"
+        }
       },
       "feature": [
         {
-          "name": "current_smoker",
-          "description": "Indicates whether the patient's latest smoking status, collected within the last three years before the reference time point, indicates s/he is a current smoker. This includes codes for active tobacco use.",
+          "name": "smoker",
+          "description": "Indicates whether the patient's most recent recorded smoking status, collected before the reference time point, classifies them as a current smoker. A value of 1 denotes a current smoker, while 0 represents either a former smoker or someone who has never smoked.",
           "value": {
-            "path": "code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001'",
-            "dataType": "boolean"
-          }
-        },
-        {
-          "name": "ex_smoker",
-          "description": "Indicates whether the patient's latest smoking status, collected within the last three years before the reference time point, specifies that s/he is a former smoker. This status is represented by the code for 'Ex-smoker' (SNOMED code: 8517006).",
-          "value": {
-            "path": "code = '8517006'",
-            "dataType": "boolean"
-          }
-        },
-        {
-          "name": "never_smoker",
-          "description": "Indicates whether the patient's latest smoking status, collected within the last three years before the reference time point, specifies that s/he has never smoked. This status is represented by the code for 'Never smoked' (SNOMED code: 266919005).",
-          "value": {
-            "path": "code = '266919005'",
-            "dataType": "boolean"
-          }
-        },
-        {
-          "name": "unknown_smoker",
-          "description": "Indicates whether the patient's smoking status, collected within the last three years before the reference time point, is unknown. This includes cases where the code for 'Smoking status unknown' (SNOMED code: 266927001) is present or when no smoking status code is available.",
-          "value": {
-            "path": "code = '266927001'",
-            "dataType": "boolean"
+            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001',1,iif(code = '8517006' or code = '266919005',0,{}))",
+            "dataType": "integer"
           }
         }
       ]
