@@ -76,7 +76,8 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "3a"
       },
       "pivot": {
         "name": "code",
@@ -95,7 +96,14 @@
       "feature": [
         {
           "name": "value",
-          "description": "The latest numeric result"
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -105,7 +113,8 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "3a"
       },
       "pivot": {
         "name": "code",
@@ -128,7 +137,14 @@
       "feature": [
         {
           "name": "value",
-          "description": "The latest numeric result"
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
         }
       ]
     },
