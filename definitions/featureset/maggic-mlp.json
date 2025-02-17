@@ -327,6 +327,25 @@
       ]
     },
     {
+      "url": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "The most recent left ventricular ejection fraction (LVEF) recorded prior to the reference time point.",
+          "value": {
+            "path": "lvef",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
       "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
       "join": {
         "on": {
