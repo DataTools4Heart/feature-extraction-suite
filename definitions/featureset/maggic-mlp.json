@@ -220,7 +220,7 @@
           "name": "has_pci",
           "description": "Whether the patient has the Percutaneous Coronary Intervention (PCI).",
           "value": {
-            "path": "icd10Code.startsWith('Z95.5')",
+            "path": "icd10Code.startsWith('K49') or icd10Code.startsWith('K50') or icd10Code.startsWith('K75')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -235,7 +235,7 @@
           "name": "has_cabg",
           "description": "Whether the patient has the Coronary Artery Bypass Graft (CABG) Surgeries.",
           "value": {
-            "path": "icd10Code.startsWith('Z95.5')",
+            "path": "icd10Code.startsWith('K40') or icd10Code.startsWith('K41') or icd10Code.startsWith('K42') or icd10Code.startsWith('K43') or icd10Code.startsWith('K44') or icd10Code.startsWith('K45') or icd10Code.startsWith('K46') or icd10Code.startsWith('K47')",
             "dataType": "boolean"
           },
           "temporalAgg": [
