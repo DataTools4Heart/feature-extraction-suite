@@ -1,0 +1,59 @@
+{
+  "url": "https://datatools4heart.eu/cohorts/maggic",
+  "name": "maggic",
+  "title": "Patients with Diagnosis of Heart Failure",
+  "description": "This cohort includes patients with a diagnosis of heart failure.",
+  "version": "0.1",
+  "date": "2025-02-18",
+  "status": "draft",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    }
+  ],
+  "pipeline": [
+    {
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "entry": [
+        {
+          "description": "Patients diagnosed with heart failure, using the time of their initial diagnosis as the event time.",
+          "resourceType": "Condition",
+          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Condition.subject.reference"
+            }
+          ],
+          "eventTime": "Condition.onsetDateTime"
+        }
+      ],
+      "period": {
+        "description": "Includes all patients for the defined cohort population.",
+        "events": "all"
+      },
+      "exit": [
+        {
+          "description": "When a patient dies, they are removed from the population.",
+          "resourceType": "Patient",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "Patient.id"
+            }
+          ],
+          "exitTime": "Patient.deceasedDateTime"
+        }
+      ]
+    }
+  ]
+}
