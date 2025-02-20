@@ -18,7 +18,28 @@
       "name": "gender",
       "title": "Gender",
       "description": "Gender of the patient (male | female | other | unknown)",
-      "dataType": "code"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://hl7.org/fhir/ValueSet/administrative-gender",
+        "concept": [
+          {
+            "code": "male",
+            "display": "Male"
+          },
+          {
+            "code": "female",
+            "display": "Female"
+          },
+          {
+            "code": "other",
+            "display": "Other"
+          },
+          {
+            "code": "unknown",
+            "display": "Unknown"
+          }
+        ]
+      }
     },
     {
       "name": "birthDate",

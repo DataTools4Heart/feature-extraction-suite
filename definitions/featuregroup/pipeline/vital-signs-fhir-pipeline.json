@@ -15,7 +15,7 @@
     {
       "description": "Extract the features from Vital Sign Observation.",
       "resourceType": "Observation",
-      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-NYHAAssessment",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-VitalSign",
       "query": "?category=vital-signs",
       "entityLink": [
         {

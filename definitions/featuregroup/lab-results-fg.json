@@ -22,7 +22,10 @@
       "name": "code",
       "title": "LOINC code for the lab result",
       "description": "LOINC code for the lab result",
-      "dataType": "code"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://loinc.org"
+      }
     },
     {
       "name": "value",

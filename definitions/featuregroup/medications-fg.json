@@ -22,7 +22,10 @@
       "name": "medicationCode",
       "title": "Medication code (ATC)",
       "description": "ATC code for the medication",
-      "dataType": "code"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://www.whocc.no/atc"
+      }
     },
     {
       "name": "startTime",
