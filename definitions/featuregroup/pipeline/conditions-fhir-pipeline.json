@@ -1,0 +1,46 @@
+{
+  "id": "conditions",
+  "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+  "name": "conditions",
+  "title": "Conditions",
+  "description": "Condition",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from Condition.",
+      "resourceType": "Condition",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Condition",
+      "query": "?clinical-status=active",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Condition.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Condition.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "icd10Code",
+          "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
+        },
+        {
+          "name": "date",
+          "path": "Condition.onsetDateTime"
+        }
+      ]
+    }
+  ]
+}

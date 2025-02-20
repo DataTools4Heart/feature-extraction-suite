@@ -1,10 +1,10 @@
 {
+  "id": "vital_signs",
   "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
   "name": "vital_signs",
   "title": "Vital signs",
   "description": "Vital sign related features",
-  "version": "0.1",
-  "status": "draft",
+  "status": "active",
   "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "entity": [
@@ -39,49 +39,5 @@
   ],
   "eventTime": {
     "start": "effectiveDateTime"
-  },
-  "pipeline": [
-    {
-      "interface": "FHIR",
-      "supportedVersions": [
-        "R5"
-      ],
-      "pipeline": [
-        {
-          "description": "Extract the features from Vital Sign Observation.",
-          "resourceType": "Observation",
-          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-NYHAAssessment",
-          "query": "?category=vital-signs",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Observation.subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "encounter",
-              "path": "Observation.encounter.reference"
-            }
-          ],
-          "feature": [
-            {
-              "name": "code",
-              "path": "Observation.code.coding.where(system='http://loinc.org').first().code"
-            },
-            {
-              "name": "value",
-              "path": "Observation.valueQuantity.value"
-            },
-            {
-              "name": "effectiveDateTime",
-              "path": "Observation.effectiveDateTime"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  }
 }

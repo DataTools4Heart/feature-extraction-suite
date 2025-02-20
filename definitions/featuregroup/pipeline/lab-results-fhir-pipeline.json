@@ -1,0 +1,50 @@
+{
+  "id": "lab_results",
+  "url": "https://datatools4heart.eu/feature-groups/study1/lab_results",
+  "name": "lab_results",
+  "title": "Lab results",
+  "description": "Condition",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from Lab Result Observation.",
+      "resourceType": "Observation",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
+      "query": "?category=laboratory",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Observation.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Observation.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "code",
+          "path": "Observation.code.coding.where(system='http://loinc.org').first().code"
+        },
+        {
+          "name": "value",
+          "path": "Observation.valueQuantity.value"
+        },
+        {
+          "name": "date",
+          "path": "Observation.effectiveDateTime"
+        }
+      ]
+    }
+  ]
+}

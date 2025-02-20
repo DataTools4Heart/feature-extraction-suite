@@ -1,0 +1,44 @@
+{
+  "id": "smoking_status",
+  "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+  "name": "smoking_status",
+  "title": "Smoking status",
+  "description": "Smoking status",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from Smoking Status Observation.",
+      "resourceType": "Observation",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-SmokingStatus",
+      "query": "?code=72166-2",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Observation.subject.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "code",
+          "path": "Observation.valueCodeableConcept.coding.where(system='http://snomed.info/sct').first().code"
+        },
+        {
+          "name": "startTime",
+          "path": "Observation.effectivePeriod.start"
+        },
+        {
+          "name": "endTime",
+          "path": "Observation.effectivePeriod.end"
+        }
+      ]
+    }
+  ]
+}

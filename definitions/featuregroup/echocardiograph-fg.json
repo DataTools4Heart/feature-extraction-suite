@@ -1,10 +1,10 @@
 {
+  "id": "echocardiographs",
   "url": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
   "name": "echocardiographs",
   "title": "Echocardiographs",
   "description": "Echocardiograph related features",
-  "version": "0.1",
-  "status": "draft",
+  "status": "active",
   "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "entity": [
@@ -33,44 +33,5 @@
   ],
   "eventTime": {
     "start": "time"
-  },
-  "pipeline": [
-    {
-      "interface": "FHIR",
-      "supportedVersions": [
-        "R5"
-      ],
-      "pipeline": [
-        {
-          "description": "Extract the features from Echocardiograph.",
-          "resourceType": "Observation",
-          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Echocardiograph",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Observation.subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "encounter",
-              "path": "Observation.encounter.reference"
-            }
-          ],
-          "feature": [
-            {
-              "name": "lvef",
-              "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8806-2')).valueQuantity.value.first()"
-            },
-            {
-              "name": "time",
-              "path": "Observation.effectiveDateTime"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  }
 }

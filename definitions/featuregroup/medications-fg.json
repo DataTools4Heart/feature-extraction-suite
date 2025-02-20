@@ -1,10 +1,10 @@
 {
+  "id": "med",
   "url": "https://datatools4heart.eu/feature-groups/study1/medications",
   "name": "med",
   "title": "Medications",
   "description": "Medication related features",
-  "version": "0.1",
-  "status": "draft",
+  "status": "active",
   "date": "2025-01-16",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "entity": [
@@ -33,44 +33,5 @@
   ],
   "eventTime": {
     "start": "startTime"
-  },
-  "pipeline": [
-    {
-      "interface": "FHIR",
-      "supportedVersions": [
-        "R5"
-      ],
-      "pipeline": [
-        {
-          "description": "Extract the features from Medications.",
-          "resourceType": "MedicationAdministration",
-          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-MedicationAdministration",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "MedicationAdministration.subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "encounter",
-              "path": "MedicationAdministration.encounter.reference"
-            }
-          ],
-          "feature": [
-            {
-              "name": "medicationCode",
-              "path": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code.first()"
-            },
-            {
-              "name": "startTime",
-              "path": "MedicationAdministration.occurencePeriod.start"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  }
 }
