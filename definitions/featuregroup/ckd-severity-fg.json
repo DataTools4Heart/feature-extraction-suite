@@ -63,7 +63,7 @@
           "feature": [
             {
               "name": "categorizedValue",
-              "path": "Observation.valueQuantity.value.fst:categorize('advanced' | 14 | 'moderate' | 59 | 'mild' | 89 | 'normal')"
+              "path": "Observation.valueQuantity.value.utl:categorize(14 | 59 | 89, 'advanced' | 'moderate' | 'mild' | 'normal')"
             },
             {
               "name": "time",

@@ -67,7 +67,7 @@
             },
             {
               "name": "categorizedValue",
-              "path": "Observation.valueQuantity.value.fst:categorize('normal' | 5 | 'mild' | 5.5 | 'moderate' | 6 | 'severe')"
+              "path": "Observation.valueQuantity.value.utl:categorize(5.0 | 5.5 | 6.0, 'normal' | 'mild' | 'moderate' | 'severe')"
             }
           ]
         }
