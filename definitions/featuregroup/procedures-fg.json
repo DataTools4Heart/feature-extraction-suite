@@ -4,44 +4,83 @@
   "title": "Procedures",
   "description": "Procedure related features",
   "version": "0.1",
-  "date": "2023-04-04",
-  "fhirVersion": "4.0.1",
+  "status": "draft",
+  "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "targetResourceType": "Procedure",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Procedure",
-  "fhirSearch": "?patient={{Patient}}",
-  "entities": {
-    "pid": "Patient"
-  },
-  "timestamp": "performedDate",
-  "feature": [
+  "entity": [
     {
       "name": "pid",
-      "title": "Patient identifier",
-      "description": "Patient identifier",
-      "dataType": "id",
-      "fhirPath": "Procedure.subject"
+      "description": "A unique identifier assigned to each patient in the cohort."
     },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
     {
       "name": "performedDate",
       "title": "Procedure date",
       "description": "Date when the procedure is performed",
-      "dataType": "dateTime",
-      "fhirPath": "Procedure.performedDateTime"
+      "dataType": "dateTime"
     },
     {
       "name": "icd10PcsCode",
       "title": "Procedure code (ICD-10-PCS)",
       "description": "ICD-10-PCS code for the procedure",
-      "dataType": "code",
-      "fhirPath": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10-pcs').code.first()"
+      "dataType": "code"
     },
     {
       "name": "procedureName",
       "title": "Procedure name",
       "description": "Name of the procedure",
-      "dataType": "string",
-      "fhirPath": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10-pcs').display.first()"
+      "dataType": "string"
+    }
+  ],
+  "eventTime": {
+    "start": "performedDate"
+  },
+  "pipeline": [
+    {
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from Procedure.",
+          "resourceType": "Procedure",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Procedure",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Procedure.subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Procedure.encounter.reference"
+            }
+          ],
+          "feature": [
+            {
+              "name": "performedDate",
+              "path": "Procedure.performedDateTime"
+            },
+            {
+              "name": "icd10PcsCode",
+              "path": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10-pcs').code.first()"
+            },
+            {
+              "name": "procedureName",
+              "path": "Procedure.code.coding.where(system='http://hl7.org/fhir/sid/icd-10-pcs').display.first()"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

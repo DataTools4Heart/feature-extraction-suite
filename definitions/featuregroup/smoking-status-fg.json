@@ -5,12 +5,16 @@
   "description": "Smoking status related features",
   "version": "0.1",
   "status": "draft",
-  "date": "2024-01-17",
+  "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",
       "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
     }
   ],
   "eventTime": {
@@ -55,6 +59,12 @@
               "entityType": "Patient",
               "searchParam": "patient",
               "path": "Observation.subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Observation.encounter.reference"
             }
           ],
           "feature": [

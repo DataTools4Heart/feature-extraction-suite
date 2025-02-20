@@ -4,45 +4,75 @@
   "title": "Chronic kidney disease severity",
   "description": "Chronic kidney disease severity-related features",
   "version": "0.1",
-  "date": "2023-02-27",
-  "fhirVersion": "4.0.1",
+  "status": "draft",
+  "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
-  "targetResourceType": "Observation",
-  "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
-  "fhirSearch": "?patient={{Patient}}&code=http://loinc.org|69405-9",
-  "entities": {
-    "pid": "Patient",
-    "encounterId": "Encounter"
-  },
-  "timestamp": "time",
-  "feature": [
+  "entity": [
     {
       "name": "pid",
-      "title": "Patient identifier",
-      "description": "Patient identifier",
-      "dataType": "id",
-      "fhirPath": "Observation.subject"
+      "description": "A unique identifier assigned to each patient in the cohort."
     },
     {
       "name": "encounterId",
-      "title": "Encounter identifier",
-      "description": "Encounter identifier",
-      "dataType": "id",
-      "fhirPath": "Observation.encounter"
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "categorizedValue",
+      "title": "CKD severity",
+      "description": "Categorized value for the severity of chronic kidney disease based on eGFR(estimated Glomerular Filtration Rate) measurements",
+      "dataType": "string"
     },
     {
       "name": "time",
       "title": "Observation time",
       "description": "Time of measurement",
-      "dataType": "dateTime",
-      "fhirPath": "Observation.effectiveDateTime"
-    },
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "time"
+  },
+  "pipeline": [
     {
-      "name": "categorizedValue",
-      "title": "CKD severity",
-      "description": "Categorized value for the severity of chronic kidney disease based on eGFR(estimated Glomerular Filtration Rate) measurements",
-      "dataType": "string",
-      "fhirPath": "Observation.valueQuantity.value.fst:categorize('advanced' | 14 | 'moderate' | 59 | 'mild' | 89 | 'normal')"
+      "interface": "FHIR",
+      "supportedVersions": [
+        "R5"
+      ],
+      "pipeline": [
+        {
+          "description": "Extract the features from LabResult Observation.",
+          "resourceType": "Observation",
+          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
+          "query": "?code=http://loinc.org|69405-9",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Observation.subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Observation.encounter.reference"
+            }
+          ],
+          "feature": [
+            {
+              "name": "categorizedValue",
+              "path": "Observation.valueQuantity.value.fst:categorize('advanced' | 14 | 'moderate' | 59 | 'mild' | 89 | 'normal')"
+            },
+            {
+              "name": "time",
+              "path": "Observation.effectiveDateTime"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
+
