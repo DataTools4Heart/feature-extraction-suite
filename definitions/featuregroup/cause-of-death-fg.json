@@ -22,7 +22,10 @@
       "name": "causeOfDeath",
       "title": "Cause of death",
       "description": "ICD10 code of the condition as the cause of death",
-      "dataType": "code"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://hl7.org/fhir/sid/icd-10"
+      }
     },
     {
       "name": "time",

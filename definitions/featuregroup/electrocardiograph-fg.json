@@ -58,7 +58,10 @@
       "name": "ecg_type_of_rhythm",
       "title": "Type of rhythm",
       "description": "Type of rhythm",
-      "dataType": "code"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://loinc.org"
+      }
     }
   ],
   "eventTime": {

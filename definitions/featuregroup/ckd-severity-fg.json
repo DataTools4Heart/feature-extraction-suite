@@ -22,7 +22,27 @@
       "name": "categorizedValue",
       "title": "CKD severity",
       "description": "Categorized value for the severity of chronic kidney disease based on eGFR(estimated Glomerular Filtration Rate) measurements",
-      "dataType": "string"
+      "dataType": "code",
+      "valueSet": {
+        "concept": [
+          {
+            "code": "advanced",
+            "display": "Advanced"
+          },
+          {
+            "code": "moderate",
+            "display": "Moderate"
+          },
+          {
+            "code": "mild",
+            "display": "Mild"
+          },
+          {
+            "code": "normal",
+            "display": "Normal"
+          }
+        ]
+      }
     },
     {
       "name": "time",

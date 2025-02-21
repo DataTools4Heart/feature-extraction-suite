@@ -40,19 +40,58 @@
       "name": "encounterType",
       "title": "Encounter type",
       "description": "Type of this encounter",
-      "dataType": "id"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://snomed.info/sct"
+      }
     },
     {
       "name": "encounterClass",
       "title": "Encounter class",
       "description": "Class of this encounter",
-      "dataType": "string"
+      "dataType": "code",
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/encounter-class",
+        "concept": [
+          {
+            "code": "IMP",
+            "display": "inpatient encounter"
+          },
+          {
+            "code": "AMB",
+            "display": "ambulatory"
+          },
+          {
+            "code": "OBSENC",
+            "display": "observation encounter"
+          },
+          {
+            "code": "EMER",
+            "display": "emergency"
+          },
+          {
+            "code": "VR",
+            "display": "virtual"
+          },
+          {
+            "code": "HH",
+            "display": "home health"
+          },
+          {
+            "code": "SS",
+            "display": "short stay"
+          }
+        ]
+      }
     },
     {
       "name": "primaryReasonCode",
       "title": "Primary reason code",
       "description": "ICD 10 code of the primary reason for the encounter",
-      "dataType": "string"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://hl7.org/fhir/sid/icd-10"
+      }
     }
   ],
   "eventTime": {

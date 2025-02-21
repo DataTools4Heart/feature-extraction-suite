@@ -351,8 +351,20 @@
           "name": "smoker",
           "description": "Indicates whether the patient's most recent recorded smoking status, collected before the reference time point, classifies them as a current smoker. A value of 1 denotes a current smoker, while 0 represents either a former smoker or someone who has never smoked.",
           "value": {
-            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001',1,iif(code = '8517006' or code = '266919005',0,{}))",
-            "dataType": "integer"
+            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001','1',iif(code = '8517006' or code = '266919005','0',{}))",
+            "dataType": "code",
+            "valueSet": {
+              "concept": [
+                {
+                  "code": "1",
+                  "display": "Smoker"
+                },
+                {
+                  "code": "0",
+                  "display": "Non-smoker"
+                }
+              ]
+            }
           }
         }
       ]

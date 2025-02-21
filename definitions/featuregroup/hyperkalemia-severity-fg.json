@@ -28,11 +28,30 @@
       "name": "categorizedValue",
       "title": "Hyperkalemia severity",
       "description": "Categorized value for the severity of hyperkalemia based on potassium measurements",
-      "dataType": "string"
+      "dataType": "code",
+      "valueSet": {
+        "concept": [
+          {
+            "code": "severe",
+            "display": "Severe"
+          },
+          {
+            "code": "moderate",
+            "display": "Moderate"
+          },
+          {
+            "code": "mild",
+            "display": "Mild"
+          },
+          {
+            "code": "normal",
+            "display": "Normal"
+          }
+        ]
+      }
     }
   ],
   "eventTime": {
     "start": "time"
   }
 }
-

@@ -28,7 +28,10 @@
       "name": "icd10PcsCode",
       "title": "Procedure code (ICD-10-PCS)",
       "description": "ICD-10-PCS code for the procedure",
-      "dataType": "code"
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://hl7.org/fhir/sid/icd-10-pcs"
+      }
     },
     {
       "name": "procedureName",
