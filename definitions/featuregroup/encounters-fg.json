@@ -1,10 +1,10 @@
 {
+  "id": "encounters",
   "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
   "name": "encounters",
   "title": "Encounters",
   "description": "Encounter related features",
-  "version": "0.1",
-  "status": "draft",
+  "status": "active",
   "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "entity": [
@@ -58,60 +58,5 @@
   "eventTime": {
     "start": "startTime",
     "end": "endTime"
-  },
-  "pipeline": [
-    {
-      "interface": "FHIR",
-      "supportedVersions": [
-        "R5"
-      ],
-      "pipeline": [
-        {
-          "description": "Extract the features from Encounter.",
-          "resourceType": "Encounter",
-          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Encounter",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Encounter.subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "_id",
-              "path": "Encounter.id"
-            }
-          ],
-          "feature": [
-            {
-              "name": "startTime",
-              "path": "Encounter.actualPeriod.start"
-            },
-            {
-              "name": "endTime",
-              "path": "Encounter.actualPeriod.end"
-            },
-            {
-              "name": "admissionYear",
-              "path": "Encounter.actualPeriod.start.toString().substring(0,4)"
-            },
-            {
-              "name": "encounterType",
-              "path": "Encounter.type.coding.where(system='http://snomed.info/sct').code.first()"
-            },
-            {
-              "name": "encounterClass",
-              "path": "Encounter.class.coding.where(system='http://terminology.hl7.org/CodeSystem/v3-ActCode').code.first()"
-            },
-            {
-              "name": "primaryReasonCode",
-              "path": "Encounter.reason.use.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  }
 }

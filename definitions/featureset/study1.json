@@ -1,10 +1,10 @@
 {
+  "id": "study1-fs",
   "url": "https://datatools4heart.eu/feature-sets/study1",
   "name": "study1-fs",
   "title": "Dataset for DataTools4Heart project clinical study 1",
   "description": "Dataset for DataTools4Heart project clinical study 1",
-  "version": "0.1",
-  "status": "draft",
+  "status": "active",
   "date": "2025-02-20",
   "publisher": "DT4H WP2 Team (SRDC Corp.)",
   "entity": [

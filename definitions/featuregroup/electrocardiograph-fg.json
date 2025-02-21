@@ -1,10 +1,10 @@
 {
+  "id": "electrocardiographs",
   "url": "https://datatools4heart.eu/feature-groups/study1/electrocardiographs",
   "name": "electrocardiographs",
   "title": "Electrocardiographs",
   "description": "Electrocardiograph related features",
-  "version": "0.1",
-  "status": "draft",
+  "status": "active",
   "date": "2025-02-20",
   "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
   "entity": [
@@ -63,67 +63,7 @@
   ],
   "eventTime": {
     "start": "time"
-  },
-  "pipeline": [
-    {
-      "interface": "FHIR",
-      "supportedVersions": [
-        "R5"
-      ],
-      "pipeline": [
-        {
-          "description": "Extract the features from Echocardiograph Observation.",
-          "resourceType": "Observation",
-          "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Electrocardiograph",
-          "query": "?code=http://loinc.org|34534-8",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Observation.subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "encounter",
-              "path": "Observation.encounter.reference"
-            }
-          ],
-          "feature": [
-            {
-              "name": "time",
-              "path": "Observation.effectiveDateTime"
-            },
-            {
-              "name": "ecg_qrs_duration",
-              "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8633-0')).valueQuantity.value.first()"
-            },
-            {
-              "name": "ecg_qrs_axis",
-              "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8632-2')).valueQuantity.value.first()"
-            },
-            {
-              "name": "ecg_qt_duration_corrected",
-              "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8636-3')).valueQuantity.value.first()"
-            },
-            {
-              "name": "ecg_st",
-              "path": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='164931005')).valueBoolean"
-            },
-            {
-              "name": "ecg_ischemia_without_st",
-              "path": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='52674009')).valueBoolean"
-            },
-            {
-              "name": "ecg_type_of_rhythm",
-              "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='76281-5')).valueCodeableConcept.coding.where(system='http://loinc.org').first().code"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  }
 }
 
 

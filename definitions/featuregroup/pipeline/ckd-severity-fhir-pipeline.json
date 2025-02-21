@@ -1,0 +1,47 @@
+{
+  "id": "ckd_severity",
+  "url": "https://datatools4heart.eu/feature-groups/study1/ckd_severity",
+  "name": "ckd_severity",
+  "title": "Chronic kidney disease severity",
+  "description": "Chronic kidney disease severity-related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from LabResult Observation.",
+      "resourceType": "Observation",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
+      "query": "?code=http://loinc.org|69405-9",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Observation.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Observation.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "categorizedValue",
+          "path": "Observation.valueQuantity.value.utl:categorize(14 | 59 | 89, 'advanced' | 'moderate' | 'mild' | 'normal')"
+        },
+        {
+          "name": "time",
+          "path": "Observation.effectiveDateTime"
+        }
+      ]
+    }
+  ]
+}
+
