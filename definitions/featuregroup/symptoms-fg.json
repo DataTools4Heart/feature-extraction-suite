@@ -51,7 +51,7 @@
           "description": "Extract the features from Symptom Observation.",
           "resourceType": "Observation",
           "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Symptom",
-          "query": "?category=http://hl7.org/fhir/ValueSet/observation-category|survey&code:in=https://datatools4heart.eu/fhir/ValueSet/symptom",
+          "query": "?category=http://hl7.org/fhir/ValueSet/observation-category|survey&code:in=https://datatools4heart.eu/fhir/ValueSet/symptoms",
           "entityLink": [
             {
               "entity": "pid",
