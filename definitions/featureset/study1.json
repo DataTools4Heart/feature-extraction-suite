@@ -478,16 +478,20 @@
       "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         }
+      },
+      "filter": {
+        "name": "smoker",
+        "description": "Filter the active smoking status.",
+        "filter": "code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001'"
       },
       "feature": [
         {
           "name": "smoker",
           "description": "Whether the patient is smoking currently. We check the last smoking status record and expect that it does not have an end date indicating that the patient is a current smoker",
           "value": {
-            "path": "startTime.exists() and endTime.exists().not()",
+            "path": "endTime.exists().not()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -502,7 +506,7 @@
           "name": "totalSmokingDuration",
           "description": "Total duration of smoking in days.",
           "value": {
-            "path": "utl:getPeriod(startTime, iif(endTime.exists(), (endTime | %referenceTimePoint).min(), %referenceTimePoint), 'days').toInteger()",
+            "path": "utl:getPeriod(startTime, iif(endTime.exists() and endTime < %referenceTimePoint, endTime, %referenceTimePoint), 'days').toInteger()",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -528,7 +532,7 @@
           "name": "formerSmoker",
           "description": "Whether the patient smoked within 1 year prior to the admission end.",
           "value": {
-            "path": "endTime.exists() and utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() > 365",
+            "path": "utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() <= 365",
             "dataType": "boolean"
           },
           "temporalAgg": [
