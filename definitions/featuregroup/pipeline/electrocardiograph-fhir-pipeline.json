@@ -46,15 +46,15 @@
         },
         {
           "name": "ecg_qt_duration_corrected",
-          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8636-3')).valueQuantity.value.first()"
+          "path": "Observation.component.where(code.coding.exists(system='https://datatools4heart.eu/fhir/CodeSystem/qt-correction-formula' and code='bazett')).valueQuantity.value.first()"
         },
         {
           "name": "ecg_st",
-          "path": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='164931005')).valueBoolean"
+          "path": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='164931005')).first().valueBoolean"
         },
         {
           "name": "ecg_ischemia_without_st",
-          "path": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='52674009')).valueBoolean"
+          "path": "Observation.component.where(code.coding.exists(system='http://snomed.info/sct' and code='52674009')).first().valueBoolean"
         },
         {
           "name": "ecg_type_of_rhythm",
