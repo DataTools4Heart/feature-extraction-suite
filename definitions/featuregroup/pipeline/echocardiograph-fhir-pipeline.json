@@ -16,6 +16,7 @@
       "description": "Extract the features from Echocardiograph.",
       "resourceType": "Observation",
       "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Echocardiograph",
+      "query": "?code=http://loinc.org|34552-0",
       "entityLink": [
         {
           "entity": "pid",
