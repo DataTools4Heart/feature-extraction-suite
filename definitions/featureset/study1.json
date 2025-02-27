@@ -71,10 +71,28 @@
         {
           "name": "admissionYear",
           "description": "Year of admission to hospital"
-        },
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
         {
-          "name": "primaryReasonCode",
-          "description": "ICD 10 code of the primary reason for the encounter"
+          "name": "primaryReasonCodes",
+          "description": "ICD 10 codes of the primary reasons for the encounter",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "set"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1702,11 +1720,10 @@
   ],
   "outcome": [
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
         "duration": "5a"
       },
@@ -1715,7 +1732,7 @@
           "name": "hosp_for_heart_failure",
           "description": "Whether the patient is hospitalized because of heart failure after the reference time point.",
           "value": {
-            "path": "primaryReasonCode.startsWith('I50') or primaryReasonCode.startsWith('I11.0') or primaryReasonCode.startsWith('I13.0') or primaryReasonCode.startsWith('I13.2') or primaryReasonCode.startsWith('I26.0')",
+            "path": "primaryReasonCodes.startsWith('I50') or primaryReasonCodes.startsWith('I11.0') or primaryReasonCodes.startsWith('I13.0') or primaryReasonCodes.startsWith('I13.2') or primaryReasonCodes.startsWith('I26.0')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1753,7 +1770,7 @@
           "name": "hosp_for_CV_disease",
           "description": "Whether the patient is hospitalized because of any cardiovascular condition after the reference time point.",
           "value": {
-            "path": "primaryReasonCode.startsWith('I') or primaryReasonCode.startsWith('G45') or primaryReasonCode.startsWith('J81') or primaryReasonCode.startsWith('K76.1') or primaryReasonCode.startsWith('R57')",
+            "path": "primaryReasonCodes.startsWith('I') or primaryReasonCodes.startsWith('G45') or primaryReasonCodes.startsWith('J81') or primaryReasonCodes.startsWith('K76.1') or primaryReasonCodes.startsWith('R57')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1791,7 +1808,7 @@
           "name": "hosp_for_non_cv_disease",
           "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the reference time point.",
           "value": {
-            "path": "(primaryReasonCode.startsWith('I') or primaryReasonCode.startsWith('G45') or primaryReasonCode.startsWith('J81') or primaryReasonCode.startsWith('K76.1') or primaryReasonCode.startsWith('R57')).not()",
+            "path": "(primaryReasonCodes.startsWith('I') or primaryReasonCodes.startsWith('G45') or primaryReasonCodes.startsWith('J81') or primaryReasonCodes.startsWith('K76.1') or primaryReasonCodes.startsWith('R57')).not()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1829,7 +1846,7 @@
           "name": "hosp_for_renal_complications",
           "description": "Whether the patient is hospitalized because of any renal complication after the reference time point.",
           "value": {
-            "path": "primaryReasonCode.startsWith('N18') or primaryReasonCode.startsWith('N19')",
+            "path": "primaryReasonCodes.startsWith('N18') or primaryReasonCodes.startsWith('N19')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1869,8 +1886,7 @@
       "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
         "duration": "5a"
       },
