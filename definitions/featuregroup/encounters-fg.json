@@ -83,15 +83,6 @@
           }
         ]
       }
-    },
-    {
-      "name": "primaryReasonCode",
-      "title": "Primary reason code",
-      "description": "ICD 10 code of the primary reason for the encounter",
-      "dataType": "code",
-      "valueSet": {
-        "url": "http://hl7.org/fhir/sid/icd-10"
-      }
     }
   ],
   "eventTime": {
