@@ -75,28 +75,6 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "feature": [
-        {
-          "name": "primaryReasonCodes",
-          "description": "ICD 10 codes of the primary reasons for the encounter",
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "set"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
       "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
       "join": {
         "on": {
