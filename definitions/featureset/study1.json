@@ -79,6 +79,22 @@
             "path": "utl:getPeriod(%eventTime, %referenceTimePoint, 'days')",
             "dataType": "integer"
           }
+        },
+        {
+          "name": "admissionDate",
+          "description": "Date of hospital admission.",
+          "value": {
+            "path": "startTime",
+            "dataType": "dateTime"
+          }
+        },
+        {
+          "name": "dischargeDate",
+          "description": "Date of hospital discharge.",
+          "value": {
+            "path": "endTime",
+            "dataType": "dateTime"
+          }
         }
       ]
     },
@@ -638,7 +654,8 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "%eventTime - 6mo"
       },
       "feature": [
         {
