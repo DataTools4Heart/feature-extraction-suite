@@ -71,6 +71,14 @@
         {
           "name": "admissionYear",
           "description": "Year of admission to hospital"
+        },
+        {
+          "name": "lengthOfStay",
+          "description": "The total number of days the patient has been hospitalized.",
+          "value": {
+            "path": "utl:getPeriod(%eventTime, %referenceTimePoint, 'days')",
+            "dataType": "integer"
+          }
         }
       ]
     },
