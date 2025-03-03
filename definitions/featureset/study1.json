@@ -276,6 +276,11 @@
           "encounterId": "encounterId"
         }
       },
+      "filter": {
+        "name": "firstTwentyFourHours",
+        "description":"Filters symptoms that appeared within the first 24 hours of hospital admission.",
+        "filter": "utl:getPeriod(eventTime, time, 'hours') <= 24"
+      },
       "pivot": {
         "name": "code",
         "description": "Symptoms to be evaluated as features",
