@@ -599,21 +599,6 @@
       },
       "feature": [
         {
-          "name": "earliest",
-          "description": "ICD code representing the heart failure diagnosis observed for the first time.",
-          "value": {
-            "path": "icd10Code",
-            "dataType": "code"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first"
-              ]
-            }
-          ]
-        },
-        {
           "name": "timeFromEarliest",
           "description": "Time elapsed (in months) since heart failure is observed for the first time until the reference time point.",
           "value": {
