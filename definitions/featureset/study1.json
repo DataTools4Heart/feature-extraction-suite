@@ -439,12 +439,25 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "%eventTime - 6mo"
       },
       "feature": [
         {
           "name": "lvef",
-          "description": "Value of left ventricular ejection fraction"
+          "description": "Value of left ventricular ejection fraction",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         }
       ]
     },
