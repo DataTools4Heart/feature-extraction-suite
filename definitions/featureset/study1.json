@@ -454,32 +454,97 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "%eventTime - 1mo"
       },
       "feature": [
         {
           "name": "ecg_qrs_duration",
-          "description": "Duration of QRS wave"
+          "description": "Duration of QRS wave",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_qrs_axis",
-          "description": "Axis of QRS wave"
+          "description": "Axis of QRS wave",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_qt_duration_corrected",
-          "description": "Duration of QT wave corrected"
+          "description": "Duration of QT wave corrected",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_st",
-          "description": "ST-elevation"
+          "description": "ST-elevation",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_ischemia_without_st",
-          "description": "Ischemia without st-elevation"
+          "description": "Ischemia without st-elevation",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_type_of_rhythm",
-          "description": "Type of rhythm"
+          "description": "Type of rhythm",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         }
       ]
     },
