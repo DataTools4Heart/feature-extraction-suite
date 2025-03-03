@@ -2532,7 +2532,45 @@
           "name": "isNonRenalAndNonCV",
           "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
           "value": {
-            "path": "(causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()",
+            "path": "causeOfDeath.startsWith('R99').not() and (causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "isAllCause",
+          "description": "Whether the patient dies because of unspecified condition after the reference time point..",
+          "value": {
+            "path": "causeOfDeath.startsWith('R99')",
             "dataType": "boolean"
           },
           "temporalAgg": [
