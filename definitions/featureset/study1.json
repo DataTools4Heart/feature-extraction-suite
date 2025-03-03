@@ -71,6 +71,104 @@
         {
           "name": "admissionYear",
           "description": "Year of admission to hospital"
+        },
+        {
+          "name": "lengthOfStay",
+          "description": "The total number of days the patient has been hospitalized.",
+          "value": {
+            "path": "utl:getPeriod(%eventTime, %referenceTimePoint, 'days')",
+            "dataType": "integer"
+          }
+        },
+        {
+          "name": "admissionDate",
+          "description": "Date of hospital admission.",
+          "value": {
+            "path": "startTime",
+            "dataType": "dateTime"
+          }
+        },
+        {
+          "name": "dischargeDate",
+          "description": "Date of hospital discharge.",
+          "value": {
+            "path": "endTime",
+            "dataType": "dateTime"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 6mo"
+      },
+      "filter": {
+        "name": "beforeAdmission",
+        "description": "Filter the vital signs observed before the admission.",
+        "filter": "effectiveDateTime < eventTime"
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "weight",
+            "value": "29463-7"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%referenceTimePoint - 1a"
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "height",
+            "value": "8302-2"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -86,14 +184,6 @@
         "name": "code",
         "description": "Vital signs collected in an encounter",
         "values": [
-          {
-            "name": "weight",
-            "value": "29463-7"
-          },
-          {
-            "name": "height",
-            "value": "8302-2"
-          },
           {
             "name": "systolicBp",
             "value": "8480-6"
@@ -276,6 +366,11 @@
           "encounterId": "encounterId"
         }
       },
+      "filter": {
+        "name": "firstTwentyFourHours",
+        "description":"Filters symptoms that appeared within the first 24 hours of hospital admission.",
+        "filter": "utl:getPeriod(eventTime, time, 'hours') <= 24"
+      },
       "pivot": {
         "name": "code",
         "description": "Symptoms to be evaluated as features",
@@ -426,12 +521,25 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "%eventTime - 6mo"
       },
       "feature": [
         {
           "name": "lvef",
-          "description": "Value of left ventricular ejection fraction"
+          "description": "Value of left ventricular ejection fraction",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -441,32 +549,97 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "%eventTime - 1mo"
       },
       "feature": [
         {
           "name": "ecg_qrs_duration",
-          "description": "Duration of QRS wave"
+          "description": "Duration of QRS wave",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_qrs_axis",
-          "description": "Axis of QRS wave"
+          "description": "Axis of QRS wave",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_qt_duration_corrected",
-          "description": "Duration of QT wave corrected"
+          "description": "Duration of QT wave corrected",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_st",
-          "description": "ST-elevation"
+          "description": "ST-elevation",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_ischemia_without_st",
-          "description": "Ischemia without st-elevation"
+          "description": "Ischemia without st-elevation",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
         },
         {
           "name": "ecg_type_of_rhythm",
-          "description": "Type of rhythm"
+          "description": "Type of rhythm",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -547,7 +720,8 @@
         "on": {
           "pid": "pid",
           "encounterId": "encounterId"
-        }
+        },
+        "duration": "%eventTime - 6mo"
       },
       "feature": [
         {
@@ -598,21 +772,6 @@
         "filter": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
       },
       "feature": [
-        {
-          "name": "earliest",
-          "description": "ICD code representing the heart failure diagnosis observed for the first time.",
-          "value": {
-            "path": "icd10Code",
-            "dataType": "code"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first"
-              ]
-            }
-          ]
-        },
         {
           "name": "timeFromEarliest",
           "description": "Time elapsed (in months) since heart failure is observed for the first time until the reference time point.",
@@ -2373,7 +2532,45 @@
           "name": "isNonRenalAndNonCV",
           "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
           "value": {
-            "path": "(causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()",
+            "path": "causeOfDeath.startsWith('R99').not() and (causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "isAllCause",
+          "description": "Whether the patient dies because of unspecified condition after the reference time point..",
+          "value": {
+            "path": "causeOfDeath.startsWith('R99')",
             "dataType": "boolean"
           },
           "temporalAgg": [
