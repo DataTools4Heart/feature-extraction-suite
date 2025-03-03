@@ -102,9 +102,14 @@
       "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 6mo"
+      },
+      "filter": {
+        "name": "beforeAdmission",
+        "description": "Filter the vital signs observed before the admission.",
+        "filter": "effectiveDateTime < eventTime"
       },
       "pivot": {
         "name": "code",
@@ -113,11 +118,72 @@
           {
             "name": "weight",
             "value": "29463-7"
-          },
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%referenceTimePoint - 1a"
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
           {
             "name": "height",
             "value": "8302-2"
-          },
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
           {
             "name": "systolicBp",
             "value": "8480-6"
