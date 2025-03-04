@@ -603,27 +603,11 @@
         },
         {
           "name": "ecg_st",
-          "description": "ST-elevation",
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first",
-                "last"
-              ]
-            }
-          ]
+          "description": "ST-elevation"
         },
         {
           "name": "ecg_ischemia_without_st",
-          "description": "Ischemia without st-elevation",
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first",
-                "last"
-              ]
-            }
-          ]
+          "description": "Ischemia without st-elevation"
         },
         {
           "name": "ecg_type_of_rhythm",
