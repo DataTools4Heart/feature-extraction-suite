@@ -1,15 +1,38 @@
 services:
-  onfhir-feast-cli:
-    image: srdc/onfhir-feast-cli:latest
-    container_name: dt4h-onfhir-feast-cli
+#  onfhir-feast-cli:
+#    image: srdc/onfhir-feast-cli:latest
+#    container_name: dt4h-onfhir-feast-cli
+#    environment:
+#      - APP_CONF_FILE=/usr/local/onfhir-feast/conf/docker/feast-cli.conf
+#      - JAVA_OPTIONS=-Xms2g -Xmx24g
+#    networks:
+#      - onfhir-network
+#    volumes:
+#      - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
+#      - ./feature-extraction-suite/output-data:/usr/local/onfhir-feast/output-data
+  postgres:
+    image: postgres:latest
+    container_name: onfhir-feast-postgres
     environment:
-      - APP_CONF_FILE=/usr/local/onfhir-feast/conf/docker/feast-cli.conf
-      - JAVA_OPTIONS=-Xms2g -Xmx24g
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: onfhir_feast_new
+    ports:
+      - "5432:5432"
     networks:
       - onfhir-network
+  onfhir-feast:
+    image: srdc/onfhir-feast:latest
+    container_name: onfhir-feast
+    environment:
+      APP_CONF_FILE: /usr/local/onfhir-feast/conf/docker/feast-server.conf
+    ports:
+      - "8085:8085"
     volumes:
       - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
       - ./feature-extraction-suite/output-data:/usr/local/onfhir-feast/output-data
+    networks:
+      - onfhir-network
 networks:
   onfhir-network:
     name: onfhir-network
