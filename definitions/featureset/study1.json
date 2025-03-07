@@ -634,17 +634,12 @@
           "pid": "pid"
         }
       },
-      "filter": {
-        "name": "smoker",
-        "description": "Filter the active smoking status.",
-        "filter": "code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001'"
-      },
       "feature": [
         {
           "name": "smoker",
-          "description": "Whether the patient is smoking currently. We check the last smoking status record and expect that it does not have an end date indicating that the patient is a current smoker",
+          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
           "value": {
-            "path": "endTime.exists().not()",
+            "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -655,6 +650,36 @@
             }
           ]
         },
+        {
+          "name": "formerSmoker",
+          "description": "Whether the patient smoked within 1 year prior to the admission end.The patient is considered to have smoked if their most recent smoking status is 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either: 1. The recorded start date is within 365 days of the reference time point, 2. There is no recorded end date, or 3. The recorded end date is within 365 days of the reference time point. If the last recorded status is 'Former smoker,' the patient is considered to have smoked in the past year if either the smoking start date is within 365 days of the reference time point or the smoking end date is before the reference time point. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "value": {
+            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001',iif(utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() <= 365 or endTime.exists().not() or utl:getPeriod(endTime, %referenceTimePoint, 'days').toInteger() <= 365,true, false),iif(code = '8517006' and ((startTime.exists() and utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() < 365) or (endTime.exists() and endTime < %referenceTimePoint)), true,iif(code = '266927001',{},false)))",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "smoker",
+        "description": "Filter the active smoking status.",
+        "filter": "code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001'"
+      },
+      "feature": [
         {
           "name": "totalSmokingDuration",
           "description": "Total duration of smoking in days.",
@@ -677,21 +702,6 @@
             {
               "aggOp": [
                 "count"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "formerSmoker",
-          "description": "Whether the patient smoked within 1 year prior to the admission end.",
-          "value": {
-            "path": "utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() <= 365",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
               ]
             }
           ]
