@@ -37,7 +37,7 @@
         },
         {
           "name": "startTime",
-          "path": "MedicationAdministration.occurencePeriod.start"
+          "path": "iif(MedicationAdministration.occurenceDateTime.exists(),MedicationAdministration.occurenceDateTime,MedicationAdministration.occurencePeriod.start)"
         }
       ]
     }
