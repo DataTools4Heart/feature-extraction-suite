@@ -616,11 +616,7 @@
             {
               "aggOp": [
                 "first",
-                "last",
-                "avg",
-                "min",
-                "max",
-                "stddev"
+                "last"
               ]
             }
           ]
