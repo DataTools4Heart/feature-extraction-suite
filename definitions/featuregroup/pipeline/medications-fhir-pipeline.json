@@ -32,8 +32,8 @@
       ],
       "feature": [
         {
-          "name": "medicationCode",
-          "path": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code.first()"
+          "name": "medicationCodes",
+          "path": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code"
         },
         {
           "name": "startTime",

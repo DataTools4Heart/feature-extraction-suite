@@ -19,10 +19,11 @@
   ],
   "feature": [
     {
-      "name": "medicationCode",
-      "title": "Medication code (ATC)",
-      "description": "ATC code for the medication",
+      "name": "medicationCodes",
+      "title": "Medication codes (ATC)",
+      "description": "ATC codes for the medication",
       "dataType": "code",
+      "isArray": true,
       "valueSet": {
         "url": "http://www.whocc.no/atc"
       }
