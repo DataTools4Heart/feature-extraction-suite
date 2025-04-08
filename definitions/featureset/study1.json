@@ -1631,14 +1631,14 @@
       "filter": {
         "name": "rasi",
         "description": "Renin–angiotensin system inhibitor",
-        "filter": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09B') or medicationCode.startsWith('C09CA') or medicationCode.startsWith('C09D') or medicationCode.startsWith('C09X')"
+        "filter": "medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1655,14 +1655,14 @@
       "filter": {
         "name": "arni",
         "description": "Angiotensin receptor-neprilysin inhibitor (ARNi)",
-        "filter": "medicationCode = 'C09DX04'"
+        "filter": "medicationCodes.select($this = 'C09DX04').anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1679,14 +1679,14 @@
       "filter": {
         "name": "acei",
         "description": "Angiotensin-converting enzyme (ACE)-inhibitors",
-        "filter": "medicationCode.startsWith('C09AA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BB') or medicationCode.startsWith('C09BX')"
+        "filter": "medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1703,14 +1703,14 @@
       "filter": {
         "name": "arb",
         "description": "Angiotensin receptor blocker (ARB)",
-        "filter": "medicationCode.startsWith('C09C') or medicationCode.startsWith('C09D')"
+        "filter": "medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1727,14 +1727,14 @@
       "filter": {
         "name": "mra",
         "description": "Mineralcorticoid receptor antagonist",
-        "filter": "medicationCode.startsWith('C03DA') or medicationCode.startsWith('C03EA') or medicationCode.startsWith('C03EB')"
+        "filter": "medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1751,14 +1751,14 @@
       "filter": {
         "name": "diuretics",
         "description": "diuretics",
-        "filter": "medicationCode.startsWith('C03BA82').not() and (medicationCode.startsWith('C03A') or medicationCode.startsWith('C03D') or medicationCode.startsWith('C03E') or medicationCode.startsWith('C03XA') or medicationCode.startsWith('C03BA') or medicationCode.startsWith('C03BB') or medicationCode.startsWith('C03CA') or medicationCode.startsWith('C03CB') or medicationCode.startsWith('C03CC') or medicationCode.startsWith('C03CX') or medicationCode.startsWith('C07BA') or medicationCode.startsWith('C07BB') or medicationCode.startsWith('C07CA') or medicationCode.startsWith('C07CB') or medicationCode.startsWith('C07CG') or medicationCode.startsWith('C07DZ') or medicationCode.startsWith('C07DB') or medicationCode.startsWith('C08GA') or medicationCode.startsWith('C09BA') or medicationCode.startsWith('C09BX') or medicationCode.startsWith('C09DA') or medicationCode.startsWith('C09DX') or medicationCode.startsWith('C02LA') or medicationCode.startsWith('C02LB') or medicationCode.startsWith('C02LC') or medicationCode.startsWith('C02LG') or medicationCode.startsWith('C02LK') or medicationCode.startsWith('C02LL') or medicationCode.startsWith('C02LX'))"
+        "filter": "medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1775,14 +1775,14 @@
       "filter": {
         "name": "diuretics_loop",
         "description": "Loop diuretics",
-        "filter": "medicationCode.startsWith('C03CA')"
+        "filter": "medicationCodes.select($this.startsWith('C03CA')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1799,14 +1799,14 @@
       "filter": {
         "name": "anti_coag",
         "description": "anticoagulant agents",
-        "filter": "medicationCode.startsWith('BO1AA') or medicationCode.startsWith('BO1AB') or medicationCode.startsWith('BO1AX04') or medicationCode.startsWith('BO1AX05') or medicationCode.startsWith('BO1AF') or medicationCode.startsWith('BO1AE') or medicationCode.startsWith('BO1AX01') or medicationCode.startsWith('BO1AD12') or medicationCode.startsWith('BO1AB02')"
+        "filter": "medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1823,14 +1823,14 @@
       "filter": {
         "name": "anti_plat",
         "description": "antiplatelet agents",
-        "filter": "medicationCode.startsWith('BO1AC13') or medicationCode.startsWith('BO1AC17') or medicationCode.startsWith('BO1AC16') or medicationCode.startsWith('BO1AC04') or medicationCode.startsWith('BO1AC22') or medicationCode.startsWith('BO1AC05') or medicationCode.startsWith('BO1AC25') or medicationCode.startsWith('BO1AC24') or medicationCode.startsWith('BO1AC19') or medicationCode.startsWith('BO1AC11') or medicationCode.startsWith('BO1AC21') or medicationCode.startsWith('BO1AC06') or medicationCode.startsWith('BO1AC15') or medicationCode.startsWith('BO1AC08') or medicationCode.startsWith('BO1AC10') or medicationCode.startsWith('BO1AC18') or medicationCode.startsWith('BO1AC07') or medicationCode.startsWith('BO1AC03') or medicationCode.startsWith('BO1AC23') or medicationCode.startsWith('BO1AC01') or medicationCode.startsWith('BO1AC02') or medicationCode.startsWith('BO1AC26')"
+        "filter": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1847,14 +1847,14 @@
       "filter": {
         "name": "thrombolytic",
         "description": "thrombolytic drugs/fibrinolytics",
-        "filter": "medicationCode.startsWith('BO1AD02') or medicationCode.startsWith('BO1AD07') or medicationCode.startsWith('BO1AD11') or medicationCode.startsWith('BO1AD08') or medicationCode.startsWith('BO1AD04') or medicationCode.startsWith('BO1AD03') or medicationCode.startsWith('BO1AD01') or medicationCode.startsWith('BO1AD09') or medicationCode.startsWith('BO1AD06') or medicationCode.startsWith('BO1AD05')"
+        "filter": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1871,14 +1871,14 @@
       "filter": {
         "name": "bb",
         "description": "beta blockers",
-        "filter": "medicationCode.startsWith('C07') and medicationCode.startsWith('C07E').not()"
+        "filter": "medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1895,14 +1895,14 @@
       "filter": {
         "name": "ccb",
         "description": "calcium channel blockers",
-        "filter": "medicationCode.startsWith('C08C') or medicationCode.startsWith('C08D') or medicationCode.startsWith('C08E') or medicationCode.startsWith('C08GA')"
+        "filter": "medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1919,14 +1919,14 @@
       "filter": {
         "name": "digitalis",
         "description": "Digitalis glycosides",
-        "filter": "medicationCode.startsWith('C01AA') and (medicationCode.startsWith('C01AA09') or medicationCode.startsWith('C01AA52')).not()"
+        "filter": "medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1943,14 +1943,14 @@
       "filter": {
         "name": "antiarrhytmic",
         "description": "antiarrhythmic drugs",
-        "filter": "medicationCode.startsWith('C01B')"
+        "filter": "medicationCodes.select($this.startsWith('C01B')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1967,14 +1967,14 @@
       "filter": {
         "name": "inotropes",
         "description": "inotropes",
-        "filter": "medicationCode.startsWith('C01CA') or medicationCode.startsWith('C01CE') or medicationCode.startsWith('C01CX')"
+        "filter": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -1991,14 +1991,14 @@
       "filter": {
         "name": "vasodil",
         "description": "vasodil",
-        "filter": "medicationCode.startsWith('C01D')"
+        "filter": "medicationCodes.select($this.startsWith('C01D')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2015,14 +2015,14 @@
       "filter": {
         "name": "platelet",
         "description": "platelet",
-        "filter": "medicationCode.startsWith('B01AC')"
+        "filter": "medicationCodes.select($this.startsWith('B01AC')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2039,14 +2039,14 @@
       "filter": {
         "name": "ll",
         "description": "lipid lowering agents",
-        "filter": "medicationCode.startsWith('C10AA') or medicationCode.startsWith('C10BA') or medicationCode.startsWith('C10BX') or medicationCode.startsWith('C10AX13') or medicationCode.startsWith('C10AX14') or medicationCode.startsWith('C10AC16') or medicationCode.startsWith('C10AX09')"
+        "filter": "medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2063,14 +2063,14 @@
       "filter": {
         "name": "ivabradine",
         "description": "ivabradine",
-        "filter": "medicationCode.startsWith('C01EB17')"
+        "filter": "medicationCodes.select($this.startsWith('C01EB17')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2087,14 +2087,14 @@
       "filter": {
         "name": "potassium_binders",
         "description": "potassium_binders",
-        "filter": "medicationCode.startsWith('V03AE01') or medicationCode.startsWith('V03AE10') or medicationCode.startsWith('V03AE09')"
+        "filter": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2111,14 +2111,14 @@
       "filter": {
         "name": "insulins",
         "description": "insulins and analogs",
-        "filter": "medicationCode.startsWith('A10A')"
+        "filter": "medicationCodes.select($this.startsWith('A10A')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2135,14 +2135,14 @@
       "filter": {
         "name": "oral_antidiabetic",
         "description": "insulins and analogs",
-        "filter": "medicationCode.startsWith('A10BA') or medicationCode.startsWith('A10BB') or medicationCode.startsWith('A10BG') or medicationCode.startsWith('A10BF') or medicationCode.startsWith('A10BH') or medicationCode.startsWith('A10BJ') or medicationCode.startsWith('A10BD') or medicationCode.startsWith('A10BX09') or medicationCode.startsWith('A10BK01') or medicationCode.startsWith('A10BX12') or medicationCode.startsWith('A10BK03')"
+        "filter": "medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2159,14 +2159,14 @@
       "filter": {
         "name": "ari",
         "description": "drugs to prevent nerve damage in diabetes",
-        "filter": "medicationCode.startsWith('A10XA')"
+        "filter": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2183,14 +2183,14 @@
       "filter": {
         "name": "rdoad",
         "description": "respiratory drugs for obstructive airway diseases, inhalants",
-        "filter": "medicationCode.startsWith('R03A') or medicationCode.startsWith('R03B')"
+        "filter": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2207,14 +2207,14 @@
       "filter": {
         "name": "rdoad_syst",
         "description": "respiratory drugs for obstructive airway diseases, systemic use",
-        "filter": "medicationCode.startsWith('R03C') or medicationCode.startsWith('R03D')"
+        "filter": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2231,14 +2231,14 @@
       "filter": {
         "name": "cortico_syst",
         "description": "corticosteroids systemic",
-        "filter": "medicationCode.startsWith('H02A') or medicationCode.startsWith('H02BX') or medicationCode.startsWith('H02C')"
+        "filter": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
@@ -2255,14 +2255,14 @@
       "filter": {
         "name": "antiinfl",
         "description": "anti-inflammatory drugs",
-        "filter": "medicationCode.startsWith('M01AB') or medicationCode.startsWith('M01AX') or medicationCode.startsWith('C01EB16')"
+        "filter": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()"
       },
       "feature": [
         {
           "name": "administered",
           "description": "Whether the medication administered.",
           "value": {
-            "path": "medicationCode.exists()",
+            "path": "medicationCodes.exists()",
             "dataType": "boolean"
           }
         }
