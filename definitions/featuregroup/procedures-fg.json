@@ -1,0 +1,48 @@
+{
+  "id": "procedures",
+  "url": "https://datatools4heart.eu/feature-groups/study1/procedures",
+  "name": "procedures",
+  "title": "Procedures",
+  "description": "Procedure related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "performedDate",
+      "title": "Procedure date",
+      "description": "Date when the procedure is performed",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "icd10PcsCode",
+      "title": "Procedure code (ICD-10-PCS)",
+      "description": "ICD-10-PCS code for the procedure",
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://hl7.org/fhir/sid/icd-10-pcs"
+      }
+    },
+    {
+      "name": "procedureName",
+      "title": "Procedure name",
+      "description": "Name of the procedure",
+      "dataType": "string"
+    }
+  ],
+  "eventTime": {
+    "start": "performedDate"
+  }
+}
+
+

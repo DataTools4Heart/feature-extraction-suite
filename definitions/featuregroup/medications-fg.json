@@ -1,0 +1,41 @@
+{
+  "id": "med",
+  "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+  "name": "med",
+  "title": "Medications",
+  "description": "Medication related features",
+  "status": "active",
+  "date": "2025-01-16",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "medicationCodes",
+      "title": "Medication codes (ATC)",
+      "description": "ATC codes for the medication",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://www.whocc.no/atc"
+      }
+    },
+    {
+      "name": "startTime",
+      "title": "MedicationAdministration start time",
+      "description": "MedicationAdministration start time",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "startTime"
+  }
+}

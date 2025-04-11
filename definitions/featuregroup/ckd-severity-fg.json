@@ -1,0 +1,58 @@
+{
+  "id": "ckd_severity",
+  "url": "https://datatools4heart.eu/feature-groups/study1/ckd_severity",
+  "name": "ckd_severity",
+  "title": "Chronic kidney disease severity",
+  "description": "Chronic kidney disease severity-related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "categorizedValue",
+      "title": "CKD severity",
+      "description": "Categorized value for the severity of chronic kidney disease based on eGFR(estimated Glomerular Filtration Rate) measurements",
+      "dataType": "code",
+      "valueSet": {
+        "concept": [
+          {
+            "code": "advanced",
+            "display": "Advanced"
+          },
+          {
+            "code": "moderate",
+            "display": "Moderate"
+          },
+          {
+            "code": "mild",
+            "display": "Mild"
+          },
+          {
+            "code": "normal",
+            "display": "Normal"
+          }
+        ]
+      }
+    },
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "time"
+  }
+}
+

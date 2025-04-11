@@ -1,7 +1,7 @@
 *.jar
 *.bat
-application.conf
 logs/*
 .idea/
 data-catalog/*
 datasets/
+output-data

@@ -1,0 +1,92 @@
+{
+  "id": "encounters",
+  "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+  "name": "encounters",
+  "title": "Encounters",
+  "description": "Encounter related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "startTime",
+      "title": "Encounter start time ",
+      "description": "Encounter start time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "endTime",
+      "title": "Encounter end time ",
+      "description": "Encounter end time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "admissionYear",
+      "title": "Year of the admission time ",
+      "description": "Year of the admission time",
+      "dataType": "string"
+    },
+    {
+      "name": "encounterType",
+      "title": "Encounter type",
+      "description": "Type of this encounter",
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://snomed.info/sct"
+      }
+    },
+    {
+      "name": "encounterClass",
+      "title": "Encounter class",
+      "description": "Class of this encounter",
+      "dataType": "code",
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/encounter-class",
+        "concept": [
+          {
+            "code": "IMP",
+            "display": "inpatient encounter"
+          },
+          {
+            "code": "AMB",
+            "display": "ambulatory"
+          },
+          {
+            "code": "OBSENC",
+            "display": "observation encounter"
+          },
+          {
+            "code": "EMER",
+            "display": "emergency"
+          },
+          {
+            "code": "VR",
+            "display": "virtual"
+          },
+          {
+            "code": "HH",
+            "display": "home health"
+          },
+          {
+            "code": "SS",
+            "display": "short stay"
+          }
+        ]
+      }
+    }
+  ],
+  "eventTime": {
+    "start": "startTime",
+    "end": "endTime"
+  }
+}

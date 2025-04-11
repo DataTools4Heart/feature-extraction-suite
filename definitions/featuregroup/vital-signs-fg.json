@@ -1,0 +1,152 @@
+{
+  "id": "vital_signs",
+  "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+  "name": "vital_signs",
+  "title": "Vital signs",
+  "description": "Vital sign related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "code",
+      "title": "LOINC code for the vital-sign",
+      "description": "LOINC code for the vital-sign",
+      "dataType": "code",
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/vital-sign",
+        "concept": [
+          {
+            "code": "29463-7",
+            "display": "Body weight"
+          },
+          {
+            "code": "8302-2",
+            "display": "Body height"
+          },
+          {
+            "code": "39156-5",
+            "display": "Body mass index (BMI) [Ratio]"
+          },
+          {
+            "code": "8277-6",
+            "display": "Body surface area (BSA) [Ratio]"
+          },
+          {
+            "code": "8480-6",
+            "display": "Systolic blood pressure"
+          },
+          {
+            "code": "8462-4",
+            "display": "Diastolic blood pressure"
+          },
+          {
+            "code": "8867-4",
+            "display": "Heart rate"
+          },
+          {
+            "code": "2708-6",
+            "display": "Oxygen saturation in Arterial blood"
+          },
+          {
+            "code": "34534-8",
+            "display": "12 lead EKG panel"
+          },
+          {
+            "code": "8310-5",
+            "display": "Body temperature"
+          },
+          {
+            "code": "9279-1",
+            "display": "Respiratory rate"
+          },
+          {
+            "code": "8280-0",
+            "display": "Waist Circumference at umbilicus by Tape measure"
+          },
+          {
+            "code": "38208-5",
+            "display": "Pain severity - Reported"
+          },
+          {
+            "code": "3150-0",
+            "display": "Inhaled oxygen concentration"
+          },
+          {
+            "code": "35088-4",
+            "display": "Glasgow coma scale"
+          },
+          {
+            "code": "60985-9",
+            "display": "Central venous pressure (CVP)"
+          },
+          {
+            "code": "76535-4",
+            "display": "Diastolic blood pressure by Noninvasive"
+          },
+          {
+            "code": "8478-0",
+            "display": "Mean blood pressure"
+          },
+          {
+            "code": "76536-2",
+            "display": "Mean blood pressure by Noninvasive"
+          },
+          {
+            "code": "76534-7",
+            "display": "Systolic blood pressure by Noninvasive"
+          },
+          {
+            "code": "59408-5",
+            "display": "Oxygen saturation in Arterial blood by Pulse oximetry"
+          },
+          {
+            "code": "89270-3",
+            "display": "Body mass index (BMI) [Ratio] Estimated"
+          },
+          {
+            "code": "76213-8",
+            "display": "Invasive Diastolic blood pressure"
+          },
+          {
+            "code": "76215-3",
+            "display": "Invasive Systolic blood pressure"
+          },
+          {
+            "code": "60982-6",
+            "display": "Aorta Diastolic blood pressure"
+          },
+          {
+            "code": "60984-2",
+            "display": "Aorta Diastolic blood pressure"
+          }
+        ]
+      }
+    },
+    {
+      "name": "value",
+      "title": "Numeric lab result",
+      "description": "Numeric result",
+      "dataType": "decimal"
+    },
+    {
+      "name": "effectiveDateTime",
+      "title": "The date of the observation.",
+      "description": "The date of the observation.",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "effectiveDateTime"
+  }
+}

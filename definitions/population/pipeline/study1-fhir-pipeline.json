@@ -1,0 +1,56 @@
+{
+  "id": "study1",
+  "url": "https://datatools4heart.eu/cohorts/study1",
+  "name": "study1",
+  "title": "Hospitalized Patients with Primary Diagnosis of Heart Failure",
+  "description": "This cohort includes patients hospitalized with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
+  "version": "0.1",
+  "date": "2025-01-08",
+  "status": "active",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "resourceType": "Encounter",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Encounter.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start"
+    }
+  ],
+  "eligibility": [
+    {
+      "description": "Filters patients with a diagnosis of heart failure during the hospital encounter.",
+      "criteria": [
+        {
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
+          "entityLink": [
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Condition.encounter.reference"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

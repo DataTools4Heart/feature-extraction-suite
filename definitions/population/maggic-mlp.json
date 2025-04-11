@@ -1,0 +1,34 @@
+{
+  "id": "maggic",
+  "url": "https://datatools4heart.eu/cohorts/maggic",
+  "name": "maggic",
+  "title": "Patients with Diagnosis of Heart Failure",
+  "description": "This cohort includes patients with a diagnosis of heart failure.",
+  "version": "0.1",
+  "date": "2025-02-18",
+  "status": "active",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    }
+  ],
+  "entry": [
+    {
+      "name": "Patients diagnosed with heart failure",
+      "description": "Filters the patients diagnosed with heart failure",
+      "definesPeriod": true
+    }
+  ],
+  "exit": [
+    {
+      "name": "Patient's deceased time.",
+      "description": "When a patient dies, they are removed from the population."
+    }
+  ],
+  "period": {
+    "description": "Includes all patients for the defined cohort population.",
+    "events": "all"
+  }
+}

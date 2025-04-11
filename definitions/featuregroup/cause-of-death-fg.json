@@ -1,0 +1,40 @@
+{
+  "id": "cause_of_death",
+  "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+  "name": "cause_of_death",
+  "title": "Cause of death",
+  "description": "This feature group contains the feature that indicates the cause of death",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "causeOfDeath",
+      "title": "Cause of death",
+      "description": "ICD10 code of the condition as the cause of death",
+      "dataType": "code",
+      "valueSet": {
+        "url": "http://hl7.org/fhir/sid/icd-10"
+      }
+    },
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "time"
+  }
+}

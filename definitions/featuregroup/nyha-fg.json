@@ -1,0 +1,58 @@
+{
+  "id": "nyha",
+  "url": "https://datatools4heart.eu/feature-groups/study1/nyha",
+  "name": "nyha",
+  "title": "New York Heart Assessment features",
+  "description": "NYHA related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "nyha",
+      "title": "NYHA Value",
+      "description": "Value of the New York Heart Assessment as LOINC Code",
+      "dataType": "code",
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/nyha-classification",
+        "concept": [
+          {
+            "code": "LA28404-4",
+            "display": "Class-I"
+          },
+          {
+            "code": "LA28405-1",
+            "display": "Class-II"
+          },
+          {
+            "code": "LA28406-9",
+            "display": "Class-III"
+          },
+          {
+            "code": "LA28407-7",
+            "display": "Class-IV"
+          }
+        ]
+      }
+    },
+    {
+      "name": "date",
+      "title": "The date of the observation.",
+      "description": "The date of the observation.",
+      "dataType": "date"
+    }
+  ],
+  "eventTime": {
+    "start": "date"
+  }
+}

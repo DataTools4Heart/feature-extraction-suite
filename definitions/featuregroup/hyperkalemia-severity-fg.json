@@ -1,0 +1,57 @@
+{
+  "id": "hyperkalemia_severity",
+  "url": "https://datatools4heart.eu/feature-groups/study1/hyperkalemia_severity",
+  "name": "hyperkalemia_severity",
+  "title": "Hyperkalemia severity",
+  "description": "Hyperkalemia severity-related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "categorizedValue",
+      "title": "Hyperkalemia severity",
+      "description": "Categorized value for the severity of hyperkalemia based on potassium measurements",
+      "dataType": "code",
+      "valueSet": {
+        "concept": [
+          {
+            "code": "severe",
+            "display": "Severe"
+          },
+          {
+            "code": "moderate",
+            "display": "Moderate"
+          },
+          {
+            "code": "mild",
+            "display": "Mild"
+          },
+          {
+            "code": "normal",
+            "display": "Normal"
+          }
+        ]
+      }
+    }
+  ],
+  "eventTime": {
+    "start": "time"
+  }
+}

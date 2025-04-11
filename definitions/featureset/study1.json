@@ -1,0 +1,2600 @@
+{
+  "id": "study1-fs",
+  "url": "https://datatools4heart.eu/feature-sets/study1",
+  "name": "study1-fs",
+  "title": "Dataset for DataTools4Heart project clinical study 1",
+  "description": "Dataset for DataTools4Heart project clinical study 1",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "sampling": {
+    "description": "Use the end time of encounters as the reference time point.",
+    "events": [
+      {
+        "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+        "join": {
+          "on": {
+            "pid": "pid",
+            "encounterId": "encounterId"
+          }
+        },
+        "useEndTime": true
+      }
+    ]
+  },
+  "feature": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "gender",
+          "description": "Gender of the patient"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at reference point",
+          "value": {
+            "path": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "encounterClass",
+          "description": "Type of encounter (emergency, impatient, outpatient, etc)"
+        },
+        {
+          "name": "admissionYear",
+          "description": "Year of admission to hospital"
+        },
+        {
+          "name": "lengthOfStay",
+          "description": "The total number of days the patient has been hospitalized.",
+          "value": {
+            "path": "utl:getPeriod(%eventTime, %referenceTimePoint, 'days')",
+            "dataType": "integer"
+          }
+        },
+        {
+          "name": "admissionDate",
+          "description": "Date of hospital admission.",
+          "value": {
+            "path": "startTime",
+            "dataType": "dateTime"
+          }
+        },
+        {
+          "name": "dischargeDate",
+          "description": "Date of hospital discharge.",
+          "value": {
+            "path": "endTime",
+            "dataType": "dateTime"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 6mo"
+      },
+      "filter": {
+        "name": "beforeAdmission",
+        "description": "Filter the vital signs observed before the admission.",
+        "filter": "effectiveDateTime < eventTime"
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "weight",
+            "value": "29463-7"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%referenceTimePoint - 1a"
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "height",
+            "value": "8302-2"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "systolicBp",
+            "value": "8480-6"
+          },
+          {
+            "name": "diastolicBp",
+            "value": "8462-4"
+          },
+          {
+            "name": "heartRate",
+            "value": "8867-4"
+          },
+          {
+            "name": "oxygenSaturation",
+            "value": "2708-6"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Important lab results to be evaluated features",
+        "values": [
+          {
+            "name": "hemoglobin",
+            "value": "718-7"
+          },
+          {
+            "name": "ferritin",
+            "value": "2276-4"
+          },
+          {
+            "name": "tfs",
+            "value": "2502-3"
+          },
+          {
+            "name": "ntProBnp",
+            "value": "33762-6"
+          },
+          {
+            "name": "bnp",
+            "value": "30934-4"
+          },
+          {
+            "name": "crpHs",
+            "value": "1988-5"
+          },
+          {
+            "name": "crpNonHs",
+            "value": "30522-7"
+          },
+          {
+            "name": "tropIHs",
+            "value": "89579-7"
+          },
+          {
+            "name": "tropInHs",
+            "value": "10839-9"
+          },
+          {
+            "name": "tropTHs",
+            "value": "67151-1"
+          },
+          {
+            "name": "tropTnHs",
+            "value": "6598-7"
+          },
+          {
+            "name": "triGly",
+            "value": "14927-8"
+          },
+          {
+            "name": "cholTot",
+            "value": "14647-2"
+          },
+          {
+            "name": "hdl",
+            "value": "14646-4"
+          },
+          {
+            "name": "ldl",
+            "value": "22748-8"
+          },
+          {
+            "name": "potassium",
+            "value": "2823-3"
+          },
+          {
+            "name": "sodium",
+            "value": "2951-2"
+          },
+          {
+            "name": "creatBS",
+            "value": "2160-0"
+          },
+          {
+            "name": "creatUS",
+            "value": "2161-8"
+          },
+          {
+            "name": "albuminBS",
+            "value": "1751-7"
+          },
+          {
+            "name": "albuminUS",
+            "value": "1754-1"
+          },
+          {
+            "name": "eGFR",
+            "value": "69405-9"
+          },
+          {
+            "name": "bun",
+            "value": "14937-7"
+          },
+          {
+            "name": "acr",
+            "value": "32294-1"
+          },
+          {
+            "name": "hba1c%",
+            "value": "4548-4"
+          },
+          {
+            "name": "hba1c",
+            "value": "41995-2"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/symptoms",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "firstTwentyFourHours",
+        "description":"Filters symptoms that appeared within the first 24 hours of hospital admission.",
+        "filter": "utl:getPeriod(eventTime, time, 'hours') <= 24"
+      },
+      "pivot": {
+        "name": "code",
+        "description": "Symptoms to be evaluated as features",
+        "values": [
+          {
+            "name": "Ankle_swelling",
+            "value": "267039000"
+          },
+          {
+            "name": "Ascites",
+            "value": "389026000"
+          },
+          {
+            "name": "Breathlessness",
+            "value": "267036007"
+          },
+          {
+            "name": "Cardiac_murmur",
+            "value": "59495006"
+          },
+          {
+            "name": "Chest_pain",
+            "value": "29857009"
+          },
+          {
+            "name": "Cheyne-stokes_respiration",
+            "value": "90480005"
+          },
+          {
+            "name": "Depression",
+            "value": "35489007"
+          },
+          {
+            "name": "Dizziness",
+            "value": "404640003"
+          },
+          {
+            "name": "Elevated_jugular_venous_pressure",
+            "value": "22447003"
+          },
+          {
+            "name": "Fatigue",
+            "value": "84229001"
+          },
+          {
+            "name": "Hepatojugular_reflux",
+            "value": "72196001"
+          },
+          {
+            "name": "Hepatomegaly",
+            "value": "80515008"
+          },
+          {
+            "name": "Intermittent_claudication",
+            "value": "63491006"
+          },
+          {
+            "name": "Irregular_pulse",
+            "value": "361137007"
+          },
+          {
+            "name": "Loss_of_appetite",
+            "value": "79890006"
+          },
+          {
+            "name": "Nocturnal_cough",
+            "value": "161947006"
+          },
+          {
+            "name": "Oliguria",
+            "value": "83128009"
+          },
+          {
+            "name": "Orthopnoea",
+            "value": "62744007"
+          },
+          {
+            "name": "Palpitations",
+            "value": "80313002"
+          },
+          {
+            "name": "Paroxysmal_nocturnal_dyspnea",
+            "value": "55442000"
+          },
+          {
+            "name": "Peripheral_edema",
+            "value": "271809000"
+          },
+          {
+            "name": "Pleural_effusion",
+            "value": "60046008"
+          },
+          {
+            "name": "Pulmonary_crepitations",
+            "value": "48409008"
+          },
+          {
+            "name": "Reduced_exercise_tolerance",
+            "value": "267044007"
+          },
+          {
+            "name": "Syncope",
+            "value": "272030005"
+          },
+          {
+            "name": "Tachycardia",
+            "value": "3424008"
+          },
+          {
+            "name": "Tachypnoea",
+            "value": "271823003"
+          },
+          {
+            "name": "Third_heart_sound",
+            "value": "1285004"
+          },
+          {
+            "name": "Weight_gain",
+            "value": "8943002"
+          },
+          {
+            "name": "Weight_loss",
+            "value": "89362005"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "display",
+          "description": "Whether the symptom is observed or not",
+          "value": {
+            "path": "code.exists()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        },
+        "duration": "%eventTime - 6mo"
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "Value of left ventricular ejection fraction",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        },
+        "duration": "%eventTime - 1mo"
+      },
+      "feature": [
+        {
+          "name": "ecg_qrs_duration",
+          "description": "Duration of QRS wave",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qrs_axis",
+          "description": "Axis of QRS wave",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qt_duration_corrected",
+          "description": "Duration of QT wave corrected",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_st",
+          "description": "ST-elevation"
+        },
+        {
+          "name": "ecg_ischemia_without_st",
+          "description": "Ischemia without st-elevation"
+        },
+        {
+          "name": "ecg_type_of_rhythm",
+          "description": "Type of rhythm",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "smoker",
+          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "value": {
+            "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "formerSmoker",
+          "description": "Whether the patient smoked within 1 year prior to the admission end.The patient is considered to have smoked if their most recent smoking status is 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either: 1. The recorded start date is within 365 days of the reference time point, 2. There is no recorded end date, or 3. The recorded end date is within 365 days of the reference time point. If the last recorded status is 'Former smoker,' the patient is considered to have smoked in the past year if either the smoking start date is within 365 days of the reference time point or the smoking end date is before the reference time point. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "value": {
+            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001',iif(utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() <= 365 or endTime.exists().not() or utl:getPeriod(endTime, %referenceTimePoint, 'days').toInteger() <= 365,true, false),iif(code = '8517006' and ((startTime.exists() and utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() < 365) or (endTime.exists() and endTime < %referenceTimePoint)), true,iif(code = '266927001',{},false)))",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "smoker",
+        "description": "Filter the active smoking status.",
+        "filter": "code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001'"
+      },
+      "feature": [
+        {
+          "name": "totalSmokingDuration",
+          "description": "Total duration of smoking in days.",
+          "value": {
+            "path": "utl:getPeriod(startTime, iif(endTime.exists() and endTime < %referenceTimePoint, endTime, %referenceTimePoint), 'days').toInteger()",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "sum"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "startTime",
+          "description": "Total number of smoking periods.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/nyha",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        },
+        "duration": "%eventTime - 6mo"
+      },
+      "feature": [
+        {
+          "name": "nyha",
+          "description": "New York Heart Assessment value"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/hyperkalemia_severity",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "categorizedValue",
+          "description": "Severity of hyperkalemia"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/ckd_severity",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "categorizedValue",
+          "description": "Severity of chronic kidney disease"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "heartFailure",
+        "filter": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+      },
+      "feature": [
+        {
+          "name": "timeFromEarliest",
+          "description": "Time elapsed (in months) since heart failure is observed for the first time until the reference time point.",
+          "value": {
+            "path": "utl:getPeriod(date, %referenceTimePoint,'mo').toInteger()",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "betweenHospitalAdmissionAndDischargeTime",
+        "description":"Filters conditions that occurred within the hospital admission and discharge timeframe.",
+        "filter": "date > eventTime"
+      },
+      "feature": [
+        {
+          "name": "ap",
+          "description": "Whether the patient has angina pectoris in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I20')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "af",
+          "description": "Whether the patient has atrial fibrillation in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I48')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "cm",
+          "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dysl",
+          "description": "Whether the patient has dyslipidemia in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('E78')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hf",
+          "description": "Whether the patient has heart failure in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hyp",
+          "description": "Whether the patient has hypertension in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ihd",
+          "description": "Whether the patient has ischemic heart disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mi",
+          "description": "Whether the patient has myocardial infarction in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pad",
+          "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "stroke",
+          "description": "Whether the patient has stroke in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tia",
+          "description": "Whether the patient has transient ischemic attack in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "vd",
+          "description": "Whether the patient has valvular disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "revasc",
+          "description": "Whether the patient has revascularized CABG, PCI in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('Z95.5')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "devices",
+          "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "aidshiv",
+          "description": "Whether the patient has AIDS or HIV in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "copd",
+          "description": "Whether the patient has COPD in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diabetes",
+          "description": "Whether the patient has diabetes mellitus in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dem",
+          "description": "Whether the patient has dementia in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dep",
+          "description": "Whether the patient has depression in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dia",
+          "description": "Whether the patient has dialysis in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hthyroid",
+          "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ibd",
+          "description": "Whether the patient has inflammable bowel disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ld",
+          "description": "Whether the patient has liver disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mc",
+          "description": "Whether the patient has malignant cancer in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "osa",
+          "description": "Whether the patient has obstructive sleep apnea in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('G47.3')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rd",
+          "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ckd_chronic",
+          "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "beforeHospitalAdmission",
+        "description":"Filters conditions that occurred prior to hospital admission.",
+        "filter": "date < eventTime"
+      },
+      "feature": [
+        {
+          "name": "ap",
+          "description": "Whether the patient has angina pectoris in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I20')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "af",
+          "description": "Whether the patient has atrial fibrillation in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I48')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "cm",
+          "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dysl",
+          "description": "Whether the patient has dyslipidemia in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('E78')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hf",
+          "description": "Whether the patient has heart failure in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hyp",
+          "description": "Whether the patient has hypertension in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ihd",
+          "description": "Whether the patient has ischemic heart disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mi",
+          "description": "Whether the patient has myocardial infarction in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pad",
+          "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "stroke",
+          "description": "Whether the patient has stroke in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tia",
+          "description": "Whether the patient has transient ischemic attack in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "vd",
+          "description": "Whether the patient has valvular disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "revasc",
+          "description": "Whether the patient has revascularized CABG, PCI in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('Z95.5')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "devices",
+          "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "aidshiv",
+          "description": "Whether the patient has AIDS or HIV in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "copd",
+          "description": "Whether the patient has COPD in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diabetes",
+          "description": "Whether the patient has diabetes mellitus in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dem",
+          "description": "Whether the patient has dementia in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dep",
+          "description": "Whether the patient has depression in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "dia",
+          "description": "Whether the patient has dialysis in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hthyroid",
+          "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ibd",
+          "description": "Whether the patient has inflammable bowel disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ld",
+          "description": "Whether the patient has liver disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mc",
+          "description": "Whether the patient has malignant cancer in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "osa",
+          "description": "Whether the patient has obstructive sleep apnea in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('G47.3')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rd",
+          "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ckd_chronic",
+          "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of the data point (i.e. the reference time point)",
+          "value": {
+            "path": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "rasi",
+        "description": "Renin–angiotensin system inhibitor",
+        "filter": "medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "arni",
+        "description": "Angiotensin receptor-neprilysin inhibitor (ARNi)",
+        "filter": "medicationCodes.select($this = 'C09DX04').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "acei",
+        "description": "Angiotensin-converting enzyme (ACE)-inhibitors",
+        "filter": "medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "arb",
+        "description": "Angiotensin receptor blocker (ARB)",
+        "filter": "medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "mra",
+        "description": "Mineralcorticoid receptor antagonist",
+        "filter": "medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "diuretics",
+        "description": "diuretics",
+        "filter": "medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "diuretics_loop",
+        "description": "Loop diuretics",
+        "filter": "medicationCodes.select($this.startsWith('C03CA')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "anti_coag",
+        "description": "anticoagulant agents",
+        "filter": "medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "anti_plat",
+        "description": "antiplatelet agents",
+        "filter": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "thrombolytic",
+        "description": "thrombolytic drugs/fibrinolytics",
+        "filter": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "bb",
+        "description": "beta blockers",
+        "filter": "medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "ccb",
+        "description": "calcium channel blockers",
+        "filter": "medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "digitalis",
+        "description": "Digitalis glycosides",
+        "filter": "medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "antiarrhytmic",
+        "description": "antiarrhythmic drugs",
+        "filter": "medicationCodes.select($this.startsWith('C01B')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "inotropes",
+        "description": "inotropes",
+        "filter": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "vasodil",
+        "description": "vasodil",
+        "filter": "medicationCodes.select($this.startsWith('C01D')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "platelet",
+        "description": "platelet",
+        "filter": "medicationCodes.select($this.startsWith('B01AC')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "ll",
+        "description": "lipid lowering agents",
+        "filter": "medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "ivabradine",
+        "description": "ivabradine",
+        "filter": "medicationCodes.select($this.startsWith('C01EB17')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "potassium_binders",
+        "description": "potassium_binders",
+        "filter": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "insulins",
+        "description": "insulins and analogs",
+        "filter": "medicationCodes.select($this.startsWith('A10A')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "oral_antidiabetic",
+        "description": "insulins and analogs",
+        "filter": "medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "ari",
+        "description": "drugs to prevent nerve damage in diabetes",
+        "filter": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "rdoad",
+        "description": "respiratory drugs for obstructive airway diseases, inhalants",
+        "filter": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "rdoad_syst",
+        "description": "respiratory drugs for obstructive airway diseases, systemic use",
+        "filter": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "cortico_syst",
+        "description": "corticosteroids systemic",
+        "filter": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "antiinfl",
+        "description": "anti-inflammatory drugs",
+        "filter": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "administered",
+          "description": "Whether the medication administered.",
+          "value": {
+            "path": "medicationCodes.exists()",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    }
+  ],
+  "outcome": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "hosp_for_heart_failure",
+          "description": "Whether the patient is hospitalized because of heart failure after the reference time point.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "hosp_for_CV_disease",
+          "description": "Whether the patient is hospitalized because of any cardiovascular condition after the reference time point.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "hosp_for_non_cv_disease",
+          "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the reference time point.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "hosp_for_renal_complications",
+          "description": "Whether the patient is hospitalized because of any renal complication after the reference time point.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "isCardivascular",
+          "description": "Whether the patient dies because of any cardiovascular condition after the reference time point.",
+          "value": {
+            "path": "causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "isRenal",
+          "description": "Whether the patient dies because of any renal complication after the reference time point.",
+          "value": {
+            "path": "causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "isNonRenalAndNonCV",
+          "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
+          "value": {
+            "path": "causeOfDeath.startsWith('R99').not() and (causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "isAllCause",
+          "description": "Whether the patient dies because of unspecified condition after the reference time point..",
+          "value": {
+            "path": "causeOfDeath.startsWith('R99')",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": ["any"]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": ["any"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

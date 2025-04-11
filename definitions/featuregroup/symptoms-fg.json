@@ -1,0 +1,169 @@
+{
+  "id": "symptoms",
+  "url": "https://datatools4heart.eu/feature-groups/study1/symptoms",
+  "name": "symptoms",
+  "title": "Symptoms",
+  "description": "Symptom related features",
+  "status": "active",
+  "date": "2025-02-20",
+  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "code",
+      "title": "Snomed code for the symptom",
+      "description": "Snomed code for the symptom",
+      "dataType": "code",
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/symptoms",
+        "concept": [
+          {
+            "display": "Ankle swelling",
+            "code": "267039000"
+          },
+          {
+            "display": "Ascites",
+            "code": "389026000"
+          },
+          {
+            "display": "Breathlessness",
+            "code": "267036007"
+          },
+          {
+            "display": "Cardiac murmur",
+            "code": "59495006"
+          },
+          {
+            "display": "Chest pain",
+            "code": "29857009"
+          },
+          {
+            "display": "Cheyne-stokes respiration",
+            "code": "90480005"
+          },
+          {
+            "display": "Depression",
+            "code": "35489007"
+          },
+          {
+            "display": "Dizziness",
+            "code": "404640003"
+          },
+          {
+            "display": "Elevated jugular venous pressure",
+            "code": "22447003"
+          },
+          {
+            "display": "Fatigue",
+            "code": "84229001"
+          },
+          {
+            "display": "Hepatojugular reflux",
+            "code": "72196001"
+          },
+          {
+            "display": "Hepatomegaly",
+            "code": "80515008"
+          },
+          {
+            "display": "Intermittent claudication",
+            "code": "63491006"
+          },
+          {
+            "display": "Irregular pulse",
+            "code": "361137007"
+          },
+          {
+            "display": "Loss of appetite",
+            "code": "79890006"
+          },
+          {
+            "display": "Nocturnal cough",
+            "code": "161947006"
+          },
+          {
+            "display": "Oliguria",
+            "code": "83128009"
+          },
+          {
+            "display": "Orthopnoea",
+            "code": "62744007"
+          },
+          {
+            "display": "Palpitations",
+            "code": "80313002"
+          },
+          {
+            "display": "Paroxysmal nocturnal dyspnea",
+            "code": "55442000"
+          },
+          {
+            "display": "Peripheral edema",
+            "code": "271809000"
+          },
+          {
+            "display": "Pleural effusion",
+            "code": "60046008"
+          },
+          {
+            "display": "Pulmonary crepitations",
+            "code": "48409008"
+          },
+          {
+            "display": "Reduced exercise tolerance",
+            "code": "267044007"
+          },
+          {
+            "display": "Syncope",
+            "code": "272030005"
+          },
+          {
+            "display": "Tachycardia",
+            "code": "3424008"
+          },
+          {
+            "display": "Tachypnoea",
+            "code": "271823003"
+          },
+          {
+            "display": "Third heart sound",
+            "code": "1285004"
+          },
+          {
+            "display": "Weight gain",
+            "code": "8943002"
+          },
+          {
+            "display": "Weight loss",
+            "code": "89362005"
+          }
+        ]
+      }
+    },
+    {
+      "name": "display",
+      "title": "Name of the symptom",
+      "description": "Name of the symptom",
+      "dataType": "string"
+    }
+  ],
+  "eventTime": {
+    "start": "time"
+  }
+}
+
