@@ -36,6 +36,10 @@
           "path": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code"
         },
         {
+          "name": "medicationGroups",
+          "path": "MedicationAdministration.medication.concept.coding.where(system='https://datatools4heart.eu/fhir/CodeSystem/medication-group').code"
+        },
+        {
           "name": "startTime",
           "path": "iif(MedicationAdministration.occurenceDateTime.exists(),MedicationAdministration.occurenceDateTime,MedicationAdministration.occurencePeriod.start)"
         }

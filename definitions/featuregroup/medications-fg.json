@@ -29,6 +29,16 @@
       }
     },
     {
+      "name": "medicationGroups",
+      "title": "Medication groups",
+      "description": "Medication groups to be used when specific ATC codes are not available.",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/medication-group"
+      }
+    },
+    {
       "name": "startTime",
       "title": "MedicationAdministration start time",
       "description": "MedicationAdministration start time",
