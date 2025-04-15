@@ -33,8 +33,8 @@
       ],
       "feature": [
         {
-          "name": "causeOfDeath",
-          "path": "Observation.valueCodeableConcept.coding.where(system='http://hl7.org/fhir/sid/icd-10').first().code"
+          "name": "causesOfDeath",
+          "path": "Observation.valueCodeableConcept.coding.where(system='http://hl7.org/fhir/sid/icd-10').code"
         },
         {
           "name": "time",

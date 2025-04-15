@@ -63,7 +63,7 @@
         "duration": "3a"
       },
       "pivot": {
-        "name": "code",
+        "name": "codes",
         "description": "Important vital signs",
         "values": [
           {
@@ -99,7 +99,7 @@
         "duration": "3a"
       },
       "pivot": {
-        "name": "code",
+        "name": "codes",
         "description": "Important lab results",
         "values": [
           {
@@ -140,14 +140,14 @@
       "filter": {
         "name": "heart-failure",
         "description": "Find the Heart Failures.",
-        "filter": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I25.5') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I25.5') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
       },
       "feature": [
         {
           "name": "occurred_prior_to_18_months",
           "description": "Indicates whether the condition was diagnosed 18 months or more before the reference time point, corresponding to the criteria for 'Heart Failure (HF) ≥ 18 Months Prior.'",
           "value": {
-            "path": "icd10Code.exists() and utl:getPeriod(date, %referenceTimePoint, 'months') >= 18",
+            "path": "utl:getPeriod(date, %referenceTimePoint, 'months') >= 18",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -172,7 +172,7 @@
           "name": "has_chronic_obstructive_pulmonary_disease",
           "description": "Whether the patient has the Chronic Obstructive Pulmonary Disease (COPD).",
           "value": {
-            "path": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')",
+            "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -187,7 +187,7 @@
           "name": "has_atrial_fibrillation",
           "description": "Whether the patient has the Atrial Fibrillations.",
           "value": {
-            "path": "icd10Code.startsWith('I48')",
+            "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -202,7 +202,7 @@
           "name": "has_myocardial_infarction",
           "description": "Whether the patient has the Myocardial Infarctions.",
           "value": {
-            "path": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')",
+            "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -217,7 +217,7 @@
           "name": "has_pci",
           "description": "Whether the patient has the Percutaneous Coronary Intervention (PCI).",
           "value": {
-            "path": "icd10Code.startsWith('K49') or icd10Code.startsWith('K50') or icd10Code.startsWith('K75')",
+            "path": "icd10Codes.select($this.startsWith('K49') or $this.startsWith('K50') or $this.startsWith('K75')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -232,7 +232,7 @@
           "name": "has_cabg",
           "description": "Whether the patient has the Coronary Artery Bypass Graft (CABG) Surgeries.",
           "value": {
-            "path": "icd10Code.startsWith('K40') or icd10Code.startsWith('K41') or icd10Code.startsWith('K42') or icd10Code.startsWith('K43') or icd10Code.startsWith('K44') or icd10Code.startsWith('K45') or icd10Code.startsWith('K46') or icd10Code.startsWith('K47')",
+            "path": "icd10Codes.select($this.startsWith('K40') or $this.startsWith('K41') or $this.startsWith('K42') or $this.startsWith('K43') or $this.startsWith('K44') or $this.startsWith('K45') or $this.startsWith('K46') or $this.startsWith('K47')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -247,7 +247,7 @@
           "name": "has_stroke",
           "description": "Whether the patient has the strokes.",
           "value": {
-            "path": "icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64') or icd10Code.startsWith('I60')",
+            "path": "icd10Codes.select($this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64') or $this.startsWith('I60')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -262,7 +262,7 @@
           "name": "has_diabetes",
           "description": "Whether the patient has the diabetes.",
           "value": {
-            "path": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')",
+            "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [

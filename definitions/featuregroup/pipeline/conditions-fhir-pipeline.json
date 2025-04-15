@@ -33,8 +33,8 @@
       ],
       "feature": [
         {
-          "name": "icd10Code",
-          "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code.first()"
+          "name": "icd10Codes",
+          "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code"
         },
         {
           "name": "date",

@@ -19,10 +19,11 @@
   ],
   "feature": [
     {
-      "name": "icd10Code",
-      "title": "Condition code (ICD-10)",
-      "description": "ICD-10 code for the condition",
+      "name": "icd10Codes",
+      "title": "Condition codes (ICD-10)",
+      "description": "ICD-10 codes for the condition",
       "dataType": "code",
+      "isArray": true,
       "valueSet": {
         "url": "http://hl7.org/fhir/ValueSet/icd-10-cm"
       }

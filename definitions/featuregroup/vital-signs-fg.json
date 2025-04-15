@@ -19,10 +19,11 @@
   ],
   "feature": [
     {
-      "name": "code",
-      "title": "LOINC code for the vital-sign",
-      "description": "LOINC code for the vital-sign",
+      "name": "codes",
+      "title": "LOINC codes for the vital-sign",
+      "description": "LOINC codes for the vital-sign",
       "dataType": "code",
+      "isArray": true,
       "valueSet": {
         "url": "https://datatools4heart.eu/fhir/ValueSet/vital-sign",
         "concept": [
