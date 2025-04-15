@@ -19,10 +19,11 @@
   ],
   "feature": [
     {
-      "name": "code",
-      "title": "LOINC code for the lab result",
-      "description": "LOINC code for the lab result",
+      "name": "codes",
+      "title": "LOINC codes for the lab result",
+      "description": "LOINC codes for the lab result",
       "dataType": "code",
+      "isArray": true,
       "valueSet": {
         "url": "http://loinc.org"
       }

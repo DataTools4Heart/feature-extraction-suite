@@ -112,7 +112,7 @@
         "filter": "effectiveDateTime < eventTime"
       },
       "pivot": {
-        "name": "code",
+        "name": "codes",
         "description": "Vital signs collected in an encounter",
         "values": [
           {
@@ -149,7 +149,7 @@
         "duration": "%referenceTimePoint - 1a"
       },
       "pivot": {
-        "name": "code",
+        "name": "codes",
         "description": "Vital signs collected in an encounter",
         "values": [
           {
@@ -181,7 +181,7 @@
         }
       },
       "pivot": {
-        "name": "code",
+        "name": "codes",
         "description": "Vital signs collected in an encounter",
         "values": [
           {
@@ -230,7 +230,7 @@
         }
       },
       "pivot": {
-        "name": "code",
+        "name": "codes",
         "description": "Important lab results to be evaluated features",
         "values": [
           {
@@ -759,7 +759,7 @@
       },
       "filter": {
         "name": "heartFailure",
-        "filter": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')"
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
       },
       "feature": [
         {
@@ -797,7 +797,7 @@
           "name": "ap",
           "description": "Whether the patient has angina pectoris in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I20')",
+            "path": "icd10Codes.select($this.startsWith('I20')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -812,7 +812,7 @@
           "name": "af",
           "description": "Whether the patient has atrial fibrillation in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I48')",
+            "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -827,7 +827,7 @@
           "name": "cm",
           "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')",
+            "path": "icd10Codes.select($this.startsWith('I42') or $this.startsWith('I43')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -842,7 +842,7 @@
           "name": "dysl",
           "description": "Whether the patient has dyslipidemia in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('E78')",
+            "path": "icd10Codes.select($this.startsWith('E78')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -857,7 +857,7 @@
           "name": "hf",
           "description": "Whether the patient has heart failure in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -872,7 +872,7 @@
           "name": "hyp",
           "description": "Whether the patient has hypertension in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')",
+            "path": "icd10Codes.select($this.startsWith('I10') or $this.startsWith('I11.0') or $this.startsWith('I12') or $this.startsWith('I13') or $this.startsWith('I15') or $this.startsWith('I16')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -887,7 +887,7 @@
           "name": "ihd",
           "description": "Whether the patient has ischemic heart disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')",
+            "path": "icd10Codes.select($this.startsWith('I20') or $this.startsWith('I21') or $this.startsWith('I22') or $this.startsWith('I23') or $this.startsWith('I24') or $this.startsWith('I25')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -902,7 +902,7 @@
           "name": "mi",
           "description": "Whether the patient has myocardial infarction in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')",
+            "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -917,7 +917,7 @@
           "name": "pad",
           "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')",
+            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -932,7 +932,7 @@
           "name": "stroke",
           "description": "Whether the patient has stroke in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')",
+            "path": "icd10Codes.select($this.startsWith('I60') or $this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -947,7 +947,7 @@
           "name": "tia",
           "description": "Whether the patient has transient ischemic attack in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')",
+            "path": "icd10Codes.select($this.startsWith('G45.8') or $this.startsWith('G45.9') or $this.startsWith('I63.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -962,7 +962,7 @@
           "name": "vd",
           "description": "Whether the patient has valvular disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')",
+            "path": "icd10Codes.select($this.startsWith('A52.0') or $this.startsWith('I05') or $this.startsWith('I06') or $this.startsWith('I07') or $this.startsWith('I08') or $this.startsWith('I09.1') or $this.startsWith('I09.8') or $this.startsWith('I34') or $this.startsWith('I35') or $this.startsWith('I36') or $this.startsWith('I37') or $this.startsWith('I38') or $this.startsWith('I39') or $this.startsWith('Q23.0') or $this.startsWith('Q23.1') or $this.startsWith('Q23.2') or $this.startsWith('Q23.3') or $this.startsWith('Z95.2') or $this.startsWith('Z95.3') or $this.startsWith('Z95.4')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -977,7 +977,7 @@
           "name": "revasc",
           "description": "Whether the patient has revascularized CABG, PCI in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('Z95.5')",
+            "path": "icd10Codes.select($this.startsWith('Z95.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -992,7 +992,7 @@
           "name": "devices",
           "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')",
+            "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8') or $this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1007,7 +1007,7 @@
           "name": "aidshiv",
           "description": "Whether the patient has AIDS or HIV in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')",
+            "path": "icd10Codes.select($this.startsWith('B20') or $this.startsWith('B21') or $this.startsWith('B22') or $this.startsWith('B23') or $this.startsWith('B24')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1022,7 +1022,7 @@
           "name": "copd",
           "description": "Whether the patient has COPD in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')",
+            "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1037,7 +1037,7 @@
           "name": "diabetes",
           "description": "Whether the patient has diabetes mellitus in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')",
+            "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1052,7 +1052,7 @@
           "name": "dem",
           "description": "Whether the patient has dementia in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')",
+            "path": "icd10Codes.select($this.startsWith('F00') or $this.startsWith('F01') or $this.startsWith('F02') or $this.startsWith('F03') or $this.startsWith('F05.1') or $this.startsWith('G30') or $this.startsWith('G31.1')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1067,7 +1067,7 @@
           "name": "dep",
           "description": "Whether the patient has depression in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')",
+            "path": "icd10Codes.select($this.startsWith('F20.4') or $this.startsWith('F31.3') or $this.startsWith('F31.4') or $this.startsWith('F31.5') or $this.startsWith('F32') or $this.startsWith('F33') or $this.startsWith('F34.1') or $this.startsWith('F41.2') or $this.startsWith('F43.2')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1082,7 +1082,7 @@
           "name": "dia",
           "description": "Whether the patient has dialysis in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')",
+            "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02') or $this.startsWith('Z46.6') or $this.startsWith('Z99.2') or $this.startsWith('Z94.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1097,7 +1097,7 @@
           "name": "hthyroid",
           "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')",
+            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1112,7 +1112,7 @@
           "name": "ibd",
           "description": "Whether the patient has inflammable bowel disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')",
+            "path": "icd10Codes.select($this.startsWith('K50') or $this.startsWith('K51') or $this.startsWith('K52')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1127,7 +1127,7 @@
           "name": "ld",
           "description": "Whether the patient has liver disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')",
+            "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1142,7 +1142,7 @@
           "name": "mc",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C20') or $this.startsWith('C21') or $this.startsWith('C22') or $this.startsWith('C23') or $this.startsWith('C24') or $this.startsWith('C25') or $this.startsWith('C26') or $this.startsWith('C30') or $this.startsWith('C31') or $this.startsWith('C32') or $this.startsWith('C33') or $this.startsWith('C34') or $this.startsWith('C37') or $this.startsWith('C38') or $this.startsWith('C39') or $this.startsWith('C40') or $this.startsWith('C41') or $this.startsWith('C43') or $this.startsWith('C45') or $this.startsWith('C46') or $this.startsWith('C47') or $this.startsWith('C48') or $this.startsWith('C49') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C5')).anyTrue() and icd10Codes.select($this.startsWith('C59')).allFalse()) or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1157,7 +1157,7 @@
           "name": "osa",
           "description": "Whether the patient has obstructive sleep apnea in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('G47.3')",
+            "path": "icd10Codes.select($this.startsWith('G47.3')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1172,7 +1172,7 @@
           "name": "rd",
           "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')",
+            "path": "icd10Codes.select($this.startsWith('M05') or $this.startsWith('M06') or $this.startsWith('M31.5') or $this.startsWith('M32') or $this.startsWith('M33') or $this.startsWith('M34') or $this.startsWith('M35.1') or $this.startsWith('M35.3') or $this.startsWith('M36.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1187,7 +1187,7 @@
           "name": "ckd_chronic",
           "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')",
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1217,7 +1217,7 @@
           "name": "ap",
           "description": "Whether the patient has angina pectoris in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I20')",
+            "path": "icd10Codes.select($this.startsWith('I20')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1232,7 +1232,7 @@
           "name": "af",
           "description": "Whether the patient has atrial fibrillation in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I48')",
+            "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1247,7 +1247,7 @@
           "name": "cm",
           "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I42') or icd10Code.startsWith('I43')",
+            "path": "icd10Codes.select($this.startsWith('I42') or $this.startsWith('I43')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1262,7 +1262,7 @@
           "name": "dysl",
           "description": "Whether the patient has dyslipidemia in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('E78')",
+            "path": "icd10Codes.select($this.startsWith('E78')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1277,7 +1277,7 @@
           "name": "hf",
           "description": "Whether the patient has heart failure in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I50') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I13.0') or icd10Code.startsWith('I13.2') or icd10Code.startsWith('I26.0') or icd10Code.startsWith('I09.81') or icd10Code.startsWith('I97.13')",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1292,7 +1292,7 @@
           "name": "hyp",
           "description": "Whether the patient has hypertension in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I10') or icd10Code.startsWith('I11.0') or icd10Code.startsWith('I12') or icd10Code.startsWith('I13') or icd10Code.startsWith('I15') or icd10Code.startsWith('I16')",
+            "path": "icd10Codes.select($this.startsWith('I10') or $this.startsWith('I11.0') or $this.startsWith('I12') or $this.startsWith('I13') or $this.startsWith('I15') or $this.startsWith('I16')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1307,7 +1307,7 @@
           "name": "ihd",
           "description": "Whether the patient has ischemic heart disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I20') or icd10Code.startsWith('I21') or icd10Code.startsWith('I22') or icd10Code.startsWith('I23') or icd10Code.startsWith('I24') or icd10Code.startsWith('I25')",
+            "path": "icd10Codes.select($this.startsWith('I20') or $this.startsWith('I21') or $this.startsWith('I22') or $this.startsWith('I23') or $this.startsWith('I24') or $this.startsWith('I25')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1322,7 +1322,7 @@
           "name": "mi",
           "description": "Whether the patient has myocardial infarction in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I21') or icd10Code.startsWith('I22')",
+            "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1337,7 +1337,7 @@
           "name": "pad",
           "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I73') or icd10Code.startsWith('I70') or icd10Code.startsWith('I71') or icd10Code.startsWith('I72') or icd10Code.startsWith('I74') or icd10Code.startsWith('I75') or icd10Code.startsWith('I77') or icd10Code.startsWith('I78') or icd10Code.startsWith('I79')",
+            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1352,7 +1352,7 @@
           "name": "stroke",
           "description": "Whether the patient has stroke in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('I60') or icd10Code.startsWith('I61') or icd10Code.startsWith('I62') or icd10Code.startsWith('I63') or icd10Code.startsWith('I64')",
+            "path": "icd10Codes.select($this.startsWith('I60') or $this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1367,7 +1367,7 @@
           "name": "tia",
           "description": "Whether the patient has transient ischemic attack in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('G45.8') or icd10Code.startsWith('G45.9') or icd10Code.startsWith('I63.9')",
+            "path": "icd10Codes.select($this.startsWith('G45.8') or $this.startsWith('G45.9') or $this.startsWith('I63.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1382,7 +1382,7 @@
           "name": "vd",
           "description": "Whether the patient has valvular disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('A52.0') or icd10Code.startsWith('I05') or icd10Code.startsWith('I06') or icd10Code.startsWith('I07') or icd10Code.startsWith('I08') or icd10Code.startsWith('I09.1') or icd10Code.startsWith('I09.8') or icd10Code.startsWith('I34') or icd10Code.startsWith('I35') or icd10Code.startsWith('I36') or icd10Code.startsWith('I37') or icd10Code.startsWith('I38') or icd10Code.startsWith('I39') or icd10Code.startsWith('Q23.0') or icd10Code.startsWith('Q23.1') or icd10Code.startsWith('Q23.2') or icd10Code.startsWith('Q23.3') or icd10Code.startsWith('Z95.2') or icd10Code.startsWith('Z95.3') or icd10Code.startsWith('Z95.4')",
+            "path": "icd10Codes.select($this.startsWith('A52.0') or $this.startsWith('I05') or $this.startsWith('I06') or $this.startsWith('I07') or $this.startsWith('I08') or $this.startsWith('I09.1') or $this.startsWith('I09.8') or $this.startsWith('I34') or $this.startsWith('I35') or $this.startsWith('I36') or $this.startsWith('I37') or $this.startsWith('I38') or $this.startsWith('I39') or $this.startsWith('Q23.0') or $this.startsWith('Q23.1') or $this.startsWith('Q23.2') or $this.startsWith('Q23.3') or $this.startsWith('Z95.2') or $this.startsWith('Z95.3') or $this.startsWith('Z95.4')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1397,7 +1397,7 @@
           "name": "revasc",
           "description": "Whether the patient has revascularized CABG, PCI in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('Z95.5')",
+            "path": "icd10Codes.select($this.startsWith('Z95.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1412,7 +1412,7 @@
           "name": "devices",
           "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8') or icd10Code.startsWith('Z95.0') or icd10Code.startsWith('Z95.8')",
+            "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8') or $this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1427,7 +1427,7 @@
           "name": "aidshiv",
           "description": "Whether the patient has AIDS or HIV in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('B20') or icd10Code.startsWith('B21') or icd10Code.startsWith('B22') or icd10Code.startsWith('B23') or icd10Code.startsWith('B24')",
+            "path": "icd10Codes.select($this.startsWith('B20') or $this.startsWith('B21') or $this.startsWith('B22') or $this.startsWith('B23') or $this.startsWith('B24')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1442,7 +1442,7 @@
           "name": "copd",
           "description": "Whether the patient has COPD in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('J40') or icd10Code.startsWith('J41') or icd10Code.startsWith('J42') or icd10Code.startsWith('J43') or icd10Code.startsWith('J44')",
+            "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1457,7 +1457,7 @@
           "name": "diabetes",
           "description": "Whether the patient has diabetes mellitus in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('E10') or icd10Code.startsWith('E11') or icd10Code.startsWith('E12') or icd10Code.startsWith('E13') or icd10Code.startsWith('E14')",
+            "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1472,7 +1472,7 @@
           "name": "dem",
           "description": "Whether the patient has dementia in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('F00') or icd10Code.startsWith('F01') or icd10Code.startsWith('F02') or icd10Code.startsWith('F03') or icd10Code.startsWith('F05.1') or icd10Code.startsWith('G30') or icd10Code.startsWith('G31.1')",
+            "path": "icd10Codes.select($this.startsWith('F00') or $this.startsWith('F01') or $this.startsWith('F02') or $this.startsWith('F03') or $this.startsWith('F05.1') or $this.startsWith('G30') or $this.startsWith('G31.1')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1487,7 +1487,7 @@
           "name": "dep",
           "description": "Whether the patient has depression in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('F20.4') or icd10Code.startsWith('F31.3') or icd10Code.startsWith('F31.4') or icd10Code.startsWith('F31.5') or icd10Code.startsWith('F32') or icd10Code.startsWith('F33') or icd10Code.startsWith('F34.1') or icd10Code.startsWith('F41.2') or icd10Code.startsWith('F43.2')",
+            "path": "icd10Codes.select($this.startsWith('F20.4') or $this.startsWith('F31.3') or $this.startsWith('F31.4') or $this.startsWith('F31.5') or $this.startsWith('F32') or $this.startsWith('F33') or $this.startsWith('F34.1') or $this.startsWith('F41.2') or $this.startsWith('F43.2')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1502,7 +1502,7 @@
           "name": "dia",
           "description": "Whether the patient has dialysis in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('Z49.01') or icd10Code.startsWith('Z49.02') or icd10Code.startsWith('Z46.6') or icd10Code.startsWith('Z99.2') or icd10Code.startsWith('Z94.0')",
+            "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02') or $this.startsWith('Z46.6') or $this.startsWith('Z99.2') or $this.startsWith('Z94.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1517,7 +1517,7 @@
           "name": "hthyroid",
           "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('E00') or icd10Code.startsWith('E01') or icd10Code.startsWith('E02') or icd10Code.startsWith('E03') or icd10Code.startsWith('E04')",
+            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1532,7 +1532,7 @@
           "name": "ibd",
           "description": "Whether the patient has inflammable bowel disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('K50') or icd10Code.startsWith('K51') or icd10Code.startsWith('K52')",
+            "path": "icd10Codes.select($this.startsWith('K50') or $this.startsWith('K51') or $this.startsWith('K52')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1547,7 +1547,7 @@
           "name": "ld",
           "description": "Whether the patient has liver disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('B18') or icd10Code.startsWith('I85') or icd10Code.startsWith('I86.4') or icd10Code.startsWith('I98.2') or icd10Code.startsWith('K70') or icd10Code.startsWith('K71.1') or icd10Code.startsWith('K71.3') or icd10Code.startsWith('K71.4') or icd10Code.startsWith('K71.5') or icd10Code.startsWith('K71.7')",
+            "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1562,7 +1562,7 @@
           "name": "mc",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('C0') or icd10Code.startsWith('C1') or icd10Code.startsWith('C20') or icd10Code.startsWith('C21') or icd10Code.startsWith('C22') or icd10Code.startsWith('C23') or icd10Code.startsWith('C24') or icd10Code.startsWith('C25') or icd10Code.startsWith('C26') or icd10Code.startsWith('C30') or icd10Code.startsWith('C31') or icd10Code.startsWith('C32') or icd10Code.startsWith('C33') or icd10Code.startsWith('C34') or icd10Code.startsWith('C37') or icd10Code.startsWith('C38') or icd10Code.startsWith('C39') or icd10Code.startsWith('C40') or icd10Code.startsWith('C41') or icd10Code.startsWith('C43') or icd10Code.startsWith('C45') or icd10Code.startsWith('C46') or icd10Code.startsWith('C47') or icd10Code.startsWith('C48') or icd10Code.startsWith('C49') or (icd10Code.startsWith('C5') and icd10Code.startsWith('C59').not()) or icd10Code.startsWith('C6') or (icd10Code.startsWith('C7') and icd10Code.startsWith('C77').not() and icd10Code.startsWith('C78').not() and icd10Code.startsWith('C79').not())",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C20') or $this.startsWith('C21') or $this.startsWith('C22') or $this.startsWith('C23') or $this.startsWith('C24') or $this.startsWith('C25') or $this.startsWith('C26') or $this.startsWith('C30') or $this.startsWith('C31') or $this.startsWith('C32') or $this.startsWith('C33') or $this.startsWith('C34') or $this.startsWith('C37') or $this.startsWith('C38') or $this.startsWith('C39') or $this.startsWith('C40') or $this.startsWith('C41') or $this.startsWith('C43') or $this.startsWith('C45') or $this.startsWith('C46') or $this.startsWith('C47') or $this.startsWith('C48') or $this.startsWith('C49') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C5')).anyTrue() and icd10Codes.select($this.startsWith('C59')).allFalse()) or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77') and icd10Codes.select($this.startsWith('C78') and icd10Codes.select($this.startsWith('C79')).allFalse())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1577,7 +1577,7 @@
           "name": "osa",
           "description": "Whether the patient has obstructive sleep apnea in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('G47.3')",
+            "path": "icd10Codes.select($this.startsWith('G47.3')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1592,7 +1592,7 @@
           "name": "rd",
           "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('M05') or icd10Code.startsWith('M06') or icd10Code.startsWith('M31.5') or icd10Code.startsWith('M32') or icd10Code.startsWith('M33') or icd10Code.startsWith('M34') or icd10Code.startsWith('M35.1') or icd10Code.startsWith('M35.3') or icd10Code.startsWith('M36.0')",
+            "path": "icd10Codes.select($this.startsWith('M05') or $this.startsWith('M06') or $this.startsWith('M31.5') or $this.startsWith('M32') or $this.startsWith('M33') or $this.startsWith('M34') or $this.startsWith('M35.1') or $this.startsWith('M35.3') or $this.startsWith('M36.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1607,7 +1607,7 @@
           "name": "ckd_chronic",
           "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of the data point (i.e. the reference time point)",
           "value": {
-            "path": "icd10Code.startsWith('N18') or icd10Code.startsWith('N19')",
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2446,7 +2446,7 @@
           "name": "isCardivascular",
           "description": "Whether the patient dies because of any cardiovascular condition after the reference time point.",
           "value": {
-            "path": "causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')",
+            "path": "causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2484,7 +2484,7 @@
           "name": "isRenal",
           "description": "Whether the patient dies because of any renal complication after the reference time point.",
           "value": {
-            "path": "causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')",
+            "path": "causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2522,7 +2522,7 @@
           "name": "isNonRenalAndNonCV",
           "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
           "value": {
-            "path": "causeOfDeath.startsWith('R99').not() and (causeOfDeath.startsWith('N18') or causeOfDeath.startsWith('N19')).not() and (causeOfDeath.startsWith('I') or causeOfDeath.startsWith('G45') or causeOfDeath.startsWith('J81') or causeOfDeath.startsWith('K76.1') or causeOfDeath.startsWith('R57')).not()",
+            "path": "causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2560,7 +2560,7 @@
           "name": "isAllCause",
           "description": "Whether the patient dies because of unspecified condition after the reference time point..",
           "value": {
-            "path": "causeOfDeath.startsWith('R99')",
+            "path": "causesOfDeath.select($this.startsWith('R99')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [

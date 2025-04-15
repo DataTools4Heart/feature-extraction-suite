@@ -19,10 +19,11 @@
   ],
   "feature": [
     {
-      "name": "causeOfDeath",
-      "title": "Cause of death",
-      "description": "ICD10 code of the condition as the cause of death",
+      "name": "causesOfDeath",
+      "title": "Causes of death",
+      "description": "ICD10 codes of the condition as the cause of death",
       "dataType": "code",
+      "isArray": true,
       "valueSet": {
         "url": "http://hl7.org/fhir/sid/icd-10"
       }
