@@ -19,3 +19,90 @@ When looked into the current definitions, the feature group defined so far are m
 
 The _study-features.json_ contains the input (independent) and output (dependent) variables that are required for the sub-study 1, which is "Medication prescription in patients with acute heart failure and chronic kidney disease or hyperkalaemia".
 
+---
+
+# Deployment Guideline (with Nginx)
+
+## Prerequisites
+
+- Completing the deployment instructions of the [data-ingestion-suite](https://github.com/DataTools4Heart/data-ingestion-suite).
+
+## Clone the Repository
+
+After mapping the data source to the common data model, the feature extraction process can be started. DT4H feature extraction configurations are maintained in the project’s GitHub repository.
+
+Navigate into a working directory to run the tools: `<workspaceDir>`
+
+```bash
+git clone https://github.com/DataTools4Heart/feature-extraction-suite
+```
+
+## Run Docker Containers
+
+Run the following scripts in the `<workspaceDir>`:
+
+```bash
+sh ./feature-extraction-suite/docker/pull.sh
+sh ./feature-extraction-suite/docker/run.sh
+```
+
+## Running Behind Nginx Configuration
+
+* For `feature-extraction-suite` deployment, [data-ingestion-suite](https://github.com/DataTools4Heart/data-ingestion-suite) must first be deployed successfully and mapping must be run.
+If you used the Nginx Docker container during the `data-ingestion-suite` deployment, 
+update the Nginx config for `feature-extraction-suite` by following these steps:
+
+```bash
+# Navigate into the working directory
+cd <workspaceDir>
+
+# Stop the current proxy
+./data-ingestion-suite/docker/proxy/stop.sh
+
+# Edit the nginx.conf file
+# Uncomment lines between 65-69 in:
+# ./data-ingestion-suite/docker/proxy/nginx.conf
+
+# Restart the proxy
+./data-ingestion-suite/docker/proxy/run.sh
+```
+
+* Or, if your host machine is already running Nginx, insert the following proxy configuration and restart Nginx:
+
+```nginx
+location /dt4h/feast {
+    proxy_pass http://onfhir-feast:8085/onfhir-feast;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}
+```
+
+## Feature Extraction Process
+
+* Send a POST request to this URL to start the extraction process:
+
+```
+https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1/$extract
+```
+
+* The extraction process may take a long time to complete depending on the size of data.
+
+* After completion, the extracted dataset file should be generated. Example file location:
+
+```
+<workspaceDir>/feature-extraction-suite/output-data/myFhirServer/dataset/study1-fs/<datasetId>/part-00000-550c22da-d8e3-4113-8b3a-8d935e77ee06-c000.snappy.parquet
+```
+
+### Dataset Statistics
+
+* For statistics about the dataset:
+
+```
+https://<hostname>/dt4h/feast/api/Dataset
+```
+
+Or:
+
+```
+https://<hostname>/dt4h/feast/api/Dataset/<datasetId>
+```
