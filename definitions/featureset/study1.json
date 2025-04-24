@@ -1628,19 +1628,411 @@
           "encounterId": "encounterId"
         }
       },
-      "filter": {
-        "name": "rasi",
-        "description": "Renin–angiotensin system inhibitor",
-        "filter": "medicationGroups.select($this = 'RASi').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue())"
-      },
       "feature": [
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "rasi",
+          "description": "Whether renin–angiotensin system inhibitor administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'RASi').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue())",
             "dataType": "boolean"
-          }
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arni",
+          "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'ARNI').anyTrue() or (medicationCodes.select($this = 'C09DX04').anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "acei",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arb",
+          "description": "Whether angiotensin receptor blocker (ARB) administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mra",
+          "description": "Whether mineralcorticoid receptor antagonist administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'MRA').anyTrue() or (medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diuretics",
+          "description": "Whether diuretics administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'Diuretics').anyTrue() or (medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diuretics_loop",
+          "description": "Whether Loop diuretics administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'LD').anyTrue() or (medicationCodes.select($this.startsWith('C03CA')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "anti_coag",
+          "description": "Whether anticoagulant agents administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "anti_plat",
+          "description": "Whether antiplatelet agents administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "thrombolytic",
+          "description": "Whether thrombolytic drugs/fibrinolytics administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bb",
+          "description": "Whether beta blockers administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ccb",
+          "description": "Whether calcium channel blockers administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'CCB').anyTrue() or (medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "digitalis",
+          "description": "Whether digitalis glycosides administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'Digoxin').anyTrue() or (medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "antiarrhytmic",
+          "description": "Whether antiarrhythmic drugs administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'AAD').anyTrue() or (medicationCodes.select($this.startsWith('C01B')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "inotropes",
+          "description": "Whether inotropes administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "vasodil",
+          "description": "Whether vasodil administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'VasoD').anyTrue() or (medicationCodes.select($this.startsWith('C01D')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "platelet",
+          "description": "Whether platelet administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'PI').anyTrue() or (medicationCodes.select($this.startsWith('B01AC')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ll",
+          "description": "Whether ll administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'Statins').anyTrue() or (medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ivabradine",
+          "description": "Whether ivabradine administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'Ivabradine').anyTrue() or (medicationCodes.select($this.startsWith('C01EB17')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "potassium_binders",
+          "description": "Whether potassium_binders administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "insulins",
+          "description": "Whether insulins and analogs administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('A10A')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "oral_antidiabetic",
+          "description": "Whether oral_antidiabetic administered.",
+          "value": {
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ari",
+          "description": "Whether ari (drugs to prevent nerve damage in diabetes) administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rdoad",
+          "description": "Whether respiratory drugs for obstructive airway diseases, inhalants administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "rdoad_syst",
+          "description": "Whether respiratory drugs for obstructive airway diseases, systemic use administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "cortico_syst",
+          "description": "Whether corticosteroids systemic administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "antiinfl",
+          "description": "Whether anti-inflammatory drugs administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1648,623 +2040,419 @@
       "url": "https://datatools4heart.eu/feature-groups/study1/medications",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         }
       },
       "filter": {
-        "name": "arni",
-        "description": "Angiotensin receptor-neprilysin inhibitor (ARNi)",
-        "filter": "medicationGroups.select($this = 'ARNI').anyTrue() or (medicationCodes.select($this = 'C09DX04').anyTrue())"
+        "name": "everUsedBeforeHospitalAdmission",
+        "description":"Filters medication that used prior to hospital admission.",
+        "filter": "startTime < eventTime"
       },
       "feature": [
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "rasi",
+          "description": "Whether renin–angiotensin system inhibitor administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'RASi').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "acei",
-        "description": "Angiotensin-converting enzyme (ACE)-inhibitors",
-        "filter": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "arni",
+          "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'ARNI').anyTrue() or (medicationCodes.select($this = 'C09DX04').anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "arb",
-        "description": "Angiotensin receptor blocker (ARB)",
-        "filter": "medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "acei",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "mra",
-        "description": "Mineralcorticoid receptor antagonist",
-        "filter": "medicationGroups.select($this = 'MRA').anyTrue() or (medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "arb",
+          "description": "Whether angiotensin receptor blocker (ARB) administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "diuretics",
-        "description": "diuretics",
-        "filter": "medicationGroups.select($this = 'Diuretics').anyTrue() or (medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "mra",
+          "description": "Whether mineralcorticoid receptor antagonist administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'MRA').anyTrue() or (medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "diuretics_loop",
-        "description": "Loop diuretics",
-        "filter": "medicationGroups.select($this = 'LD').anyTrue() or (medicationCodes.select($this.startsWith('C03CA')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "diuretics",
+          "description": "Whether diuretics administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'Diuretics').anyTrue() or (medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "anti_coag",
-        "description": "anticoagulant agents",
-        "filter": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "diuretics_loop",
+          "description": "Whether Loop diuretics administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'LD').anyTrue() or (medicationCodes.select($this.startsWith('C03CA')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "anti_plat",
-        "description": "antiplatelet agents",
-        "filter": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "anti_coag",
+          "description": "Whether anticoagulant agents administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "thrombolytic",
-        "description": "thrombolytic drugs/fibrinolytics",
-        "filter": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "anti_plat",
+          "description": "Whether antiplatelet agents administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "bb",
-        "description": "beta blockers",
-        "filter": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "thrombolytic",
+          "description": "Whether thrombolytic drugs/fibrinolytics administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "ccb",
-        "description": "calcium channel blockers",
-        "filter": "medicationGroups.select($this = 'CCB').anyTrue() or (medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "bb",
+          "description": "Whether beta blockers administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "digitalis",
-        "description": "Digitalis glycosides",
-        "filter": "medicationGroups.select($this = 'Digoxin').anyTrue() or (medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "ccb",
+          "description": "Whether calcium channel blockers administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'CCB').anyTrue() or (medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "antiarrhytmic",
-        "description": "antiarrhythmic drugs",
-        "filter": "medicationGroups.select($this = 'AAD').anyTrue() or (medicationCodes.select($this.startsWith('C01B')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "digitalis",
+          "description": "Whether digitalis glycosides administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'Digoxin').anyTrue() or (medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "inotropes",
-        "description": "inotropes",
-        "filter": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "antiarrhytmic",
+          "description": "Whether antiarrhythmic drugs administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'AAD').anyTrue() or (medicationCodes.select($this.startsWith('C01B')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "vasodil",
-        "description": "vasodil",
-        "filter": "medicationGroups.select($this = 'VasoD').anyTrue() or (medicationCodes.select($this.startsWith('C01D')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "inotropes",
+          "description": "Whether inotropes administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "platelet",
-        "description": "platelet",
-        "filter": "medicationGroups.select($this = 'PI').anyTrue() or (medicationCodes.select($this.startsWith('B01AC')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "vasodil",
+          "description": "Whether vasodil administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'VasoD').anyTrue() or (medicationCodes.select($this.startsWith('C01D')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "ll",
-        "description": "lipid lowering agents",
-        "filter": "medicationGroups.select($this = 'Statins').anyTrue() or (medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "platelet",
+          "description": "Whether platelet administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'PI').anyTrue() or (medicationCodes.select($this.startsWith('B01AC')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "ivabradine",
-        "description": "ivabradine",
-        "filter": "medicationGroups.select($this = 'Ivabradine').anyTrue() or (medicationCodes.select($this.startsWith('C01EB17')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "ll",
+          "description": "Whether ll administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'Statins').anyTrue() or (medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "potassium_binders",
-        "description": "potassium_binders",
-        "filter": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "ivabradine",
+          "description": "Whether ivabradine administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'Ivabradine').anyTrue() or (medicationCodes.select($this.startsWith('C01EB17')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "insulins",
-        "description": "insulins and analogs",
-        "filter": "medicationCodes.select($this.startsWith('A10A')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "potassium_binders",
+          "description": "Whether potassium_binders administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "oral_antidiabetic",
-        "description": "insulins and analogs",
-        "filter": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "insulins",
+          "description": "Whether insulins and analogs administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('A10A')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "ari",
-        "description": "drugs to prevent nerve damage in diabetes",
-        "filter": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "oral_antidiabetic",
+          "description": "Whether oral_antidiabetic administered.",
           "value": {
-            "path": "true",
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "rdoad",
-        "description": "respiratory drugs for obstructive airway diseases, inhalants",
-        "filter": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "ari",
+          "description": "Whether ari (drugs to prevent nerve damage in diabetes) administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "rdoad_syst",
-        "description": "respiratory drugs for obstructive airway diseases, systemic use",
-        "filter": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "rdoad",
+          "description": "Whether respiratory drugs for obstructive airway diseases, inhalants administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "cortico_syst",
-        "description": "corticosteroids systemic",
-        "filter": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "rdoad_syst",
+          "description": "Whether respiratory drugs for obstructive airway diseases, systemic use administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()",
             "dataType": "boolean"
-          }
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-      "join": {
-        "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
-      },
-      "filter": {
-        "name": "antiinfl",
-        "description": "anti-inflammatory drugs",
-        "filter": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()"
-      },
-      "feature": [
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
         {
-          "name": "administered",
-          "description": "Whether the medication administered.",
+          "name": "cortico_syst",
+          "description": "Whether corticosteroids systemic administered.",
           "value": {
-            "path": "true",
+            "path": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()",
             "dataType": "boolean"
-          }
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "antiinfl",
+          "description": "Whether anti-inflammatory drugs administered.",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     }
@@ -2278,12 +2466,16 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "HF",
+        "filter": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "hosp_for_heart_failure",
+          "name": "heartFailure",
           "description": "Whether the patient is hospitalized because of heart failure after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue()",
+            "path": "primaryReasonCodes.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2318,10 +2510,40 @@
           ]
         },
         {
-          "name": "hosp_for_CV_disease",
+          "name": "number_of_days_to_rehosp_for_heart_failure",
+          "description": "Number of days from reference time point until rehospitalization due to heart failure",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "CV",
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "CV_Disease",
           "description": "Whether the patient is hospitalized because of any cardiovascular condition after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()",
+            "path": "primaryReasonCodes.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2356,10 +2578,40 @@
           ]
         },
         {
-          "name": "hosp_for_non_cv_disease",
+          "name": "number_of_days_to_rehosp_for_CV",
+          "description": "Number of days from reference time point until rehospitalization due to CV disease",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "non_CV",
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()"
+      },
+      "feature": [
+        {
+          "name": "non_CV_Disease",
           "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()",
+            "path": "primaryReasonCodes.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2394,10 +2646,40 @@
           ]
         },
         {
-          "name": "hosp_for_renal_complications",
+          "name": "number_of_days_to_rehosp_for_non_CV",
+          "description": "Number of days from reference time point until rehospitalization due to non-CV disease",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "renal",
+        "filter": "primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "renal_complications",
           "description": "Whether the patient is hospitalized because of any renal complication after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "path": "primaryReasonCodes.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2428,6 +2710,21 @@
             {
               "windowSize": "5a",
               "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_rehosp_for_renal_complications",
+          "description": "Number of days from reference time point until rehospitalization due to renal complications",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         }
@@ -2441,12 +2738,16 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "isCV",
+        "filter": "causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "isCardivascular",
+          "name": "isCardiovascular",
           "description": "Whether the patient dies because of any cardiovascular condition after the reference time point.",
           "value": {
-            "path": "causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()",
+            "path": "causesOfDeath.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2480,11 +2781,41 @@
             }
           ]
         },
+        {
+          "name": "number_of_days_to_death_for_CV",
+          "description": "Number of days from reference time point until death due to CV disease",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "isRenal",
+        "filter": "causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()"
+      },
+      "feature": [
         {
           "name": "isRenal",
           "description": "Whether the patient dies because of any renal complication after the reference time point.",
           "value": {
-            "path": "causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "path": "causesOfDeath.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2518,11 +2849,41 @@
             }
           ]
         },
+        {
+          "name": "number_of_days_to_death_for_renal",
+          "description": "Number of days from reference time point until death due to renal complications",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "isNonRenalAndNonCV",
+        "filter": "causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()"
+      },
+      "feature": [
         {
           "name": "isNonRenalAndNonCV",
           "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
           "value": {
-            "path": "causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()",
+            "path": "causesOfDeath.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2557,10 +2918,40 @@
           ]
         },
         {
+          "name": "number_of_days_to_death_for_non_renal_and_non_CV",
+          "description": "Number of days from reference time point until death due to non-CV and non-renal complications",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "isAllCause",
+        "filter": "causesOfDeath.select($this.startsWith('R99')).anyTrue()"
+      },
+      "feature": [
+        {
           "name": "isAllCause",
           "description": "Whether the patient dies because of unspecified condition after the reference time point..",
           "value": {
-            "path": "causesOfDeath.select($this.startsWith('R99')).anyTrue()",
+            "path": "causesOfDeath.exists()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2591,6 +2982,21 @@
             {
               "windowSize": "5a",
               "aggOp": ["any"]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_death_for_all_cause",
+          "description": "Number of days from reference time point until death due to unspecified condition",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         }

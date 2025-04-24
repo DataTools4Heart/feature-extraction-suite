@@ -5,3 +5,4 @@ logs/*
 data-catalog/*
 datasets/
 output-data
+output/

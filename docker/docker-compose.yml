@@ -13,6 +13,7 @@ services:
   postgres:
     image: postgres:latest
     container_name: onfhir-feast-postgres
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
@@ -24,6 +25,7 @@ services:
   onfhir-feast:
     image: srdc/onfhir-feast:latest
     container_name: onfhir-feast
+    restart: always
     environment:
       APP_CONF_FILE: /usr/local/onfhir-feast/conf/docker/feast-server.conf
     ports:
