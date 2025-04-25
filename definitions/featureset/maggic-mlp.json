@@ -1,12 +1,12 @@
 {
   "id": "maggic-mlp",
-  "url": "https://datatools4heart.eu/feature-sets/maggic-mlp",
+  "url": "https://ai4hf.eu/feature-sets/maggic-mlp",
   "name": "maggic-mlp",
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
   "date": "2025-01-09",
-  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

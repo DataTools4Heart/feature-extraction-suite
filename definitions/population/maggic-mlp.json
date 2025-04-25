@@ -1,13 +1,13 @@
 {
   "id": "maggic",
-  "url": "https://datatools4heart.eu/cohorts/maggic",
+  "url": "https://ai4hf.eu/cohorts/maggic",
   "name": "maggic",
   "title": "Patients with Diagnosis of Heart Failure",
   "description": "This cohort includes patients with a diagnosis of heart failure.",
   "version": "0.1",
   "date": "2025-02-18",
   "status": "active",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",
