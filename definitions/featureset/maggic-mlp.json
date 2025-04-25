@@ -17,6 +17,25 @@
     "description": "Divide the population into one-year intervals.",
     "period": "1a"
   },
+  "secondaryTimePoint": [
+    {
+      "name": "lastRecordDate",
+      "description": "The latest recorded end time from the patient's encounters.",
+      "isPast": false,
+      "select": "latest",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+          "join": {
+            "on": {
+              "pid": "pid"
+            }
+          },
+          "useEndTime": true
+        }
+      ]
+    }
+  ],
   "feature": [
     {
       "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
@@ -379,6 +398,14 @@
         }
       },
       "feature": [
+        {
+          "name": "months_to_death_or_last_record_date",
+          "description": "The number of months between the reference time point and the patient’s date of death (if known); otherwise, the number of months between the reference time point and the last known date of recorded activity related to the patient.",
+          "value": {
+            "path": "iif(deceasedDateTime.exists(),utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months'),utl:getPeriod(%referenceTimePoint, %lastRecordDate, 'months'))",
+            "dataType": "integer"
+          }
+        },
         {
           "name": "deceased_in_12_months",
           "description": "Mortality recorded within the 12 months following the reference time point.",
