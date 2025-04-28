@@ -1,7 +1,7 @@
 {
   "id": "maggic",
-  "url": "https://datatools4heart.eu/cohorts/maggic",
-  "name": "maggic-fhir",
+  "url": "https://ai4hf.eu/cohorts/maggic",
+  "name": "maggic",
   "title": "Patients diagnosed with heart failure, using the time of their initial diagnosis as the event time.",
   "description": "This population definition finds Patients diagnosed with heart failure.",
   "version": "0.1",

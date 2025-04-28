@@ -86,7 +86,7 @@
         "description": "Important vital signs",
         "values": [
           {
-            "name": "systolic-blood-pressure",
+            "name": "systolic_blood_pressure",
             "value": "8480-6"
           },
           {
@@ -157,7 +157,7 @@
         }
       },
       "filter": {
-        "name": "heart-failure",
+        "name": "heart_failure",
         "description": "Find the Heart Failures.",
         "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I25.5') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
       },
@@ -302,7 +302,7 @@
         }
       },
       "filter": {
-        "name": "beta-blocker-use",
+        "name": "beta_blocker_use",
         "description": "Find Beta Blocker medications.",
         "filter": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07AA') or $this.startsWith('C07AB') or $this.startsWith('C07AG') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07BG') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DA') or $this.startsWith('C07DB') or $this.startsWith('C07DG') or $this.startsWith('C07FB') or $this.startsWith('C07FX')).anyTrue())"
       },
@@ -325,7 +325,7 @@
         }
       },
       "filter": {
-        "name": "ace-inhibitors-arb-use",
+        "name": "ace_inhibitors_arb_use",
         "description": "Find ACE Inhibitors / ARB Use medications.",
         "filter": "medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX04') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())"
       },
