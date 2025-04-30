@@ -1,0 +1,199 @@
+{
+  "id": "maggic-quality-criteria",
+  "url": "http://ai4hf.com/quality-criteria/maggic",
+  "name": "maggic-quality-criteria",
+  "title": "Maggic Dataset Quality Criteria",
+  "description": "Quality criteria for datasets created using the MAGGIC feature-set.",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2025-05-10",
+  "criteria": [
+    {
+      "name": "validLVEF",
+      "description": "Percentage of records that has valid LVEF value",
+      "language": "application/sql",
+      "expression": "SELECT count(*) as num_valid FROM dataset WHERE echocardiographs_lvef IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "(num_valid / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 50.0
+      }
+    },
+    {
+      "name": "nyhaCardinality",
+      "description": "Having at least 4 different concepts in the dataset for NYHA (nyha_nyha) class",
+      "language": "application/sql",
+      "expression": "SELECT count(distinct nyha_nyha) as nyha_count FROM dataset WHERE nyha_nyha IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "nyha_count",
+        "low": 4.0
+      }
+    },
+    {
+      "name": "smokingStatusCardinality",
+      "description": "Having at least 2 different concepts in the dataset for smoking status (smoking_status_smoker) class",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(DISTINCT smoking_status_smoker) AS smoking_status_count FROM dataset WHERE smoking_status_smoker IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "smoking_status_count",
+        "low": 2.0
+      }
+    },
+    {
+      "name": "systolicBloodPressureBelowThreshold",
+      "description": "Percentage of records with systolic blood pressure average less than 90",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE vital_signs_systolic_blood_pressure_value_p3a_avg < 90 AND vital_signs_systolic_blood_pressure_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "systolicBloodPressureAboveThreshold",
+      "description": "Percentage of records with systolic blood pressure average more than 140",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE vital_signs_systolic_blood_pressure_value_p3a_avg > 140 AND vital_signs_systolic_blood_pressure_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "bmiBelowThreshold",
+      "description": "Percentage of records with BMI average less than 18.5",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE vital_signs_bmi_value_p3a_avg < 18.5 AND vital_signs_bmi_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "bmiAboveThreshold",
+      "description": "Percentage of records with BMI average more than 30",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE vital_signs_bmi_value_p3a_avg > 30 AND vital_signs_bmi_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "sodiumBelowThreshold",
+      "description": "Percentage of records with sodium levels less than 135",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE lab_results_sodium_value_p3a_avg < 135 AND lab_results_sodium_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "sodiumAboveThreshold",
+      "description": "Percentage of records with sodium levels more than 145",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE lab_results_sodium_value_p3a_avg > 145 AND lab_results_sodium_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "creatinineBelowThreshold",
+      "description": "Percentage of records with creatinine levels less than 0.6",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE lab_results_creatinine_value_p3a_avg < 0.6 AND lab_results_creatinine_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "creatinineAboveThreshold",
+      "description": "Percentage of records with creatinine levels more than 1.5",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE lab_results_creatinine_value_p3a_avg > 1.5 AND lab_results_creatinine_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "urinaryCreatinineBelowThreshold",
+      "description": "Percentage of records with urinary creatinine levels less than 40",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE lab_results_urinary_creatinine_value_p3a_avg < 40 AND lab_results_urinary_creatinine_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "urinaryCreatinineAboveThreshold",
+      "description": "Percentage of records with urinary creatinine levels more than 300",
+      "language": "application/sql",
+      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE lab_results_urinary_creatinine_value_p3a_avg > 300 AND lab_results_urinary_creatinine_value_p3a_avg IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+      }
+    },
+    {
+      "name": "plausibleBalancedGender",
+      "description": "Checking if percentage of males is between 45-55",
+      "language": "application/sql",
+      "expression": "SELECT count(*) as num_males FROM dataset WHERE patient_demographics_gender = 'male'",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_males / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 45.0,
+        "high": 55.0
+      }
+    }
+  ]
+}
