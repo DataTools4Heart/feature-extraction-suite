@@ -1,7 +1,7 @@
 {
-  "id": "encounter-primary-reason",
-  "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
-  "name": "encounter-primary-reason",
+  "id": "encounter_primary_reason",
+  "url": "https://datatools4heart.eu/feature-groups/study1/encounter_primary_reason",
+  "name": "encounter_primary_reason",
   "title": "Encounter Primary Reason",
   "description": "Encounter Primary Reason",
   "status": "active",

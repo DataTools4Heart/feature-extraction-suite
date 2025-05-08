@@ -396,7 +396,7 @@
             "value": "29857009"
           },
           {
-            "name": "Cheyne-stokes_respiration",
+            "name": "Cheyne_stokes_respiration",
             "value": "90480005"
           },
           {
@@ -2459,7 +2459,7 @@
   ],
   "outcome": [
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -2527,7 +2527,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -2595,7 +2595,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -2663,7 +2663,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/encounter-primary-reason",
+      "url": "https://datatools4heart.eu/feature-groups/study1/encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
