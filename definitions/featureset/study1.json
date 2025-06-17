@@ -17,21 +17,23 @@
       "description": "A unique identifier for each hospital encounter."
     }
   ],
-  "sampling": {
-    "description": "Use the end time of encounters as the reference time point.",
-    "events": [
-      {
-        "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
-        "join": {
-          "on": {
-            "pid": "pid",
-            "encounterId": "encounterId"
-          }
-        },
-        "useEndTime": true
-      }
-    ]
-  },
+  "sampling": [
+    {
+      "description": "Use the end time of encounters as the reference time point.",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+          "join": {
+            "on": {
+              "pid": "pid",
+              "encounterId": "encounterId"
+            }
+          },
+          "eventTime": "endTime"
+        }
+      ]
+    }
+  ],
   "feature": [
     {
       "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",

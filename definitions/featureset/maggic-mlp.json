@@ -13,10 +13,12 @@
       "description": "A unique identifier assigned to each patient in the cohort."
     }
   ],
-  "sampling": {
-    "description": "Divide the population into one-year intervals.",
-    "period": "1a"
-  },
+  "sampling": [
+    {
+      "description": "Divide the population into one-year intervals.",
+      "period": "1a"
+    }
+  ],
   "secondaryTimePoint": [
     {
       "name": "lastRecordDate",
@@ -31,7 +33,7 @@
               "pid": "pid"
             }
           },
-          "useEndTime": true
+          "eventTime": "endTime"
         }
       ]
     }
