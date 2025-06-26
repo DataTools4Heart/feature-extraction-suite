@@ -44,10 +44,6 @@
           "path": "Encounter.actualPeriod.start.toString().substring(0,4)"
         },
         {
-          "name": "encounterType",
-          "path": "Encounter.type.coding.where(system='http://snomed.info/sct').code.first()"
-        },
-        {
           "name": "encounterClass",
           "path": "Encounter.class.coding.where(system='http://terminology.hl7.org/CodeSystem/v3-ActCode').code.first()"
         }

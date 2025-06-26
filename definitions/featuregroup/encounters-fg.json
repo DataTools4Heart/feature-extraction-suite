@@ -37,15 +37,6 @@
       "dataType": "string"
     },
     {
-      "name": "encounterType",
-      "title": "Encounter type",
-      "description": "Type of this encounter",
-      "dataType": "code",
-      "valueSet": {
-        "url": "http://snomed.info/sct"
-      }
-    },
-    {
       "name": "encounterClass",
       "title": "Encounter class",
       "description": "Class of this encounter",
