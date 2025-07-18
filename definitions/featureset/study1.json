@@ -49,9 +49,9 @@
         },
         {
           "name": "age",
-          "description": "Age of the patient at reference point",
+          "description": "Age of the patient at admission date",
           "value": {
-            "path": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
+            "path": "utl:getPeriod(birthDate, %eventTime, 'years')",
             "dataType": "integer"
           }
         }
