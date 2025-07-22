@@ -529,7 +529,7 @@
       "feature": [
         {
           "name": "lvef",
-          "description": "Value of left ventricular ejection fraction",
+          "description": "Value of left ventricular ejection fraction: LOINC 8806-2",
           "temporalAgg": [
             {
               "aggOp": [
@@ -557,7 +557,7 @@
       "feature": [
         {
           "name": "ecg_qrs_duration",
-          "description": "Duration of QRS wave",
+          "description": "Duration of QRS wave: LOINC 8633-0",
           "temporalAgg": [
             {
               "aggOp": [
@@ -573,7 +573,7 @@
         },
         {
           "name": "ecg_qrs_axis",
-          "description": "Axis of QRS wave",
+          "description": "Axis of QRS wave: LOINC 8632-2",
           "temporalAgg": [
             {
               "aggOp": [
@@ -589,7 +589,7 @@
         },
         {
           "name": "ecg_qt_duration_corrected",
-          "description": "Duration of QT wave corrected",
+          "description": "Duration of QT wave corrected: DT4H (bazett)",
           "temporalAgg": [
             {
               "aggOp": [
@@ -605,15 +605,15 @@
         },
         {
           "name": "ecg_st",
-          "description": "ST-elevation"
+          "description": "ST-elevation: SNOMED CT 164931005"
         },
         {
           "name": "ecg_ischemia_without_st",
-          "description": "Ischemia without st-elevation"
+          "description": "Ischemia without st-elevation: SNOMED CT 52674009"
         },
         {
           "name": "ecg_type_of_rhythm",
-          "description": "Type of rhythm",
+          "description": "Type of rhythm: LOINC 76281-5",
           "temporalAgg": [
             {
               "aggOp": [
@@ -733,7 +733,7 @@
       "feature": [
         {
           "name": "categorizedValue",
-          "description": "Severity of hyperkalemia"
+          "description": "Severity of hyperkalemia: LOINC 2823-3"
         }
       ]
     },
@@ -748,7 +748,7 @@
       "feature": [
         {
           "name": "categorizedValue",
-          "description": "Severity of chronic kidney disease"
+          "description": "Severity of chronic kidney disease: LOINC 69405-9"
         }
       ]
     },
@@ -2606,7 +2606,7 @@
       },
       "filter": {
         "name": "non_CV",
-        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()"
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse()"
       },
       "feature": [
         {
