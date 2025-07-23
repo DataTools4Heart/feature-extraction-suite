@@ -77,12 +77,12 @@ location /dt4h/feast {
 }
 ```
 
-## Feature Extraction Process
+## Starting Feature Extraction
 
 * Send a POST request to this URL to start the extraction process:
 
-```
-https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1/$extract
+```shell
+curl -X POST 'https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
 ```
 
 * The extraction process may take a long time to complete depending on the size of data.
