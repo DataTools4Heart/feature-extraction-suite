@@ -23,7 +23,7 @@ services:
     networks:
       - onfhir-network
   onfhir-feast:
-    image: srdc/onfhir-feast:latest
+    image: srdc/onfhir-feast:dt4h
     container_name: onfhir-feast
     restart: always
     environment:
