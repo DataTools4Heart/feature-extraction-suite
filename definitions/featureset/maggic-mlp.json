@@ -5,7 +5,8 @@
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
-  "date": "2025-01-09",
+  "version": "1.2",
+  "date": "2025-07-24",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -27,7 +28,7 @@
       "select": "latest",
       "events": [
         {
-          "url": "https://datatools4heart.eu/feature-groups/study1/encounters",
+          "url": "https://datatools4heart.eu/feature-groups/encounters",
           "join": {
             "on": {
               "pid": "pid"
@@ -40,7 +41,7 @@
   ],
   "feature": [
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
       "join": {
         "on": {
           "pid": "pid"
@@ -62,7 +63,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/nyha",
+      "url": "https://datatools4heart.eu/feature-groups/nyha",
       "join": {
         "on": {
           "pid": "pid"
@@ -76,7 +77,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
       "join": {
         "on": {
           "pid": "pid"
@@ -112,7 +113,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/lab_results",
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
           "pid": "pid"
@@ -152,7 +153,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
         "on": {
           "pid": "pid"
@@ -182,7 +183,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
         "on": {
           "pid": "pid"
@@ -297,7 +298,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "url": "https://datatools4heart.eu/feature-groups/medications",
       "join": {
         "on": {
           "pid": "pid"
@@ -320,7 +321,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/medications",
+      "url": "https://datatools4heart.eu/feature-groups/medications",
       "join": {
         "on": {
           "pid": "pid"
@@ -343,7 +344,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
       "join": {
         "on": {
           "pid": "pid"
@@ -361,7 +362,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+      "url": "https://datatools4heart.eu/feature-groups/smoking_status",
       "join": {
         "on": {
           "pid": "pid"
@@ -393,7 +394,7 @@
   ],
   "outcome": [
     {
-      "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+      "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
       "join": {
         "on": {
           "pid": "pid"

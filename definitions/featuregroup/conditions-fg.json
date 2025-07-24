@@ -1,12 +1,13 @@
 {
   "id": "conditions",
-  "url": "https://datatools4heart.eu/feature-groups/study1/conditions",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/conditions",
   "name": "conditions",
-  "title": "Conditions",
-  "description": "Condition related features",
+  "title": "Conditions (diagnoses) of patients",
+  "description": "Features about a condition (e.g. diagnosis) for the patient",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF WP2 Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

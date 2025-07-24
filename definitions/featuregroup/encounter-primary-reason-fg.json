@@ -1,12 +1,13 @@
 {
   "id": "encounter_primary_reason",
-  "url": "https://datatools4heart.eu/feature-groups/study1/encounter_primary_reason",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
   "name": "encounter_primary_reason",
   "title": "Encounter Primary Reason",
   "description": "Encounter Primary Reason",
   "status": "active",
-  "date": "2025-02-26",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

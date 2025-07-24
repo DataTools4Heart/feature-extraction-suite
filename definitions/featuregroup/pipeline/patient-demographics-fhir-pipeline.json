@@ -1,12 +1,13 @@
 {
   "id": "patient_demographics",
-  "url": "https://datatools4heart.eu/feature-groups/study1/patient_demographics",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
   "name": "patient_demographics",
   "title": "Patient demographics",
   "description": "Patient demographics",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
     "R5"
