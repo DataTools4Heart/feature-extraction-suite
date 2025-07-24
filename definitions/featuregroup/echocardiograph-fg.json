@@ -1,12 +1,13 @@
 {
   "id": "echocardiographs",
-  "url": "https://datatools4heart.eu/feature-groups/study1/echocardiographs",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
   "name": "echocardiographs",
   "title": "Echocardiographs",
   "description": "Echocardiograph related features",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

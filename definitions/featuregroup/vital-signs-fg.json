@@ -1,12 +1,13 @@
 {
   "id": "vital_signs",
-  "url": "https://datatools4heart.eu/feature-groups/study1/vital_signs",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/vital_signs",
   "name": "vital_signs",
   "title": "Vital signs",
   "description": "Vital sign related features",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

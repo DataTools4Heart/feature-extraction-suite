@@ -1,12 +1,13 @@
 {
   "id": "cause_of_death",
-  "url": "https://datatools4heart.eu/feature-groups/study1/cause_of_death",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/cause_of_death",
   "name": "cause_of_death",
   "title": "Cause of death",
   "description": "This feature group contains the feature that indicates the cause of death",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

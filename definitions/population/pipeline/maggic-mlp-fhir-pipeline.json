@@ -1,19 +1,21 @@
 {
-  "id": "maggic",
+  "id": "maggic_cohort",
+  "resourceType": "PopulationPipeline",
   "url": "https://ai4hf.eu/cohorts/maggic",
-  "name": "maggic",
+  "name": "maggic_cohort",
   "title": "Patients diagnosed with heart failure, using the time of their initial diagnosis as the event time.",
-  "description": "This population definition finds Patients diagnosed with heart failure.",
-  "version": "0.1",
-  "date": "2025-02-20",
+  "description": "This population definition finds Patients diagnosed with heart failure, selecting them from FHIR.",
+  "version": "1.1",
+  "date": "2025-07-21",
   "fhirVersion": "5.0.0",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "publisher": "AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
     "R5"
   ],
   "entry": [
     {
+      "name": "withHeartFailure",
       "description": "Patients diagnosed with heart failure, using the time of their initial diagnosis as the event time.",
       "resourceType": "Condition",
       "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
@@ -30,6 +32,7 @@
   ],
   "exit": [
     {
+      "name" : "deceased",
       "description": "When a patient dies, they are removed from the population.",
       "resourceType": "Patient",
       "entityLink": [

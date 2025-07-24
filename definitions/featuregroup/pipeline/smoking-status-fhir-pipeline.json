@@ -1,12 +1,13 @@
 {
   "id": "smoking_status",
-  "url": "https://datatools4heart.eu/feature-groups/study1/smoking_status",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/smoking_status",
   "name": "smoking_status",
   "title": "Smoking status",
   "description": "Smoking status",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
     "R5"

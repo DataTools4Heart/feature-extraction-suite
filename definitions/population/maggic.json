@@ -1,11 +1,12 @@
 {
-  "id": "maggic",
+  "id": "maggic_cohort",
+  "resourceType": "Population",
   "url": "https://ai4hf.eu/cohorts/maggic",
-  "name": "maggic",
+  "name": "maggic_cohort",
   "title": "Patients with Diagnosis of Heart Failure",
   "description": "This cohort includes patients with a diagnosis of heart failure.",
-  "version": "0.1",
-  "date": "2025-02-18",
+  "version": "1.1",
+  "date": "2025-07-21",
   "status": "active",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -16,15 +17,15 @@
   ],
   "entry": [
     {
-      "name": "Patients diagnosed with heart failure",
-      "description": "Filters the patients diagnosed with heart failure",
+      "name": "withHeartFailure",
+      "description": "Selects the patients diagnosed with heart failure",
       "definesPeriod": true
     }
   ],
   "exit": [
     {
-      "name": "Patient's deceased time.",
-      "description": "When a patient dies, they are removed from the population."
+      "name": "deceased",
+      "description": "When a patient dies, they are removed from the population/cohort."
     }
   ],
   "period": {

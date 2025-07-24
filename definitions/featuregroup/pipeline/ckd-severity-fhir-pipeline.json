@@ -1,12 +1,13 @@
 {
   "id": "ckd_severity",
-  "url": "https://datatools4heart.eu/feature-groups/study1/ckd_severity",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/ckd_severity",
   "name": "ckd_severity",
   "title": "Chronic kidney disease severity",
   "description": "Chronic kidney disease severity-related features",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
     "R5"

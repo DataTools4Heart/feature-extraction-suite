@@ -1,12 +1,13 @@
 {
   "id": "symptoms",
-  "url": "https://datatools4heart.eu/feature-groups/study1/symptoms",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/symptoms",
   "name": "symptoms",
   "title": "Symptoms",
   "description": "Symptom related features",
   "status": "active",
-  "date": "2025-02-20",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

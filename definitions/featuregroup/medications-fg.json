@@ -1,12 +1,13 @@
 {
-  "id": "med",
-  "url": "https://datatools4heart.eu/feature-groups/study1/medications",
-  "name": "med",
+  "id": "medications",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/medications",
+  "name": "medications",
   "title": "Medications",
   "description": "Medication related features",
   "status": "active",
-  "date": "2025-01-16",
-  "publisher": "DataTools4Heart WP2 Team (SRDC Corp.)",
+  "date": "2025-07-21",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",
