@@ -18,18 +18,16 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: onfhir_feast_new
-    ports:
-      - "5432:5432"
     networks:
       - onfhir-network
   onfhir-feast:
-    image: srdc/onfhir-feast:dt4h
+    image: srdc/onfhir-feast:latest
     container_name: onfhir-feast
     restart: always
     environment:
       APP_CONF_FILE: /usr/local/onfhir-feast/conf/docker/feast-server.conf
     ports:
-      - "8085:8085"
+      - "6095:8085"
     volumes:
       - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
       - ./feature-extraction-suite/output-data:/usr/local/onfhir-feast/output-data
