@@ -47,7 +47,7 @@
         },
         {
           "name": "ecg_qt_duration_corrected",
-          "path": "Observation.component.where(code.coding.exists(system='https://datatools4heart.eu/fhir/CodeSystem/qt-correction-formula' and code='bazett')).valueQuantity.value.first()"
+          "path": "Observation.component.where(code.coding.exists((system='https://datatools4heart.eu/fhir/CodeSystem/qt-correction-formula' and (code='bazett' or code='frederica' or code='framingham')) or (system='http://loinc.org' and code='8636-3'))).valueQuantity.value.first()"
         },
         {
           "name": "ecg_st",
