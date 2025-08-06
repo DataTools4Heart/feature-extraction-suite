@@ -298,7 +298,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/medications",
+      "url": "https://datatools4heart.eu/feature-groups/med-admins",
       "join": {
         "on": {
           "pid": "pid"
@@ -321,7 +321,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/medications",
+      "url": "https://datatools4heart.eu/feature-groups/med-admins",
       "join": {
         "on": {
           "pid": "pid"

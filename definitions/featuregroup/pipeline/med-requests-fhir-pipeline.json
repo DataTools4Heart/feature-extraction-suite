@@ -1,0 +1,50 @@
+{
+  "id": "med-requests",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/med-requests",
+  "name": "med-requests",
+  "title": "Medication Requests or Prescriptions",
+  "description": "Medication Requests or Prescriptions",
+  "status": "active",
+  "date": "2025-08-06",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from Medications.",
+      "resourceType": "MedicationRequest",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-MedicationRequest",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "MedicationRequest.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "MedicationRequest.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "medicationCodes",
+          "path": "MedicationRequest.medication.concept.coding.where(system='http://www.whocc.no/atc').code"
+        },
+        {
+          "name": "medicationGroups",
+          "path": "MedicationRequest.medication.concept.coding.where(system='https://datatools4heart.eu/fhir/CodeSystem/medication-group').code"
+        },
+        {
+          "name": "startTime",
+          "path": "MedicationRequest.effectiveDosePeriod.start"
+        }
+      ]
+    }
+  ]
+}
