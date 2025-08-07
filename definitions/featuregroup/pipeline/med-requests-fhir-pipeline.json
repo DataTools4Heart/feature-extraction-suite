@@ -1,8 +1,8 @@
 {
-  "id": "med-requests",
+  "id": "med_requests",
   "resourceType": "FeatureGroupPipeline",
-  "url": "https://datatools4heart.eu/feature-groups/med-requests",
-  "name": "med-requests",
+  "url": "https://datatools4heart.eu/feature-groups/med_requests",
+  "name": "med_requests",
   "title": "Medication Requests or Prescriptions",
   "description": "Medication Requests or Prescriptions",
   "status": "active",

@@ -1623,7 +1623,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/med-admins",
+      "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
         "on": {
           "pid": "pid",
@@ -2039,7 +2039,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/med-requests",
+      "url": "https://datatools4heart.eu/feature-groups/med_requests",
       "join": {
         "on": {
           "pid": "pid",
@@ -2455,7 +2455,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/med-admins",
+      "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
         "on": {
           "pid": "pid"
@@ -2875,7 +2875,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/med-requests",
+      "url": "https://datatools4heart.eu/feature-groups/med_requests",
       "join": {
         "on": {
           "pid": "pid"

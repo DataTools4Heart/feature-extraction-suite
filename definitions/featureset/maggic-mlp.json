@@ -298,7 +298,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/med-admins",
+      "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
         "on": {
           "pid": "pid"
@@ -321,7 +321,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/med-admins",
+      "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
         "on": {
           "pid": "pid"
