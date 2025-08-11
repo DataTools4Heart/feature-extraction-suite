@@ -1,7 +1,7 @@
 {
-  "id": "maggic-mlp",
+  "id": "maggic-mlp-fs",
   "url": "https://ai4hf.eu/feature-sets/maggic-mlp",
-  "name": "maggic-mlp",
+  "name": "maggic-mlp-fs",
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
