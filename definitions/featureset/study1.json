@@ -3304,46 +3304,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "HF",
-        "filter": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue()"
-      },
       "feature": [
         {
-          "name": "heartFailure",
+          "name": "HF_Disease",
           "description": "Whether the patient is hospitalized because of heart failure after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.exists()",
+            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3351,7 +3347,7 @@
           "name": "number_of_days_to_rehosp_for_heart_failure",
           "description": "Number of days from reference time point until rehospitalization due to heart failure",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3372,46 +3368,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "CV",
-        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
-      },
       "feature": [
         {
           "name": "CV_Disease",
           "description": "Whether the patient is hospitalized because of any cardiovascular condition after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.exists()",
+            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3419,7 +3411,7 @@
           "name": "number_of_days_to_rehosp_for_CV",
           "description": "Number of days from reference time point until rehospitalization due to CV disease",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3440,46 +3432,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "non_CV",
-        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse()"
-      },
       "feature": [
         {
           "name": "non_CV_Disease",
           "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.exists()",
+            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3487,7 +3475,7 @@
           "name": "number_of_days_to_rehosp_for_non_CV",
           "description": "Number of days from reference time point until rehospitalization due to non-CV disease",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3508,46 +3496,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "renal",
-        "filter": "primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()"
-      },
       "feature": [
         {
           "name": "renal_complications",
           "description": "Whether the patient is hospitalized because of any renal complication after the reference time point.",
           "value": {
-            "path": "primaryReasonCodes.exists()",
+            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3555,7 +3539,7 @@
           "name": "number_of_days_to_rehosp_for_renal_complications",
           "description": "Number of days from reference time point until rehospitalization due to renal complications",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3576,46 +3560,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "isCV",
-        "filter": "causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
-      },
       "feature": [
         {
-          "name": "isCardiovascular",
+          "name": "isCV",
           "description": "Whether the patient dies because of any cardiovascular condition after the reference time point.",
           "value": {
-            "path": "causesOfDeath.exists()",
+            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3623,7 +3603,7 @@
           "name": "number_of_days_to_death_for_CV",
           "description": "Number of days from reference time point until death due to CV disease",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "path": "iif(causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3644,46 +3624,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "isRenal",
-        "filter": "causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()"
-      },
       "feature": [
         {
           "name": "isRenal",
           "description": "Whether the patient dies because of any renal complication after the reference time point.",
           "value": {
-            "path": "causesOfDeath.exists()",
+            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3691,7 +3667,7 @@
           "name": "number_of_days_to_death_for_renal",
           "description": "Number of days from reference time point until death due to renal complications",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "path": "iif(causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3712,46 +3688,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "isNonRenalAndNonCV",
-        "filter": "causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()"
-      },
       "feature": [
         {
           "name": "isNonRenalAndNonCV",
           "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point.",
           "value": {
-            "path": "causesOfDeath.exists()",
+            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3759,7 +3731,7 @@
           "name": "number_of_days_to_death_for_non_renal_and_non_CV",
           "description": "Number of days from reference time point until death due to non-CV and non-renal complications",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "path": "iif(causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3780,46 +3752,42 @@
         },
         "duration": "5a"
       },
-      "filter": {
-        "name": "isAllCause",
-        "filter": "causesOfDeath.select($this.startsWith('R99')).anyTrue()"
-      },
       "feature": [
         {
           "name": "isAllCause",
           "description": "Whether the patient dies because of unspecified condition after the reference time point..",
           "value": {
-            "path": "causesOfDeath.exists()",
+            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["any"]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3827,7 +3795,7 @@
           "name": "number_of_days_to_death_for_all_cause",
           "description": "Number of days from reference time point until death due to unspecified condition",
           "value": {
-            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "path": "iif(causesOfDeath.select($this.startsWith('R99')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [

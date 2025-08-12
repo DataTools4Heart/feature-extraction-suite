@@ -82,7 +82,7 @@ location /dt4h/feast {
 * Send a POST request to this URL to start the extraction process:
 
 ```shell
-curl -X POST 'https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+curl -X POST 'https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
 ```
 
 * The extraction process may take a long time to complete depending on the size of data.
