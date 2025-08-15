@@ -90,11 +90,13 @@
         "values": [
           {
             "name": "systolic_blood_pressure",
-            "value": "8480-6"
+            "value": "8480-6",
+            "description": "Systolic blood pressure (mmHg)"
           },
           {
             "name": "bmi",
-            "value": "39156-5"
+            "value": "39156-5",
+            "description": "BMI (kg/m2)"
           }
         ]
       },
@@ -126,15 +128,18 @@
         "values": [
           {
             "name": "sodium",
-            "value": "2951-2"
+            "value": "2951-2",
+            "description": "Sodium [Moles/volume] in Serum or Plasma (mmol/L)"
           },
           {
             "name": "creatinine",
-            "value": "2160-0"
+            "value": "2160-0",
+            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
           },
           {
             "name": "urinary_creatinine",
-            "value": "2161-8"
+            "value": "2161-8",
+            "description": "Creatinine [Mass/volume] in Urine (mg/L)"
           }
         ]
       },
