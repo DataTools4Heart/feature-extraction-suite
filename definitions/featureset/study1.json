@@ -824,7 +824,7 @@
       "filter": {
         "name": "betweenHospitalAdmissionAndDischargeTime",
         "description":"Filters conditions that occurred within the hospital admission and discharge timeframe.",
-        "filter": "date > eventTime"
+        "filter": "date >= eventTime"
       },
       "feature": [
         {
