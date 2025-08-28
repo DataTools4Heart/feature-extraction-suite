@@ -35,7 +35,7 @@
       "feature": [
         {
           "name": "lvef",
-          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8806-2')).valueQuantity.value.first()"
+          "path": "(Observation.component.where(code.coding.system='http://loinc.org' and code.coding.code='79990-8') | Observation.component.where(code.coding.system='http://loinc.org' and code.coding.code='79991-6') | Observation.component.where(code.coding.system='http://loinc.org' and (code.coding.code='77890-2' or code.coding.code='93645-0' or code.coding.code='93644-3')) | Observation.component.where(code.coding.system='http://loinc.org' and (code.coding.code='79992-4' or code.coding.code='79993-2' or code.coding.code='8807-0')) | Observation.component.where(code.coding.system='http://loinc.org' and (code.coding.code='77891-0' or code.coding.code='8806-2'))).valueQuantity.value.first()"
         },
         {
           "name": "time",
