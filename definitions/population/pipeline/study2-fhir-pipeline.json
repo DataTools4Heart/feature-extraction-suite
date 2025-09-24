@@ -1,0 +1,60 @@
+{
+  "id": "study2_cohort",
+  "resourceType": "PopulationPipeline",
+  "url": "https://datatools4heart.eu/cohorts/study2",
+  "name": "study2_cohort",
+  "title": "Hospitalized Patients at Emergency with Primary Diagnosis of Heart Failure",
+  "description": "This cohort includes patients hospitalized at emergency department with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
+  "version": "1.0",
+  "date": "2025-09-24",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "resourceType": "Encounter",
+      "query": "?class=EMER",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Encounter.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "withHeartFailure",
+      "description": "Filters patients with a diagnosis of heart failure during the hospital encounter.",
+      "criteria": [
+        {
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
+          "entityLink": [
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Condition.encounter.reference"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

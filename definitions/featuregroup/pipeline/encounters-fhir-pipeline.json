@@ -47,6 +47,10 @@
         {
           "name": "encounterClass",
           "path": "Encounter.class.coding.where(system='http://terminology.hl7.org/CodeSystem/v3-ActCode').code.first()"
+        },
+        {
+          "name": "department",
+          "path": "Encounter.serviceType.concept.coding.where(system='http://snomed.info/sct').code.first()"
         }
       ]
     }

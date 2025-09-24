@@ -75,6 +75,12 @@
           }
         ]
       }
+    },
+    {
+      "name": "department",
+      "title": "Department",
+      "description": "SNOMED code of the department of the encounter i.e. cardiology, neurology, etc.",
+      "dataType": "code"
     }
   ],
   "eventTime": {
