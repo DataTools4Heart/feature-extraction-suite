@@ -1,0 +1,75 @@
+{
+  "id": "ai4hf_use_case_1",
+  "resourceType": "PopulationPipeline",
+  "url": "https://ai4hf.eu/cohorts/use_case_1",
+  "name": "ai4hf_use_case_1",
+  "title": "All patients with a diagnosis of Heart Failure and aged 18 and above.",
+  "description": "All patients with a diagnosis of Heart Failure during a hospitalization at the cardiology department and aged 18 and above.",
+  "version": "1.1",
+  "date": "2025-09-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "resourceType": "Encounter",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Encounter.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adultsWithHeartFailure",
+      "description": "Filters adult patients with a diagnosis of heart failure during the hospital encounter.",
+      "criteria": [
+        {
+          "resourceType": "Patient",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Patient.id"
+            }
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        },
+        {
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
+          "entityLink": [
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Condition.encounter.reference"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

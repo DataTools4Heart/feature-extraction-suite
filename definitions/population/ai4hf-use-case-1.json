@@ -1,0 +1,43 @@
+{
+  "id": "ai4hf_use_case_1",
+  "resourceType": "Population",
+  "url": "https://ai4hf.eu/cohorts/use_case_1",
+  "name": "ai4hf_use_case_1",
+  "title": "All patients with a diagnosis of Heart Failure and aged 18 and above.",
+  "description": "All patients with a diagnosis of Heart Failure during a hospitalization at the cardiology department and aged 18 and above.",
+  "version": "1.1",
+  "date": "2025-09-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care."
+    }
+  ],
+  "period": {
+    "description": "Includes all hospital encounters for the defined cohort population.",
+    "events": "all"
+  },
+  "eligibility": [
+    {
+      "name": "adultsWithHeartFailure",
+      "description": "Filters adult patients with a diagnosis of heart failure during the hospital encounter.",
+      "criteria": [
+        {
+          "description": "Filters adult patients with a diagnosis of heart failure during the hospital encounter."
+        }
+      ]
+    }
+  ]
+}
