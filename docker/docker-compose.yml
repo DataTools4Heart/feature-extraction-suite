@@ -12,7 +12,7 @@ services:
 #      - ./feature-extraction-suite/output-data:/usr/local/onfhir-feast/output-data
   postgres:
     image: postgres:latest
-    container_name: onfhir-feast-postgres
+    container_name: dt4h-feast-postgres
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -22,7 +22,7 @@ services:
       - onfhir-network
   onfhir-feast:
     image: srdc/onfhir-feast:latest
-    container_name: onfhir-feast
+    container_name: dt4h-feast
     restart: always
     environment:
       APP_CONF_FILE: /usr/local/onfhir-feast/conf/docker/feast-server.conf
