@@ -1,0 +1,349 @@
+{
+  "id": "synthetic-risk-score",
+  "url": "https://datatools4heart.eu/feature-sets/synthetic-risk-score",
+  "name": "synthetic-risk-score",
+  "title": "Synthetic Risk Score Feature Set for Clinical Risk Assessment",
+  "description": "Synthetic Risk Score Feature Set for Clinical Risk Assessment",
+  "status": "active",
+  "date": "2025-10-01",
+  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "sampling": [
+    {
+      "description": "Use the end time of encounters as the reference time point",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/encounters",
+          "join": {
+            "on": {
+              "pid": "pid",
+              "encounterId": "encounterId"
+            }
+          },
+          "eventTime": "endTime"
+        }
+      ]
+    }
+  ],
+  "feature": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "gender",
+          "description": "Gender of the patient"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at admission date",
+          "value": {
+            "path": "utl:getPeriod(birthDate, %eventTime, 'years')",
+            "dataType": "integer"
+          }
+        },
+        {
+          "name": "timeAdmissionToDeath",
+          "description": "Time (in hours) between admission and death",
+          "value": {
+            "path": "utl:getPeriod(%eventTime, deceasedDateTime, 'hours')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounters",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "lengthOfStay",
+          "description": "The total number of hours between discharge and admission",
+          "value": {
+            "path": "utl:getPeriod(%eventTime, %referenceTimePoint, 'hours')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        },
+        "duration": "%eventTime"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "systolicBp",
+            "value": "8480-6",
+            "description": "Systolic blood pressure (mmHg)"
+          },
+          {
+            "name": "diastolicBp",
+            "value": "8462-4",
+            "description": "Diastolic blood pressure (mmHg)"
+          },
+          {
+            "name": "BMI",
+            "value": "39156-5",
+            "description": "Body mass index (BMI) (kg/m2)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first", "last", "set"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Important lab results to be evaluated features",
+        "values": [
+          {
+            "name": "cholHdl",
+            "value": "14646-4",
+            "description": "Cholesterol in HDL [Moles/volume] in Serum or Plasma (mmol/L)"
+          },
+          {
+            "name": "cholLdl",
+            "value": "22748-8",
+            "description": "Cholesterol in LDL [Moles/volume] in Serum or Plasma (mmol/L)"
+          },
+          {
+            "name": "cholTotal",
+            "value": "14647-2",
+            "description": "Cholesterol [Moles/volume] in Serum or Plasma (mmol/L)"
+          },
+          {
+            "name": "creatBS",
+            "value": "2160-0",
+            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
+          },
+          {
+            "name": "creatUS",
+            "value": "2161-8",
+            "description": "Creatinine [Mass/volume] in Urine (mg/L)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "set"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "LVEF (Left ventricular ejection fraction, (%)) values measured from admission through discharge",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "set"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/smoking_status",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "smoker",
+          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "value": {
+            "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/med_admins",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "acei",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors administered during the admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bb",
+          "description": "Whether beta blockers administered during the admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        },
+        "duration": "%eventTime"
+      },
+      "feature": [
+        {
+          "name": "af",
+          "description": "Whether the patient has atrial fibrillation within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "mi",
+          "description": "Whether the patient has myocardial infarction within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "type2diabetes",
+          "description": "Whether the patient has type 2 diabetes within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E11')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/nyha",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "nyha",
+          "description": "New York Heart Association category from admission through discharge"
+        }
+      ]
+    }
+  ]
+}
