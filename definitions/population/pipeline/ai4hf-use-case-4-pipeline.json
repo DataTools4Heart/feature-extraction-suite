@@ -1,0 +1,88 @@
+{
+  "id": "ai4hf_use_case_4",
+  "resourceType": "PopulationPipeline",
+  "url": "https://ai4hf.eu/cohorts/use_case_4",
+  "name": "ai4hf_use_case_4",
+  "title": "Non-ischemic DCM Outpatients (HF, LVEF <45%)",
+  "description": "This cohort includes all patients with non-ischemic DCM with a primary or secondary diagnosis of HF and a clinical encounter at the cardiology out-patient clinic, age ≥18 years. Patients can also be selected using an ICD-10 code based DCM definition: ICD-10 code (I42.0) and LVEF <45% (measured using ultrasound only).",
+  "version": "1.1",
+  "date": "2025-09-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "resourceType": "Encounter",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Encounter.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adultsWithDCMandLvef",
+      "description": "Filters adult patients with a diagnosis of DCM during the hospital encounter with lvef < %45.",
+      "criteria": [
+        {
+          "resourceType": "Patient",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Patient.id"
+            }
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        },
+        {
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I42.0",
+          "entityLink": [
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Condition.encounter.reference"
+            }
+          ]
+        },
+        {
+          "resourceType": "Observation",
+          "category": "inclusion",
+          "query": "?category=imaging&component-code-value-quantity=http://loinc.org|8806-2$lt45",
+          "entityLink": [
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Observation.encounter.reference"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
