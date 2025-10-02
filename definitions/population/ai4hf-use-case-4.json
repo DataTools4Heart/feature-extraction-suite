@@ -1,0 +1,43 @@
+{
+  "id": "ai4hf_use_case_4",
+  "resourceType": "Population",
+  "url": "https://ai4hf.eu/cohorts/use_case_4",
+  "name": "ai4hf_use_case_4",
+  "title": "Non-ischemic DCM Outpatients (HF, LVEF <45%)",
+  "description": "This cohort includes all patients with non-ischemic DCM with a primary or secondary diagnosis of HF and a clinical encounter at the cardiology out-patient clinic, age ≥18 years. Patients can also be selected using an ICD-10 code based DCM definition: ICD-10 code (I42.0) and LVEF <45% (measured using ultrasound only).",
+  "version": "1.1",
+  "date": "2025-09-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care."
+    }
+  ],
+  "period": {
+    "description": "Includes all hospital encounters for the defined cohort population.",
+    "events": "all"
+  },
+  "eligibility": [
+    {
+      "name": "adultsWithDCMandLvef",
+      "description": "Filters adult patients with a diagnosis of DCM during the hospital encounter with lvef < %45.",
+      "criteria": [
+        {
+          "description": "Filters adult patients with a diagnosis of DCM during the hospital encounter with lvef < %45."
+        }
+      ]
+    }
+  ]
+}
