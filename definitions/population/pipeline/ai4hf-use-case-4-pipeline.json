@@ -18,6 +18,7 @@
       "name": "patientEncounter",
       "description": "Captures hospital encounters when a patient is admitted for care.",
       "resourceType": "Encounter",
+      "query": "?class=AMB",
       "entityLink": [
         {
           "entity": "pid",
