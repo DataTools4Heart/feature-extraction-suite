@@ -1,0 +1,70 @@
+{
+  "id": "maggic_cprd_cohort",
+  "resourceType": "PopulationPipeline",
+  "url": "https://ai4hf.eu/cohorts/maggic_cprd",
+  "name": "maggic_cprd_cohort",
+  "title": "Patients with a first diagnosis of heart failure between 2010 and 2020, using the time of their initial diagnosis as the event time.",
+  "description": "This population finds patients diagnosed with heart failure between 2010 and 2020 from FHIR, excluding those with a diagnosis before 2010.",
+  "version": "1.1",
+  "date": "2025-10-20",
+  "fhirVersion": "5.0.0",
+  "publisher": "AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "withHeartFailure",
+      "description": "Patients diagnosed with heart failure between 2010 and 2020, using the time of their initial diagnosis as the event time.",
+      "resourceType": "Condition",
+      "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13&onset-date=ge2010-01-01&onset-date=lt2020-01-01",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Condition.subject.reference"
+        }
+      ],
+      "eventTime": "Condition.onsetDateTime"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "excludeHeartFailureBefore2010",
+      "description": "Exclude patients with a heart failure diagnosis dated before 2010.",
+      "criteria": [
+        {
+          "resourceType": "Condition",
+          "category": "exclusion",
+          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13&onset-date=lt2010-01-01",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Condition.subject.reference"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "exit": [
+    {
+      "name": "deceased",
+      "description": "When a patient dies, they are removed from the population.",
+      "resourceType": "Patient",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "_id",
+          "path": "Patient.id"
+        }
+      ],
+      "exitTime": "Patient.deceasedDateTime"
+    }
+  ]
+}

@@ -18,7 +18,7 @@
       "name": "withHeartFailure",
       "description": "Patients diagnosed with heart failure, using the time of their initial diagnosis as the event time.",
       "resourceType": "Condition",
-      "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13&onset-date=ge2010-01-01&onset-date=lt2020-01-01",
+      "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
       "entityLink": [
         {
           "entity": "pid",
@@ -28,27 +28,6 @@
         }
       ],
       "eventTime": "Condition.onsetDateTime"
-    }
-  ],
-  "eligibility": [
-    {
-      "name": "withHeartFailureBefore2010",
-      "description": "Exclude patients who have a heart failure diagnosis before 2010.",
-      "criteria": [
-        {
-          "resourceType": "Condition",
-          "category": "exclusion",
-          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13&onset-date=lt2010-01-01",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Condition.subject.reference"
-            }
-          ]
-        }
-      ]
     }
   ],
   "exit": [
