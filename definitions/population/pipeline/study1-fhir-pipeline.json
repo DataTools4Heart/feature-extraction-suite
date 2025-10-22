@@ -23,7 +23,7 @@
           "entity": "pid",
           "entityType": "Patient",
           "searchParam": "patient",
-          "path": "Encounter.subject.reference"
+          "path": "subject.reference"
         },
         {
           "entity": "encounterId",
@@ -47,8 +47,8 @@
             {
               "entity": "pid",
               "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Patient.id"
+              "searchParam": "_id",
+              "path": "id"
             }
           ],
           "timeConstraint": {
@@ -65,7 +65,13 @@
               "entity": "encounterId",
               "entityType": "Encounter",
               "searchParam": "encounter",
-              "path": "Condition.encounter.reference"
+              "path": "encounter.reference"
+            },
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "subject.reference"
             }
           ]
         }
