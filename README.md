@@ -59,9 +59,13 @@ cd <workspaceDir>
 # Stop the current proxy
 ./data-ingestion-suite/docker/proxy/stop.sh
 
-# Edit the nginx.conf file
-# Uncomment lines between 65-69 in:
-# ./data-ingestion-suite/docker/proxy/nginx.conf
+# Edit the ./data-ingestion-suite/docker/proxy/nginx.conf file
+# Uncomment the following lines:
+# location /dt4h/feast {
+#     proxy_pass http://dt4h-feast:8085/onfhir-feast;
+#     proxy_set_header Host $host;
+#     proxy_set_header X-Real-IP $remote_addr;
+# }
 
 # Restart the proxy
 ./data-ingestion-suite/docker/proxy/run.sh
@@ -71,7 +75,7 @@ cd <workspaceDir>
 
 ```nginx
 location /dt4h/feast {
-    proxy_pass http://onfhir-feast:8085/onfhir-feast;
+    proxy_pass http://<hostname>:<port>/onfhir-feast;
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
 }
@@ -79,15 +83,29 @@ location /dt4h/feast {
 
 ## Starting Feature Extraction
 
-* Send a POST request to this URL to start the extraction process:
+* To start the feature extraction process for a specific study, use the following cURL commands. Replace `<hostname>` with your server hostname.
+
+### Study 1
 
 ```shell
-curl -X POST 'https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+```
+
+### Study 2
+
+```shell
+curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study2-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+```
+
+### Study 3
+
+```shell
+curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study3-fs/Population/study3_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
 ```
 
 * The extraction process may take a long time to complete depending on the size of data.
 
-* After completion, the extracted dataset file should be generated. Example file location:
+* After completion, the dataset will be available in the following location. For example:
 
 ```
 <workspaceDir>/feature-extraction-suite/output-data/myFhirServer/dataset/study1-fs/<datasetId>/part-00000-550c22da-d8e3-4113-8b3a-8d935e77ee06-c000.snappy.parquet
@@ -95,13 +113,13 @@ curl -X POST 'https://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureS
 
 ### Dataset Statistics
 
-* For statistics about the dataset:
+* For statistics (metadata) about the datasets:
 
 ```
 https://<hostname>/dt4h/feast/api/Dataset
 ```
 
-Or:
+* For statistics (metadata) about a specific dataset:
 
 ```
 https://<hostname>/dt4h/feast/api/Dataset/<datasetId>
