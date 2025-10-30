@@ -94,13 +94,13 @@ curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSe
 ### Study 2
 
 ```shell
-curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study2-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study2_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
 ```
 
 ### Study 3
 
 ```shell
-curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study3-fs/Population/study3_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+curl -X POST 'http://<hostname>/dt4h/feast/api/DataSource/myFhirServer/FeatureSet/study3-fs/Population/study3_cohort/$extract?entityMatching=pid|pid&reset=true'
 ```
 
 * The extraction process may take a long time to complete depending on the size of data.

@@ -24,7 +24,7 @@
           "entity": "pid",
           "entityType": "Patient",
           "searchParam": "patient",
-          "path": "Encounter.subject.reference"
+          "path": "subject.reference"
         }
       ],
       "eventTime": "Encounter.actualPeriod.start",
@@ -37,6 +37,22 @@
       "description": "Filters patients with a diagnosis of heart failure during the hospital encounter.",
       "criteria": [
         {
+          "resourceType": "Patient",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "id"
+            }
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        },
+        {
           "resourceType": "Condition",
           "category": "inclusion",
           "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
@@ -45,25 +61,9 @@
               "entity": "pid",
               "entityType": "Patient",
               "searchParam": "patient",
-              "path": "Condition.subject.reference"
+              "path": "subject.reference"
             }
           ]
-        },
-        {
-          "resourceType": "Patient",
-          "category": "exclusion",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "Patient.id"
-            }
-          ],
-          "timeConstraint": {
-            "path": "birthDate + 18 years",
-            "start": "%eventTime"
-          }
         }
       ]
     }

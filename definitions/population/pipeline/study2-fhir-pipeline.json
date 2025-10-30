@@ -24,7 +24,7 @@
           "entity": "pid",
           "entityType": "Patient",
           "searchParam": "patient",
-          "path": "Encounter.subject.reference"
+          "path": "subject.reference"
         },
         {
           "entity": "encounterId",
@@ -50,7 +50,7 @@
               "entity": "encounterId",
               "entityType": "Encounter",
               "searchParam": "encounter",
-              "path": "Condition.encounter.reference"
+              "path": "encounter.reference"
             }
           ]
         }
