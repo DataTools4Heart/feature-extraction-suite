@@ -33,8 +33,8 @@
   ],
   "eligibility": [
     {
-      "name": "withHeartFailure",
-      "description": "Filters patients with a diagnosis of heart failure during the hospital encounter.",
+      "name": "adultsWithHeartFailure",
+      "description": "Filters adults patients with a diagnosis of heart failure during the hospital encounter.",
       "criteria": [
         {
           "resourceType": "Patient",
@@ -55,7 +55,7 @@
         {
           "resourceType": "Condition",
           "category": "inclusion",
-          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
+          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13,http://hl7.org/fhir/sid/icd-10|I25.5",
           "entityLink": [
             {
               "entity": "pid",
