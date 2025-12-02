@@ -27,6 +27,10 @@
       ],
       "feature": [
         {
+          "name": "sourceIdentifier",
+          "path": "Patient.identifier.value.first()"
+        },
+        {
           "name": "gender",
           "path": "Patient.gender"
         },

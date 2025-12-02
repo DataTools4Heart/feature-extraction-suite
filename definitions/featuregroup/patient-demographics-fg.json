@@ -16,6 +16,12 @@
   ],
   "feature": [
     {
+      "name": "sourceIdentifier",
+      "title": "Patient identifier provided by the source system",
+      "description": "Patient identifier provided by the source system",
+      "dataType": "string"
+    },
+    {
       "name": "gender",
       "title": "Gender",
       "description": "Gender of the patient (male | female | other | unknown)",
