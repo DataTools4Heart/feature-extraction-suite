@@ -127,11 +127,6 @@
         "description": "Important lab results",
         "values": [
           {
-            "name": "sodium",
-            "value": "2951-2",
-            "description": "Sodium [Moles/volume] in Serum or Plasma (mmol/L)"
-          },
-          {
             "name": "creatinine",
             "value": "2160-0",
             "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
@@ -200,81 +195,6 @@
           "description": "Whether the patient has the Chronic Obstructive Pulmonary Disease (COPD).",
           "value": {
             "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "has_atrial_fibrillation",
-          "description": "Whether the patient has the Atrial Fibrillations.",
-          "value": {
-            "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "has_myocardial_infarction",
-          "description": "Whether the patient has the Myocardial Infarctions.",
-          "value": {
-            "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "has_pci",
-          "description": "Whether the patient has the Percutaneous Coronary Intervention (PCI).",
-          "value": {
-            "path": "icd10Codes.select($this.startsWith('K49') or $this.startsWith('K50') or $this.startsWith('K75')).anyTrue()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "has_cabg",
-          "description": "Whether the patient has the Coronary Artery Bypass Graft (CABG) Surgeries.",
-          "value": {
-            "path": "icd10Codes.select($this.startsWith('K40') or $this.startsWith('K41') or $this.startsWith('K42') or $this.startsWith('K43') or $this.startsWith('K44') or $this.startsWith('K45') or $this.startsWith('K46') or $this.startsWith('K47')).anyTrue()",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "any"
-              ]
-            }
-          ]
-        },
-        {
-          "name": "has_stroke",
-          "description": "Whether the patient has the strokes.",
-          "value": {
-            "path": "icd10Codes.select($this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64') or $this.startsWith('I60')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
