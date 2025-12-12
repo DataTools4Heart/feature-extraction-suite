@@ -262,12 +262,12 @@
             "description": "Natriuretic peptide B [Mass/volume] in Serum or Plasma (pg/mL)"
           },
           {
-            "name": "crpHs",
+            "name": "crpNonHs",
             "value": "1988-5",
             "description": "C reactive protein [Mass/volume] in Serum or Plasma (mg/L)"
           },
           {
-            "name": "crpNonHs",
+            "name": "crpHs",
             "value": "30522-7",
             "description": "C reactive protein [Mass/volume] in Serum or Plasma by High sensitivity method (mg/L)"
           },
@@ -1739,7 +1739,7 @@
           "name": "anti_coag",
           "description": "Whether anticoagulant agents administered during the admission",
           "value": {
-            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())",
+            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('B01AA') or $this.startsWith('B01AB') or $this.startsWith('B01AX04') or $this.startsWith('B01AX05') or $this.startsWith('B01AF') or $this.startsWith('B01AE') or $this.startsWith('B01AX01') or $this.startsWith('B01AD12') or $this.startsWith('B01AB02')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1754,7 +1754,7 @@
           "name": "anti_plat",
           "description": "Whether antiplatelet agents administered during the admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AC13') or $this.startsWith('B01AC17') or $this.startsWith('B01AC16') or $this.startsWith('B01AC04') or $this.startsWith('B01AC22') or $this.startsWith('B01AC05') or $this.startsWith('B01AC25') or $this.startsWith('B01AC24') or $this.startsWith('B01AC19') or $this.startsWith('B01AC11') or $this.startsWith('B01AC21') or $this.startsWith('B01AC06') or $this.startsWith('B01AC15') or $this.startsWith('B01AC08') or $this.startsWith('B01AC10') or $this.startsWith('B01AC18') or $this.startsWith('B01AC07') or $this.startsWith('B01AC03') or $this.startsWith('B01AC23') or $this.startsWith('B01AC01') or $this.startsWith('B01AC02') or $this.startsWith('B01AC26')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1769,7 +1769,7 @@
           "name": "thrombolytic",
           "description": "Whether thrombolytic drugs/fibrinolytics administered during the admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AD02') or $this.startsWith('B01AD07') or $this.startsWith('B01AD11') or $this.startsWith('B01AD08') or $this.startsWith('B01AD04') or $this.startsWith('B01AD03') or $this.startsWith('B01AD01') or $this.startsWith('B01AD09') or $this.startsWith('B01AD06') or $this.startsWith('B01AD05')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2155,7 +2155,7 @@
           "name": "anti_coag",
           "description": "Whether anticoagulant agents prescribed during the admission",
           "value": {
-            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())",
+            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('B01AA') or $this.startsWith('B01AB') or $this.startsWith('B01AX04') or $this.startsWith('B01AX05') or $this.startsWith('B01AF') or $this.startsWith('B01AE') or $this.startsWith('B01AX01') or $this.startsWith('B01AD12') or $this.startsWith('B01AB02')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2170,7 +2170,7 @@
           "name": "anti_plat",
           "description": "Whether antiplatelet agents prescribed during the admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AC13') or $this.startsWith('B01AC17') or $this.startsWith('B01AC16') or $this.startsWith('B01AC04') or $this.startsWith('B01AC22') or $this.startsWith('B01AC05') or $this.startsWith('B01AC25') or $this.startsWith('B01AC24') or $this.startsWith('B01AC19') or $this.startsWith('B01AC11') or $this.startsWith('B01AC21') or $this.startsWith('B01AC06') or $this.startsWith('B01AC15') or $this.startsWith('B01AC08') or $this.startsWith('B01AC10') or $this.startsWith('B01AC18') or $this.startsWith('B01AC07') or $this.startsWith('B01AC03') or $this.startsWith('B01AC23') or $this.startsWith('B01AC01') or $this.startsWith('B01AC02') or $this.startsWith('B01AC26')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2185,7 +2185,7 @@
           "name": "thrombolytic",
           "description": "Whether thrombolytic drugs/fibrinolytics prescribed during the admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AD02') or $this.startsWith('B01AD07') or $this.startsWith('B01AD11') or $this.startsWith('B01AD08') or $this.startsWith('B01AD04') or $this.startsWith('B01AD03') or $this.startsWith('B01AD01') or $this.startsWith('B01AD09') or $this.startsWith('B01AD06') or $this.startsWith('B01AD05')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2576,7 +2576,7 @@
           "name": "anti_coag",
           "description": "Whether anticoagulant agents administered in their clinical history prior to the date of admission",
           "value": {
-            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())",
+            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('B01AA') or $this.startsWith('B01AB') or $this.startsWith('B01AX04') or $this.startsWith('B01AX05') or $this.startsWith('B01AF') or $this.startsWith('B01AE') or $this.startsWith('B01AX01') or $this.startsWith('B01AD12') or $this.startsWith('B01AB02')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2591,7 +2591,7 @@
           "name": "anti_plat",
           "description": "Whether antiplatelet agents administered in their clinical history prior to the date of admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AC13') or $this.startsWith('B01AC17') or $this.startsWith('B01AC16') or $this.startsWith('B01AC04') or $this.startsWith('B01AC22') or $this.startsWith('B01AC05') or $this.startsWith('B01AC25') or $this.startsWith('B01AC24') or $this.startsWith('B01AC19') or $this.startsWith('B01AC11') or $this.startsWith('B01AC21') or $this.startsWith('B01AC06') or $this.startsWith('B01AC15') or $this.startsWith('B01AC08') or $this.startsWith('B01AC10') or $this.startsWith('B01AC18') or $this.startsWith('B01AC07') or $this.startsWith('B01AC03') or $this.startsWith('B01AC23') or $this.startsWith('B01AC01') or $this.startsWith('B01AC02') or $this.startsWith('B01AC26')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2606,7 +2606,7 @@
           "name": "thrombolytic",
           "description": "Whether thrombolytic drugs/fibrinolytics administered in their clinical history prior to the date of admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AD02') or $this.startsWith('B01AD07') or $this.startsWith('B01AD11') or $this.startsWith('B01AD08') or $this.startsWith('B01AD04') or $this.startsWith('B01AD03') or $this.startsWith('B01AD01') or $this.startsWith('B01AD09') or $this.startsWith('B01AD06') or $this.startsWith('B01AD05')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2997,7 +2997,7 @@
           "name": "anti_coag",
           "description": "Whether anticoagulant agents prescribed in their clinical history prior to the date of admission",
           "value": {
-            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('BO1AA') or $this.startsWith('BO1AB') or $this.startsWith('BO1AX04') or $this.startsWith('BO1AX05') or $this.startsWith('BO1AF') or $this.startsWith('BO1AE') or $this.startsWith('BO1AX01') or $this.startsWith('BO1AD12') or $this.startsWith('BO1AB02')).anyTrue())",
+            "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('B01AA') or $this.startsWith('B01AB') or $this.startsWith('B01AX04') or $this.startsWith('B01AX05') or $this.startsWith('B01AF') or $this.startsWith('B01AE') or $this.startsWith('B01AX01') or $this.startsWith('B01AD12') or $this.startsWith('B01AB02')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -3012,7 +3012,7 @@
           "name": "anti_plat",
           "description": "Whether antiplatelet agents prescribed in their clinical history prior to the date of admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AC13') or $this.startsWith('BO1AC17') or $this.startsWith('BO1AC16') or $this.startsWith('BO1AC04') or $this.startsWith('BO1AC22') or $this.startsWith('BO1AC05') or $this.startsWith('BO1AC25') or $this.startsWith('BO1AC24') or $this.startsWith('BO1AC19') or $this.startsWith('BO1AC11') or $this.startsWith('BO1AC21') or $this.startsWith('BO1AC06') or $this.startsWith('BO1AC15') or $this.startsWith('BO1AC08') or $this.startsWith('BO1AC10') or $this.startsWith('BO1AC18') or $this.startsWith('BO1AC07') or $this.startsWith('BO1AC03') or $this.startsWith('BO1AC23') or $this.startsWith('BO1AC01') or $this.startsWith('BO1AC02') or $this.startsWith('BO1AC26')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AC13') or $this.startsWith('B01AC17') or $this.startsWith('B01AC16') or $this.startsWith('B01AC04') or $this.startsWith('B01AC22') or $this.startsWith('B01AC05') or $this.startsWith('B01AC25') or $this.startsWith('B01AC24') or $this.startsWith('B01AC19') or $this.startsWith('B01AC11') or $this.startsWith('B01AC21') or $this.startsWith('B01AC06') or $this.startsWith('B01AC15') or $this.startsWith('B01AC08') or $this.startsWith('B01AC10') or $this.startsWith('B01AC18') or $this.startsWith('B01AC07') or $this.startsWith('B01AC03') or $this.startsWith('B01AC23') or $this.startsWith('B01AC01') or $this.startsWith('B01AC02') or $this.startsWith('B01AC26')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -3027,7 +3027,7 @@
           "name": "thrombolytic",
           "description": "Whether thrombolytic drugs/fibrinolytics prescribed in their clinical history prior to the date of admission",
           "value": {
-            "path": "medicationCodes.select($this.startsWith('BO1AD02') or $this.startsWith('BO1AD07') or $this.startsWith('BO1AD11') or $this.startsWith('BO1AD08') or $this.startsWith('BO1AD04') or $this.startsWith('BO1AD03') or $this.startsWith('BO1AD01') or $this.startsWith('BO1AD09') or $this.startsWith('BO1AD06') or $this.startsWith('BO1AD05')).anyTrue()",
+            "path": "medicationCodes.select($this.startsWith('B01AD02') or $this.startsWith('B01AD07') or $this.startsWith('B01AD11') or $this.startsWith('B01AD08') or $this.startsWith('B01AD04') or $this.startsWith('B01AD03') or $this.startsWith('B01AD01') or $this.startsWith('B01AD09') or $this.startsWith('B01AD06') or $this.startsWith('B01AD05')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
