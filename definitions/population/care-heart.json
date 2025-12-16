@@ -1,0 +1,48 @@
+{
+  "id": "care_heart_cohort",
+  "resourceType": "Population",
+  "url": "https://ai4hf.eu/cohorts/care_heart",
+  "name": "care_heart_cohort",
+  "title": "Adult Patients with Cardiology Encounters (Inpatient or Outpatient) After First Heart Failure Diagnosis",
+  "description": "This cohort includes patients aged 18 years or older who have a diagnosis of heart failure and at least one cardiology-related encounter (inpatient admission or outpatient visit) occurring after their first heart failure diagnosis.",
+  "version": "1.1",
+  "date": "2025-12-16",
+  "status": "active",
+  "publisher": "AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Includes inpatient and outpatient hospital encounters associated with cardiology services."
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adultsWithHeartFailure",
+      "description": "Restricts the cohort to adult patients whose first heart failure diagnosis occurred before the encounter admission date.",
+      "criteria": [
+        {
+          "name": "adults",
+          "description": "Include only adults patients (age is 18 or older)"
+        },
+        {
+          "name": "firstHeartFailureDiagnosisBeforeAdmission",
+          "description": "The patient’s first heart failure diagnosis must occur before the encounter admission date."
+        }
+      ]
+    }
+  ],
+  "period": {
+    "description": "Includes all patients for the defined cohort population.",
+    "events": "all"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "id": "care_heart_cohort",
+  "resourceType": "PopulationPipeline",
+  "url": "https://ai4hf.eu/cohorts/care_heart",
+  "name": "care_heart_cohort",
+  "title": "Adult Patients with Cardiology Encounters (Inpatient or Outpatient) After First Heart Failure Diagnosis",
+  "description": "This cohort includes patients aged 18 years or older who have a diagnosis of heart failure and at least one cardiology-related encounter (inpatient admission or outpatient visit) occurring after their first heart failure diagnosis.",
+  "version": "1.1",
+  "date": "2025-12-16",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Includes inpatient and outpatient hospital encounters associated with cardiology services.",
+      "resourceType": "Encounter",
+      "query": "service-type=http://snomed.info/sct|394579002&class=AMB,IMP",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adultsWithHeartFailure",
+      "description": "Restricts the cohort to adult patients whose first heart failure diagnosis occurred before the encounter admission date.",
+      "criteria": [
+        {
+          "resourceType": "Patient",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "id"
+            }
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        },
+        {
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13&_sort=onset-date&_count=1",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "Condition.subject.reference"
+            }
+          ],
+          "eventTime": "Condition.onsetDateTime",
+          "timeConstraint": {
+            "searchParam": "onset-date",
+            "path": "Condition.onsetDateTime",
+            "end": "%eligibilityEventTime"
+          }
+        }
+      ]
+    }
+  ]
+}
