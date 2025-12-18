@@ -84,21 +84,37 @@
         },
         "duration": "3a"
       },
-      "pivot": {
-        "name": "codes",
-        "description": "Important vital signs",
-        "values": [
-          {
-            "name": "systolic_blood_pressure",
-            "value": "8480-6",
-            "description": "Systolic blood pressure (mmHg)"
-          },
-          {
-            "name": "bmi",
-            "value": "39156-5",
-            "description": "BMI (kg/m2)"
-          }
-        ]
+      "filter": {
+        "name": "systolic_blood_pressure",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes = '8480-6' and value >= 50 and value <= 300"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "bmi",
+        "description": "BMI (kg/m2)",
+        "filter": "codes = '39156-5' and value >= 16 and value <= 50"
       },
       "feature": [
         {
@@ -122,21 +138,37 @@
         },
         "duration": "3a"
       },
-      "pivot": {
-        "name": "codes",
-        "description": "Important lab results",
-        "values": [
-          {
-            "name": "creatinine",
-            "value": "2160-0",
-            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
-          },
-          {
-            "name": "urinary_creatinine",
-            "value": "2161-8",
-            "description": "Creatinine [Mass/volume] in Urine (mg/L)"
-          }
-        ]
+      "filter": {
+        "name": "creatinine",
+        "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes = '2160-0' and value >= 0 and value <= 250"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "urinary_creatinine",
+        "description": "Creatinine [Mass/volume] in Urine (mg/L)",
+        "filter": "codes = '2161-8' and value >= 0 and value <= 250"
       },
       "feature": [
         {
