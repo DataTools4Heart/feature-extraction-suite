@@ -44,9 +44,16 @@
       "title": "MedicationRequest start time",
       "description": "MedicationRequest start time",
       "dataType": "dateTime"
+    },
+    {
+      "name": "endTime",
+      "title": "MedicationRequest end time",
+      "description": "MedicationRequest end time",
+      "dataType": "dateTime"
     }
   ],
   "eventTime": {
-    "start": "startTime"
+    "start": "startTime",
+    "end": "endTime"
   }
 }

@@ -43,6 +43,10 @@
         {
           "name": "startTime",
           "path": "MedicationRequest.effectiveDosePeriod.start"
+        },
+        {
+          "name": "endTime",
+          "path": "MedicationRequest.effectiveDosePeriod.end"
         }
       ]
     }
