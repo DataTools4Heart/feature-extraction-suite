@@ -276,6 +276,21 @@
               ]
             }
           ]
+        },
+        {
+          "name": "anti_diabetics_use",
+          "description": "Whether the patient is currently prescribed Anti Diabetics",
+          "value": {
+            "path": "medicationGroups.select($this = 'AntiDiabetics').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -382,13 +397,25 @@
   ],
   "combinedFeature": [
     {
+      "name": "has_diabetes",
+      "description": "Whether the patient has diabetes.",
+      "combinedFeatures": [
+        { "alias": "cond_diabetes", "featureNamePattern": "conditions_has_diabetes_any" },
+        { "alias": "med_diabetes", "featureNamePattern": "med_requests_currentlyInUse_anti_diabetics_use_any" }
+      ],
+      "valueExpr": {
+        "path": "%cond_diabetes or %med_diabetes",
+        "dataType": "boolean"
+      }
+    },
+    {
       "name": "maggic_total_score",
       "description": "Sum of MAGGIC points incl. SBP×EF and Age×EF extras.",
       "combinedFeatures": [
         { "alias": "gndr", "featureNamePattern": "patient_demographics_gender" },
         { "alias": "nyha", "featureNamePattern": "nyha_nyha" },
         { "alias": "smk",  "featureNamePattern": "smoking_status_smoker" },
-        { "alias": "dia",  "featureNamePattern": "conditions_has_diabetes_any" },
+        { "alias": "dia",  "featureNamePattern": "has_diabetes" },
         { "alias": "hf18", "featureNamePattern": "conditions_heart_failure_occurred_prior_to_18_months_any" },
         { "alias": "bb",   "featureNamePattern": "med_requests_currentlyInUse_beta_blocker_use_any" },
         { "alias": "ace", "featureNamePattern": "med_requests_currentlyInUse_ace_inhibitors_arb_use_any" },
