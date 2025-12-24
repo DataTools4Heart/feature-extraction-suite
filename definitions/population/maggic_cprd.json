@@ -26,6 +26,10 @@
     {
       "name": "deceased",
       "description": "When a patient dies, they are removed from the population/cohort."
+    },
+    {
+      "name": "lastRecordDate",
+      "description": "The latest recorded encounter end time marks the patient’s exit time."
     }
   ],
   "eligibility": [
@@ -41,7 +45,7 @@
     }
   ],
   "period": {
-    "description": "Includes all patients for the defined cohort population.",
-    "events": "all"
+    "description": "Includes only the first event time and the last exit time for patients included in the cohort definition.",
+    "events": "FELE"
   }
 }

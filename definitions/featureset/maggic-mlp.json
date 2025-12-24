@@ -16,27 +16,8 @@
   ],
   "sampling": [
     {
-      "description": "Divide the population into one-year intervals.",
-      "period": "1a"
-    }
-  ],
-  "secondaryTimePoint": [
-    {
-      "name": "lastRecordDate",
-      "description": "The latest recorded end time from the patient's encounters.",
-      "isPast": false,
-      "select": "latest",
-      "events": [
-        {
-          "url": "https://datatools4heart.eu/feature-groups/encounters",
-          "join": {
-            "on": {
-              "pid": "pid"
-            }
-          },
-          "eventTime": "endTime"
-        }
-      ]
+      "description": "Set the period to zero to execute the feature set at a random time between the eligibility event and exit times.",
+      "period": "0"
     }
   ],
   "feature": [
@@ -356,7 +337,7 @@
           "name": "months_to_death_or_last_record_date",
           "description": "The number of months between the reference time point and the patient’s date of death (if known); otherwise, the number of months between the reference time point and the last known date of recorded activity related to the patient.",
           "value": {
-            "path": "iif(deceasedDateTime.exists(),utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months'),utl:getPeriod(%referenceTimePoint, %lastRecordDate, 'months'))",
+            "path": "utl:getPeriod(%referenceTimePoint, %exitTime, 'months')",
             "dataType": "integer"
           }
         },
