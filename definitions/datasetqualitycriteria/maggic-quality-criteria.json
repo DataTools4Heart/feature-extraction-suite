@@ -60,7 +60,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 25.0
       }
     },
     {
@@ -73,7 +74,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 25.0
       }
     },
     {
@@ -86,7 +88,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 15.0
       }
     },
     {
@@ -99,33 +102,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
-      }
-    },
-    {
-      "name": "sodiumBelowThreshold",
-      "description": "Percentage of records with sodium levels less than 135",
-      "language": "application/sql",
-      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE lab_results_sodium_value_p3a_avg < 135 AND lab_results_sodium_value_p3a_avg IS NOT NULL",
-      "category": {
-        "context": "validation",
-        "category": "plausibility"
-      },
-      "rule": {
-        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
-      }
-    },
-    {
-      "name": "sodiumAboveThreshold",
-      "description": "Percentage of records with sodium levels more than 145",
-      "language": "application/sql",
-      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE lab_results_sodium_value_p3a_avg > 145 AND lab_results_sodium_value_p3a_avg IS NOT NULL",
-      "category": {
-        "context": "validation",
-        "category": "plausibility"
-      },
-      "rule": {
-        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 25.0
       }
     },
     {
@@ -138,7 +116,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 40.0
       }
     },
     {
@@ -151,7 +130,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 20.0
       }
     },
     {
@@ -164,7 +144,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_below_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 20.0
       }
     },
     {
@@ -177,7 +158,8 @@
         "category": "plausibility"
       },
       "rule": {
-        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100"
+        "expression": "(num_above_threshold / %stats.dataset.numOfEntries * 1.0) * 100",
+        "high": 20.0
       }
     },
     {
