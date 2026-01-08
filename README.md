@@ -52,23 +52,24 @@ sh ./feature-extraction-suite/docker/run.sh
 If you used the Nginx Docker container during the `data-ingestion-suite` deployment, 
 update the Nginx config for `feature-extraction-suite` by following these steps:
 
+Navigate into the working directory:
 ```bash
-# Navigate into the working directory
 cd <workspaceDir>
+```
 
-# Stop the current proxy
-./data-ingestion-suite/docker/proxy/stop.sh
+Edit the `./data-ingestion-suite/docker/proxy/nginx.conf` file and uncomment the following lines:
 
-# Edit the ./data-ingestion-suite/docker/proxy/nginx.conf file
-# Uncomment the following lines:
+```bash
 # location /dt4h/feast {
 #     proxy_pass http://dt4h-feast:8085/onfhir-feast;
 #     proxy_set_header Host $host;
 #     proxy_set_header X-Real-IP $remote_addr;
 # }
+```
 
-# Restart the proxy
-./data-ingestion-suite/docker/proxy/run.sh
+Restart the Nginx container:
+```bash
+./data-ingestion-suite/docker/proxy/restart.sh
 ```
 
 * Or, if your host machine is already running Nginx, insert the following proxy configuration and restart Nginx:
@@ -123,4 +124,45 @@ https://<hostname>/dt4h/feast/api/Dataset
 
 ```
 https://<hostname>/dt4h/feast/api/Dataset/<datasetId>
+```
+
+---
+
+## Clean Installation from Scratch
+
+> Use this section to completely remove all feature-extraction-suite containers, volumes, and data, then perform a fresh installation.
+
+### 1. Stop containers and remove all data
+
+Run the clean-and-stop script to stop all containers and remove associated volumes:
+
+> **Warning:** This will permanently delete all persisted data including extracted datasets, metadata(s) and feature extraction history.
+
+```bash
+sh ./feature-extraction-suite/docker/clean-and-stop.sh
+```
+
+### 2. (Optional) Clean data-ingestion-suite
+
+If you also want to perform a clean installation of the data-ingestion-suite, follow the instructions in the [data-ingestion-suite README - Clean Installation from Scratch](https://github.com/DataTools4Heart/data-ingestion-suite?tab=readme-ov-file#clean-installation-from-scratch-optional) section before proceeding.
+
+### 3. Pull the latest updates
+
+```bash
+# Pull the latest feature extraction suite code
+cd feature-extraction-suite
+git pull
+cd ..
+
+# Pull the latest images
+sh ./feature-extraction-suite/docker/pull.sh
+```
+
+### 4. Start the containers
+
+After completing the above steps (and ensuring data-ingestion-suite is running if you cleaned it), start the feature extraction suite:
+
+```bash
+sh ./feature-extraction-suite/docker/run.sh
+sh ./data-ingestion-suite/docker/proxy/restart.sh # Optional
 ```
