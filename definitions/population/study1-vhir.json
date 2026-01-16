@@ -1,0 +1,43 @@
+{
+  "id": "study1_cohort_vhir",
+  "resourceType": "Population",
+  "url": "https://datatools4heart.eu/cohorts/study1-vhir",
+  "name": "study1_cohort_vhir",
+  "title": "Hospitalized Patients with Primary Diagnosis of Heart Failure",
+  "description": "This cohort includes patients hospitalized with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
+  "version": "1.1",
+  "date": "2025-07-24",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care."
+    }
+  ],
+  "period": {
+    "description": "Includes all hospital encounters for the defined cohort population.",
+    "events": "all"
+  },
+  "eligibility": [
+    {
+      "name": "withHeartFailure",
+      "description": "Filters patients with a diagnosis of heart failure during the hospital encounter.",
+      "criteria": [
+        {
+          "description": "Filters patients with a diagnosis of heart failure during the hospital encounter."
+        }
+      ]
+    }
+  ]
+}
