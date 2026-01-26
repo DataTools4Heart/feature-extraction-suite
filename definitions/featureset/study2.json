@@ -768,7 +768,7 @@
       },
       "filter": {
         "name": "heartFailure",
-        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()"
       },
       "feature": [
         {
@@ -862,7 +862,7 @@
           "name": "hf",
           "description": "Whether the patient has heart failure within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -922,7 +922,7 @@
           "name": "pad",
           "description": "Whether the patient has peripheral artery disease within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I7')).anyTrue() and icd10Codes.select($this.startsWith('C71')).allFalse()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -997,7 +997,7 @@
           "name": "devices",
           "description": "Whether the patient has cardiac and vascular implants and grafts within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8') or $this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1087,7 +1087,7 @@
           "name": "dia",
           "description": "Whether the patient has dialysis within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02') or $this.startsWith('Z46.6') or $this.startsWith('Z99.2') or $this.startsWith('Z94.0')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1099,10 +1099,25 @@
           ]
         },
         {
-          "name": "hthyroid",
+          "name": "hyperthyroid",
           "description": "Whether the patient has hyperthyroidism within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('E05')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hypothyroid",
+          "description": "Whether the patient has hypothyroidism within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E89.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1132,7 +1147,7 @@
           "name": "ld",
           "description": "Whether the patient has liver disease within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7') or $this.startsWith('K72') or $this.startsWith('K73') or $this.startsWith('K74') or $this.startsWith('K76.0') or $this.startsWith('K76.2') or $this.startsWith('K76.3') or $this.startsWith('K76.4') or $this.startsWith('K76.5') or $this.startsWith('K76.6') or $this.startsWith('K76.7') or $this.startsWith('K76.8') or $this.startsWith('K76.9') or $this.startsWith('Z94.4')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1147,7 +1162,7 @@
           "name": "mc",
           "description": "Whether the patient has malignant cancer within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C20') or $this.startsWith('C21') or $this.startsWith('C22') or $this.startsWith('C23') or $this.startsWith('C24') or $this.startsWith('C25') or $this.startsWith('C26') or $this.startsWith('C30') or $this.startsWith('C31') or $this.startsWith('C32') or $this.startsWith('C33') or $this.startsWith('C34') or $this.startsWith('C37') or $this.startsWith('C38') or $this.startsWith('C39') or $this.startsWith('C40') or $this.startsWith('C41') or $this.startsWith('C43') or $this.startsWith('C45') or $this.startsWith('C46') or $this.startsWith('C47') or $this.startsWith('C48') or $this.startsWith('C49') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C5')).anyTrue() and icd10Codes.select($this.startsWith('C59')).allFalse()) or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1192,7 +1207,52 @@
           "name": "ckd_chronic",
           "description": "Whether the patient has renal disease chronic within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "myocarditis",
+          "description": "Whether the patient has myocarditis within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I40') or $this.startsWith('I41')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pericardial",
+          "description": "Whether the patient has pericardial disease within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I30') or $this.startsWith('I31') or $this.startsWith('I32')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "substance_abuse",
+          "description": "Whether the patient has substance abuse within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('F1')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1278,7 +1338,7 @@
           "name": "hf",
           "description": "Whether the patient has heart failure in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1338,7 +1398,7 @@
           "name": "pad",
           "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I7')).anyTrue() and icd10Codes.select($this.startsWith('C71')).allFalse()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1413,7 +1473,7 @@
           "name": "devices",
           "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8') or $this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1503,7 +1563,7 @@
           "name": "dia",
           "description": "Whether the patient has dialysis in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02') or $this.startsWith('Z46.6') or $this.startsWith('Z99.2') or $this.startsWith('Z94.0')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1515,10 +1575,25 @@
           ]
         },
         {
-          "name": "hthyroid",
+          "name": "hyperthyroid",
           "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('E05')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hypothyroid",
+          "description": "Whether the patient has hypothyroidism in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E89.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1548,7 +1623,7 @@
           "name": "ld",
           "description": "Whether the patient has liver disease in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7') or $this.startsWith('K72') or $this.startsWith('K73') or $this.startsWith('K74') or $this.startsWith('K76.0') or $this.startsWith('K76.2') or $this.startsWith('K76.3') or $this.startsWith('K76.4') or $this.startsWith('K76.5') or $this.startsWith('K76.6') or $this.startsWith('K76.7') or $this.startsWith('K76.8') or $this.startsWith('K76.9') or $this.startsWith('Z94.4')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1563,7 +1638,7 @@
           "name": "mc",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C20') or $this.startsWith('C21') or $this.startsWith('C22') or $this.startsWith('C23') or $this.startsWith('C24') or $this.startsWith('C25') or $this.startsWith('C26') or $this.startsWith('C30') or $this.startsWith('C31') or $this.startsWith('C32') or $this.startsWith('C33') or $this.startsWith('C34') or $this.startsWith('C37') or $this.startsWith('C38') or $this.startsWith('C39') or $this.startsWith('C40') or $this.startsWith('C41') or $this.startsWith('C43') or $this.startsWith('C45') or $this.startsWith('C46') or $this.startsWith('C47') or $this.startsWith('C48') or $this.startsWith('C49') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C5')).anyTrue() and icd10Codes.select($this.startsWith('C59')).allFalse()) or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1608,7 +1683,52 @@
           "name": "ckd_chronic",
           "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "myocarditis",
+          "description": "Whether the patient has myocarditis in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I40') or $this.startsWith('I41')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pericardial",
+          "description": "Whether the patient has pericardial disease in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I30') or $this.startsWith('I31') or $this.startsWith('I32')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "substance_abuse",
+          "description": "Whether the patient has substance abuse in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('F1')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2463,7 +2583,7 @@
       },
       "filter": {
         "name": "history",
-        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
+        "description":"This filter is here for only avoid column name clash with the one in the previous feature group",
         "filter": "true"
       },
       "feature": [
@@ -2884,7 +3004,7 @@
       },
       "filter": {
         "name": "history",
-        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
+        "description":"This filter is here for only avoid column name clash with the one in the previous feature group",
         "filter": "true"
       },
       "feature": [
@@ -3316,45 +3436,31 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3394,45 +3500,31 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3472,45 +3564,31 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3550,45 +3628,31 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3622,51 +3686,37 @@
           "name": "isNonRenalAndNonCV",
           "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the discharge",
           "value": {
-            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse() )",
+            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse() )",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             }
           ]
         },
@@ -3674,7 +3724,7 @@
           "name": "number_of_days_to_death_for_non_renal_and_non_CV",
           "description": "Number of days from discharge until death due to non-CV and non-renal complications",
           "value": {
-            "path": "iif(causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
+            "path": "iif(causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -3706,45 +3756,31 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "6mo",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "1a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "3a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             },
             {
               "windowSize": "5a",
-              "aggOp": [
-                "first"
-              ]
+              "aggOp": ["first"]
             }
           ]
         },
