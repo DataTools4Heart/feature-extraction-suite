@@ -547,8 +547,7 @@
       "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
         "duration": "%eventTime - 6mo"
       },
@@ -575,8 +574,7 @@
       "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
         "duration": "%eventTime - 1mo"
       },
@@ -736,8 +734,7 @@
       "url": "https://datatools4heart.eu/feature-groups/nyha",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
         "duration": "%eventTime - 6mo"
       },
