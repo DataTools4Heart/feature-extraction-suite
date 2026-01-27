@@ -175,6 +175,60 @@
       "url": "https://datatools4heart.eu/feature-groups/vital_signs",
       "join": {
         "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "systolic_blood_pressure",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes = '8480-6' and value >= 50 and value <= 300"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "bmi",
+        "description": "BMI (kg/m2)",
+        "filter": "codes = '39156-5' and value >= 16 and value <= 50"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
           "pid": "pid",
           "encounterId": "encounterId"
         }
@@ -218,6 +272,33 @@
                 "min",
                 "max",
                 "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "diastolicBp",
+        "description": "Diastolic blood pressure (mmHg)",
+        "filter": "codes = '8462-4' and value >= 20 and value <= 250"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
               ]
             }
           ]
@@ -540,6 +621,21 @@
       ]
     },
     {
+      "url": "https://datatools4heart.eu/feature-groups/hyperkalemia_severity",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "categorizedValue",
+          "description": "Severity of hyperkalemia: LOINC 2823-3"
+        }
+      ]
+    },
+    {
       "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
       "join": {
         "on": {
@@ -563,6 +659,24 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "The most recent left ventricular ejection fraction (LVEF) recorded prior to the reference time point.",
+          "value": {
+            "path": "lvef",
+            "dataType": "decimal"
+          }
         }
       ]
     },
@@ -646,6 +760,101 @@
       ]
     },
     {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "ecg_qrs_duration",
+          "description": "QRS wave (LOINC: 8633-0 (ms)) duration values measured during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qrs_axis",
+          "description": "QRS wave axis (LOINC: 8632-2 (deg)) values measured during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qt_duration_corrected",
+          "description": "QT wave corrected: (DT4H: bazett (ms)) duration values measured during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_st",
+          "description": "ST-elevation: (SNOMED CT 164931005) value (true/false) observed during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_ischemia_without_st",
+          "description": "Ischemia without st-elevation: (SNOMED CT 52674009) value (true/false) observed during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_type_of_rhythm",
+          "description": "Type of rhythm (LOINC 76281-5) value observed during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "url": "https://datatools4heart.eu/feature-groups/smoking_status",
       "join": {
         "on": {
@@ -655,18 +864,23 @@
       "feature": [
         {
           "name": "smoker",
-          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "description": "Indicates whether the patient's most recent recorded smoking status, collected before the reference time point, classifies them as a current smoker. A value of 1 denotes a current smoker, while 0 represents either a former smoker or someone who has never smoked.",
           "value": {
-            "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
-            "dataType": "boolean"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "last"
+            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001','1',iif(code = '8517006' or code = '266919005','0',{}))",
+            "dataType": "code",
+            "valueSet": {
+              "concept": [
+                {
+                  "code": "1",
+                  "display": "Smoker"
+                },
+                {
+                  "code": "0",
+                  "display": "Non-smoker"
+                }
               ]
             }
-          ]
+          }
         },
         {
           "name": "formerSmoker",
@@ -723,6 +937,20 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/nyha",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "nyha",
+          "description": "The latest value of the New York Heart Assessment as LOINC Code"
         }
       ]
     },
@@ -1763,6 +1991,21 @@
           ]
         },
         {
+          "name": "ace_inhibitors_arb_use",
+          "description": "Whether ACE Inhibitors / ARB administered during the admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
           "name": "arni",
           "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) administered during the admission",
           "value": {
@@ -2589,6 +2832,21 @@
           "description": "Whether renin–angiotensin system inhibitor administered in their clinical history prior to the date of admission",
           "value": {
             "path": "medicationGroups.select($this = 'RASi').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ace_inhibitors_arb_use",
+          "description": "Whether ACE Inhibitors / ARB administered in their clinical history prior to the date of admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
