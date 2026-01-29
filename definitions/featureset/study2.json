@@ -2,11 +2,11 @@
   "id": "study2-fs",
   "url": "https://datatools4heart.eu/feature-sets/study2",
   "name": "study2-fs",
-  "title": "Dataset for DataTools4Heart project clinical study 2",
-  "description": "Dataset for DataTools4Heart project clinical study 2",
+  "title": "Dataset for Clinical Study 2 of DataTools4Heart/AI4HF.",
+  "description": "Dataset for Clinical Study 2 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "date": "2025-11-21",
-  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "date": "2026-01-29",
+  "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",

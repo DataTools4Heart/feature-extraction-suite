@@ -4,9 +4,9 @@
   "url": "https://datatools4heart.eu/cohorts/study2",
   "name": "study2_cohort",
   "title": "Emergency Hospitalized Patients with Primary Diagnosis of Heart Failure",
-  "description": "This cohort includes ambulatory patients hospitalized with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.0",
-  "date": "2025-09-24",
+  "description": "This cohort includes ambulatory patients visited the Emergency Department (admitted or not) with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission (if admitted) or the code assigned in the Emergency Department if the patient is not admitted.",
+  "version": "1.1",
+  "date": "2026-01-29",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -21,12 +21,12 @@
   ],
   "entry": [
     {
-      "name": "patientEncounter",
-      "description": "Captures hospital encounters when a patient is admitted for care."
+      "name": "patientAmbulatoryEncounter",
+      "description": "Captures ambulatory visits/encounters to the Emergency Department."
     }
   ],
   "period": {
-    "description": "Includes all hospital encounters for the defined cohort population.",
+    "description": "Includes all encounters for the defined cohort population.",
     "events": "all"
   },
   "eligibility": [
