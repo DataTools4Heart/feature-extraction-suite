@@ -18,7 +18,7 @@
   "entry": [
     {
       "name": "withHeartFailure",
-      "description": "Selects the patients diagnosed with heart failure",
+      "description": "Selects the patients diagnosed with heart failure.",
       "definesPeriod": true
     }
   ],

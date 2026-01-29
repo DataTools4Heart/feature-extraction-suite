@@ -6,7 +6,7 @@
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
   "date": "2025-02-20",
-  "publisher": "DT4H WP2 Team (SRDC Corp.)",
+  "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
       "name": "pid",
