@@ -4,9 +4,9 @@
   "url": "https://ai4hf.eu/cohorts/maggic",
   "name": "maggic_cohort",
   "title": "Patients with Diagnosis of Heart Failure",
-  "description": "This cohort includes patients with a diagnosis of heart failure.",
-  "version": "1.1",
-  "date": "2025-07-21",
+  "description": "This cohort includes patients aged 18 or above with a diagnosis of heart failure and at least one encounter (patient visit or hospital admission) with cardiology after the first heart failure diagnosis.",
+  "version": "1.2",
+  "date": "2026-01-29",
   "status": "active",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -18,7 +18,7 @@
   "entry": [
     {
       "name": "withHeartFailure",
-      "description": "Selects the patients diagnosed with heart failure",
+      "description": "Selects the patients diagnosed with heart failure.",
       "definesPeriod": true
     }
   ],

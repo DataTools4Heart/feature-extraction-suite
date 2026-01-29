@@ -38,7 +38,7 @@
   "eligibility": [
     {
       "name": "adultsWithHeartFailure",
-      "description": "Filters adults patients with a diagnosis of heart failure during the hospital encounter.",
+      "description": "Select all Patient resources who has a HF Condition resource categorized as encounter-diagnosis (to indicate the primary admit reason). Exclude Patients who are younger than 18 years old at the time of admission.",
       "criteria": [
         {
           "resourceType": "Patient",

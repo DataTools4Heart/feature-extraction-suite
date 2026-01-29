@@ -4,8 +4,8 @@
   "url": "https://datatools4heart.eu/cohorts/study1",
   "name": "study1_cohort",
   "title": "Hospitalized Patients with Primary Diagnosis of Heart Failure",
-  "description": "This cohort includes patients hospitalized with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.1",
+  "description": "The cohort includes patients aged 18 or above admitted to the hospital with heart failure as the primary diagnosis code.",
+  "version": "1.2",
   "date": "2025-07-24",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
@@ -16,7 +16,7 @@
     },
     {
       "name": "encounterId",
-      "description": "A unique identifier for each hospital encounter."
+      "description": "A unique identifier for each hospital encounter/stay."
     }
   ],
   "entry": [
@@ -31,13 +31,8 @@
   },
   "eligibility": [
     {
-      "name": "withHeartFailure",
-      "description": "Filters patients with a diagnosis of heart failure during the hospital encounter.",
-      "criteria": [
-        {
-          "description": "Filters patients with a diagnosis of heart failure during the hospital encounter."
-        }
-      ]
+      "name": "adultsWithHeartFailure",
+      "description": "Filters patients older than 18 years old at the time of admission, and with a diagnosis of heart failure during the hospital encounter."
     }
   ]
 }

@@ -5,8 +5,8 @@
   "name": "study2_cohort",
   "title": "Hospitalized Patients at Emergency with Primary Diagnosis of Heart Failure",
   "description": "This cohort includes patients hospitalized at emergency department with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.0",
-  "date": "2025-09-24",
+  "version": "1.1",
+  "date": "2026-01-29",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -15,8 +15,8 @@
   ],
   "entry": [
     {
-      "name": "patientEncounter",
-      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "name": "patientAmbulatoryEncounter",
+      "description": "Captures ambulatory visits/encounters to the Emergency Department, having the encounter class EMER.",
       "resourceType": "Encounter",
       "query": "?class=EMER",
       "entityLink": [
@@ -39,7 +39,7 @@
   "eligibility": [
     {
       "name": "adultsWithHeartFailure",
-      "description": "Filters adult patients with a diagnosis of heart failure during the hospital encounter.",
+      "description": "Select all Patient resources who has a HF Condition resource categorized as encounter-diagnosis (to indicate the primary admit reason). Exclude Patients who are younger than 18 years old at the time of admission.",
       "criteria": [
         {
           "resourceType": "Patient",
