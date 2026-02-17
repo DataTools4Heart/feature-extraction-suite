@@ -23,6 +23,10 @@
     {
       "name": "patientAmbulatoryEncounter",
       "description": "Captures ambulatory visits/encounters to the Emergency Department."
+    },
+    {
+      "name": "patientEmergencyDepartmentAdmission",
+      "description": "Captures encounters where the patient was admitted through the Emergency Department."
     }
   ],
   "period": {

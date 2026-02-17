@@ -34,6 +34,27 @@
         }
       ],
       "eventTime": "Encounter.actualPeriod.start"
+    },
+    {
+      "name": "patientEmergencyDepartmentAdmission",
+      "description": "Captures encounters where the patient was admitted through the Emergency Department.",
+      "resourceType": "Encounter",
+      "query": "?admit-source=emd",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start"
     }
   ],
   "eligibility": [
