@@ -5,7 +5,7 @@
   "name": "maggic_cohort",
   "title": "Patients diagnosed with heart failure, using the time of their initial diagnosis as the event time.",
   "description": "This population definition finds Patients diagnosed with heart failure, selecting them from FHIR.",
-  "version": "1.1",
+  "version": "1.2",
   "date": "2025-07-21",
   "fhirVersion": "5.0.0",
   "publisher": "AI4HF Team (SRDC Corp.)",
