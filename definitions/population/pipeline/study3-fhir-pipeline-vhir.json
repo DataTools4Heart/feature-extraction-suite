@@ -1,0 +1,58 @@
+{
+  "id": "study3_cohort_vhir",
+  "resourceType": "PopulationPipeline",
+  "url": "https://datatools4heart.eu/cohorts/study3-vhir",
+  "name": "study3_cohort_vhir",
+  "title": "Ambulatory Patients with Primary Diagnosis of Heart Failure",
+  "description": "This cohort includes ambulatory patients hospitalized with a primary discharge diagnosis of heart failure for the first time. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.All patients in this cohort are assumed to have heart failure; therefore, no additional eligibility criteria are applied to confirm the presence of heart failure.",
+  "version": "1.0",
+  "date": "2026-02-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "resourceType": "Encounter",
+      "query": "?class=AMB",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "subject.reference"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start",
+      "exitTime": "(Encounter.actualPeriod.end.toDate() | (Encounter.actualPeriod.start.substring(0, 10).toDate() + 1 days)).first()"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adults",
+      "description": "Filters adults patients.",
+      "criteria": [
+        {
+          "resourceType": "Patient",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "id"
+            }
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        }
+      ]
+    }
+  ]
+}

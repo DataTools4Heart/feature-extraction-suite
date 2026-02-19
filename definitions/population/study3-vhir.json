@@ -1,0 +1,34 @@
+{
+  "id": "study3_cohort_vhir",
+  "resourceType": "Population",
+  "url": "https://datatools4heart.eu/cohorts/study3-vhir",
+  "name": "study3_cohort_vhir",
+  "title": "Hospitalized Ambulatory Patients with Primary Diagnosis of Heart Failure",
+  "description": "This cohort includes patients hospitalized with a primary discharge diagnosis of heart failure for the first time. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
+  "version": "1.0",
+  "date": "2026-02-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures hospital ambulatory encounters when a patient is admitted for care."
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adults",
+      "description": "Filters adults patients."
+    }
+  ],
+  "period": {
+    "description": "The earliest hospitalization period where the patient meets the heart failure diagnosis criteria, ensuring only first-time admissions are included in the cohort.",
+    "events": "earliest"
+  }
+}

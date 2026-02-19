@@ -1,0 +1,42 @@
+{
+  "id": "study2_cohort_vhir",
+  "resourceType": "Population",
+  "url": "https://datatools4heart.eu/cohorts/study2-vhir",
+  "name": "study2_cohort_vhir",
+  "title": "Emergency Hospitalized Patients with Primary Diagnosis of Heart Failure",
+  "description": "This cohort includes ambulatory patients visited the Emergency Department (admitted or not) with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission (if admitted) or the code assigned in the Emergency Department if the patient is not admitted.",
+  "version": "1.1",
+  "date": "2026-02-19",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientAmbulatoryEncounter",
+      "description": "Captures ambulatory visits/encounters to the Emergency Department."
+    },
+    {
+      "name": "patientEmergencyDepartmentAdmission",
+      "description": "Captures encounters where the patient was admitted through the Emergency Department."
+    }
+  ],
+  "period": {
+    "description": "Includes all encounters for the defined cohort population.",
+    "events": "all"
+  },
+  "eligibility": [
+    {
+      "name": "adults",
+      "description": "Exclude Patients who are younger than 18 years old at the time of admission."
+    }
+  ]
+}
