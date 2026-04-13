@@ -746,7 +746,7 @@
           "description": "Ischemia without st-elevation: (SNOMED CT 52674009) value (true/false) observed from 1 months before admission through discharge"
         },
         {
-          "name": "ecg_type_of_rhythm",
+          "name": "ecg_type_of_rhythms",
           "description": "Type of rhythm (LOINC 76281-5) value from 1 months before admission through discharge",
           "temporalAgg": [
             {
@@ -841,7 +841,7 @@
           ]
         },
         {
-          "name": "ecg_type_of_rhythm",
+          "name": "ecg_type_of_rhythms",
           "description": "Type of rhythm (LOINC 76281-5) value observed during the encounter.",
           "temporalAgg": [
             {

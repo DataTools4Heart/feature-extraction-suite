@@ -56,10 +56,11 @@
       "dataType": "boolean"
     },
     {
-      "name": "ecg_type_of_rhythm",
-      "title": "Type of rhythm",
-      "description": "Type of rhythm",
+      "name": "ecg_type_of_rhythms",
+      "title": "The list of rhythm types",
+      "description": "The list of rhythm types",
       "dataType": "code",
+      "isArray": true,
       "valueSet": {
         "url": "http://loinc.org",
         "concept": [
