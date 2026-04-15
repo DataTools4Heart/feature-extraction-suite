@@ -487,7 +487,7 @@
       },
       "feature": [
         {
-          "name": "ap",
+          "name": "ap_during",
           "description": "Whether the patient has angina pectoris within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I20')).anyTrue()",
@@ -502,7 +502,7 @@
           ]
         },
         {
-          "name": "af",
+          "name": "af_during",
           "description": "Whether the patient has atrial fibrillation within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
@@ -517,7 +517,7 @@
           ]
         },
         {
-          "name": "cm",
+          "name": "cm_during",
           "description": "Whether the patient has cardiomyopathy within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I42') or $this.startsWith('I43')).anyTrue()",
@@ -532,7 +532,7 @@
           ]
         },
         {
-          "name": "dysl",
+          "name": "dysl_during",
           "description": "Whether the patient has dyslipidemia within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E78')).anyTrue()",
@@ -547,7 +547,7 @@
           ]
         },
         {
-          "name": "hf",
+          "name": "hf_during",
           "description": "Whether the patient has heart failure within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
@@ -562,7 +562,7 @@
           ]
         },
         {
-          "name": "hyp",
+          "name": "hyp_during",
           "description": "Whether the patient has hypertension within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I10') or $this.startsWith('I11.0') or $this.startsWith('I12') or $this.startsWith('I13') or $this.startsWith('I15') or $this.startsWith('I16')).anyTrue()",
@@ -577,7 +577,7 @@
           ]
         },
         {
-          "name": "ihd",
+          "name": "ihd_during",
           "description": "Whether the patient has ischemic heart disease within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I20') or $this.startsWith('I21') or $this.startsWith('I22') or $this.startsWith('I23') or $this.startsWith('I24') or $this.startsWith('I25')).anyTrue()",
@@ -592,7 +592,7 @@
           ]
         },
         {
-          "name": "mi",
+          "name": "mi_during",
           "description": "Whether the patient has myocardial infarction within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
@@ -607,7 +607,7 @@
           ]
         },
         {
-          "name": "pad",
+          "name": "pad_during",
           "description": "Whether the patient has peripheral artery disease within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
@@ -622,7 +622,7 @@
           ]
         },
         {
-          "name": "stroke",
+          "name": "stroke_during",
           "description": "Whether the patient has stroke within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I60') or $this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64')).anyTrue()",
@@ -637,7 +637,7 @@
           ]
         },
         {
-          "name": "tia",
+          "name": "tia_during",
           "description": "Whether the patient has transient ischemic attack within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('G45.8') or $this.startsWith('G45.9') or $this.startsWith('I63.9')).anyTrue()",
@@ -652,7 +652,7 @@
           ]
         },
         {
-          "name": "vd",
+          "name": "vd_during",
           "description": "Whether the patient has valvular disease within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('A52.0') or $this.startsWith('I05') or $this.startsWith('I06') or $this.startsWith('I07') or $this.startsWith('I08') or $this.startsWith('I09.1') or $this.startsWith('I09.8') or $this.startsWith('I34') or $this.startsWith('I35') or $this.startsWith('I36') or $this.startsWith('I37') or $this.startsWith('I38') or $this.startsWith('I39') or $this.startsWith('Q23.0') or $this.startsWith('Q23.1') or $this.startsWith('Q23.2') or $this.startsWith('Q23.3') or $this.startsWith('Z95.2') or $this.startsWith('Z95.3') or $this.startsWith('Z95.4')).anyTrue()",
@@ -667,7 +667,7 @@
           ]
         },
         {
-          "name": "revasc",
+          "name": "revasc_during",
           "description": "Whether the patient has revascularized CABG, PCI within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z95.5')).anyTrue()",
@@ -682,7 +682,7 @@
           ]
         },
         {
-          "name": "devices",
+          "name": "devices_during",
           "description": "Whether the patient has cardiac and vascular implants and grafts within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8') or $this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
@@ -697,7 +697,7 @@
           ]
         },
         {
-          "name": "aidshiv",
+          "name": "aidshiv_during",
           "description": "Whether the patient has AIDS or HIV within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('B20') or $this.startsWith('B21') or $this.startsWith('B22') or $this.startsWith('B23') or $this.startsWith('B24')).anyTrue()",
@@ -712,7 +712,7 @@
           ]
         },
         {
-          "name": "copd",
+          "name": "copd_during",
           "description": "Whether the patient has COPD within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
@@ -727,7 +727,7 @@
           ]
         },
         {
-          "name": "diabetes",
+          "name": "diabetes_during",
           "description": "Whether the patient has diabetes mellitus within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
@@ -742,7 +742,7 @@
           ]
         },
         {
-          "name": "dem",
+          "name": "dem_during",
           "description": "Whether the patient has dementia within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F00') or $this.startsWith('F01') or $this.startsWith('F02') or $this.startsWith('F03') or $this.startsWith('F05.1') or $this.startsWith('G30') or $this.startsWith('G31.1')).anyTrue()",
@@ -757,7 +757,7 @@
           ]
         },
         {
-          "name": "dep",
+          "name": "dep_during",
           "description": "Whether the patient has depression within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F20.4') or $this.startsWith('F31.3') or $this.startsWith('F31.4') or $this.startsWith('F31.5') or $this.startsWith('F32') or $this.startsWith('F33') or $this.startsWith('F34.1') or $this.startsWith('F41.2') or $this.startsWith('F43.2')).anyTrue()",
@@ -772,7 +772,7 @@
           ]
         },
         {
-          "name": "dia",
+          "name": "dia_during",
           "description": "Whether the patient has dialysis within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02') or $this.startsWith('Z46.6') or $this.startsWith('Z99.2') or $this.startsWith('Z94.0')).anyTrue()",
@@ -787,7 +787,7 @@
           ]
         },
         {
-          "name": "hthyroid",
+          "name": "hthyroid_during",
           "description": "Whether the patient has hyperthyroidism within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
@@ -802,7 +802,7 @@
           ]
         },
         {
-          "name": "ibd",
+          "name": "ibd_during",
           "description": "Whether the patient has inflammable bowel disease within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('K50') or $this.startsWith('K51') or $this.startsWith('K52')).anyTrue()",
@@ -817,7 +817,7 @@
           ]
         },
         {
-          "name": "ld",
+          "name": "ld_during",
           "description": "Whether the patient has liver disease within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7')).anyTrue()",
@@ -832,7 +832,7 @@
           ]
         },
         {
-          "name": "mc",
+          "name": "mc_during",
           "description": "Whether the patient has malignant cancer within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C20') or $this.startsWith('C21') or $this.startsWith('C22') or $this.startsWith('C23') or $this.startsWith('C24') or $this.startsWith('C25') or $this.startsWith('C26') or $this.startsWith('C30') or $this.startsWith('C31') or $this.startsWith('C32') or $this.startsWith('C33') or $this.startsWith('C34') or $this.startsWith('C37') or $this.startsWith('C38') or $this.startsWith('C39') or $this.startsWith('C40') or $this.startsWith('C41') or $this.startsWith('C43') or $this.startsWith('C45') or $this.startsWith('C46') or $this.startsWith('C47') or $this.startsWith('C48') or $this.startsWith('C49') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C5')).anyTrue() and icd10Codes.select($this.startsWith('C59')).allFalse()) or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())",
@@ -847,7 +847,7 @@
           ]
         },
         {
-          "name": "osa",
+          "name": "osa_during",
           "description": "Whether the patient has obstructive sleep apnea within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('G47.3')).anyTrue()",
@@ -862,7 +862,7 @@
           ]
         },
         {
-          "name": "rd",
+          "name": "rd_during",
           "description": "Whether the patient has rheumatic disease within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('M05') or $this.startsWith('M06') or $this.startsWith('M31.5') or $this.startsWith('M32') or $this.startsWith('M33') or $this.startsWith('M34') or $this.startsWith('M35.1') or $this.startsWith('M35.3') or $this.startsWith('M36.0')).anyTrue()",
@@ -877,7 +877,7 @@
           ]
         },
         {
-          "name": "ckd_chronic",
+          "name": "ckd_chronic_during",
           "description": "Whether the patient has renal disease chronic within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
@@ -903,7 +903,7 @@
       },
       "feature": [
         {
-          "name": "ap",
+          "name": "ap_pre_adm",
           "description": "Whether the patient has angina pectoris in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I20')).anyTrue()",
@@ -918,7 +918,7 @@
           ]
         },
         {
-          "name": "af",
+          "name": "af_pre_adm",
           "description": "Whether the patient has atrial fibrillation in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
@@ -933,7 +933,7 @@
           ]
         },
         {
-          "name": "cm",
+          "name": "cm_pre_adm",
           "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I42') or $this.startsWith('I43')).anyTrue()",
@@ -948,7 +948,7 @@
           ]
         },
         {
-          "name": "dysl",
+          "name": "dysl_pre_adm",
           "description": "Whether the patient has dyslipidemia in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E78')).anyTrue()",
@@ -963,7 +963,7 @@
           ]
         },
         {
-          "name": "hf",
+          "name": "hf_pre_adm",
           "description": "Whether the patient has heart failure in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
@@ -978,7 +978,7 @@
           ]
         },
         {
-          "name": "hyp",
+          "name": "hyp_pre_adm",
           "description": "Whether the patient has hypertension in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I10') or $this.startsWith('I11.0') or $this.startsWith('I12') or $this.startsWith('I13') or $this.startsWith('I15') or $this.startsWith('I16')).anyTrue()",
@@ -993,7 +993,7 @@
           ]
         },
         {
-          "name": "ihd",
+          "name": "ihd_pre_adm",
           "description": "Whether the patient has ischemic heart disease in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I20') or $this.startsWith('I21') or $this.startsWith('I22') or $this.startsWith('I23') or $this.startsWith('I24') or $this.startsWith('I25')).anyTrue()",
@@ -1008,7 +1008,7 @@
           ]
         },
         {
-          "name": "mi",
+          "name": "mi_pre_adm",
           "description": "Whether the patient has myocardial infarction in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
@@ -1023,7 +1023,7 @@
           ]
         },
         {
-          "name": "pad",
+          "name": "pad_pre_adm",
           "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
@@ -1038,7 +1038,7 @@
           ]
         },
         {
-          "name": "stroke",
+          "name": "stroke_pre_adm",
           "description": "Whether the patient has stroke in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I60') or $this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64')).anyTrue()",
@@ -1053,7 +1053,7 @@
           ]
         },
         {
-          "name": "tia",
+          "name": "tia_pre_adm",
           "description": "Whether the patient has transient ischemic attack in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('G45.8') or $this.startsWith('G45.9') or $this.startsWith('I63.9')).anyTrue()",
@@ -1068,7 +1068,7 @@
           ]
         },
         {
-          "name": "vd",
+          "name": "vd_pre_adm",
           "description": "Whether the patient has valvular disease in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('A52.0') or $this.startsWith('I05') or $this.startsWith('I06') or $this.startsWith('I07') or $this.startsWith('I08') or $this.startsWith('I09.1') or $this.startsWith('I09.8') or $this.startsWith('I34') or $this.startsWith('I35') or $this.startsWith('I36') or $this.startsWith('I37') or $this.startsWith('I38') or $this.startsWith('I39') or $this.startsWith('Q23.0') or $this.startsWith('Q23.1') or $this.startsWith('Q23.2') or $this.startsWith('Q23.3') or $this.startsWith('Z95.2') or $this.startsWith('Z95.3') or $this.startsWith('Z95.4')).anyTrue()",
@@ -1083,7 +1083,7 @@
           ]
         },
         {
-          "name": "revasc",
+          "name": "revasc_pre_adm",
           "description": "Whether the patient has revascularized CABG, PCI in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z95.5')).anyTrue()",
@@ -1098,7 +1098,7 @@
           ]
         },
         {
-          "name": "devices",
+          "name": "devices_pre_adm",
           "description": "Whether the patient has cardiac and vascular implants and grafts in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8') or $this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
@@ -1113,7 +1113,7 @@
           ]
         },
         {
-          "name": "aidshiv",
+          "name": "aidshiv_pre_adm",
           "description": "Whether the patient has AIDS or HIV in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('B20') or $this.startsWith('B21') or $this.startsWith('B22') or $this.startsWith('B23') or $this.startsWith('B24')).anyTrue()",
@@ -1128,7 +1128,7 @@
           ]
         },
         {
-          "name": "copd",
+          "name": "copd_pre_adm",
           "description": "Whether the patient has COPD in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
@@ -1143,7 +1143,7 @@
           ]
         },
         {
-          "name": "diabetes",
+          "name": "diabetes_pre_adm",
           "description": "Whether the patient has diabetes mellitus in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
@@ -1158,7 +1158,7 @@
           ]
         },
         {
-          "name": "dem",
+          "name": "dem_pre_adm",
           "description": "Whether the patient has dementia in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F00') or $this.startsWith('F01') or $this.startsWith('F02') or $this.startsWith('F03') or $this.startsWith('F05.1') or $this.startsWith('G30') or $this.startsWith('G31.1')).anyTrue()",
@@ -1173,7 +1173,7 @@
           ]
         },
         {
-          "name": "dep",
+          "name": "dep_pre_adm",
           "description": "Whether the patient has depression in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F20.4') or $this.startsWith('F31.3') or $this.startsWith('F31.4') or $this.startsWith('F31.5') or $this.startsWith('F32') or $this.startsWith('F33') or $this.startsWith('F34.1') or $this.startsWith('F41.2') or $this.startsWith('F43.2')).anyTrue()",
@@ -1188,7 +1188,7 @@
           ]
         },
         {
-          "name": "dia",
+          "name": "dia_pre_adm",
           "description": "Whether the patient has dialysis in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02') or $this.startsWith('Z46.6') or $this.startsWith('Z99.2') or $this.startsWith('Z94.0')).anyTrue()",
@@ -1203,7 +1203,7 @@
           ]
         },
         {
-          "name": "hthyroid",
+          "name": "hthyroid_pre_adm",
           "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
@@ -1218,7 +1218,7 @@
           ]
         },
         {
-          "name": "ibd",
+          "name": "ibd_pre_adm",
           "description": "Whether the patient has inflammable bowel disease in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('K50') or $this.startsWith('K51') or $this.startsWith('K52')).anyTrue()",
@@ -1233,7 +1233,7 @@
           ]
         },
         {
-          "name": "ld",
+          "name": "ld_pre_adm",
           "description": "Whether the patient has liver disease in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7')).anyTrue()",
@@ -1248,7 +1248,7 @@
           ]
         },
         {
-          "name": "mc",
+          "name": "mc_pre_adm",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C20') or $this.startsWith('C21') or $this.startsWith('C22') or $this.startsWith('C23') or $this.startsWith('C24') or $this.startsWith('C25') or $this.startsWith('C26') or $this.startsWith('C30') or $this.startsWith('C31') or $this.startsWith('C32') or $this.startsWith('C33') or $this.startsWith('C34') or $this.startsWith('C37') or $this.startsWith('C38') or $this.startsWith('C39') or $this.startsWith('C40') or $this.startsWith('C41') or $this.startsWith('C43') or $this.startsWith('C45') or $this.startsWith('C46') or $this.startsWith('C47') or $this.startsWith('C48') or $this.startsWith('C49') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C5')).anyTrue() and icd10Codes.select($this.startsWith('C59')).allFalse()) or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())",
@@ -1263,7 +1263,7 @@
           ]
         },
         {
-          "name": "osa",
+          "name": "osa_pre_adm",
           "description": "Whether the patient has obstructive sleep apnea in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('G47.3')).anyTrue()",
@@ -1278,7 +1278,7 @@
           ]
         },
         {
-          "name": "rd",
+          "name": "rd_pre_adm",
           "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('M05') or $this.startsWith('M06') or $this.startsWith('M31.5') or $this.startsWith('M32') or $this.startsWith('M33') or $this.startsWith('M34') or $this.startsWith('M35.1') or $this.startsWith('M35.3') or $this.startsWith('M36.0')).anyTrue()",
@@ -1293,7 +1293,7 @@
           ]
         },
         {
-          "name": "ckd_chronic",
+          "name": "ckd_chronic_pre_adm",
           "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of admission",
           "value": {
             "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",

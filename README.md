@@ -118,13 +118,25 @@ curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/Fea
 ### Study 2
 
 ```shell
-curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study2_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study2-fs/Population/study2_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
 ```
 
 ### Study 3
 
 ```shell
 curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study3-fs/Population/study3_cohort/$extract?entityMatching=pid|pid&reset=true'
+```
+
+### MAGGIC
+
+```shell
+curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/maggic-mlp-fs/Population/maggic_cohort/$extract?entityMatching=pid|pid&reset=true'
+```
+
+### CARE-HEART
+
+```shell
+curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/care-heart-fs/Population/care_heart_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
 ```
 
 * The extraction process may take a long time to complete depending on the size of data.
