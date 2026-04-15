@@ -35,7 +35,6 @@
       "name": "deceased",
       "description": "When a patient dies, they are removed from the population.",
       "resourceType": "Patient",
-      "query": "?deceased=true",
       "entityLink": [
         {
           "entity": "pid",
