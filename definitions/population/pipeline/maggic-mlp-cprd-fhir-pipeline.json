@@ -5,7 +5,7 @@
   "name": "maggic_cprd_cohort",
   "title": "Patients with a first diagnosis of heart failure between 2010 and 2020, using the time of their initial diagnosis as the event time.",
   "description": "This population finds patients diagnosed with heart failure between 2010 and 2020 from FHIR, excluding those with a diagnosis before 2010.",
-  "version": "1.1",
+  "version": "1.2",
   "date": "2025-10-20",
   "fhirVersion": "5.0.0",
   "publisher": "AI4HF Team (SRDC Corp.)",
@@ -53,8 +53,8 @@
   ],
   "exit": [
     {
-      "name": "deceased",
-      "description": "When a patient dies, they are removed from the population.",
+      "name" : "followUpEndDate",
+      "description": "Represents the patient’s exit time, defined as the earliest among the registration period end date, the patient’s date of death, or the fixed cutoff date (2020‑01‑01).",
       "resourceType": "Patient",
       "entityLink": [
         {
@@ -64,21 +64,7 @@
           "path": "Patient.id"
         }
       ],
-      "exitTime": "Patient.deceasedDateTime"
-    },
-    {
-      "name" : "lastRecordDate",
-      "description": "The latest recorded end time from the patient's encounters.",
-      "resourceType": "Encounter",
-      "entityLink": [
-        {
-          "entity": "pid",
-          "entityType": "Patient",
-          "searchParam": "patient",
-          "path": "subject.reference"
-        }
-      ],
-      "exitTime": "Encounter.actualPeriod.end"
+      "exitTime": "(Patient.extension.where(url='https://datatools4heart.eu/fhir/StructureDefinition/HFR-RegistrationPeriod').first().valuePeriod.end | Patient.deceasedDateTime | '2020-01-01').min()"
     }
   ]
 }

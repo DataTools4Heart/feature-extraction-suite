@@ -5,7 +5,7 @@
   "name": "maggic_cprd_cohort",
   "title": "Patients with a first diagnosis of heart failure between 2010 and 2020",
   "description": "This population includes patients diagnosed with heart failure between 2010 and 2020, excluding those with a diagnosis before 2010.",
-  "version": "1.1",
+  "version": "1.2",
   "date": "2025-10-20",
   "status": "active",
   "publisher": "AI4HF Team (SRDC Corp.)",
@@ -28,8 +28,8 @@
       "description": "When a patient dies, they are removed from the population/cohort."
     },
     {
-      "name": "lastRecordDate",
-      "description": "The latest recorded encounter end time marks the patient’s exit time."
+      "name": "followUpEndDate",
+      "description": "Represents the patient’s exit time, defined as the earliest among the registration period end date, the patient’s date of death, or the fixed cutoff date (2020‑01‑01)."
     }
   ],
   "eligibility": [
