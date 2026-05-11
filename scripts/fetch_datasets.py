@@ -9,7 +9,7 @@ def fetch_datasets():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Construct the path to the output file
-    output_file_path = os.path.join(script_dir, "..", "output-data", "myFhirServer", "dataset", "datasets.json")
+    output_file_path = os.path.join(script_dir, "..", "output-data", "myFhirServer", "dataset", "catalogue.json")
 
     # Ensure the directory exists
     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)

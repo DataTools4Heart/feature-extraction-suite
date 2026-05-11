@@ -40,6 +40,7 @@ Pipelines are used to associate feature sets and populations. This indicates tha
 - definitions/datasetqualitycriteria/: Dataset QA rules (e.g., maggic-quality-criteria.json).
 - definitions/valuesets/: Reserved for value set catalogues (currently empty).
 - docker/: Compose file and helper scripts (pull.sh, run.sh, clean-and-stop.sh, server configs).
+- scripts/: Scripts for dataset post-processing, e.g., writing metadata output to a file.
 - readme-assets/: Logos referenced in this README.
 
 ---
@@ -165,7 +166,7 @@ https://<hostname>/<basePath>/feast/api/Dataset/<datasetId>
 
 ## Clean Installation from Scratch
 
-> Use this section to completely remove all feature-extraction-suite containers, volumes, and data, then perform a fresh installation.
+> Use this section to completely remove all related feature-extraction-suite containers, volumes, and data, then perform a fresh installation.
 
 ### 1. Stop containers and remove all data
 
@@ -179,7 +180,12 @@ sh ./feature-extraction-suite/docker/clean-and-stop.sh
 
 ### 2. (Optional) Clean data-ingestion-suite
 
-If you also want to perform a clean installation of the data-ingestion-suite, follow the instructions in the [data-ingestion-suite README - Clean Installation from Scratch](https://github.com/DataTools4Heart/data-ingestion-suite?tab=readme-ov-file#clean-installation-from-scratch-optional) section before proceeding.
+<span style="color:red">**Warning: Skip this step if you only want to clean the feature extraction suite.
+This will permanently delete all persisted data including FHIR resources and mapping execution history
+meaning that you will need to re-run the mappings within data-ingestion-suite again to re-map the data source to the common data model.**</span>
+
+If you also want to perform a clean installation of the data-ingestion-suite,
+follow the instructions in the [data-ingestion-suite README - Clean Installation from Scratch](https://github.com/DataTools4Heart/data-ingestion-suite?tab=readme-ov-file#clean-installation-from-scratch-optional) section before proceeding.
 
 ### 3. Pull the latest updates
 
