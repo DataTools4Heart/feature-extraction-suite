@@ -186,7 +186,7 @@
       },
       "pivot": {
         "name": "codes",
-        "description": "Vital signs collected within 1 year before referenceTimePoint (discharge date)",
+        "description": "Vital signs collected during the encounter",
         "values": [
           {
             "name": "weight",
@@ -282,7 +282,7 @@
       },
       "pivot": {
         "name": "codes",
-        "description": "Important lab results to be evaluated features",
+        "description": "Lab results collected during the encounter",
         "values": [
           {
             "name": "hemoglobin",
