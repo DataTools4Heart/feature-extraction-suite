@@ -5,8 +5,8 @@
   "name": "study1_cohort",
   "title": "Hospitalized Patients with Primary Diagnosis of Heart Failure",
   "description": "The cohort includes patients aged 18 or above admitted to the hospital with heart failure as the primary diagnosis code.",
-  "version": "1.2",
-  "date": "2025-07-24",
+  "version": "1.3",
+  "date": "2026-06-02",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -18,6 +18,7 @@
       "name": "patientEncounter",
       "description": "Captures hospital encounters when a patient is admitted for care.",
       "resourceType": "Encounter",
+      "query": "?class=IMP",
       "entityLink": [
         {
           "entity": "pid",

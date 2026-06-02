@@ -5,8 +5,8 @@
   "name": "study1_cohort_vhir",
   "title": "Hospitalized Patients with Primary Diagnosis of Heart Failure",
   "description": "This cohort includes patients hospitalized with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.2",
-  "date": "2026-05-14",
+  "version": "1.3",
+  "date": "2026-06-02",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
