@@ -5,8 +5,8 @@
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
-  "version": "1.3",
-  "date": "2025-07-24",
+  "version": "1.4",
+  "date": "2026-06-08",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -38,6 +38,14 @@
           "description": "Age of the patient at reference point",
           "value": {
             "path": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
+            "dataType": "integer"
+          }
+        },
+        {
+          "name": "birthYear",
+          "description": "Birth year of the patient.",
+          "value": {
+            "path": "birthDate.toString().substring(0,4).toInteger()",
             "dataType": "integer"
           }
         }
@@ -223,6 +231,111 @@
           "description": "Whether the patient has the diabetes.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E08') or $this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_acute_renal_failure",
+          "description": "Whether the patient has acute renal failure.",
+          "value": {
+            "path": "icd10Codes.select($this = 'N17' or $this = 'N17.1' or $this = 'N17.2' or $this = 'N17.3' or $this = 'N17.4' or $this = 'N17.5' or $this = 'N17.6'  or $this = 'N17.7' or $this = 'N17.8' or $this = 'N17.9').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_pneumonia",
+          "description": "Whether the patient has pneumonia.",
+          "value": {
+            "path": "icd10Codes.select($this = 'J18' or $this = 'J18.1' or $this = 'J18.2' or $this = 'J18.3' or $this = 'J18.4' or $this = 'J18.5' or $this = 'J18.6'  or $this = 'J18.7' or $this = 'J18.8' or $this = 'J18.9').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_cardiac_arrest",
+          "description": "Whether the patient has cardiac arrest.",
+          "value": {
+            "path": "icd10Codes.select($this = 'I46' or $this = 'I46.1' or $this = 'I46.2' or $this = 'I46.3' or $this = 'I46.4' or $this = 'I46.5' or $this = 'I46.6'  or $this = 'I46.7' or $this = 'I46.8' or $this = 'I46.9').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_respiratory_failure",
+          "description": "Whether the patient has respiratory failure.",
+          "value": {
+            "path": "icd10Codes.select($this = 'J96' or $this = 'J96.1' or $this = 'J96.2' or $this = 'J96.3' or $this = 'J96.4' or $this = 'J96.5' or $this = 'J96.6'  or $this = 'J96.7' or $this = 'J96.8' or $this = 'J96.9').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_cancer_malignant_neoplasm_lung",
+          "description": "Whether the patient has malignant neoplasm, lung cancer.",
+          "value": {
+            "path": "icd10Codes.select($this = 'C34' or $this = 'C34.1' or $this = 'C34.2' or $this = 'C34.3' or $this = 'C34.4' or $this = 'C34.5' or $this = 'C34.6' or $this = 'C34.7' or $this = 'C34.8' or $this = 'C34.9').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_cancer_secondary_malignant_neoplasm_lung",
+          "description": "Whether the patient has secondary malignant neoplasm, lung cancer.",
+          "value": {
+            "path": "icd10Codes.select($this = 'C78' or $this = 'C78.1' or $this = 'C78.2' or $this = 'C78.3' or $this = 'C78.4' or $this = 'C78.5' or $this = 'C78.6' or $this = 'C78.7' or $this = 'C78.8' or $this = 'C78.9').anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "has_cancer_secondary_malignant_neoplasm_bone_marrow",
+          "description": "Whether the patient has secondary malignant neoplasm, bone marrow cancer.",
+          "value": {
+            "path": "icd10Codes.select($this = 'C79' or $this = 'C79.1' or $this = 'C79.2' or $this = 'C79.3' or $this = 'C79.4' or $this = 'C79.5' or $this = 'C79.6' or $this = 'C79.7' or $this = 'C79.8' or $this = 'C79.9').anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -424,6 +537,31 @@
       ],
       "valueExpr": {
         "path": "iif(%gndr.exists(), iif(%gndr = 'male', 1, 0), {}) + iif(%nyha.exists(), iif(%nyha = 'LA28404-4', 0, iif(%nyha = 'LA28405-1', 2, iif(%nyha = 'LA28406-9', 6, iif(%nyha = 'LA28407-7', 8, 0)))), {}) + iif(%smk.exists(), iif((%smk = '1') or (%smk = true), 1, 0), {}) + iif(%dia.exists(), iif(%dia, 3, 0), {}) + iif(%hf18.exists(), iif(%hf18, 2, 0), {}) + iif(%bb.exists(), iif(%bb = true, 0, 3), {}) + iif(%ace.exists(), iif(%ace = true, 0, 1), {}) + iif(%bmi.exists(), iif(%bmi < 15, 6, iif(%bmi < 20, 5, iif(%bmi < 25, 3, iif(%bmi < 30, 2, 0)))), {}) + iif(%copd.exists(), iif(%copd, 2, 0), {}) + iif(%cr.exists(), iif(%cr < 10.1808, 0, iif(%cr < 12.4432, 1, iif(%cr < 14.7056, 2, iif(%cr < 16.968, 3, iif(%cr < 19.2304, 4, iif(%cr < 23.7552, 5, iif(%cr < 28.28, 6, 8))))))), {}) + iif(%lvef.exists(), iif(%lvef < 20, 7, iif(%lvef < 25, 6, iif(%lvef < 30, 5, iif(%lvef < 35, 3, iif(%lvef < 40, 2, 0))))), {}) + iif(%age.exists() and %lvef.exists(), iif(%lvef < 30, iif(%age < 55, 0, iif(%age < 60, 1, iif(%age < 65, 2, iif(%age < 70, 4, iif(%age < 75, 6, iif(%age < 80, 8, 10)))))), iif(%lvef < 40, iif(%age < 55, 0, iif(%age < 60, 2, iif(%age < 65, 4, iif(%age < 70, 6, iif(%age < 75, 8, iif(%age < 80, 10, 13)))))), iif(%age < 55, 0, iif(%age < 60, 3, iif(%age < 65, 5, iif(%age < 70, 7, iif(%age < 75, 9, iif(%age < 80, 12, 15)))))))), {}) + iif(%sbp.exists() and %lvef.exists(), iif(%lvef < 30, iif(%sbp < 110, 5, iif(%sbp < 120, 4, iif(%sbp < 130, 3, iif(%sbp < 140, 2, iif(%sbp < 150, 1, 0))))), iif(%lvef < 40, iif(%sbp < 110, 3, iif(%sbp < 120, 2, iif(%sbp < 130, 1, iif(%sbp < 140, 1, 0)))), iif(%sbp < 110, 2, iif(%sbp < 120, 1, iif(%sbp < 130, 1, 0))))), {})",
+        "dataType": "integer"
+      }
+    },
+    {
+      "name": "cancer_history",
+      "description": "Represents the cumulative count of cancer indicators across three cancers:\nLung malignant neoplasm\nSecondary malignant neoplasm of the lung\nSecondary malignant neoplasm of the bone marrow\nThe value is an integer (0–3) reflecting how many of these conditions are present for a patient.",
+      "combinedFeatures": [
+        { "alias": "lung", "featureNamePattern": "conditions_has_cancer_malignant_neoplasm_lung_any" },
+        { "alias": "neo", "featureNamePattern": "conditions_has_cancer_secondary_malignant_neoplasm_lung_any" },
+        { "alias": "bone",  "featureNamePattern": "conditions_has_cancer_secondary_malignant_neoplasm_bone_marrow_any" }
+      ],
+      "valueExpr": {
+        "path": "iif(%lung,1,0) + iif(%neo,1,0) + iif(%bone,1,0)",
+        "dataType": "integer"
+      }
+    },
+    {
+      "name": "beta_blockers_acei_arb",
+      "description": "Captures the combined usage count of two medication classes:\nACE inhibitors/ARBs\nBeta blockers\nThe value is an integer (0–2) indicating whether one or both therapies are in use.",
+      "combinedFeatures": [
+        { "alias": "ace", "featureNamePattern": "med_requests_ace_inhibitors_arb_use_any" },
+        { "alias": "beta", "featureNamePattern": "med_requests_beta_blocker_use_any" }
+      ],
+      "valueExpr": {
+        "path": "iif(%ace,1,0) + iif(%beta,1,0)",
         "dataType": "integer"
       }
     }
