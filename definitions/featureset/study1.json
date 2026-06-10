@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.0",
-  "date": "2025-02-20",
+  "version": "1.1",
+  "date": "2026-06-10",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -370,11 +370,6 @@
             "description": "Sodium [Moles/volume] in Serum or Plasma (mmol/L)"
           },
           {
-            "name": "creatBS",
-            "value": "2160-0",
-            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
-          },
-          {
             "name": "creatUS",
             "value": "2161-8",
             "description": "Creatinine [Mass/volume] in Urine (mg/L)"
@@ -388,11 +383,6 @@
             "name": "albuminUS",
             "value": "1754-1",
             "description": "Albumin [Mass/volume] in Urine (mg/L)"
-          },
-          {
-            "name": "eGFR",
-            "value": "69405-9",
-            "description": "Glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood (ml/min/1.73m2)"
           },
           {
             "name": "bun",
@@ -415,6 +405,70 @@
             "description": "Hemoglobin A1c [Mass/volume] in Blood (mmol/mol)"
           }
         ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "validSerumCreatinine",
+        "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0') and value >= 0.11 and value <= 22.6"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "valideGFR",
+        "description": "Filter valid glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood (ml/min/1.73m2)",
+        "filter": "codes.select($this = '69405-9') and value >= 1 and value <= 200"
       },
       "feature": [
         {

@@ -6,7 +6,7 @@
   "title": "Chronic kidney disease severity",
   "description": "Chronic kidney disease severity-related features",
   "status": "active",
-  "date": "2025-07-24",
+  "date": "2026-06-10",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
@@ -14,10 +14,11 @@
   ],
   "pipeline": [
     {
-      "description": "Extract the features from LabResult Observation.",
+      "description": "Extract the valid eGFR measurements from LabResult Observation.",
       "resourceType": "Observation",
       "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
       "query": "?code=http://loinc.org|69405-9",
+      "filter": "valueQuantity.value >= 1 and valueQuantity.value <= 200",
       "entityLink": [
         {
           "entity": "pid",

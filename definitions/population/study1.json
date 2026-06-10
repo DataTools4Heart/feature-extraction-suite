@@ -4,9 +4,9 @@
   "url": "https://datatools4heart.eu/cohorts/study1",
   "name": "study1_cohort",
   "title": "Hospitalized Patients with Primary Diagnosis of Heart Failure",
-  "description": "The cohort includes patients aged 18 or above admitted to the hospital with heart failure as the primary diagnosis code.",
-  "version": "1.3",
-  "date": "2026-06-02",
+  "description": "The cohort includes patients aged 18 or above admitted to the hospital with heart failure as the primary diagnosis code and eGFR/serum creatinine available at discharge.",
+  "version": "1.4",
+  "date": "2026-06-10",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -29,10 +29,19 @@
     "description": "Includes all hospital encounters for the defined cohort population.",
     "events": "all"
   },
+  "selection": {
+    "strategy": "latest",
+    "entity": [
+      {
+        "name": "pid",
+        "description": "A unique identifier assigned to each patient in the cohort."
+      }
+    ]
+  },
   "eligibility": [
     {
-      "name": "adultsWithHeartFailure",
-      "description": "Filters patients older than 18 years old at the time of admission, and with a diagnosis of heart failure during the hospital encounter."
+      "name": "adultHeartFailureCohort",
+      "description": "Identify adult patients (≥18 years at admission) who were admitted primarily for heart failure. Inclusion requires a Condition resource coded with ICD-10 heart failure–related diagnoses and categorized as encounter-diagnosis. Valid laboratory observations (serum creatinine or GFR) should exist in the encounter."
     }
   ]
 }
