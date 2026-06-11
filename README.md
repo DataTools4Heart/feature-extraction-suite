@@ -112,32 +112,57 @@ location /<basePath>/feast {
 
 ### Study 1
 
-```shell
-curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study1-fs/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Study1"
+}'
 ```
 
 ### Study 2
 
-```shell
-curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study2-fs/Population/study2_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study2-fs/Population/study2_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Study2"
+}'
 ```
 
 ### Study 3
 
-```shell
-curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study3-fs/Population/study3_cohort/$extract?entityMatching=pid|pid&reset=true'
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study3-fs/Population/study3_cohort/$extract?entityMatching=pid|pid&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "DT4H Study3"
+}'
 ```
 
 ### MAGGIC
 
-```shell
-curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/maggic-mlp-fs/Population/maggic_cohort/$extract?entityMatching=pid|pid&reset=true'
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/maggic-mlp-fs/Population/maggic_cohort/$extract?entityMatching=pid|pid&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "MAGGIC-MLP"
+}'
 ```
 
 ### CARE-HEART
 
-```shell
-curl -X POST 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/care-heart-fs/Population/care_heart_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true'
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/care-heart-fs/Population/care_heart_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Care Heart"
+}'
 ```
 
 * The extraction process may take a long time to complete depending on the size of data.
