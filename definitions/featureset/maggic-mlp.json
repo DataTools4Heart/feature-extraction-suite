@@ -5,8 +5,8 @@
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
-  "version": "1.4",
-  "date": "2026-06-08",
+  "version": "1.5",
+  "date": "2026-06-11",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -245,7 +245,7 @@
           "name": "has_acute_renal_failure",
           "description": "Whether the patient has acute renal failure.",
           "value": {
-            "path": "icd10Codes.select($this = 'N17' or $this = 'N17.1' or $this = 'N17.2' or $this = 'N17.3' or $this = 'N17.4' or $this = 'N17.5' or $this = 'N17.6'  or $this = 'N17.7' or $this = 'N17.8' or $this = 'N17.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('N17') or $this.startsWith('N17.1') or $this.startsWith('N17.2') or $this.startsWith('N17.3') or $this.startsWith('N17.4') or $this.startsWith('N17.5') or $this.startsWith('N17.6' ) or $this.startsWith('N17.7') or $this.startsWith('N17.8') or $this.startsWith('N17.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -260,7 +260,7 @@
           "name": "has_pneumonia",
           "description": "Whether the patient has pneumonia.",
           "value": {
-            "path": "icd10Codes.select($this = 'J18' or $this = 'J18.1' or $this = 'J18.2' or $this = 'J18.3' or $this = 'J18.4' or $this = 'J18.5' or $this = 'J18.6'  or $this = 'J18.7' or $this = 'J18.8' or $this = 'J18.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('J18') or $this.startsWith('J18.1') or $this.startsWith('J18.2') or $this.startsWith('J18.3') or $this.startsWith('J18.4') or $this.startsWith('J18.5') or $this.startsWith('J18.6' ) or $this.startsWith('J18.7') or $this.startsWith('J18.8') or $this.startsWith('J18.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -275,7 +275,7 @@
           "name": "has_cardiac_arrest",
           "description": "Whether the patient has cardiac arrest.",
           "value": {
-            "path": "icd10Codes.select($this = 'I46' or $this = 'I46.1' or $this = 'I46.2' or $this = 'I46.3' or $this = 'I46.4' or $this = 'I46.5' or $this = 'I46.6'  or $this = 'I46.7' or $this = 'I46.8' or $this = 'I46.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I46') or $this.startsWith('I46.1') or $this.startsWith('I46.2') or $this.startsWith('I46.3') or $this.startsWith('I46.4') or $this.startsWith('I46.5') or $this.startsWith('I46.6' ) or $this.startsWith('I46.7') or $this.startsWith('I46.8') or $this.startsWith('I46.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -290,7 +290,7 @@
           "name": "has_respiratory_failure",
           "description": "Whether the patient has respiratory failure.",
           "value": {
-            "path": "icd10Codes.select($this = 'J96' or $this = 'J96.1' or $this = 'J96.2' or $this = 'J96.3' or $this = 'J96.4' or $this = 'J96.5' or $this = 'J96.6'  or $this = 'J96.7' or $this = 'J96.8' or $this = 'J96.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('J96') or $this.startsWith('J96.1') or $this.startsWith('J96.2') or $this.startsWith('J96.3') or $this.startsWith('J96.4') or $this.startsWith('J96.5') or $this.startsWith('J96.6' ) or $this.startsWith('J96.7') or $this.startsWith('J96.8') or $this.startsWith('J96.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -305,7 +305,7 @@
           "name": "has_cancer_malignant_neoplasm_lung",
           "description": "Whether the patient has malignant neoplasm, lung cancer.",
           "value": {
-            "path": "icd10Codes.select($this = 'C34' or $this = 'C34.1' or $this = 'C34.2' or $this = 'C34.3' or $this = 'C34.4' or $this = 'C34.5' or $this = 'C34.6' or $this = 'C34.7' or $this = 'C34.8' or $this = 'C34.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('C34') or $this.startsWith('C34.1') or $this.startsWith('C34.2') or $this.startsWith('C34.3') or $this.startsWith('C34.4') or $this.startsWith('C34.5') or $this.startsWith('C34.6') or $this.startsWith('C34.7') or $this.startsWith('C34.8') or $this.startsWith('C34.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -320,7 +320,7 @@
           "name": "has_cancer_secondary_malignant_neoplasm_lung",
           "description": "Whether the patient has secondary malignant neoplasm, lung cancer.",
           "value": {
-            "path": "icd10Codes.select($this = 'C78' or $this = 'C78.1' or $this = 'C78.2' or $this = 'C78.3' or $this = 'C78.4' or $this = 'C78.5' or $this = 'C78.6' or $this = 'C78.7' or $this = 'C78.8' or $this = 'C78.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('C78') or $this.startsWith('C78.1') or $this.startsWith('C78.2') or $this.startsWith('C78.3') or $this.startsWith('C78.4') or $this.startsWith('C78.5') or $this.startsWith('C78.6') or $this.startsWith('C78.7') or $this.startsWith('C78.8') or $this.startsWith('C78.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -335,7 +335,7 @@
           "name": "has_cancer_secondary_malignant_neoplasm_bone_marrow",
           "description": "Whether the patient has secondary malignant neoplasm, bone marrow cancer.",
           "value": {
-            "path": "icd10Codes.select($this = 'C79' or $this = 'C79.1' or $this = 'C79.2' or $this = 'C79.3' or $this = 'C79.4' or $this = 'C79.5' or $this = 'C79.6' or $this = 'C79.7' or $this = 'C79.8' or $this = 'C79.9').anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('C79') or $this.startsWith('C79.1') or $this.startsWith('C79.2') or $this.startsWith('C79.3') or $this.startsWith('C79.4') or $this.startsWith('C79.5') or $this.startsWith('C79.6') or $this.startsWith('C79.7') or $this.startsWith('C79.8') or $this.startsWith('C79.9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
