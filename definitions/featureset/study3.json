@@ -5,8 +5,8 @@
   "title": "Dataset for DataTools4Heart project clinical study 3",
   "description": "Dataset for DataTools4Heart project clinical study 3",
   "status": "active",
-  "version": "1.0",
-  "date": "2025-09-24",
+  "version": "1.1",
+  "date": "2026-06-16",
   "publisher": "DT4H WP2 Team (SRDC Corp.)",
   "entity": [
     {
@@ -458,7 +458,7 @@
       },
       "filter": {
         "name": "heartFailure",
-        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()"
       },
       "feature": [
         {
@@ -551,7 +551,7 @@
           "name": "hf_during",
           "description": "Whether the patient has heart failure within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -967,7 +967,7 @@
           "name": "hf_pre_adm",
           "description": "Whether the patient has heart failure in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1362,13 +1362,42 @@
           "name": "isHFAfterVisit",
           "description": "Whether the patient is diagnosed with HF after the first admission date",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "aggOp": [
                 "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "heartFailure",
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "daysBetweenCarVisitAndHF",
+          "description": "Days between admission and first HF diagnosis registration",
+          "value": {
+            "path": "utl:getPeriod(%eventTime, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
               ]
             }
           ]
@@ -1401,50 +1430,7 @@
               ]
             }
           ]
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/conditions",
-      "join": {
-        "on": {
-          "pid": "pid"
-        }
-      },
-      "filter": {
-        "name": "heartFailure",
-        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
-      },
-      "feature": [
-        {
-          "name": "daysBetweenCarVisitAndHF",
-          "description": "Days between admission and first HF diagnosis registration",
-          "value": {
-            "path": "utl:getPeriod(%eventTime, date, 'days')",
-            "dataType": "integer"
-          },
-          "temporalAgg": [
-            {
-              "aggOp": [
-                "first"
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "url": "https://datatools4heart.eu/feature-groups/conditions",
-      "join": {
-        "on": {
-          "pid": "pid"
-        }
-      },
-      "filter": {
-        "name": "carDiagnosis",
-        "filter": "icd10Codes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
-      },
-      "feature": [
+        },
         {
           "name": "daysBetweenCarVisitAndCarDiagnosis",
           "description": "Days between admission and first cardiac diagnosis registration",
