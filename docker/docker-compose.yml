@@ -20,6 +20,8 @@ services:
       POSTGRES_DB: onfhir_feast_new
     networks:
       - onfhir-network
+    volumes:
+      - ./feature-extraction-suite/postgres-data:/var/lib/postgresql
 #    deploy:
 #      resources:
 #        limits:

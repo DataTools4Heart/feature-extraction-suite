@@ -8,3 +8,4 @@ output-data/
 output-data-cli/
 output-data-server/
 output/
+postgres-data/
