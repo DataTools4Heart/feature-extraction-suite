@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.1",
-  "date": "2026-06-10",
+  "version": "1.2",
+  "date": "2026-06-19",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -102,6 +102,32 @@
             "path": "endTime",
             "dataType": "dateTime"
           }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounters",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "offset": "%eventTime - 1h"
+      },
+      "feature": [
+        {
+          "name": "numOfPreviousHFStays",
+          "description": "Number of previous hospital stays for HF",
+          "value": {
+            "path": "encounterClass",
+            "dataType": "string"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -931,7 +957,37 @@
           ]
         }
       ]
-    },    
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "heart_failure",
+        "description": "Find the Heart Failures.",
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I25.5') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "occurred_prior_to_18_months",
+          "description": "Indicates whether the condition was diagnosed 18 months or more before the reference time point, corresponding to the criteria for 'Heart Failure (HF) ≥ 18 Months Prior.'",
+          "value": {
+            "path": "utl:getPeriod(date, %referenceTimePoint, 'months') >= 18",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     {
       "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
@@ -4322,6 +4378,57 @@
           ]
         }
       ]
+    }
+  ],
+  "combinedFeature": [
+    {
+      "name": "beta_blocker_use_pre_dc",
+      "description": "Whether the patient has been prescribed beta blockers before discharge.",
+      "combinedFeatures": [
+        { "alias": "history_bb", "featureNamePattern": "med_requests_history_bb_any" },
+        { "alias": "bb", "featureNamePattern": "med_requests_bb_any" }
+      ],
+      "valueExpr": {
+        "path": "%history_bb or %bb",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "ace_inhibitors_arb_use_pre_dc",
+      "description": "Whether the patient has been prescribed ACE Inhibitors / ARB medication before discharge.",
+      "combinedFeatures": [
+        { "alias": "history_acei", "featureNamePattern": "med_requests_history_acei_any" },
+        { "alias": "acei", "featureNamePattern": "med_requests_acei_any" },
+        { "alias": "history_arb", "featureNamePattern": "med_requests_history_arb_any" },
+        { "alias": "arb", "featureNamePattern": "med_requests_arb_any" }
+      ],
+      "valueExpr": {
+        "path": "%history_acei or %acei or %history_arb or %arb",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "maggic_total_score",
+      "description": "Sum of MAGGIC points incl. SBP×EF and Age×EF extras.",
+      "combinedFeatures": [
+        { "alias": "gndr", "featureNamePattern": "patient_demographics_gender" },
+        { "alias": "nyha", "featureNamePattern": "nyha_nyha_pET" },
+        { "alias": "smk",  "featureNamePattern": "smoking_status_smoker_last" },
+        { "alias": "dia",  "featureNamePattern": "conditions_diabetes_pre_dc_any" },
+        { "alias": "hf18", "featureNamePattern": "conditions_heart_failure_occurred_prior_to_18_months_any" },
+        { "alias": "bb",   "featureNamePattern": "beta_blocker_use_pre_dc" },
+        { "alias": "ace", "featureNamePattern": "ace_inhibitors_arb_use_pre_dc" },
+        { "alias": "bmi",  "featureNamePattern": "vital_signs_bmi_value_last" },
+        { "alias": "copd", "featureNamePattern": "conditions_copd_pre_dc_any" },
+        { "alias": "cr",   "featureNamePattern": "lab_results_validSerumCreatinine_value_last" },
+        { "alias": "lvef", "featureNamePattern": "echocardiographs_lvef_pET_last" },
+        { "alias": "sbp",  "featureNamePattern": "vital_signs_systolicBp_value_last" },
+        { "alias": "age",  "featureNamePattern": "patient_demographics_age" }
+      ],
+      "valueExpr": {
+        "path": "iif(%gndr.exists(), iif(%gndr = 'male', 1, 0), {}) + iif(%nyha.exists(), iif(%nyha = 'LA28404-4', 0, iif(%nyha = 'LA28405-1', 2, iif(%nyha = 'LA28406-9', 6, iif(%nyha = 'LA28407-7', 8, 0)))), {}) + iif(%smk.exists(), iif((%smk = '1') or (%smk = true), 1, 0), {}) + iif(%dia.exists(), iif(%dia, 3, 0), {}) + iif(%hf18.exists(), iif(%hf18, 2, 0), {}) + iif(%bb.exists(), iif(%bb = true, 0, 3), {}) + iif(%ace.exists(), iif(%ace = true, 0, 1), {}) + iif(%bmi.exists(), iif(%bmi < 15, 6, iif(%bmi < 20, 5, iif(%bmi < 25, 3, iif(%bmi < 30, 2, 0)))), {}) + iif(%copd.exists(), iif(%copd, 2, 0), {}) + iif(%cr.exists(), iif(%cr < 10.1808, 0, iif(%cr < 12.4432, 1, iif(%cr < 14.7056, 2, iif(%cr < 16.968, 3, iif(%cr < 19.2304, 4, iif(%cr < 23.7552, 5, iif(%cr < 28.28, 6, 8))))))), {}) + iif(%lvef.exists(), iif(%lvef < 20, 7, iif(%lvef < 25, 6, iif(%lvef < 30, 5, iif(%lvef < 35, 3, iif(%lvef < 40, 2, 0))))), {}) + iif(%age.exists() and %lvef.exists(), iif(%lvef < 30, iif(%age < 55, 0, iif(%age < 60, 1, iif(%age < 65, 2, iif(%age < 70, 4, iif(%age < 75, 6, iif(%age < 80, 8, 10)))))), iif(%lvef < 40, iif(%age < 55, 0, iif(%age < 60, 2, iif(%age < 65, 4, iif(%age < 70, 6, iif(%age < 75, 8, iif(%age < 80, 10, 13)))))), iif(%age < 55, 0, iif(%age < 60, 3, iif(%age < 65, 5, iif(%age < 70, 7, iif(%age < 75, 9, iif(%age < 80, 12, 15)))))))), {}) + iif(%sbp.exists() and %lvef.exists(), iif(%lvef < 30, iif(%sbp < 110, 5, iif(%sbp < 120, 4, iif(%sbp < 130, 3, iif(%sbp < 140, 2, iif(%sbp < 150, 1, 0))))), iif(%lvef < 40, iif(%sbp < 110, 3, iif(%sbp < 120, 2, iif(%sbp < 130, 1, iif(%sbp < 140, 1, 0)))), iif(%sbp < 110, 2, iif(%sbp < 120, 1, iif(%sbp < 130, 1, 0))))), {})",
+        "dataType": "integer"
+      }
     }
   ]
 }
