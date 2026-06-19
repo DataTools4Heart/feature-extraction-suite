@@ -3,10 +3,10 @@
   "resourceType": "PopulationPipeline",
   "url": "https://datatools4heart.eu/cohorts/study3",
   "name": "study3_cohort",
-  "title": "Ambulatory Patients with Primary Diagnosis of Heart Failure",
-  "description": "This cohort includes ambulatory patients hospitalized with a primary discharge diagnosis of heart failure for the first time. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.1",
-  "date": "2026-06-05",
+  "title": "Adult Cardiology Outpatient Cohort with Heart Failure Diagnosis (Any Time)",
+  "description": "This cohort includes cardiology department visits of adult patients diagnosed with heart failure at any time.",
+  "version": "1.2",
+  "date": "2026-06-19",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -16,9 +16,9 @@
   "entry": [
     {
       "name": "patientEncounter",
-      "description": "Captures hospital encounters when a patient is admitted for care.",
+      "description": "Captures cardiology outpatient encounters (ambulatory class) for patients.",
       "resourceType": "Encounter",
-      "query": "?class=AMB",
+      "query": "?service-type=http://snomed.info/sct|394579002&class=AMB",
       "entityLink": [
         {
           "entity": "pid",
@@ -34,9 +34,11 @@
   "eligibility": [
     {
       "name": "adultsWithHeartFailure",
-      "description": "Filters adults patients with a diagnosis of heart failure during the hospital encounter.",
+      "description": "Selects patients who are adults (≥18 years at the time of the encounter) and who have a recorded diagnosis of heart failure at any time.",
       "criteria": [
         {
+          "name": "adult",
+          "description": "Excludes patients younger than 18 years at the time of encounter.",
           "resourceType": "Patient",
           "category": "exclusion",
           "entityLink": [
@@ -53,6 +55,8 @@
           }
         },
         {
+          "name": "heartFailure",
+          "description": "Includes patients with encounter-diagnosis codes indicating heart failure.",
           "resourceType": "Condition",
           "category": "inclusion",
           "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13,http://hl7.org/fhir/sid/icd-10|I25.5",

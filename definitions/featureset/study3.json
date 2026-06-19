@@ -5,8 +5,8 @@
   "title": "Dataset for DataTools4Heart project clinical study 3",
   "description": "Dataset for DataTools4Heart project clinical study 3",
   "status": "active",
-  "version": "1.1",
-  "date": "2026-06-16",
+  "version": "1.2",
+  "date": "2026-06-19",
   "publisher": "DT4H WP2 Team (SRDC Corp.)",
   "entity": [
     {
@@ -94,6 +94,11 @@
           "pid": "pid"
         },
         "offset": "%eventTime"
+      },
+      "filter": {
+        "name": "outPatientVisits",
+        "description": "Find out-patient visits.",
+        "filter": "encounterClass = 'AMB'"
       },
       "feature": [
         {
@@ -200,7 +205,8 @@
       "join": {
         "on": {
           "pid": "pid"
-        }
+        },
+        "duration": "%eventTime"
       },
       "pivot": {
         "name": "codes",
@@ -215,11 +221,6 @@
             "name": "diastolicBp",
             "value": "8462-4",
             "description": "Diastolic blood pressure (mmHg)"
-          },
-          {
-            "name": "heartRate",
-            "value": "8867-4",
-            "description": "Heart rate (bpm)"
           },
           {
             "name": "oxygenSaturation",
@@ -241,6 +242,67 @@
                 "min",
                 "max",
                 "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "systolicBp",
+            "value": "8480-6",
+            "description": "Systolic blood pressure (mmHg)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "lastN": 2,
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "systolic_blood_pressure",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes = '8480-6' and value > 50 and value < 300"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
               ]
             }
           ]
@@ -788,10 +850,25 @@
           ]
         },
         {
-          "name": "hthyroid_during",
+          "name": "hyperthyroid_during",
           "description": "Whether the patient has hyperthyroidism within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('E05')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hypothyroid_during",
+          "description": "Whether the patient has hypothyroidism within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E89.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -882,6 +959,51 @@
           "description": "Whether the patient has renal disease chronic within the hospital admission and discharge timeframe.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "myocarditis_during",
+          "description": "Whether the patient has myocarditis within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I40') or $this.startsWith('I41')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pericardial_during",
+          "description": "Whether the patient has pericardial disease within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I30') or $this.startsWith('I31') or $this.startsWith('I32')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "substance_abuse_during",
+          "description": "Whether the patient has substance abuse within the hospital admission and discharge timeframe.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('F1')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1204,10 +1326,25 @@
           ]
         },
         {
-          "name": "hthyroid_pre_adm",
+          "name": "hyperthyroid_pre_adm",
           "description": "Whether the patient has hyperthyroidism in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E04')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('E05')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hypothyroid_pre_adm",
+          "description": "Whether the patient has hypothyroidism in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E89.0')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1307,6 +1444,51 @@
               ]
             }
           ]
+        },
+        {
+          "name": "myocarditis_pre_adm",
+          "description": "Whether the patient has myocarditis in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I40') or $this.startsWith('I41')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "pericardial_pre_adm",
+          "description": "Whether the patient has pericardial disease in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I30') or $this.startsWith('I31') or $this.startsWith('I32')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "substance_abuse_pre_adm",
+          "description": "Whether the patient has substance abuse in their clinical history prior to the date of admission",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('F1')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     }
@@ -1319,6 +1501,11 @@
           "pid": "pid"
         },
         "offset": "%eventTime"
+      },
+      "filter": {
+        "name": "outPatientVisits",
+        "description": "Find out-patient visits.",
+        "filter": "encounterClass = 'AMB'"
       },
       "feature": [
         {
