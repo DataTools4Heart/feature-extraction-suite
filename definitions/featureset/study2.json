@@ -2824,7 +2824,7 @@
       },
       "filter": {
         "name": "history",
-        "description":"This filter is here for only avoid column name clash with the one in the previous feature group",
+        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
         "filter": "true"
       },
       "feature": [
@@ -3260,7 +3260,7 @@
       },
       "filter": {
         "name": "history",
-        "description":"This filter is here for only avoid column name clash with the one in the previous feature group",
+        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
         "filter": "true"
       },
       "feature": [
@@ -3692,31 +3692,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -3756,31 +3770,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -3820,31 +3848,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -3884,31 +3926,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -3948,31 +4004,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4012,31 +4082,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
