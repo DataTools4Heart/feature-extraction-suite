@@ -11,7 +11,7 @@ services:
 #      - ./feature-extraction-suite:/usr/local/onfhir-feast/conf
 #      - ./feature-extraction-suite/output-data:/usr/local/onfhir-feast/output-data
   postgres:
-    image: postgres:latest
+    image: postgres:17.10
     container_name: dt4h-feast-postgres
     restart: always
     environment:
@@ -21,7 +21,7 @@ services:
     networks:
       - onfhir-network
     volumes:
-      - ./feature-extraction-suite/postgres-data:/var/lib/postgresql
+      - ./feature-extraction-suite/postgres-data:/var/lib/postgresql/data
 #    deploy:
 #      resources:
 #        limits:
