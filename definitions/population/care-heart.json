@@ -5,8 +5,8 @@
   "name": "care_heart_cohort",
   "title": "Adult Patients with Cardiology Encounters (Inpatient or Outpatient) After First Heart Failure Diagnosis",
   "description": "This cohort includes patients aged 18 years or older who have a diagnosis of heart failure and at least one cardiology-related encounter (inpatient admission or outpatient visit) occurring after their first heart failure diagnosis.",
-  "version": "1.1",
-  "date": "2025-12-16",
+  "version": "1.2",
+  "date": "2026-07-09",
   "status": "active",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [

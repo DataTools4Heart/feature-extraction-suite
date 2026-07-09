@@ -1,12 +1,12 @@
 {
-  "id": "care-heart-fs",
-  "url": "https://datatools4heart.eu/feature-sets/care_heart",
-  "name": "care_heart_fs",
-  "title": "Care Heart Features",
-  "description": "Set of extracted features for Care Heart",
+  "id": "care-heart-inpatient-fs",
+  "url": "https://datatools4heart.eu/feature-sets/care_heart_inpatient",
+  "name": "care_heart_inpatient_fs",
+  "title": "Care Heart Inpatient Visit Features",
+  "description": "Set of extracted features for Care Heart Inpatient Visit",
   "status": "active",
-  "version": "1.1",
-  "date": "2026-06-19",
+  "version": "1.0",
+  "date": "2026-07-09",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -47,37 +47,6 @@
             }
           },
           "eventTime": "endTime"
-        }
-      ]
-    },
-    {
-      "description": "Use the start time of encounters as the reference time point when they are outpatient encounters.",
-      "criteria": [
-        {
-          "url": "https://datatools4heart.eu/feature-groups/encounters",
-          "join": {
-            "on": {
-              "pid": "pid",
-              "encounterId": "encounterId"
-            }
-          },
-          "filter": {
-            "name": "outpatientEncounter",
-            "description": "Filters outpatient encounters.",
-            "filter": "encounterClass = 'AMB'"
-          }
-        }
-      ],
-      "events": [
-        {
-          "url": "https://datatools4heart.eu/feature-groups/encounters",
-          "join": {
-            "on": {
-              "pid": "pid",
-              "encounterId": "encounterId"
-            }
-          },
-          "eventTime": "startTime"
         }
       ]
     }
@@ -1011,7 +980,7 @@
           "name": "pad",
           "description": "Whether the patient has peripheral artery disease within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I76') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1251,7 +1220,7 @@
           "name": "mc",
           "description": "Whether the patient has malignant cancer within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or icd10Codes.select($this.startsWith('C9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1296,7 +1265,7 @@
           "name": "ckd_chronic",
           "description": "Whether the patient has renal disease chronic within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1487,7 +1456,7 @@
           "name": "pad",
           "description": "Whether the patient has peripheral artery disease in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I71') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('I73') or $this.startsWith('I70') or $this.startsWith('I76') or $this.startsWith('I72') or $this.startsWith('I74') or $this.startsWith('I75') or $this.startsWith('I77') or $this.startsWith('I78') or $this.startsWith('I79')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1727,7 +1696,7 @@
           "name": "mc",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or icd10Codes.select($this.startsWith('C9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1772,7 +1741,7 @@
           "name": "ckd_chronic",
           "description": "Whether the patient has renal disease chronic in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1840,7 +1809,7 @@
       "filter": {
         "name": "heart_failure",
         "description": "Find the Heart Failures.",
-        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I25.5') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
       },
       "feature": [
         {
