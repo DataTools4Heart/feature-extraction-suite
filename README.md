@@ -109,7 +109,7 @@ location /<basePath>/feast {
 ## Starting Feature Extraction
 
 * To start the feature extraction process for a specific study, use the following cURL commands. Replace `<hostname>` with your server hostname and `<basePath>` with the path segment you configured in Nginx (e.g., `dt4h` or `ai4hf`).
-
+* You should also replace `<study1_dataset_id>` in CKD subsets requests with the extracted dataset id of Study1.
 ### Study 1
 
 ```bash
@@ -143,7 +143,7 @@ curl --request POST \
 }'
 ```
 
-### MAGGIC
+### MAGGIC-MLP
 
 ```bash
 curl --request POST \
@@ -154,17 +154,148 @@ curl --request POST \
 }'
 ```
 
-### CARE-HEART
+### CARE-HEART Inpatient
 
 ```bash
 curl --request POST \
-  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/care-heart-fs/Population/care_heart_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/care-heart-inpatient-fs/Population/care_heart_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
   --header 'Content-Type: application/json' \
   --data '{
-    "name": "Care Heart"
+    "name": "Care Heart Inpatient"
 }'
 ```
 
+### CARE-HEART Outpatient
+
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/care-heart-outpatient-fs/Population/care_heart_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Care Heart Outpatient"
+}'
+```
+
+### CKD Subsets
+#### Any CKD Male
+```bash
+curl --request POST \ 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "name": "Male patients subset",
+  "description": "Subset of the study1 dataset including only male patients",
+  "query": {
+    "name": "Only males",
+    "language": "application/sql",
+    "expression": "patient_demographics_gender = '\''male'\''"
+  }
+}'
+```
+#### Any CKD Female
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "name": "Female patients subset",
+  "description": "Subset of the study1 dataset including only female patients",
+  "query": {
+    "name": "Only females",
+    "language": "application/sql",
+    "expression": "patient_demographics_gender = '\''female'\''"
+  }
+}'
+```
+#### CKD All Gender
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "All CKD patients subset",
+    "description": "Subset of the study1 dataset including all CKD patients",
+    "query": {
+        "name": "Only CKD patients",
+        "language": "application/sql",
+        "expression": "ckd_severity_categorizedValue != '\''normal'\'' and ckd_severity_categorizedValue is not NULL"
+    }
+}'
+```
+#### CKD Male
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Male CKD patients subset",
+    "description": "Subset of the study1 dataset including only male CKD patients",
+    "query": {
+        "name": "Only male CKD patients",
+        "language": "application/sql",
+        "expression": "ckd_severity_categorizedValue != '\''normal'\'' and ckd_severity_categorizedValue is not NULL and patient_demographics_gender = '\''male'\''"
+    }
+}'
+```
+#### CKD Female
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Female CKD patients subset",
+    "description": "Subset of the study1 dataset including only female CKD patients",
+    "query": {
+        "name": "Only female CKD patients",
+        "language": "application/sql",
+        "expression": "ckd_severity_categorizedValue != '\''normal'\'' and ckd_severity_categorizedValue is not NULL and patient_demographics_gender = '\''female'\''"
+    }
+}'
+```
+#### No CKD All Gender
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "No CKD patients subset",
+    "description": "Subset of the study1 dataset including only no CKD patients",
+    "query": {
+        "name": "Only no CKD patients",
+        "language": "application/sql",
+        "expression": "ckd_severity_categorizedValue = '\''normal'\'' or ckd_severity_categorizedValue is NULL"
+    }
+}'
+```
+#### No CKD Male
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Male no CKD patients subset",
+    "description": "Subset of the study1 dataset including only no CKD male patients",
+    "query": {
+        "name": "Only no CKD male patients",
+        "language": "application/sql",
+        "expression": "(ckd_severity_categorizedValue = '\''normal'\'' or ckd_severity_categorizedValue is NULL) and patient_demographics_gender = '\''male'\''"
+    }
+}'
+```
+#### No CKD Female
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Female no CKD patients subset",
+    "description": "Subset of the study1 dataset including only no CKD female patients",
+    "query": {
+        "name": "Only no CKD female patients",
+        "language": "application/sql",
+        "expression": "(ckd_severity_categorizedValue = '\''normal'\'' or ckd_severity_categorizedValue is NULL) and patient_demographics_gender = '\''female'\''"
+    }
+}'
+```
 * The extraction process may take a long time to complete depending on the size of data.
 
 * After completion, the dataset will be available in the following location. For example:
