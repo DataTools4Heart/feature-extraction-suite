@@ -5,8 +5,8 @@
   "name": "study2_cohort",
   "title": "Hospitalized Patients at Emergency with Primary Diagnosis of Heart Failure",
   "description": "This cohort includes patients hospitalized at emergency department with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.1",
-  "date": "2026-01-29",
+  "version": "1.2",
+  "date": "2026-07-13",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -15,8 +15,8 @@
   ],
   "entry": [
     {
-      "name": "patientAmbulatoryEncounter",
-      "description": "Captures ambulatory visits/encounters to the Emergency Department, having the encounter class EMER.",
+      "name": "patientEmergencyEncounter",
+      "description": "Captures visits/encounters to the Emergency Department, having the encounter class EMER.",
       "resourceType": "Encounter",
       "query": "?class=EMER",
       "entityLink": [
@@ -39,7 +39,7 @@
       "name": "patientEmergencyDepartmentAdmission",
       "description": "Captures encounters where the patient was admitted through the Emergency Department.",
       "resourceType": "Encounter",
-      "query": "?admit-source=emd",
+      "query": "?admit-source=emd&class=IMP",
       "entityLink": [
         {
           "entity": "pid",
@@ -88,6 +88,19 @@
               "entityType": "Encounter",
               "searchParam": "encounter",
               "path": "encounter.reference"
+            }
+          ]
+        },
+        {
+          "description": "Exclude encounters that are part of another encounter, i.e. exclude emergency visits that lead to a hospitalization",
+          "resourceType": "Encounter",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "part-of",
+              "path": "partOf.reference"
             }
           ]
         }

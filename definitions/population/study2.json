@@ -5,8 +5,8 @@
   "name": "study2_cohort",
   "title": "Emergency Hospitalized Patients with Primary Diagnosis of Heart Failure",
   "description": "This cohort includes ambulatory patients visited the Emergency Department (admitted or not) with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission (if admitted) or the code assigned in the Emergency Department if the patient is not admitted.",
-  "version": "1.1",
-  "date": "2026-01-29",
+  "version": "1.2",
+  "date": "2026-07-13",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -21,7 +21,7 @@
   ],
   "entry": [
     {
-      "name": "patientAmbulatoryEncounter",
+      "name": "patientEmergencyEncounter",
       "description": "Captures ambulatory visits/encounters to the Emergency Department."
     },
     {
