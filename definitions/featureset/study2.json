@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 2 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 2 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.0",
-  "date": "2026-01-29",
+  "version": "1.1",
+  "date": "2026-07-20",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -4140,6 +4140,44 @@
           ]
         }
       ]
+    }
+  ],
+  "combinedFeature": [
+    {
+      "name": "eGFR_2021_ckd_epi_creatinine",
+      "description": "Estimated glomerular filtration rate (eGFR) calculated from serum creatinine, age and gender using the 2021 CKD-EPI creatinine equation",
+      "combinedFeatures": [
+        { "alias": "age", "featureNamePattern": "patient_demographics_age" },
+        { "alias": "gender", "featureNamePattern": "patient_demographics_gender" },
+        { "alias": "cr", "featureNamePattern": "lab_results_creatBS_value_last" }
+      ],
+      "valueExpr": {
+        "path": "iif(%cr.exists() and %age.exists() and %gender.exists(),142.0 * least(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(iif(%gender='male',-0.302,-0.241)) * greatest(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(-1.200) * (0.9938).power(%age) * iif(%gender='male', 1.0, 1.012),{})",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "ckd_severity_from_calculated_egfr",
+      "description": "CKD severity stage derived by categorizing the eGFR calculated with the 2021 CKD-EPI creatinine equation",
+      "combinedFeatures": [
+        { "alias": "egfr", "featureNamePattern": "eGFR_2021_ckd_epi_creatinine" }
+      ],
+      "valueExpr": {
+        "path": "iif(%egfr.exists(),%egfr.categorize(14 | 59 | 89, 'advanced' | 'moderate' | 'mild' | 'normal'),{})",
+        "dataType": "string"
+      }
+    },
+    {
+      "name": "ckd_severity_calculated_or_measured",
+      "description": "Final CKD severity stage: uses the stage derived from the calculated CKD-EPI eGFR when available, otherwise falls back to the directly measured GFR category (LOINC 69405-9)",
+      "combinedFeatures": [
+        { "alias": "egfrCategory", "featureNamePattern": "ckd_severity_categorizedValue" },
+        { "alias": "scCategory", "featureNamePattern": "ckd_severity_from_calculated_egfr" }
+      ],
+      "valueExpr": {
+        "path": "iif(%scCategory.exists(),%scCategory, %egfrCategory)",
+        "dataType": "string"
+      }
     }
   ]
 }
