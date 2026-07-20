@@ -6,7 +6,7 @@
   "title": "Lab results",
   "description": "Condition",
   "status": "active",
-  "date": "2025-07-24",
+  "date": "2026-08-03",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
@@ -44,6 +44,10 @@
         {
           "name": "date",
           "path": "Observation.effectiveDateTime"
+        },
+        {
+          "name": "interpretation",
+          "path": "Observation.interpretation.coding.where(system='http://hl7.org/fhir/ValueSet/observation-interpretation').code"
         }
       ]
     }

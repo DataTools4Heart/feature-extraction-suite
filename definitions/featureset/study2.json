@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 2 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 2 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.2",
-  "date": "2026-07-20",
+  "version": "1.3",
+  "date": "2026-08-03",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -50,7 +50,7 @@
         },
         {
           "name": "age",
-          "description": "Age of the patient at admission date",
+          "description": "Patient’s age at the time of presentation to the Emergency Department (ED)",
           "value": {
             "path": "utl:getPeriod(birthDate, %eventTime, 'years')",
             "dataType": "integer"
@@ -70,6 +70,37 @@
         {
           "name": "encounterClass",
           "description": "Type of encounter (emergency, impatient, outpatient, etc)"
+        },
+        {
+          "name": "admissionSource",
+          "description": "Admission source"
+        },
+        {
+          "name": "emsTransport",
+          "description": "Whether the patient was transported to the hospital by Emergency Medical Services (EMS). In cohorts where admission-source information is captured, a patient with no recorded admission source defaults to \"no\"; in cohorts where no patient has admission-source information at all, a missing value is randomly assigned \"yes\" or \"no\".",
+          "value": {
+            "path": "admissionSource = 'ems-transport'",
+            "dataType": "boolean"
+          },
+          "missing": {
+            "strategies": [
+              {
+                "type": "cohortConditional",
+                "minCoverage": 0.0,
+                "whenAvailable": {
+                  "type": "constant",
+                  "value": false
+                },
+                "whenUnavailable": {
+                  "type": "randomCategorical",
+                  "weights": {
+                    "true": 0.5,
+                    "false": 0.5
+                  }
+                }
+              }
+            ]
+          }
         },
         {
           "name": "admissionYear",
@@ -230,6 +261,108 @@
       "url": "https://datatools4heart.eu/feature-groups/vital_signs",
       "join": {
         "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "systolicBpDuringEncounter",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes = '8480-6' and value >= 20 and value <= 250"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the systolic blood pressure measured during the encounter, restricted to physiologically plausible readings (20-250 mmHg) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "heartRateDuringEncounter",
+        "description": "Heart rate (bpm)",
+        "filter": "codes = '8867-4' and value >= 0 and value <= 220"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the heart rate measured during the encounter, restricted to physiologically plausible readings (0-220 bpm) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "oxygenSaturationDuringEncounter",
+        "description": "SpO2 (%)",
+        "filter": "codes = '2708-6' and value >= 0 and value <= 100"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the oxygen saturation measured during the encounter, restricted to physiologically plausible readings (0-100%) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
           "pid": "pid",
           "encounterId": "encounterId"
         }
@@ -239,24 +372,9 @@
         "description": "Vital signs collected in an encounter",
         "values": [
           {
-            "name": "systolicBp",
-            "value": "8480-6",
-            "description": "Systolic blood pressure (mmHg)"
-          },
-          {
             "name": "diastolicBp",
             "value": "8462-4",
             "description": "Diastolic blood pressure (mmHg)"
-          },
-          {
-            "name": "heartRate",
-            "value": "8867-4",
-            "description": "Heart rate (bpm)"
-          },
-          {
-            "name": "oxygenSaturation",
-            "value": "2708-6",
-            "description": "SpO2 (%)"
           }
         ]
       },
@@ -303,6 +421,114 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "troponin",
+        "description": "Troponin (I or T, high-sensitivity or standard) lab measurements",
+        "filter": "codes = '89579-7' or codes = '10839-9' or codes = '67151-1' or codes = '6598-7'"
+      },
+      "feature": [
+        {
+          "name": "aboveUln",
+          "description": "Whether the last troponin measurement (any of the I/T, high-sensitivity/standard subtypes) recorded during the encounter is above its upper limit of normal, per the lab-reported interpretation flag. If missing, falls back to the same interpretation-based flag for the last troponin measurement of any subtype recorded over the three years preceding the reference time point; if still missing, falls back to a random true/false assignment.",
+          "value":{
+            "path": "interpretation.select($this = 'HH' or $this = 'H' or $this = 'HU').anyTrue()",
+            "dataType": "boolean"
+          },
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "last"
+              },
+              {
+                "type": "randomCategorical",
+                "weights": {
+                  "true": 0.5,
+                  "false": 0.5
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "potassiumDuringEncounter",
+        "description": "Potassium [Moles/volume] in Serum or Plasma (mmol/L)",
+        "filter": "codes = '2823-3'"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the potassium measured during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "creatBSDuringEncounter",
+        "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes = '2160-0'"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the creatinine in Serum or Plasma measured during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
         }
       ]
     },
@@ -394,19 +620,9 @@
             "description": "Cholesterol in LDL [Moles/volume] in Serum or Plasma (mmol/L)"
           },
           {
-            "name": "potassium",
-            "value": "2823-3",
-            "description": "Potassium [Moles/volume] in Serum or Plasma (mmol/L)"
-          },
-          {
             "name": "sodium",
             "value": "2951-2",
             "description": "Sodium [Moles/volume] in Serum or Plasma (mmol/L)"
-          },
-          {
-            "name": "creatBS",
-            "value": "2160-0",
-            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
           },
           {
             "name": "creatUS",
@@ -1018,6 +1234,32 @@
       "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
         "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "mc",
+          "description": "Whether the patient has malignant cancer within the five years preceding the reference time point.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6') or $this.startsWith('C9')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())  or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
           "pid": "pid",
           "encounterId": "encounterId"
         },
@@ -1388,7 +1630,7 @@
           "name": "mc_during",
           "description": "Whether the patient has malignant cancer within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6') or $this.startsWith('C9')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())  or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1864,7 +2106,7 @@
           "name": "mc_pre_adm",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6') or $this.startsWith('C9')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())  or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -3670,6 +3912,36 @@
           ]
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/med_requests",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "activeDuringEncounter",
+        "description": "This filter is here for only avoid column name clash with the ones in the previous feature groups",
+        "filter": "true"
+      },
+      "feature": [
+        {
+          "name": "diuretics",
+          "description": "Whether diuretics were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "(medicationGroups.select($this = 'Diuretics').anyTrue() or (medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "outcome": [
@@ -4195,6 +4467,56 @@
       "valueExpr": {
         "path": "iif(%scCategory.exists(),%scCategory, %egfrCategory)",
         "dataType": "string"
+      }
+    },
+    {
+      "name": "ehmrg_score",
+      "description": "Emergency Heart Failure Mortality Risk Grade (EHMRG)",
+      "combinedFeatures": [
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        },
+        {
+          "alias": "sysBp",
+          "featureNamePattern": "vital_signs_systolicBpDuringEncounter_value_pET"
+        },
+        {
+          "alias": "hr",
+          "featureNamePattern": "vital_signs_heartRateDuringEncounter_value_pET"
+        },
+        {
+          "alias": "oxy",
+          "featureNamePattern": "vital_signs_oxygenSaturationDuringEncounter_value_pET"
+        },
+        {
+          "alias": "creatBS",
+          "featureNamePattern": "lab_results_creatBSDuringEncounter_value_pET"
+        },
+        {
+          "alias": "potassium",
+          "featureNamePattern": "lab_results_potassiumDuringEncounter_value_pET"
+        },
+        {
+          "alias": "cancer",
+          "featureNamePattern": "conditions_mc_p5a_any"
+        },
+        {
+          "alias": "diuretics",
+          "featureNamePattern": "med_requests_activeDuringEncounter_diuretics_any"
+        },
+        {
+          "alias": "ems",
+          "featureNamePattern": "encounters_emsTransport"
+        },
+        {
+          "alias": "troponin",
+          "featureNamePattern": "lab_results_troponin_aboveUln"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%age.exists(),%age * 2,{}) + iif(%ems.exists(),iif(%ems = true,60,0),{}) + iif(%sysBp.exists(),iif(%sysBp > 160,-160.0,%sysBp * -1),{}) + iif(%hr.exists(),iif(%hr > 120,120.0,iif(%hr < 80,80.0, %hr)),{}) + iif(%oxy.exists(),iif(%oxy > 92,-184.0,%oxy * -2),{}) + iif(%creatBS.exists(),%creatBS * 2,{}) + iif(%potassium.exists(),iif(%potassium >= 4.6,30,iif(%potassium >= 4 and %potassium <= 4.5,0,5)),{}) + iif(%troponin.exists(),iif(%troponin,60,0),{}) + iif(%cancer.exists(),iif(%cancer = true,45,0),{}) + iif(%diuretics.exists(),iif(%diuretics = true,60,0),{}) + 12",
+        "dataType": "integer"
       }
     }
   ]

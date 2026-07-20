@@ -6,7 +6,7 @@
   "title": "Encounters",
   "description": "Encounter related features",
   "status": "active",
-  "date": "2025-07-21",
+  "date": "2026-07-20",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -80,6 +80,12 @@
       "name": "department",
       "title": "Department",
       "description": "SNOMED code of the department of the encounter i.e. cardiology, neurology, etc.",
+      "dataType": "code"
+    },
+    {
+      "name": "admissionSource",
+      "title": "admissionSource",
+      "description": "Admission source",
       "dataType": "code"
     }
   ],

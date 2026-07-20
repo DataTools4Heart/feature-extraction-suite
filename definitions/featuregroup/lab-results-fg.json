@@ -6,7 +6,7 @@
   "title": "Lab results",
   "description": "Condition related features",
   "status": "active",
-  "date": "2025-07-21",
+  "date": "2026-08-03",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -40,6 +40,53 @@
       "title": "The date of the observation.",
       "description": "The date of the observation.",
       "dataType": "date"
+    },
+    {
+      "name": "interpretation",
+      "title": "The interpretation of the observation.",
+      "description": "The interpretation of the observation.",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "concept": [
+          {
+            "code": "A",
+            "display": "Abnormal"
+          },
+          {
+            "code": "AA",
+            "display": "Critical abnormal"
+          },
+          {
+            "code": "HH",
+            "display": "Critical high"
+          },
+          {
+            "code": "LL",
+            "display": "Critical low"
+          },
+          {
+            "code": "H",
+            "display": "High"
+          },
+          {
+            "code": "HU",
+            "display": "Significantly high"
+          },
+          {
+            "code": "L",
+            "display": "Low"
+          },
+          {
+            "code": "LU",
+            "display": "Significantly low"
+          },
+          {
+            "code": "N",
+            "display": "Normal"
+          }
+        ]
+      }
     }
   ],
   "eventTime": {

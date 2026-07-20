@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.5",
-  "date": "2026-07-31",
+  "version": "1.6",
+  "date": "2026-08-03",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -1407,7 +1407,7 @@
           "name": "mc_during",
           "description": "Whether the patient has malignant cancer within the hospital admission and discharge timeframe.",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or icd10Codes.select($this.startsWith('C9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -1883,7 +1883,7 @@
           "name": "mc_pre_adm",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of admission",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or icd10Codes.select($this.startsWith('C9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2148,7 +2148,7 @@
           "name": "mc_pre_dc",
           "description": "Whether the patient has malignant cancer in their clinical history prior to the date of discharge",
           "value": {
-            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or $this.startsWith('C9')",
+            "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse()) or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse()) or icd10Codes.select($this.startsWith('C9')).anyTrue()",
             "dataType": "boolean"
           },
           "temporalAgg": [

@@ -6,7 +6,7 @@
   "title": "Encounters",
   "description": "Encounter related features",
   "status": "active",
-  "date": "2025-07-24",
+  "date": "2026-07-20",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
@@ -51,6 +51,10 @@
         {
           "name": "department",
           "path": "Encounter.serviceType.concept.coding.where(system='http://snomed.info/sct').code.first()"
+        },
+        {
+          "name": "admissionSource",
+          "path": "Encounter.admission.admitSource.coding.where(system='https://datatools4heart.eu/fhir/CodeSystem/encounter-admit-source').code.first()"
         }
       ]
     }
