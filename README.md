@@ -217,7 +217,7 @@ curl --request POST \
     "query": {
         "name": "Only CKD patients",
         "language": "application/sql",
-        "expression": "ckd_severity_categorizedValue != '\''normal'\'' and ckd_severity_categorizedValue is not NULL"
+        "expression": "ckd_severity_calculated_or_measured is not NULL and (ckd_severity_calculated_or_measured = '\''kidney_failure'\'' or ckd_severity_calculated_or_measured = '\''severe_decrease'\'' or ckd_severity_calculated_or_measured = '\''moderate_to_severe_decrease'\'' or ckd_severity_calculated_or_measured = '\''mild_to_moderate_decrease'\'')"
     }
 }'
 ```
@@ -232,7 +232,7 @@ curl --request POST \
     "query": {
         "name": "Only male CKD patients",
         "language": "application/sql",
-        "expression": "ckd_severity_categorizedValue != '\''normal'\'' and ckd_severity_categorizedValue is not NULL and patient_demographics_gender = '\''male'\''"
+        "expression": "ckd_severity_calculated_or_measured is not NULL and (ckd_severity_calculated_or_measured = '\''kidney_failure'\'' or ckd_severity_calculated_or_measured = '\''severe_decrease'\'' or ckd_severity_calculated_or_measured = '\''moderate_to_severe_decrease'\'' or ckd_severity_calculated_or_measured = '\''mild_to_moderate_decrease'\'') and patient_demographics_gender = '\''male'\''"
     }
 }'
 ```
@@ -247,7 +247,7 @@ curl --request POST \
     "query": {
         "name": "Only female CKD patients",
         "language": "application/sql",
-        "expression": "ckd_severity_categorizedValue != '\''normal'\'' and ckd_severity_categorizedValue is not NULL and patient_demographics_gender = '\''female'\''"
+        "expression": "ckd_severity_calculated_or_measured is not NULL and (ckd_severity_calculated_or_measured = '\''kidney_failure'\'' or ckd_severity_calculated_or_measured = '\''severe_decrease'\'' or ckd_severity_calculated_or_measured = '\''moderate_to_severe_decrease'\'' or ckd_severity_calculated_or_measured = '\''mild_to_moderate_decrease'\'') and patient_demographics_gender = '\''female'\''"
     }
 }'
 ```
@@ -262,7 +262,7 @@ curl --request POST \
     "query": {
         "name": "Only no CKD patients",
         "language": "application/sql",
-        "expression": "ckd_severity_categorizedValue = '\''normal'\'' or ckd_severity_categorizedValue is NULL"
+        "expression": "ckd_severity_categorizedValue is not NULL and (ckd_severity_calculated_or_measured = '\''mildly_decreased'\'' or ckd_severity_calculated_or_measured = '\''normal_or_high'\'')"
     }
 }'
 ```
@@ -277,7 +277,7 @@ curl --request POST \
     "query": {
         "name": "Only no CKD male patients",
         "language": "application/sql",
-        "expression": "(ckd_severity_categorizedValue = '\''normal'\'' or ckd_severity_categorizedValue is NULL) and patient_demographics_gender = '\''male'\''"
+        "expression": "ckd_severity_categorizedValue is not NULL and (ckd_severity_calculated_or_measured = '\''mildly_decreased'\'' or ckd_severity_calculated_or_measured = '\''normal_or_high'\'') and patient_demographics_gender = '\''male'\''"
     }
 }'
 ```
@@ -292,7 +292,7 @@ curl --request POST \
     "query": {
         "name": "Only no CKD female patients",
         "language": "application/sql",
-        "expression": "(ckd_severity_categorizedValue = '\''normal'\'' or ckd_severity_categorizedValue is NULL) and patient_demographics_gender = '\''female'\''"
+        "expression": "ckd_severity_categorizedValue is not NULL and (ckd_severity_calculated_or_measured = '\''mildly_decreased'\'' or ckd_severity_calculated_or_measured = '\''normal_or_high'\'') and patient_demographics_gender = '\''female'\''"
     }
 }'
 ```

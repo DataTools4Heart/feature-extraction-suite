@@ -6,7 +6,7 @@
   "title": "Chronic kidney disease severity",
   "description": "Chronic kidney disease severity-related features",
   "status": "active",
-  "date": "2025-07-21",
+  "date": "2026-07-20",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -27,20 +27,28 @@
       "valueSet": {
         "concept": [
           {
-            "code": "advanced",
-            "display": "Advanced"
+            "code": "kidney_failure",
+            "display": "Kidney failure"
           },
           {
-            "code": "moderate",
-            "display": "Moderate"
+            "code": "severe_decrease",
+            "display": "Severe decrease"
           },
           {
-            "code": "mild",
-            "display": "Mild"
+            "code": "moderate_to_severe_decrease",
+            "display": "Moderate to severe decrease"
           },
           {
-            "code": "normal",
-            "display": "Normal"
+            "code": "mild_to_moderate_decrease",
+            "display": "Mild to moderate decrease"
+          },
+          {
+            "code": "mildly_decreased",
+            "display": "Mildly decreased"
+          },
+          {
+            "code": "normal_or_high",
+            "display": "Normal or high"
           }
         ]
       }
