@@ -35,7 +35,7 @@
         },
         {
           "name": "age",
-          "description": "Age of the patient at reference point",
+          "description": "Age of the patient at reference time point",
           "value": {
             "path": "utl:getPeriod(birthDate, %referenceTimePoint, 'years')",
             "dataType": "integer"
@@ -61,7 +61,7 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "The latest value of the New York Heart Assessment as LOINC Code"
+          "description": "The most recent New York Heart Association (NYHA) assessment value, recorded as a LOINC code, prior to the reference time point."
         }
       ]
     },
@@ -81,7 +81,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "The average value recorded over the three years preceding the reference time point.",
+          "description": "Average of the systolic blood pressure collected during the last three years.\nOnly values between 50 and 300 mmHg are acceptable.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -108,7 +108,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "The average value recorded over the three years preceding the reference time point.",
+          "description": "Average of the bmi collected during the last three years.\nOnly values between 16 and 50 kg/m2 are acceptable.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -135,7 +135,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "The average value recorded over the three years preceding the reference time point.",
+          "description": "Average of the serum creatinine collected during the last three years.\nOnly values between 0 and 250 are acceptable.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -162,7 +162,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "The average value recorded over the three years preceding the reference time point.",
+          "description": "Average of the urinary creatinine collected during the last three years.\nOnly values between 0 and 250 are acceptable.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -188,7 +188,7 @@
       "feature": [
         {
           "name": "occurred_prior_to_18_months",
-          "description": "Indicates whether the condition was diagnosed 18 months or more before the reference time point, corresponding to the criteria for 'Heart Failure (HF) ≥ 18 Months Prior.'",
+          "description": "Whether the patient was diagnosed with heart failure at least 18 months before the reference time point.",
           "value": {
             "path": "utl:getPeriod(date, %referenceTimePoint, 'months') >= 18",
             "dataType": "boolean"
@@ -213,7 +213,7 @@
       "feature": [
         {
           "name": "has_chronic_obstructive_pulmonary_disease",
-          "description": "Whether the patient has the Chronic Obstructive Pulmonary Disease (COPD).",
+          "description": "Whether the patient had been diagnosed with Chronic Obstructive Pulmonary Disease (COPD) prior to the reference time point.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('J44')).anyTrue()",
             "dataType": "boolean"
@@ -228,7 +228,7 @@
         },
         {
           "name": "has_diabetes",
-          "description": "Whether the patient has the diabetes.",
+          "description": "Whether the patient had been diagnosed with diabetes prior to the reference time point.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E08') or $this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
             "dataType": "boolean"
@@ -360,7 +360,7 @@
           "name": "beta_blocker_use",
           "description": "Whether the patient has been prescribed beta-blocker medication before the reference time point.",
           "value": {
-            "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07AA') or $this.startsWith('C07AB') or $this.startsWith('C07AG') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07BG') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DA') or $this.startsWith('C07DB') or $this.startsWith('C07DG') or $this.startsWith('C07FB') or $this.startsWith('C07FX')).anyTrue())",
+            "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -431,7 +431,7 @@
       "feature": [
         {
           "name": "smoker",
-          "description": "Indicates whether the patient's most recent recorded smoking status, collected before the reference time point, classifies them as a current smoker. A value of 1 denotes a current smoker, while 0 represents either a former smoker or someone who has never smoked.",
+          "description": "The patient's most recent recorded smoking status prior to the reference time point. A value of 1 denotes a current smoker, while 0 represents either a former smoker or someone who has never smoked.",
           "value": {
             "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001','1',iif(code = '8517006' or code = '266919005','0',{}))",
             "dataType": "code",
@@ -471,7 +471,7 @@
         },
         {
           "name": "deceased_in_12_months",
-          "description": "Mortality recorded within the 12 months following the reference time point.",
+          "description": "Whether the patient dies within the 12 months following the reference time point.",
           "value": {
             "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
             "dataType": "boolean"
@@ -479,7 +479,7 @@
         },
         {
           "name": "deceased_in_24_months",
-          "description": "Mortality recorded within the 24 months following the reference time point.",
+          "description": "Whether the patient dies within the 24 months following the reference time point.",
           "value": {
             "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
             "dataType": "boolean"
@@ -487,7 +487,7 @@
         },
         {
           "name": "deceased_in_36_months",
-          "description": "Mortality recorded within the 36 months following the reference time point.",
+          "description": "Whether the patient dies within the 36 months following the reference time point.",
           "value": {
             "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
             "dataType": "boolean"
@@ -495,7 +495,7 @@
         },
         {
           "name": "deceased_in_48_months",
-          "description": "Mortality recorded within the 48 months following the reference time point.",
+          "description": "Whether the patient dies within the 48 months following the reference time point.",
           "value": {
             "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
             "dataType": "boolean"
