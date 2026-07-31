@@ -5,8 +5,8 @@
   "title": "Care Heart Outpatient Visit Features",
   "description": "Set of extracted features for Care Heart Outpatient Visit",
   "status": "active",
-  "version": "1.0",
-  "date": "2026-07-09",
+  "version": "1.1",
+  "date": "2026-07-31",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -3562,6 +3562,51 @@
           ]
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/med_requests",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "activeDuringEncounter",
+        "description": "This filter is here for only avoid column name clash with the ones in the previous feature groups",
+        "filter": "true"
+      },
+      "feature": [
+        {
+          "name": "bb",
+          "description": "Whether beta blockers were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "(medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ace_inhibitors_arb_use",
+          "description": "Whether ACE Inhibitors / ARB were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "(medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "combinedFeature": [
@@ -3595,19 +3640,11 @@
         },
         {
           "alias": "bb",
-          "featureNamePattern": "med_admins_bb_any"
-        },
-        {
-          "alias": "bb_history",
-          "featureNamePattern": "med_admins_history_bb_any"
+          "featureNamePattern": "med_requests_activeDuringEncounter_bb_any"
         },
         {
           "alias": "ace",
-          "featureNamePattern": "med_admins_ace_inhibitors_arb_use_any"
-        },
-        {
-          "alias": "ace_history",
-          "featureNamePattern": "med_admins_history_ace_inhibitors_arb_use_any"
+          "featureNamePattern": "med_requests_activeDuringEncounter_ace_inhibitors_arb_use_any"
         },
         {
           "alias": "bmi",
@@ -3639,7 +3676,7 @@
         }
       ],
       "valueExpr": {
-        "path": "iif(%gndr.exists(), iif(%gndr = 'male', 1, 0), {}) + iif(%nyha.exists(), iif(%nyha = 'LA28404-4', 0, iif(%nyha = 'LA28405-1', 2, iif(%nyha = 'LA28406-9', 6, iif(%nyha = 'LA28407-7', 8, 0)))), {}) + iif(%smk.exists(), iif((%smk = '1') or (%smk = true), 1, 0), {}) + iif(%dia.exists() or %dia_history.exists(), iif(%dia or %dia_history, 3, 0), {}) + iif(%hf18.exists(), iif(%hf18, 2, 0), {}) + iif(%bb.exists() or %bb_history.exists(), iif(%bb or %bb_history, 0, 3), {}) + iif(%ace.exists() or %ace_history.exists(), iif(%ace or %ace_history, 0, 1), {}) + iif(%bmi.exists(), iif(%bmi < 15, 6, iif(%bmi < 20, 5, iif(%bmi < 25, 3, iif(%bmi < 30, 2, 0)))), {}) + iif(%copd.exists() or %copd_history.exists(), iif(%copd or %copd_history, 2, 0), {}) + iif(%cr.exists(), iif(%cr < 10.1808, 0, iif(%cr < 12.4432, 1, iif(%cr < 14.7056, 2, iif(%cr < 16.968, 3, iif(%cr < 19.2304, 4, iif(%cr < 23.7552, 5, iif(%cr < 28.28, 6, 8))))))), {}) + iif(%lvef.exists(), iif(%lvef < 20, 7, iif(%lvef < 25, 6, iif(%lvef < 30, 5, iif(%lvef < 35, 3, iif(%lvef < 40, 2, 0))))), {}) + iif(%age.exists() and %lvef.exists(), iif(%lvef < 30, iif(%age < 55, 0, iif(%age < 60, 1, iif(%age < 65, 2, iif(%age < 70, 4, iif(%age < 75, 6, iif(%age < 80, 8, 10)))))), iif(%lvef < 40, iif(%age < 55, 0, iif(%age < 60, 2, iif(%age < 65, 4, iif(%age < 70, 6, iif(%age < 75, 8, iif(%age < 80, 10, 13)))))), iif(%age < 55, 0, iif(%age < 60, 3, iif(%age < 65, 5, iif(%age < 70, 7, iif(%age < 75, 9, iif(%age < 80, 12, 15)))))))), {}) + iif(%sbp.exists() and %lvef.exists(), iif(%lvef < 30, iif(%sbp < 110, 5, iif(%sbp < 120, 4, iif(%sbp < 130, 3, iif(%sbp < 140, 2, iif(%sbp < 150, 1, 0))))), iif(%lvef < 40, iif(%sbp < 110, 3, iif(%sbp < 120, 2, iif(%sbp < 130, 1, iif(%sbp < 140, 1, 0)))), iif(%sbp < 110, 2, iif(%sbp < 120, 1, iif(%sbp < 130, 1, 0))))), {})",
+        "path": "iif(%gndr.exists(), iif(%gndr = 'male', 1, 0), {}) + iif(%nyha.exists(), iif(%nyha = 'LA28404-4', 0, iif(%nyha = 'LA28405-1', 2, iif(%nyha = 'LA28406-9', 6, iif(%nyha = 'LA28407-7', 8, 0)))), {}) + iif(%smk.exists(), iif((%smk = '1') or (%smk = true), 1, 0), {}) + iif(%dia.exists() or %dia_history.exists(), iif(%dia or %dia_history, 3, 0), {}) + iif(%hf18.exists(), iif(%hf18, 2, 0), {}) + iif(%bb.exists(), iif(%bb, 0, 3), {}) + iif(%ace.exists(), iif(%ace, 0, 1), {}) + iif(%bmi.exists(), iif(%bmi < 15, 6, iif(%bmi < 20, 5, iif(%bmi < 25, 3, iif(%bmi < 30, 2, 0)))), {}) + iif(%copd.exists() or %copd_history.exists(), iif(%copd or %copd_history, 2, 0), {}) + iif(%cr.exists(), iif(%cr < 10.1808, 0, iif(%cr < 12.4432, 1, iif(%cr < 14.7056, 2, iif(%cr < 16.968, 3, iif(%cr < 19.2304, 4, iif(%cr < 23.7552, 5, iif(%cr < 28.28, 6, 8))))))), {}) + iif(%lvef.exists(), iif(%lvef < 20, 7, iif(%lvef < 25, 6, iif(%lvef < 30, 5, iif(%lvef < 35, 3, iif(%lvef < 40, 2, 0))))), {}) + iif(%age.exists() and %lvef.exists(), iif(%lvef < 30, iif(%age < 55, 0, iif(%age < 60, 1, iif(%age < 65, 2, iif(%age < 70, 4, iif(%age < 75, 6, iif(%age < 80, 8, 10)))))), iif(%lvef < 40, iif(%age < 55, 0, iif(%age < 60, 2, iif(%age < 65, 4, iif(%age < 70, 6, iif(%age < 75, 8, iif(%age < 80, 10, 13)))))), iif(%age < 55, 0, iif(%age < 60, 3, iif(%age < 65, 5, iif(%age < 70, 7, iif(%age < 75, 9, iif(%age < 80, 12, 15)))))))), {}) + iif(%sbp.exists() and %lvef.exists(), iif(%lvef < 30, iif(%sbp < 110, 5, iif(%sbp < 120, 4, iif(%sbp < 130, 3, iif(%sbp < 140, 2, iif(%sbp < 150, 1, 0))))), iif(%lvef < 40, iif(%sbp < 110, 3, iif(%sbp < 120, 2, iif(%sbp < 130, 1, iif(%sbp < 140, 1, 0)))), iif(%sbp < 110, 2, iif(%sbp < 120, 1, iif(%sbp < 130, 1, 0))))), {})",
         "dataType": "integer"
       }
     }

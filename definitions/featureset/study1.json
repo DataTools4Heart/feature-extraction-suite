@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.4",
-  "date": "2026-07-20",
+  "version": "1.5",
+  "date": "2026-07-31",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -899,6 +899,51 @@
         }
       ]
     },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/med_requests",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "activeDuringEncounter",
+        "description": "This filter is here for only avoid column name clash with the ones in the previous feature groups",
+        "filter": "true"
+      },
+      "feature": [
+        {
+          "name": "bb",
+          "description": "Whether beta blockers were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "(medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ace_inhibitors_arb_use",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors or angiotensin receptor blocker (ARB) were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "((medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue()) or (medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())))) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    }  ,
     {
       "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
@@ -4418,32 +4463,6 @@
       }
     },
     {
-      "name": "beta_blocker_use_pre_dc",
-      "description": "Whether the patient has been prescribed beta blockers before discharge.",
-      "combinedFeatures": [
-        { "alias": "history_bb", "featureNamePattern": "med_requests_history_bb_any" },
-        { "alias": "bb", "featureNamePattern": "med_requests_bb_any" }
-      ],
-      "valueExpr": {
-        "path": "%history_bb or %bb",
-        "dataType": "boolean"
-      }
-    },
-    {
-      "name": "ace_inhibitors_arb_use_pre_dc",
-      "description": "Whether the patient has been prescribed ACE Inhibitors / ARB medication before discharge.",
-      "combinedFeatures": [
-        { "alias": "history_acei", "featureNamePattern": "med_requests_history_acei_any" },
-        { "alias": "acei", "featureNamePattern": "med_requests_acei_any" },
-        { "alias": "history_arb", "featureNamePattern": "med_requests_history_arb_any" },
-        { "alias": "arb", "featureNamePattern": "med_requests_arb_any" }
-      ],
-      "valueExpr": {
-        "path": "%history_acei or %acei or %history_arb or %arb",
-        "dataType": "boolean"
-      }
-    },
-    {
       "name": "maggic_total_score",
       "description": "Sum of MAGGIC points incl. SBP×EF and Age×EF extras.",
       "combinedFeatures": [
@@ -4452,8 +4471,8 @@
         { "alias": "smk",  "featureNamePattern": "smoking_status_smoker_last" },
         { "alias": "dia",  "featureNamePattern": "conditions_diabetes_pre_dc_any" },
         { "alias": "hf18", "featureNamePattern": "conditions_heart_failure_occurred_prior_to_18_months_any" },
-        { "alias": "bb",   "featureNamePattern": "beta_blocker_use_pre_dc" },
-        { "alias": "ace", "featureNamePattern": "ace_inhibitors_arb_use_pre_dc" },
+        { "alias": "bb",   "featureNamePattern": "med_requests_activeDuringEncounter_bb_any" },
+        { "alias": "ace", "featureNamePattern": "med_requests_activeDuringEncounter_ace_inhibitors_arb_use_any" },
         { "alias": "bmi",  "featureNamePattern": "vital_signs_bmi_value_last" },
         { "alias": "copd", "featureNamePattern": "conditions_copd_pre_dc_any" },
         { "alias": "cr",   "featureNamePattern": "lab_results_validSerumCreatinine_value_last" },
