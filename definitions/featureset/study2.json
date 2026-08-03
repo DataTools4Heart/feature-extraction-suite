@@ -4147,9 +4147,18 @@
       "name": "eGFR_2021_ckd_epi_creatinine",
       "description": "Estimated glomerular filtration rate (eGFR) calculated from serum creatinine, age and gender using the 2021 CKD-EPI creatinine equation",
       "combinedFeatures": [
-        { "alias": "age", "featureNamePattern": "patient_demographics_age" },
-        { "alias": "gender", "featureNamePattern": "patient_demographics_gender" },
-        { "alias": "cr", "featureNamePattern": "lab_results_creatBS_value_last" }
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        },
+        {
+          "alias": "gender",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "lab_results_creatBS_value_last"
+        }
       ],
       "valueExpr": {
         "path": "iif(%cr.exists() and %age.exists() and %gender.exists(),142.0 * least(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(iif(%gender='male',-0.302,-0.241)) * greatest(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(-1.200) * (0.9938).power(%age) * iif(%gender='male', 1.0, 1.012),{})",
@@ -4160,7 +4169,10 @@
       "name": "ckd_severity_from_calculated_egfr",
       "description": "CKD severity stage derived by categorizing the eGFR calculated with the 2021 CKD-EPI creatinine equation",
       "combinedFeatures": [
-        { "alias": "egfr", "featureNamePattern": "eGFR_2021_ckd_epi_creatinine" }
+        {
+          "alias": "egfr",
+          "featureNamePattern": "eGFR_2021_ckd_epi_creatinine"
+        }
       ],
       "valueExpr": {
         "path": "iif(%egfr.exists(),%egfr.categorize(14 | 29 | 44 | 59 | 89, 'kidney_failure' | 'severe_decrease' | 'moderate_to_severe_decrease' | 'mild_to_moderate_decrease' | 'mildly_decreased' | 'normal_or_high'),{})",
@@ -4171,8 +4183,14 @@
       "name": "ckd_severity_calculated_or_measured",
       "description": "Final CKD severity stage: uses the stage derived from the calculated CKD-EPI eGFR when available, otherwise falls back to the directly measured GFR category (LOINC 69405-9)",
       "combinedFeatures": [
-        { "alias": "egfrCategory", "featureNamePattern": "ckd_severity_categorizedValue" },
-        { "alias": "scCategory", "featureNamePattern": "ckd_severity_from_calculated_egfr" }
+        {
+          "alias": "egfrCategory",
+          "featureNamePattern": "ckd_severity_categorizedValue"
+        },
+        {
+          "alias": "scCategory",
+          "featureNamePattern": "ckd_severity_from_calculated_egfr"
+        }
       ],
       "valueExpr": {
         "path": "iif(%scCategory.exists(),%scCategory, %egfrCategory)",

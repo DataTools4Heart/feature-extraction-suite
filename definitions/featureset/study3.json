@@ -18,7 +18,7 @@
     {
       "description": "Use the end time of encounters as the reference time point.",
       "maxPoints": 1,
-      "startFromEnd":  true,
+      "startFromEnd": true,
       "period": "9mo"
     }
   ],

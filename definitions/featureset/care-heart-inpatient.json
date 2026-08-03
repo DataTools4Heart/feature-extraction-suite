@@ -3829,15 +3829,21 @@
           "temporalAgg": [
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         }
@@ -3862,11 +3868,15 @@
           "temporalAgg": [
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         }
@@ -3891,15 +3901,21 @@
           "temporalAgg": [
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         }

@@ -943,7 +943,7 @@
           ]
         }
       ]
-    }  ,
+    },
     {
       "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
@@ -2023,7 +2023,7 @@
               ]
             }
           ]
-        },        
+        },
         {
           "name": "cm_pre_dc",
           "description": "Whether the patient has cardiomyopathy in their clinical history prior to the date of discharge",
@@ -2098,7 +2098,7 @@
               ]
             }
           ]
-        },        
+        },
         {
           "name": "hypothyroid_pre_dc",
           "description": "Whether the patient has hypothyroidism in their clinical history prior to the date of discharge",
@@ -2188,7 +2188,7 @@
               ]
             }
           ]
-        }, 
+        },
         {
           "name": "rd_pre_dc",
           "description": "Whether the patient has rheumatic disease in their clinical history prior to the date of discharge",
@@ -2203,7 +2203,7 @@
               ]
             }
           ]
-        },        
+        },
         {
           "name": "stroke_pre_dc",
           "description": "Whether the patient has stroke in their clinical history prior to the date of discharge",
@@ -2218,7 +2218,7 @@
               ]
             }
           ]
-        },        
+        },
         {
           "name": "vd_pre_dc",
           "description": "Whether the patient has valvular disease in their clinical history prior to the date of discharge",
@@ -2235,7 +2235,7 @@
           ]
         }
       ]
-    },    
+    },
     {
       "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
@@ -3078,7 +3078,7 @@
       },
       "filter": {
         "name": "history",
-        "description":"This filter is here for only avoid column name clash with the one in the previous feature group",
+        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
         "filter": "true"
       },
       "feature": [
@@ -3499,7 +3499,7 @@
       },
       "filter": {
         "name": "history",
-        "description":"This filter is here for only avoid column name clash with the one in the previous feature group",
+        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
         "filter": "true"
       },
       "feature": [
@@ -3931,31 +3931,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -3995,31 +4009,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4059,31 +4087,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4123,31 +4165,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4187,31 +4243,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4251,31 +4321,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4315,31 +4399,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4379,31 +4477,45 @@
           "temporalAgg": [
             {
               "windowSize": "7d",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "6mo",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "1a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "3a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             },
             {
               "windowSize": "5a",
-              "aggOp": ["first"]
+              "aggOp": [
+                "first"
+              ]
             }
           ]
         },
@@ -4430,9 +4542,18 @@
       "name": "eGFR_2021_ckd_epi_creatinine",
       "description": "Estimated glomerular filtration rate (eGFR) calculated from serum creatinine, age and gender using the 2021 CKD-EPI creatinine equation",
       "combinedFeatures": [
-        { "alias": "age", "featureNamePattern": "patient_demographics_age" },
-        { "alias": "gender", "featureNamePattern": "patient_demographics_gender" },
-        { "alias": "cr", "featureNamePattern": "lab_results_validSerumCreatinine_value_last" }
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        },
+        {
+          "alias": "gender",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "lab_results_validSerumCreatinine_value_last"
+        }
       ],
       "valueExpr": {
         "path": "iif(%cr.exists() and %age.exists() and %gender.exists(),142.0 * least(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(iif(%gender='male',-0.302,-0.241)) * greatest(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(-1.200) * (0.9938).power(%age) * iif(%gender='male', 1.0, 1.012),{})",
@@ -4443,7 +4564,10 @@
       "name": "ckd_severity_from_calculated_egfr",
       "description": "CKD severity stage derived by categorizing the eGFR calculated with the 2021 CKD-EPI creatinine equation",
       "combinedFeatures": [
-        { "alias": "egfr", "featureNamePattern": "eGFR_2021_ckd_epi_creatinine" }
+        {
+          "alias": "egfr",
+          "featureNamePattern": "eGFR_2021_ckd_epi_creatinine"
+        }
       ],
       "valueExpr": {
         "path": "iif(%egfr.exists(),%egfr.categorize(14 | 29 | 44 | 59 | 89, 'kidney_failure' | 'severe_decrease' | 'moderate_to_severe_decrease' | 'mild_to_moderate_decrease' | 'mildly_decreased' | 'normal_or_high'),{})",
@@ -4454,8 +4578,14 @@
       "name": "ckd_severity_calculated_or_measured",
       "description": "Final CKD severity stage: uses the stage derived from the calculated CKD-EPI eGFR when available, otherwise falls back to the directly measured GFR category (LOINC 69405-9)",
       "combinedFeatures": [
-        { "alias": "egfrCategory", "featureNamePattern": "ckd_severity_categorizedValue" },
-        { "alias": "scCategory", "featureNamePattern": "ckd_severity_from_calculated_egfr" }
+        {
+          "alias": "egfrCategory",
+          "featureNamePattern": "ckd_severity_categorizedValue"
+        },
+        {
+          "alias": "scCategory",
+          "featureNamePattern": "ckd_severity_from_calculated_egfr"
+        }
       ],
       "valueExpr": {
         "path": "iif(%scCategory.exists(),%scCategory, %egfrCategory)",
@@ -4466,19 +4596,58 @@
       "name": "maggic_total_score",
       "description": "Sum of MAGGIC points incl. SBP×EF and Age×EF extras.",
       "combinedFeatures": [
-        { "alias": "gndr", "featureNamePattern": "patient_demographics_gender" },
-        { "alias": "nyha", "featureNamePattern": "nyha_nyha_pET" },
-        { "alias": "smk",  "featureNamePattern": "smoking_status_smoker_last" },
-        { "alias": "dia",  "featureNamePattern": "conditions_diabetes_pre_dc_any" },
-        { "alias": "hf18", "featureNamePattern": "conditions_heart_failure_occurred_prior_to_18_months_any" },
-        { "alias": "bb",   "featureNamePattern": "med_requests_activeDuringEncounter_bb_any" },
-        { "alias": "ace", "featureNamePattern": "med_requests_activeDuringEncounter_ace_inhibitors_arb_use_any" },
-        { "alias": "bmi",  "featureNamePattern": "vital_signs_bmi_value_last" },
-        { "alias": "copd", "featureNamePattern": "conditions_copd_pre_dc_any" },
-        { "alias": "cr",   "featureNamePattern": "lab_results_validSerumCreatinine_value_last" },
-        { "alias": "lvef", "featureNamePattern": "echocardiographs_lvef_pET_last" },
-        { "alias": "sbp",  "featureNamePattern": "vital_signs_systolicBp_value_last" },
-        { "alias": "age",  "featureNamePattern": "patient_demographics_age" }
+        {
+          "alias": "gndr",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "nyha",
+          "featureNamePattern": "nyha_nyha_pET"
+        },
+        {
+          "alias": "smk",
+          "featureNamePattern": "smoking_status_smoker_last"
+        },
+        {
+          "alias": "dia",
+          "featureNamePattern": "conditions_diabetes_pre_dc_any"
+        },
+        {
+          "alias": "hf18",
+          "featureNamePattern": "conditions_heart_failure_occurred_prior_to_18_months_any"
+        },
+        {
+          "alias": "bb",
+          "featureNamePattern": "med_requests_activeDuringEncounter_bb_any"
+        },
+        {
+          "alias": "ace",
+          "featureNamePattern": "med_requests_activeDuringEncounter_ace_inhibitors_arb_use_any"
+        },
+        {
+          "alias": "bmi",
+          "featureNamePattern": "vital_signs_bmi_value_last"
+        },
+        {
+          "alias": "copd",
+          "featureNamePattern": "conditions_copd_pre_dc_any"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "lab_results_validSerumCreatinine_value_last"
+        },
+        {
+          "alias": "lvef",
+          "featureNamePattern": "echocardiographs_lvef_pET_last"
+        },
+        {
+          "alias": "sbp",
+          "featureNamePattern": "vital_signs_systolicBp_value_last"
+        },
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        }
       ],
       "valueExpr": {
         "path": "iif(%gndr.exists(), iif(%gndr = 'male', 1, 0), {}) + iif(%nyha.exists(), iif(%nyha = 'LA28404-4', 0, iif(%nyha = 'LA28405-1', 2, iif(%nyha = 'LA28406-9', 6, iif(%nyha = 'LA28407-7', 8, 0)))), {}) + iif(%smk.exists(), iif((%smk = '1') or (%smk = true), 1, 0), {}) + iif(%dia.exists(), iif(%dia, 3, 0), {}) + iif(%hf18.exists(), iif(%hf18, 2, 0), {}) + iif(%bb.exists(), iif(%bb = true, 0, 3), {}) + iif(%ace.exists(), iif(%ace = true, 0, 1), {}) + iif(%bmi.exists(), iif(%bmi < 15, 6, iif(%bmi < 20, 5, iif(%bmi < 25, 3, iif(%bmi < 30, 2, 0)))), {}) + iif(%copd.exists(), iif(%copd, 2, 0), {}) + iif(%cr.exists(), iif(%cr < 10.1808, 0, iif(%cr < 12.4432, 1, iif(%cr < 14.7056, 2, iif(%cr < 16.968, 3, iif(%cr < 19.2304, 4, iif(%cr < 23.7552, 5, iif(%cr < 28.28, 6, 8))))))), {}) + iif(%lvef.exists(), iif(%lvef < 20, 7, iif(%lvef < 25, 6, iif(%lvef < 30, 5, iif(%lvef < 35, 3, iif(%lvef < 40, 2, 0))))), {}) + iif(%age.exists() and %lvef.exists(), iif(%lvef < 30, iif(%age < 55, 0, iif(%age < 60, 1, iif(%age < 65, 2, iif(%age < 70, 4, iif(%age < 75, 6, iif(%age < 80, 8, 10)))))), iif(%lvef < 40, iif(%age < 55, 0, iif(%age < 60, 2, iif(%age < 65, 4, iif(%age < 70, 6, iif(%age < 75, 8, iif(%age < 80, 10, 13)))))), iif(%age < 55, 0, iif(%age < 60, 3, iif(%age < 65, 5, iif(%age < 70, 7, iif(%age < 75, 9, iif(%age < 80, 12, 15)))))))), {}) + iif(%sbp.exists() and %lvef.exists(), iif(%lvef < 30, iif(%sbp < 110, 5, iif(%sbp < 120, 4, iif(%sbp < 130, 3, iif(%sbp < 140, 2, iif(%sbp < 150, 1, 0))))), iif(%lvef < 40, iif(%sbp < 110, 3, iif(%sbp < 120, 2, iif(%sbp < 130, 1, iif(%sbp < 140, 1, 0)))), iif(%sbp < 110, 2, iif(%sbp < 120, 1, iif(%sbp < 130, 1, 0))))), {})",

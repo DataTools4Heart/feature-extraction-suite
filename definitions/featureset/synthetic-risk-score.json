@@ -122,7 +122,9 @@
           "temporalAgg": [
             {
               "aggOp": [
-                "first", "last", "set"
+                "first",
+                "last",
+                "set"
               ]
             }
           ]
