@@ -5,8 +5,8 @@
   "title": "Care Heart Inpatient Visit Features",
   "description": "Set of extracted features for Care Heart Inpatient Visit",
   "status": "active",
-  "version": "1.1",
-  "date": "2026-07-31",
+  "version": "1.2",
+  "date": "2026-08-03",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -276,7 +276,44 @@
             "name": "systolicBp",
             "value": "8480-6",
             "description": "Systolic blood pressure (mmHg)"
-          },
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "lastN": 2,
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Vital signs collected in an encounter",
+        "values": [
           {
             "name": "bmi",
             "value": "39156-5",
@@ -295,7 +332,16 @@
                 "avg"
               ]
             }
-          ]
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "randomRange",
+                "min": 18.5,
+                "max": 25.0
+              }
+            ]
+          }
         }
       ]
     },
@@ -315,7 +361,44 @@
             "name": "creatBS",
             "value": "2160-0",
             "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
-          },
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "lastN": 2,
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Important lab results to be evaluated features",
+        "values": [
           {
             "name": "creatUS",
             "value": "2161-8",
@@ -772,7 +855,15 @@
                 "last"
               ]
             }
-          ]
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
         },
         {
           "name": "formerSmoker",
@@ -842,7 +933,14 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "The latest value of the New York Heart Assessment as LOINC Code"
+          "description": "The latest value of the New York Heart Assessment as LOINC Code",
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationCategorical"
+              }
+            ]
+          }
         }
       ]
     },

@@ -5,7 +5,7 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.6",
+  "version": "1.7",
   "date": "2026-08-03",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -223,11 +223,6 @@
             "name": "height",
             "value": "8302-2",
             "description": "Height (cm)"
-          },
-          {
-            "name": "bmi",
-            "value": "39156-5",
-            "description": "Body mass index (BMI)"
           }
         ]
       },
@@ -257,11 +252,6 @@
         "name": "codes",
         "description": "Vital signs collected in an encounter",
         "values": [
-          {
-            "name": "systolicBp",
-            "value": "8480-6",
-            "description": "Systolic blood pressure (mmHg)"
-          },
           {
             "name": "diastolicBp",
             "value": "8462-4",
@@ -472,7 +462,6 @@
             {
               "aggOp": [
                 "first",
-                "last",
                 "avg",
                 "min",
                 "max",
@@ -794,7 +783,15 @@
                 "last"
               ]
             }
-          ]
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
         },
         {
           "name": "formerSmoker",
@@ -865,7 +862,117 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "New York Heart Association category from 6 months before admission through discharge"
+          "description": "New York Heart Association category from 6 months before admission through discharge",
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationCategorical"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "systolicBp",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes = '8480-6'"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest systolic blood pressure recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "bmi",
+        "description": "BMI (kg/m2)",
+        "filter": "codes = '39156-5'"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest BMI recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the normal BMI range (18.5-25 kg/m2).",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "randomRange",
+                "min": 18.5,
+                "max": 25.0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "validSerumCreatinine",
+        "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0') and value >= 0.11 and value <= 22.6"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest serum creatinine value recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
         }
       ]
     },
