@@ -5,8 +5,8 @@
   "title": "Care Heart Outpatient Visit Features",
   "description": "Set of extracted features for Care Heart Outpatient Visit",
   "status": "active",
-  "version": "1.2",
-  "date": "2026-08-03",
+  "version": "1.3",
+  "date": "2026-08-04",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -308,6 +308,75 @@
         "on": {
           "pid": "pid"
         },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "systolicBpDuringEncounter",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes = '8480-6' and value >= 20 and value <= 250"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the systolic blood pressure measured during the encounter, restricted to physiologically plausible readings (20-250 mmHg) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "bmi",
+        "description": "BMI (kg/m2)",
+        "filter": "codes = '39156-5'"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest BMI recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the normal BMI range (18.5-25 kg/m2).",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "randomRange",
+                "min": 18.5,
+                "max": 25.0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
         "duration": "3a"
       },
       "pivot": {
@@ -378,6 +447,40 @@
           ],
           "missing": {
             "strategies": [
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "validSerumCreatinine",
+        "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0') and value >= 0.11 and value <= 22.6"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest serum creatinine value recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
               {
                 "type": "populationStatistic",
                 "statistic": "iqrSample"
@@ -758,8 +861,7 @@
       "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
         "duration": "%eventTime - 1mo"
       },
@@ -3746,7 +3848,7 @@
         },
         {
           "alias": "bmi",
-          "featureNamePattern": "vital_signs_bmi_value_p3a_avg"
+          "featureNamePattern": "vital_signs_bmi_value_pET"
         },
         {
           "alias": "copd",
@@ -3758,7 +3860,7 @@
         },
         {
           "alias": "cr",
-          "featureNamePattern": "lab_results_creatBS_value_p3a_avg"
+          "featureNamePattern": "lab_results_validSerumCreatinine_value_pET"
         },
         {
           "alias": "lvef",
@@ -3766,7 +3868,7 @@
         },
         {
           "alias": "sbp",
-          "featureNamePattern": "vital_signs_systolicBp_value_p3a_avg"
+          "featureNamePattern": "vital_signs_systolicBpDuringEncounter_value_pET"
         },
         {
           "alias": "age",
