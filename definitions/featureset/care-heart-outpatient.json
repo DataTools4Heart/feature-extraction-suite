@@ -282,7 +282,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Value of the vital sign",
+          "description": "Average of the last 2 systolic blood pressure values recorded over the three years preceding the reference time point. If missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "temporalAgg": [
             {
               "lastN": 2,
@@ -324,7 +324,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Value of the vital sign",
+          "description": "Average of the last 2 BMI values recorded over the three years preceding the reference time point. If missing, falls back to a random value drawn from the normal BMI range (18.5-25 kg/m2).",
           "temporalAgg": [
             {
               "lastN": 2,
@@ -367,7 +367,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Value of the lab result",
+          "description": "Average of the last 2 serum creatinine values recorded over the three years preceding the reference time point. If missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "temporalAgg": [
             {
               "lastN": 2,
@@ -844,7 +844,7 @@
       "feature": [
         {
           "name": "smoker",
-          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker. If missing (including when no smoking-status information is recorded at all), defaults to false (non-smoker).",
           "value": {
             "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
             "dataType": "boolean"
@@ -933,7 +933,7 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "The latest value of the New York Heart Assessment as LOINC Code",
+          "description": "The latest value of the New York Heart Assessment as LOINC Code. If missing, falls back to a value randomly drawn from the categorical distribution of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {

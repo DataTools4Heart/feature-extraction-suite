@@ -772,7 +772,7 @@
       "feature": [
         {
           "name": "smoker",
-          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker. If missing (including when no smoking-status information is recorded at all), defaults to false (non-smoker).",
           "value": {
             "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
             "dataType": "boolean"
@@ -862,7 +862,7 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "New York Heart Association category from 6 months before admission through discharge",
+          "description": "New York Heart Association category from 6 months before admission through discharge. If missing, falls back to a value randomly drawn from the categorical distribution of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {
