@@ -5,8 +5,8 @@
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
-  "version": "1.5",
-  "date": "2026-06-11",
+  "version": "1.6",
+  "date": "2026-08-11",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -76,7 +76,7 @@
       "filter": {
         "name": "systolic_blood_pressure",
         "description": "Systolic blood pressure (mmHg)",
-        "filter": "codes = '8480-6' and value > 50 and value < 300"
+        "filter": "codes.select($this = '8480-6').anyTrue() and value > 50 and value < 300"
       },
       "feature": [
         {
@@ -103,7 +103,7 @@
       "filter": {
         "name": "bmi",
         "description": "BMI (kg/m2)",
-        "filter": "codes = '39156-5' and value > 16 and value < 50"
+        "filter": "codes.select($this = '39156-5').anyTrue() and value > 16 and value < 50"
       },
       "feature": [
         {
@@ -130,7 +130,7 @@
       "filter": {
         "name": "creatinine",
         "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)",
-        "filter": "codes = '2160-0' and value > 0 and value < 250"
+        "filter": "codes.select($this = '2160-0').anyTrue() and value > 0 and value < 250"
       },
       "feature": [
         {
@@ -157,7 +157,7 @@
       "filter": {
         "name": "urinary_creatinine",
         "description": "Creatinine [Mass/volume] in Urine (mg/L)",
-        "filter": "codes = '2161-8' and value > 0 and value < 250"
+        "filter": "codes.select($this = '2161-8').anyTrue() and value > 0 and value < 250"
       },
       "feature": [
         {
