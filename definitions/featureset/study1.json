@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "1.9",
-  "date": "2026-08-11",
+  "version": "2.0",
+  "date": "2026-08-12",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -2769,6 +2769,21 @@
           ]
         },
         {
+          "name": "sglt2i",
+          "description": "Whether SGLT2i administered during the admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BK01') or $this.startsWith('A10BK03')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
           "name": "ari",
           "description": "Whether ari (drugs to prevent nerve damage in diabetes) administered during the admission",
           "value": {
@@ -3174,6 +3189,21 @@
           "description": "Whether oral_antidiabetic prescribed during the admission",
           "value": {
             "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sglt2i",
+          "description": "Whether SGLT2i prescribed during the admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BK01') or $this.startsWith('A10BK03')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -3606,6 +3636,21 @@
           ]
         },
         {
+          "name": "sglt2i",
+          "description": "Whether SGLT2i administered in their clinical history prior to the date of admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BK01') or $this.startsWith('A10BK03')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
           "name": "ari",
           "description": "Whether ari (drugs to prevent nerve damage in diabetes) administered in their clinical history prior to the date of admission",
           "value": {
@@ -4016,6 +4061,21 @@
           "description": "Whether oral_antidiabetic prescribed in their clinical history prior to the date of admission",
           "value": {
             "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "sglt2i",
+          "description": "Whether SGLT2i prescribed in their clinical history prior to the date of admission",
+          "value": {
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BK01') or $this.startsWith('A10BK03')).anyTrue())",
             "dataType": "boolean"
           },
           "temporalAgg": [
