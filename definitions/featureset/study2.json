@@ -76,10 +76,14 @@
           "description": "Admission source"
         },
         {
+          "name": "transportationType",
+          "description": "Transportation type by which the patient arrived for the encounter"
+        },
+        {
           "name": "emsTransport",
-          "description": "Whether the patient was transported to the hospital by Emergency Medical Services (EMS). In cohorts where admission-source information is captured, a patient with no recorded admission source defaults to \"no\"; in cohorts where no patient has admission-source information at all, a missing value is randomly assigned \"yes\" or \"no\".",
+          "description": "Whether the patient was transported to the hospital by Emergency Medical Services (EMS). In cohorts where transportation-type information is captured, a patient with no recorded transportation type defaults to \"no\"; in cohorts where no patient has transportation-type information at all, a missing value is randomly assigned \"yes\" or \"no\".",
           "value": {
-            "path": "admissionSource = 'ems-transport'",
+            "path": "transportationType = 'ems-transport'",
             "dataType": "boolean"
           },
           "missing": {

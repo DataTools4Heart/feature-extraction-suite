@@ -87,6 +87,33 @@
       "title": "admissionSource",
       "description": "Admission source",
       "dataType": "code"
+    },
+    {
+      "name": "transportationType",
+      "title": "transportationType",
+      "description": "Transportation modality by which the patient arrived for the encounter",
+      "dataType": "code",
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/encounter-transportation-type",
+        "concept": [
+          {
+            "code": "self-transport",
+            "display": "Self Transport"
+          },
+          {
+            "code": "ems-transport",
+            "display": "EMS Transport"
+          },
+          {
+            "code": "air-transport",
+            "display": "Air Transport"
+          },
+          {
+            "code": "police-transport",
+            "display": "Police Transport"
+          }
+        ]
+      }
     }
   ],
   "eventTime": {
