@@ -54,7 +54,11 @@
         },
         {
           "name": "admissionSource",
-          "path": "Encounter.admission.admitSource.coding.where(system='https://datatools4heart.eu/fhir/CodeSystem/encounter-admit-source').code.first()"
+          "path": "Encounter.admission.admitSource.coding.where(system='http://terminology.hl7.org/CodeSystem/admit-source').code.first()"
+        },
+        {
+          "name": "transportationType",
+          "path": "Encounter.extension('https://datatools4heart.eu/fhir/StructureDefinition/HFR-EncounterTransportationType').valueCodeableConcept.coding.where(system='https://datatools4heart.eu/fhir/CodeSystem/encounter-transportation-type').code.first()"
         }
       ]
     }
