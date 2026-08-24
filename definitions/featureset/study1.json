@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "2.0",
-  "date": "2026-08-12",
+  "version": "2.1",
+  "date": "2026-08-24",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -263,16 +263,43 @@
             "description": "Heart rate (bpm)"
           },
           {
-            "name": "oxygenSaturation",
-            "value": "2708-6",
-            "description": "SpO2 (%)"
-          },
-          {
             "name": "systolicBp",
             "value": "8480-6",
             "description": "Systolic blood pressure (mmHg)"
           }
         ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "oxygenSaturation",
+        "description": "SpO2 (%). Matched by LOINC 2708-6 (Oxygen saturation in Arterial blood) or 59408-5 (by Pulse oximetry), whichever the site reports.",
+        "filter": "codes.select($this = '2708-6' or $this = '59408-5').anyTrue()"
       },
       "feature": [
         {
@@ -376,29 +403,9 @@
             "description": "Cholesterol in HDL [Moles/volume] in Serum or Plasma (mmol/L)"
           },
           {
-            "name": "ldl",
-            "value": "22748-8",
-            "description": "Cholesterol in LDL [Moles/volume] in Serum or Plasma (mmol/L)"
-          },
-          {
-            "name": "potassium",
-            "value": "2823-3",
-            "description": "Potassium [Moles/volume] in Serum or Plasma (mmol/L)"
-          },
-          {
-            "name": "sodium",
-            "value": "2951-2",
-            "description": "Sodium [Moles/volume] in Serum or Plasma (mmol/L)"
-          },
-          {
             "name": "creatUS",
             "value": "2161-8",
             "description": "Creatinine [Mass/volume] in Urine (mg/L)"
-          },
-          {
-            "name": "albuminBS",
-            "value": "1751-7",
-            "description": "Albumin [Mass/volume] in Serum or Plasma (g/L)"
           },
           {
             "name": "albuminUS",
@@ -414,18 +421,200 @@
             "name": "acr",
             "value": "32294-1",
             "description": "Albumin/Creatinine [Ratio] in Urine (mg/mmol)"
-          },
-          {
-            "name": "hba1c%",
-            "value": "4548-4",
-            "description": "Hemoglobin A1c/Hemoglobin.total in Blood (%)"
-          },
-          {
-            "name": "hba1c",
-            "value": "41995-2",
-            "description": "Hemoglobin A1c [Mass/volume] in Blood (mmol/mol)"
           }
         ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "ldl",
+        "description": "Cholesterol in LDL [Moles/volume] in Serum or Plasma (mmol/L). Matched by LOINC 22748-8 or 39469-2 (by calculation), whichever the site reports.",
+        "filter": "codes.select($this = '22748-8' or $this = '39469-2').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "potassium",
+        "description": "Potassium [Moles/volume] in Serum or Plasma (mmol/L). Matched by LOINC 2823-3 or 32713-0 (in Arterial blood), whichever the site reports.",
+        "filter": "codes.select($this = '2823-3' or $this = '32713-0').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "sodium",
+        "description": "Sodium [Moles/volume] in Serum or Plasma (mmol/L). Matched by LOINC 2951-2 or 32717-1 (in Arterial blood), whichever the site reports.",
+        "filter": "codes.select($this = '2951-2' or $this = '32717-1').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "albuminBS",
+        "description": "Albumin [Mass/volume] in Serum or Plasma (g/L). Matched by LOINC 1751-7 or 61152-5 (by Bromocresol purple (BCP) dye binding method), whichever the site reports.",
+        "filter": "codes.select($this = '1751-7' or $this = '61152-5').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "hba1c%",
+        "description": "Hemoglobin A1c/Hemoglobin.total in Blood (%). Matched by LOINC 4548-4 or 17856-6 (by HPLC), whichever the site reports.",
+        "filter": "codes.select($this = '4548-4' or $this = '17856-6').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "filter": {
+        "name": "hba1c",
+        "description": "Hemoglobin A1c [Mass/volume] in Blood (mmol/mol). Matched by LOINC 41995-2 or 59261-8 (Hemoglobin A1c/Hemoglobin.total by IFCC protocol), whichever the site reports.",
+        "filter": "codes.select($this = '41995-2' or $this = '59261-8').anyTrue()"
       },
       "feature": [
         {
