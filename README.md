@@ -363,3 +363,20 @@ After completing the above steps (and ensuring data-ingestion-suite is running i
 sh ./feature-extraction-suite/docker/run.sh
 sh ./data-ingestion-suite/docker/proxy/restart.sh # Optional
 ```
+## Scripts
+
+### `scripts/sample_score_cohorts.py`
+
+Randomly samples patients that have a MAGGIC score (Study1, Study4, CARE-HEART Inpatient/Outpatient, MAGGIC-MLP) or EHMRG score (Study2) from the already-extracted datasets under `output-data/myFhirServer/dataset/`, and writes a Markdown report (per-use-case totals, followed by the selected patients' `patientId`/`encounterId`/eligibility event & exit time). Use cases with no extraction yet are reported as "Not available"; if a use case has more than one extraction, the most recent one is used.
+
+```
+python scripts/sample_score_cohorts.py --count 10
+```
+
+Parameters:
+- `--count` / `-n` (**required**): number of patients to randomly select per use case.
+- `--seed` (optional): random seed, for a reproducible sample.
+- `--output` / `-o` (optional): path to write the Markdown report (default: `score-cohort-sample.md` at the repo root).
+- `--output-data-dir` (optional): path to `output-data/myFhirServer` (default: the repo's own `output-data`).
+
+---
