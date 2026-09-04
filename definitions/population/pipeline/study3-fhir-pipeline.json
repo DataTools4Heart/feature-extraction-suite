@@ -5,8 +5,8 @@
   "name": "study3_cohort",
   "title": "Adult Cardiology Outpatient Cohort with Heart Failure Diagnosis (Any Time)",
   "description": "This cohort includes cardiology department visits of adult patients diagnosed with heart failure at any time.",
-  "version": "1.2",
-  "date": "2026-06-19",
+  "version": "1.3",
+  "date": "2026-09-04",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -28,7 +28,7 @@
         }
       ],
       "eventTime": "Encounter.actualPeriod.start",
-      "exitTime": "(Encounter.actualPeriod.end.toDate() | (Encounter.actualPeriod.start.substring(0, 10).toDate() + 1 days)).first()"
+      "exitTime": "(Encounter.actualPeriod.end.toDateTime() | (Encounter.actualPeriod.start.substring(0, 10).toDateTime() + 1 days)).first()"
     }
   ],
   "eligibility": [
