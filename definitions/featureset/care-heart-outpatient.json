@@ -5,8 +5,8 @@
   "title": "Care Heart Outpatient Visit Features",
   "description": "Set of extracted features for Care Heart Outpatient Visit",
   "status": "active",
-  "version": "1.5",
-  "date": "2026-08-24",
+  "version": "1.6",
+  "date": "2026-09-07",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -4304,6 +4304,110 @@
               "windowSize": "1a",
               "aggOp": [
                 "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "number_of_HF_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to heart failure within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "number_of_CV_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to cardiovascular disease within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "number_of_non_CV_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to non-cardiovascular disease within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "number_of_renal_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to renal complications within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
               ]
             }
           ]
