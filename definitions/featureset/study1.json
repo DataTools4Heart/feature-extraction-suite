@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "2.2",
-  "date": "2026-09-07",
+  "version": "2.3",
+  "date": "2026-09-16",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -4970,7 +4970,7 @@
       },
       "feature": [
         {
-          "name": "isAllCause",
+          "name": "isUnspecifiedCause",
           "description": "Whether the patient dies because of unspecified condition after the discharge",
           "value": {
             "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).anyTrue())",
@@ -5022,7 +5022,7 @@
           ]
         },
         {
-          "name": "number_of_days_to_death_for_all_cause",
+          "name": "number_of_days_to_death_for_unspecified_cause",
           "description": "Number of days from discharge until death due to unspecified condition",
           "value": {
             "path": "iif(causesOfDeath.select($this.startsWith('R99')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
