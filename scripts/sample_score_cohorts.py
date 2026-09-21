@@ -114,7 +114,7 @@ def _latest_commit_timestamp(fs_path, uuid):
 
 
 def load_scored_patients(uuid_dir, score_col):
-    """Load pid/encounterId/eventTime/exitTime/<score_col> for rows with a non-null score."""
+    """Load pid/encounterId/eventTime/exitTime/referenceTimePoint/<score_col> for rows with a non-null score."""
     part_files = sorted(glob.glob(os.path.join(uuid_dir, "part-*.snappy.parquet")))
     if not part_files:
         return None
@@ -127,10 +127,15 @@ def load_scored_patients(uuid_dir, score_col):
     has_encounter = "encounterId" in probe_columns
     if has_encounter:
         columns.insert(1, "encounterId")
+    has_reference_time_point = "referenceTimePoint" in probe_columns
+    if has_reference_time_point:
+        columns.append("referenceTimePoint")
 
     df = pd.concat((pd.read_parquet(f, columns=columns) for f in part_files), ignore_index=True)
     if not has_encounter:
         df["encounterId"] = None
+    if not has_reference_time_point:
+        df["referenceTimePoint"] = None
 
     return df[df[score_col].notna()].copy()
 
@@ -230,13 +235,14 @@ def build_report(results, count, seed):
             lines.append("")
             continue
 
-        lines.append("| Patient ID | Encounter ID | Eligibility Event Time | Eligibility Exit Time |")
-        lines.append("|---|---|---|---|")
+        lines.append("| Patient ID | Encounter ID | Eligibility Event Time | Eligibility Exit Time | Reference Time Point (asOf) |")
+        lines.append("|---|---|---|---|---|")
         for _, row in r["selected"].iterrows():
             encounter_id = row["encounterId"] if pd.notna(row["encounterId"]) else "N/A"
             lines.append(
                 f"| {row['pid']} | {encounter_id} | "
-                f"{fmt_timestamp(row['eventTime'])} | {fmt_timestamp(row['exitTime'])} |"
+                f"{fmt_timestamp(row['eventTime'])} | {fmt_timestamp(row['exitTime'])} | "
+                f"{fmt_timestamp(row['referenceTimePoint'])} |"
             )
         lines.append("")
 
