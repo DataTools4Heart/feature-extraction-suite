@@ -5,6 +5,7 @@
   "name": "med_requests",
   "title": "Medication Requests or Prescriptions",
   "description": "Medication Requests or Prescriptions related features",
+  "version": "1.0",
   "status": "active",
   "date": "2025-08-06",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",

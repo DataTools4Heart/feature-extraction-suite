@@ -5,6 +5,7 @@
   "name": "lab_results",
   "title": "Lab results",
   "description": "Condition related features",
+  "version": "1.0",
   "status": "active",
   "date": "2026-08-03",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",

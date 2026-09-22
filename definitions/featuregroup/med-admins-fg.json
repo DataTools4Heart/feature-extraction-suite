@@ -5,6 +5,7 @@
   "name": "med_admins",
   "title": "Medication Administrations",
   "description": "Medication Administrations related features",
+  "version": "1.0",
   "status": "active",
   "date": "2025-07-21",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
