@@ -5,6 +5,7 @@
   "name": "cause_of_death",
   "title": "Cause of death",
   "description": "This feature group contains the feature that indicates the cause of death",
+  "version": "1.0",
   "status": "active",
   "date": "2025-07-24",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
