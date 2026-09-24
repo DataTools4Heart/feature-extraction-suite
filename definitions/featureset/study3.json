@@ -5,8 +5,8 @@
   "title": "Dataset for DataTools4Heart project clinical study 3",
   "description": "Dataset for DataTools4Heart project clinical study 3",
   "status": "active",
-  "version": "1.3",
-  "date": "2026-08-11",
+  "version": "1.4",
+  "date": "2026-09-18",
   "publisher": "DT4H WP2 Team (SRDC Corp.)",
   "entity": [
     {
@@ -1499,6 +1499,344 @@
           ]
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "hyp_by_dx_pre_post3d",
+          "description": "Whether the patient has a hypertension diagnosis (ICD-10 I10, I11, I13, I15) recorded at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I10') or $this.startsWith('I11') or $this.startsWith('I13') or $this.startsWith('I15')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diabetes_by_dx_pre_post3d",
+          "description": "Whether the patient has a diabetes mellitus diagnosis (ICD-10 E10-E14) recorded at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ckd_chronic_by_dx_pre_post3d",
+          "description": "Whether the patient has a chronic kidney disease diagnosis (ICD-10 N18, N19) recorded at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_outpatient_blood_pressures",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "systolicBpConsecutive",
+        "description": "Systolic blood pressure (LOINC 8480-6) measurements above 139 mmHg",
+        "filter": "codes.select($this = '8480-6').anyTrue() and value > 139"
+      },
+      "feature": [
+        {
+          "name": "gt_139_pre_post3d",
+          "description": "Whether the patient has two systolic blood pressure measurements above 139 mmHg, the second taken at least 1 hour and at most 30 days after the first, at any time up to 3 days after the end of the outpatient visit. Evaluated over consecutive elevated measurements ordered in time.",
+          "value": {
+            "path": "utl:getPeriod(%previousRow.effectiveDateTime, effectiveDateTime, 'h') >= 1 and utl:getPeriod(%previousRow.effectiveDateTime, effectiveDateTime, 'd') <= 30",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_outpatient_blood_pressures",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "diastolicBpConsecutive",
+        "description": "Diastolic blood pressure (LOINC 8462-4) measurements above 89 mmHg",
+        "filter": "codes.select($this = '8462-4').anyTrue() and value > 89"
+      },
+      "feature": [
+        {
+          "name": "gt_89_pre_post3d",
+          "description": "Whether the patient has two diastolic blood pressure measurements above 89 mmHg, the second taken at least 1 hour and at most 30 days after the first, at any time up to 3 days after the end of the outpatient visit. Evaluated over consecutive elevated measurements ordered in time.",
+          "value": {
+            "path": "utl:getPeriod(%previousRow.effectiveDateTime, effectiveDateTime, 'h') >= 1 and utl:getPeriod(%previousRow.effectiveDateTime, effectiveDateTime, 'd') <= 30",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "randomGlucose",
+        "description": "Random glucose [Moles/volume] in Serum or Plasma (mmol/L). Matched by LOINC 51596-5, 39481-7 or 14749-6",
+        "filter": "codes.select($this = '51596-5' or $this = '39481-7' or $this = '14749-6').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "gt_11p1_pre_post3d",
+          "description": "Whether the patient has a random glucose measurement above 11.1 mmol/L at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "value > 11.1",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "fastingGlucose",
+        "description": "Fasting glucose [Moles/volume] in Serum or Plasma (mmol/L). Matched by LOINC 76629-5",
+        "filter": "codes.select($this = '76629-5').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "gt_7_pre_post3d",
+          "description": "Whether the patient has a fasting glucose measurement above 7.0 mmol/L at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "value > 7.0",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "valideGFR",
+        "description": "Filter valid glomerular filtration rate/1.73 sq M.predicted [Volume Rate/Area] in Serum, Plasma or Blood (ml/min/1.73m2)",
+        "filter": "codes.select($this = '69405-9').anyTrue() and value >= 1 and value <= 200"
+      },
+      "feature": [
+        {
+          "name": "lt_60",
+          "visible": false,
+          "description": "Whether the patient has a measured eGFR below 60 mL/min/1.73m2 at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "value < 60",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "validSerumCreatinine",
+        "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0').anyTrue() and value >= 0.11 and value <= 22.6"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "visible": false,
+          "description": "Latest serum creatinine value recorded at any time up to 3 days after the end of the outpatient visit, used to calculate the eGFR with the 2021 CKD-EPI creatinine equation"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_med_requests",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "insulins_pre_post3d",
+          "description": "Whether the patient has a prescription for insulin or an insulin analogue (ATC A10AB, A10AC, A10AD, A10AE, A10AF) at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "medicationCodes.select($this.startsWith('A10AB') or $this.startsWith('A10AC') or $this.startsWith('A10AD') or $this.startsWith('A10AE') or $this.startsWith('A10AF')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "oral_antidiabetic_pre_post3d",
+          "description": "Whether the patient has a prescription for a blood-glucose-lowering drug excluding insulins (ATC A10BA, A10BB, A10BG, A10BF, A10BH, A10BJ, A10BD, A10BX09, A10BK01, A10BX12, A10BK03) at any time up to 3 days after the end of the outpatient visit",
+          "value": {
+            "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "serumCreatinine",
+        "description": "Creatinine [Mass/volume] in Serum or Plasma (LOINC 2160-0) results above 8 mg/L",
+        "filter": "codes.select($this = '2160-0').anyTrue() and value > 8"
+      },
+      "feature": [
+        {
+          "name": "gt_8_3mo_to_5a_pre_post3d",
+          "description": "Whether the patient has two serum creatinine results above 8 mg/L, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. Evaluated over consecutive elevated results ordered in time.",
+          "value": {
+            "path": "utl:getPeriod(%previousRow.date, date, 'mo') >= 3 and utl:getPeriod(%previousRow.date, date, 'mo') <= 60",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "i25p5",
+          "visible": false,
+          "description": "Whether the patient has an I25.5 (chronic ischaemic heart disease) encounter diagnosis at any time up to the end of the outpatient visit. Together with hf_excl_i25p5_anytime this shows which of the study 3 eligibility codes the patient qualifies through.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I25.5')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hf_excl_i25p5",
+          "visible": false,
+          "description": "Whether the patient has an encounter diagnosis carrying one of the study 3 heart failure eligibility codes other than I25.5 (I50, I11.0, I13.0, I13.2, I26.0, I09.81, I97.13) at any time up to the end of the outpatient visit. Filter this to true to reproduce the cohort as it was before I25.5 was added to the eligibility criteria.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
     }
   ],
   "outcome": [
@@ -1642,6 +1980,127 @@
           ]
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "i25p5",
+          "visible": false,
+          "description": "Whether the patient has an I25.5 (chronic ischaemic heart disease) encounter diagnosis at any time after the end of the outpatient visit. Together with hf_excl_i25p5_anytime this shows which of the study 3 eligibility codes the patient qualifies through.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I25.5')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "hf_excl_i25p5",
+          "visible": false,
+          "description": "Whether the patient has an encounter diagnosis carrying one of the study 3 heart failure eligibility codes other than I25.5 (I50, I11.0, I13.0, I13.2, I26.0, I09.81, I97.13) at any time after the end of the outpatient visit. Filter this to true to reproduce the cohort as it was before I25.5 was added to the eligibility criteria.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combinedFeature": [
+    {
+      "name": "eGFR_2021_ckd_epi_creatinine",
+      "visible": false,
+      "description": "Estimated glomerular filtration rate (eGFR) calculated from the latest serum creatinine recorded at any time up to 3 days after the end of the outpatient visit, together with age and gender, using the 2021 CKD-EPI creatinine equation",
+      "combinedFeatures": [
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        },
+        {
+          "alias": "gender",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "study3_lab_results_validSerumCreatinine_value"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%cr.exists() and %age.exists() and %gender.exists(),142.0 * least(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(iif(%gender='male',-0.302,-0.241)) * greatest(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(-1.200) * (0.9938).power(%age) * iif(%gender='male', 1.0, 1.012),{})",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "eGFR_lt_60_pre_post3d",
+      "description": "Whether the patient has an eGFR below 60 mL/min/1.73m2 at any time up to 3 days after the end of the outpatient visit, either measured directly (LOINC 69405-9) or calculated with the 2021 CKD-EPI creatinine equation when a serum creatinine value is available",
+      "combinedFeatures": [
+        {
+          "alias": "measured",
+          "featureNamePattern": "study3_lab_results_valideGFR_lt_60_any"
+        },
+        {
+          "alias": "calculated",
+          "featureNamePattern": "eGFR_2021_ckd_epi_creatinine"
+        }
+      ],
+      "valueExpr": {
+        "path": "(%measured.exists() and %measured) or (%calculated.exists() and %calculated < 60)",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "i25p5_anytime",
+      "description": "Whether the patient has an I25.5 (chronic ischaemic heart disease) encounter diagnosis at any time. Together with hf_excl_i25p5_anytime this shows which of the study 3 eligibility codes the patient qualifies through.",
+      "combinedFeatures": [
+        {
+          "alias": "pre",
+          "featureNamePattern": "encounter_primary_reason_i25p5_any"
+        },
+        {
+          "alias": "post",
+          "featureNamePattern": "encounter_primary_reason_i25p5_f_any"
+        }
+      ],
+      "valueExpr": {
+        "path": "(%pre.exists() and %pre) or (%post.exists() and %post)",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "hf_excl_i25p5_anytime",
+      "description": "Whether the patient has an encounter diagnosis carrying one of the study 3 heart failure eligibility codes other than I25.5 (I50, I11.0, I13.0, I13.2, I26.0, I09.81, I97.13) at any time. Filter this to true to reproduce the cohort as it was before I25.5 was added to the eligibility criteria.",
+      "combinedFeatures": [
+        {
+          "alias": "pre",
+          "featureNamePattern": "encounter_primary_reason_hf_excl_i25p5_any"
+        },
+        {
+          "alias": "post",
+          "featureNamePattern": "encounter_primary_reason_hf_excl_i25p5_f_any"
+        }
+      ],
+      "valueExpr": {
+        "path": "(%pre.exists() and %pre) or (%post.exists() and %post)",
+        "dataType": "boolean"
+      }
     }
   ]
 }

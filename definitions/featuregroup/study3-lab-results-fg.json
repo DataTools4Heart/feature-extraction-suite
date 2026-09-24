@@ -1,0 +1,81 @@
+{
+  "id": "study3_lab_results",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+  "name": "study3_lab_results",
+  "title": "Lab results used by the study 3 condition criteria",
+  "description": "Glucose, fasting glucose, eGFR and serum creatinine results, with the observation date shifted 3 days earlier so that results registered shortly after an outpatient visit still fall inside the feature window",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "codes",
+      "title": "LOINC codes for the lab result",
+      "description": "LOINC codes for the lab result",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://loinc.org",
+        "concept": [
+          {
+            "code": "51596-5",
+            "display": "Glucose [Moles/volume] in Serum or Plasma --post meal"
+          },
+          {
+            "code": "39481-7",
+            "display": "Glucose [Moles/volume] in Serum or Plasma --1.5 hours post dose glucose"
+          },
+          {
+            "code": "14749-6",
+            "display": "Glucose [Moles/volume] in Serum or Plasma"
+          },
+          {
+            "code": "76629-5",
+            "display": "Fasting glucose [Moles/volume] in Blood"
+          },
+          {
+            "code": "69405-9",
+            "display": "Glomerular filtration rate/1.73 sq M.predicted"
+          },
+          {
+            "code": "2160-0",
+            "display": "Creatinine [Mass/volume] in Serum or Plasma"
+          }
+        ]
+      }
+    },
+    {
+      "name": "value",
+      "title": "Numeric lab result",
+      "description": "Numeric lab result",
+      "dataType": "decimal"
+    },
+    {
+      "name": "date",
+      "title": "The date of the observation.",
+      "description": "The date of the observation.",
+      "dataType": "date"
+    },
+    {
+      "name": "joinTime",
+      "title": "Observation date shifted 3 days earlier",
+      "description": "The observation date shifted 3 days earlier. Used as the event time of this feature group so that results registered up to 3 days after the reference time point still fall inside the feature window. This is not the time of the measurement - use date for that.",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "joinTime"
+  }
+}
