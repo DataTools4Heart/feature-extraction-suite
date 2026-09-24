@@ -1,0 +1,52 @@
+{
+  "id": "study3_conditions",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/study3_conditions",
+  "name": "study3_conditions",
+  "title": "Conditions used by the study 3 condition criteria",
+  "description": "Hypertension, diabetes mellitus and chronic kidney disease diagnoses, with the onset date shifted 3 days earlier so that diagnoses registered shortly after an outpatient visit still fall inside the feature window",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the conditions used by the study 3 condition criteria from Condition.",
+      "resourceType": "Condition",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Condition",
+      "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I10,http://hl7.org/fhir/sid/icd-10|I11,http://hl7.org/fhir/sid/icd-10|I13,http://hl7.org/fhir/sid/icd-10|I15,http://hl7.org/fhir/sid/icd-10|E10,http://hl7.org/fhir/sid/icd-10|E11,http://hl7.org/fhir/sid/icd-10|E12,http://hl7.org/fhir/sid/icd-10|E13,http://hl7.org/fhir/sid/icd-10|E14,http://hl7.org/fhir/sid/icd-10|N18,http://hl7.org/fhir/sid/icd-10|N19",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Condition.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Condition.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "icd10Codes",
+          "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code"
+        },
+        {
+          "name": "date",
+          "path": "Condition.onsetDateTime"
+        },
+        {
+          "name": "joinTime",
+          "path": "Condition.onsetDateTime.toDateTime() - 3 days"
+        }
+      ]
+    }
+  ]
+}

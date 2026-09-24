@@ -18,7 +18,7 @@
       "description": "Extract the features from Condition.",
       "resourceType": "Condition",
       "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Condition",
-      "query": "?clinical-status=active&category=encounter-diagnosis",
+      "query": "?category=encounter-diagnosis",
       "entityLink": [
         {
           "entity": "pid",

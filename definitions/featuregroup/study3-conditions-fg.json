@@ -1,0 +1,49 @@
+{
+  "id": "study3_conditions",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/study3_conditions",
+  "name": "study3_conditions",
+  "title": "Conditions used by the study 3 condition criteria",
+  "description": "Hypertension, diabetes mellitus and chronic kidney disease diagnoses, with the onset date shifted 3 days earlier so that diagnoses registered shortly after an outpatient visit still fall inside the feature window",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "icd10Codes",
+      "title": "Condition codes (ICD-10)",
+      "description": "ICD-10 codes for the condition",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://hl7.org/fhir/ValueSet/icd-10-cm"
+      }
+    },
+    {
+      "name": "date",
+      "title": "The date of the condition.",
+      "description": "The date of the condition.",
+      "dataType": "date"
+    },
+    {
+      "name": "joinTime",
+      "title": "Condition onset date shifted 3 days earlier",
+      "description": "The condition onset date shifted 3 days earlier. Used as the event time of this feature group so that records registered up to 3 days after the reference time point still fall inside the feature window. This is not the real time - use date for that.",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "joinTime"
+  }
+}

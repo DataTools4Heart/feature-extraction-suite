@@ -1,0 +1,72 @@
+{
+  "id": "study3_med_requests",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/study3_med_requests",
+  "name": "study3_med_requests",
+  "title": "Medication requests used by the study 3 condition criteria",
+  "description": "Blood-glucose-lowering drug prescriptions (ATC A10A and A10B), with the dosing start time shifted 3 days earlier so that prescriptions registered shortly after an outpatient visit still fall inside the feature window",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "medicationCodes",
+      "title": "Medication codes (ATC)",
+      "description": "ATC codes for the medication",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://www.whocc.no/atc"
+      }
+    },
+    {
+      "name": "medicationGroups",
+      "title": "Medication groups",
+      "description": "Medication groups to be used when specific ATC codes are not available.",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "https://datatools4heart.eu/fhir/ValueSet/medication-group"
+      }
+    },
+    {
+      "name": "startTime",
+      "title": "MedicationRequest start time",
+      "description": "MedicationRequest start time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "endTime",
+      "title": "MedicationRequest end time",
+      "description": "MedicationRequest end time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "joinTime",
+      "title": "MedicationRequest start time shifted 3 days earlier",
+      "description": "The MedicationRequest start time shifted 3 days earlier. Used as the event time of this feature group so that records registered up to 3 days after the reference time point still fall inside the feature window. This is not the real time - use startTime for that.",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "joinEndTime",
+      "title": "MedicationRequest end time shifted 3 days earlier",
+      "description": "The MedicationRequest end time shifted 3 days earlier, so that it stays consistent with joinTime. Used as the event time end of this feature group. This is not the real time - use endTime for that.",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "joinTime",
+    "end": "joinEndTime"
+  }
+}

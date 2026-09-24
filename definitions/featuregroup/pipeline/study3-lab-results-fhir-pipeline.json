@@ -1,0 +1,56 @@
+{
+  "id": "study3_lab_results",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+  "name": "study3_lab_results",
+  "title": "Lab results used by the study 3 condition criteria",
+  "description": "Glucose, fasting glucose, eGFR and serum creatinine results, with the observation date shifted 3 days earlier so that results registered shortly after an outpatient visit still fall inside the feature window",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the lab results used by the study 3 condition criteria from LabResult Observation.",
+      "resourceType": "Observation",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-LabResult",
+      "query": "?category=laboratory&code=http://loinc.org|51596-5,http://loinc.org|39481-7,http://loinc.org|14749-6,http://loinc.org|76629-5,http://loinc.org|69405-9,http://loinc.org|2160-0",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Observation.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Observation.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "codes",
+          "path": "Observation.code.coding.where(system='http://loinc.org').code"
+        },
+        {
+          "name": "value",
+          "path": "Observation.valueQuantity.value"
+        },
+        {
+          "name": "date",
+          "path": "Observation.effectiveDateTime"
+        },
+        {
+          "name": "joinTime",
+          "path": "Observation.effectiveDateTime.toDateTime() - 3 days"
+        }
+      ]
+    }
+  ]
+}

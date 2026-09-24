@@ -1,0 +1,65 @@
+{
+  "id": "study3_outpatient_blood_pressures",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/study3_outpatient_blood_pressures",
+  "name": "study3_outpatient_blood_pressures",
+  "title": "Blood pressures measured during outpatient visits",
+  "description": "Systolic and diastolic blood pressure measurements recorded during outpatient (ambulatory) encounters",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "codes",
+      "title": "LOINC codes for the blood pressure measurement",
+      "description": "LOINC codes for the blood pressure measurement",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://loinc.org",
+        "concept": [
+          {
+            "code": "8480-6",
+            "display": "Systolic blood pressure"
+          },
+          {
+            "code": "8462-4",
+            "display": "Diastolic blood pressure"
+          }
+        ]
+      }
+    },
+    {
+      "name": "value",
+      "title": "Numeric blood pressure result",
+      "description": "Numeric blood pressure result (mmHg)",
+      "dataType": "decimal"
+    },
+    {
+      "name": "effectiveDateTime",
+      "title": "The date of the observation.",
+      "description": "The date of the observation.",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "joinTime",
+      "title": "Observation date shifted 3 days earlier",
+      "description": "The observation date shifted 3 days earlier. Used as the event time of this feature group so that measurements taken up to 3 days after the reference time point still fall inside the feature window, mirroring the late-registration allowance applied to the other study 3 features. This is not the time of the measurement - use effectiveDateTime for that.",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "joinTime"
+  }
+}

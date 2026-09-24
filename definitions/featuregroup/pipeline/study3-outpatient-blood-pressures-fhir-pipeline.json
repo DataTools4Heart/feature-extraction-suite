@@ -1,0 +1,56 @@
+{
+  "id": "study3_outpatient_blood_pressures",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/study3_outpatient_blood_pressures",
+  "name": "study3_outpatient_blood_pressures",
+  "title": "Blood pressures measured during outpatient visits",
+  "description": "Systolic and diastolic blood pressure measurements recorded during outpatient (ambulatory) encounters",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-24",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the systolic and diastolic blood pressure measurements that were recorded during an outpatient (AMB) encounter from Vital Sign Observation.",
+      "resourceType": "Observation",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-VitalSign",
+      "query": "?category=vital-signs&code=http://loinc.org|8480-6,http://loinc.org|8462-4&encounter.class=AMB",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Observation.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Observation.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "codes",
+          "path": "Observation.code.coding.where(system='http://loinc.org').code"
+        },
+        {
+          "name": "value",
+          "path": "Observation.valueQuantity.value"
+        },
+        {
+          "name": "effectiveDateTime",
+          "path": "Observation.effectiveDateTime"
+        },
+        {
+          "name": "joinTime",
+          "path": "Observation.effectiveDateTime.toDateTime() - 3 days"
+        }
+      ]
+    }
+  ]
+}
