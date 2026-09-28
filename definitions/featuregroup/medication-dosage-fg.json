@@ -63,7 +63,7 @@
     {
       "name": "dailyDose",
       "title": "Daily dose",
-      "description": "Daily dose calculated as dose × frequency / (period × days in periodUnit), where days in periodUnit is h = 1/24, d = 1, wk = 7, mo = 30, a = 365. Missing frequency and period are taken as 1 and a missing periodUnit as d. Not calculated when the dose is missing or the periodUnit is not one of h, d, wk, mo, a. Expressed in the unit of the dose (doseUnit).",
+      "description": "Daily dose calculated as dose × frequency / (period × days in periodUnit), where days in periodUnit is h = 1/24, d = 1, wk = 7, mo = 30, a = 365. It is computed in hours (dose × frequency × 24 / (period × hours in periodUnit)) so that hourly schedules stay exact. Missing frequency and period are taken as 1 and a missing periodUnit as d. Not calculated when the dose is missing or the periodUnit is not one of h, d, wk, mo, a. Expressed in the unit of the dose (doseUnit).",
       "dataType": "decimal"
     },
     {

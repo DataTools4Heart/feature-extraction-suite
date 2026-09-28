@@ -15,7 +15,7 @@
   ],
   "pipeline": [
     {
-      "description": "Extract the heart failure related drug prescriptions and their dosage from MedicationRequest. Only the first dosage instruction and its first dose are used.",
+      "description": "Extract the heart failure related drug prescriptions and their dosage from MedicationRequest. Only the first dosage instruction and its first dose are used. dailyDose = dose × frequency × 24 / (period × hours in periodUnit), where hours in periodUnit is h = 1, d = 24, wk = 168, mo = 720, a = 8760 (equivalent to dose × frequency / (period × days in periodUnit) with h = 1/24, d = 1, wk = 7, mo = 30, a = 365, but exact for hourly schedules). A missing frequency or period is taken as 1 and a missing periodUnit as d. dailyDose is empty when the dose is missing or the periodUnit is not one of h, d, wk, mo, a. All numeric iif branches use the same type (e.g. 1.0 and 24.0, not 1 and 24) because the Spark FHIRPath translator types an iif with mixed integer and decimal branches as VOID.",
       "resourceType": "MedicationRequest",
       "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-MedicationRequest",
       "query": "?code:below=http://www.whocc.no/atc|A10BD,http://www.whocc.no/atc|A10BK,http://www.whocc.no/atc|C01AA,http://www.whocc.no/atc|C01DA,http://www.whocc.no/atc|C01DX,http://www.whocc.no/atc|C01EB,http://www.whocc.no/atc|C02DB,http://www.whocc.no/atc|C02LG,http://www.whocc.no/atc|C03,http://www.whocc.no/atc|C05AE,http://www.whocc.no/atc|C07,http://www.whocc.no/atc|C09,http://www.whocc.no/atc|C10BX",
@@ -60,7 +60,7 @@
         },
         {
           "name": "dailyDose",
-          "path": "MedicationRequest.dosageInstruction.first().select(iif(doseAndRate.doseQuantity.value.exists(), doseAndRate.doseQuantity.value.first() * iif(timing.repeat.frequency.exists(), timing.repeat.frequency, 1) / (iif(timing.repeat.period.exists(), timing.repeat.period, 1) * iif(timing.repeat.periodUnit.exists(), iif(timing.repeat.periodUnit = 'h', 1.0 / 24, iif(timing.repeat.periodUnit = 'd', 1, iif(timing.repeat.periodUnit = 'wk', 7, iif(timing.repeat.periodUnit = 'mo', 30, iif(timing.repeat.periodUnit = 'a', 365, {}))))), 1))))"
+          "path": "MedicationRequest.dosageInstruction.first().select(iif(doseAndRate.doseQuantity.value.exists(), doseAndRate.doseQuantity.value.first() * iif(timing.repeat.frequency.exists(), timing.repeat.frequency, 1) * 24 / (iif(timing.repeat.period.exists(), timing.repeat.period, 1.0) * iif(timing.repeat.periodUnit.exists(), iif(timing.repeat.periodUnit = 'h', 1.0, iif(timing.repeat.periodUnit = 'd', 24.0, iif(timing.repeat.periodUnit = 'wk', 168.0, iif(timing.repeat.periodUnit = 'mo', 720.0, iif(timing.repeat.periodUnit = 'a', 8760.0, {}))))), 24.0))))"
         },
         {
           "name": "startTime",
