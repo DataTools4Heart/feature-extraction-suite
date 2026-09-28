@@ -7,7 +7,7 @@
   "description": "Condition",
   "version": "1.0",
   "status": "active",
-  "date": "2025-07-24",
+  "date": "2026-09-24",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
