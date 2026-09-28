@@ -1714,6 +1714,37 @@
         }
       },
       "filter": {
+        "name": "egfrConsecutive",
+        "description": "Valid glomerular filtration rate/1.73 sq M.predicted (LOINC 69405-9) results below 60 mL/min/1.73m2",
+        "filter": "codes.select($this = '69405-9').anyTrue() and value >= 1 and value < 60"
+      },
+      "feature": [
+        {
+          "name": "lt_60_3mo_to_5a",
+          "visible": false,
+          "description": "Whether the patient has two measured eGFR results below 60 mL/min/1.73m2, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. Evaluated over consecutive results below 60 ordered in time. Only directly measured eGFR (LOINC 69405-9) can take part in the pair: the 2021 CKD-EPI value is calculated once per patient from the latest serum creatinine, so there is no second value to pair it with.",
+          "value": {
+            "path": "utl:getPeriod(%previousRow.date, date, 'mo') >= 3 and utl:getPeriod(%previousRow.date, date, 'mo') <= 60",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
         "name": "validSerumCreatinine",
         "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
         "filter": "codes.select($this = '2160-0').anyTrue() and value >= 0.11 and value <= 22.6"
@@ -1723,6 +1754,22 @@
           "name": "value",
           "visible": false,
           "description": "Latest serum creatinine value recorded at any time up to 3 days after the end of the outpatient visit, used to calculate the eGFR with the 2021 CKD-EPI creatinine equation"
+        },
+        {
+          "name": "pairMinValue_3mo_to_5a",
+          "visible": false,
+          "description": "For every pair of consecutive valid serum creatinine results taken between 3 months and 5 years apart, the lower of the two values; aggregated with max over all such pairs. Because eGFR falls as creatinine rises, the pair whose lower creatinine is highest is the pair most likely to have both eGFR values below 60, so converting this single value with the CKD-EPI equation answers whether any qualifying pair has both below 60.",
+          "value": {
+            "path": "iif(utl:getPeriod(%previousRow.date, date, 'mo') >= 3 and utl:getPeriod(%previousRow.date, date, 'mo') <= 60, iif(value < %previousRow.value, value, %previousRow.value), {})",
+            "dataType": "decimal"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "max"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1775,13 +1822,13 @@
       },
       "filter": {
         "name": "serumCreatinine",
-        "description": "Creatinine [Mass/volume] in Serum or Plasma (LOINC 2160-0) results above 8 mg/L",
-        "filter": "codes.select($this = '2160-0').anyTrue() and value > 8"
+        "description": "Creatinine [Mass/volume] in Serum or Plasma (LOINC 2160-0) results above 0.008 mg/L",
+        "filter": "codes.select($this = '2160-0').anyTrue() and value > 0.008"
       },
       "feature": [
         {
-          "name": "gt_8_3mo_to_5a_pre_post3d",
-          "description": "Whether the patient has two serum creatinine results above 8 mg/L, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. Evaluated over consecutive elevated results ordered in time.",
+          "name": "gt_0p008_3mo_to_5a_pre_post3d",
+          "description": "Whether the patient has two serum creatinine results above 0.008 mg/L, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. Evaluated over consecutive elevated results ordered in time. NOTE: this threshold is far below the usual serum creatinine range of roughly 6-12 mg/L, so the criterion is met by any recorded result; confirm the intended unit before relying on this feature.",
           "value": {
             "path": "utl:getPeriod(%previousRow.date, date, 'mo') >= 3 and utl:getPeriod(%previousRow.date, date, 'mo') <= 60",
             "dataType": "boolean"
@@ -1826,6 +1873,66 @@
           "description": "Whether the patient has an encounter diagnosis carrying one of the study 3 heart failure eligibility codes other than I25.5 (I50, I11.0, I13.0, I13.2, I26.0, I09.81, I97.13) at any time up to the end of the outpatient visit. Filter this to true to reproduce the cohort as it was before I25.5 was added to the eligibility criteria.",
           "value": {
             "path": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "hba1c",
+        "description": "Hemoglobin A1c. Matched by LOINC 4548-4 or 17856-6 when reported as a percentage, or 41995-2 or 59261-8 when reported in mmol/mol, whichever the site reports.",
+        "filter": "codes.select($this = '4548-4' or $this = '17856-6' or $this = '41995-2' or $this = '59261-8').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "gt_48_pre_post3d",
+          "description": "Whether the patient has an HbA1c result above 48 mmol/mol at any time up to 3 days after the end of the outpatient visit. Results reported as a percentage (LOINC 4548-4, 17856-6) are compared against the equivalent threshold of 6.5%; results reported in mmol/mol (LOINC 41995-2, 59261-8) are compared against 48.",
+          "value": {
+            "path": "(codes.select($this = '4548-4' or $this = '17856-6').anyTrue() and value > 6.5) or (codes.select($this = '41995-2' or $this = '59261-8').anyTrue() and value > 48)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "albuminBS",
+        "description": "Albumin [Mass/volume] in Serum or Plasma (g/L). Matched by LOINC 1751-7 or 61152-5 (by Bromocresol purple (BCP) dye binding method), whichever the site reports.",
+        "filter": "codes.select($this = '1751-7' or $this = '61152-5').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "gt_0p000045_pre_post3d",
+          "description": "Whether the patient has an albumin result above 0.000045 g/L at any time up to 3 days after the end of the outpatient visit. NOTE: this threshold is far below the usual serum albumin range of 35-50 g/L, so the criterion is met by any recorded result; confirm the intended unit before relying on this feature.",
+          "value": {
+            "path": "value > 0.000045",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -2063,6 +2170,47 @@
       ],
       "valueExpr": {
         "path": "(%measured.exists() and %measured) or (%calculated.exists() and %calculated < 60)",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "eGFR_2021_ckd_epi_creatinine_pairMin",
+      "visible": false,
+      "description": "Estimated glomerular filtration rate calculated with the 2021 CKD-EPI creatinine equation from pairMinValue_3mo_to_5a, i.e. from the highest lower-creatinine among all pairs of results 3 months to 5 years apart. Below 60 means some qualifying pair has both eGFR values below 60.",
+      "combinedFeatures": [
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        },
+        {
+          "alias": "gender",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "study3_lab_results_validSerumCreatinine_pairMinValue_3mo_to_5a_max"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%cr.exists() and %age.exists() and %gender.exists(),142.0 * least(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(iif(%gender='male',-0.302,-0.241)) * greatest(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(-1.200) * (0.9938).power(%age) * iif(%gender='male', 1.0, 1.012),{})",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "eGFR_lt_60_3mo_to_5a_pre_post3d",
+      "description": "Whether the patient has two eGFR values below 60 mL/min/1.73m2, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. A pair may come from directly measured eGFR (LOINC 69405-9) or from two serum creatinine results converted with the 2021 CKD-EPI equation, so the criterion is reachable at sites that report creatinine but not eGFR.",
+      "combinedFeatures": [
+        {
+          "alias": "measuredPair",
+          "featureNamePattern": "study3_lab_results_egfrConsecutive_lt_60_3mo_to_5a_any"
+        },
+        {
+          "alias": "calculatedPair",
+          "featureNamePattern": "eGFR_2021_ckd_epi_creatinine_pairMin"
+        }
+      ],
+      "valueExpr": {
+        "path": "(%measuredPair.exists() and %measuredPair) or (%calculatedPair.exists() and %calculatedPair < 60)",
         "dataType": "boolean"
       }
     },

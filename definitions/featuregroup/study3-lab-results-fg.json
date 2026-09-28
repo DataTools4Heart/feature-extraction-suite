@@ -4,10 +4,10 @@
   "url": "https://datatools4heart.eu/feature-groups/study3_lab_results",
   "name": "study3_lab_results",
   "title": "Lab results used by the study 3 condition criteria",
-  "description": "Glucose, fasting glucose, eGFR and serum creatinine results, with the observation date shifted 3 days earlier so that results registered shortly after an outpatient visit still fall inside the feature window",
+  "description": "Glucose, fasting glucose, HbA1c, albumin, eGFR and serum creatinine results, with the observation date shifted 3 days earlier so that results registered shortly after an outpatient visit still fall inside the feature window",
   "version": "1.0",
   "status": "active",
-  "date": "2026-09-24",
+  "date": "2026-09-25",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -52,6 +52,30 @@
           {
             "code": "2160-0",
             "display": "Creatinine [Mass/volume] in Serum or Plasma"
+          },
+          {
+            "code": "4548-4",
+            "display": "Hemoglobin A1c/Hemoglobin.total in Blood"
+          },
+          {
+            "code": "17856-6",
+            "display": "Hemoglobin A1c/Hemoglobin.total in Blood by HPLC"
+          },
+          {
+            "code": "41995-2",
+            "display": "Hemoglobin A1c [Mass/volume] in Blood"
+          },
+          {
+            "code": "59261-8",
+            "display": "Hemoglobin A1c/Hemoglobin.total in Blood by IFCC protocol"
+          },
+          {
+            "code": "1751-7",
+            "display": "Albumin [Mass/volume] in Serum or Plasma"
+          },
+          {
+            "code": "61152-5",
+            "display": "Albumin [Mass/volume] in Serum or Plasma by Bromocresol purple (BCP) dye binding method"
           }
         ]
       }
