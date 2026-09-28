@@ -1,0 +1,2332 @@
+{
+  "id": "med-dosage-study",
+  "url": "https://datatools4heart.eu/feature-sets/med-dosage-study",
+  "name": "med-dosage-study",
+  "title": "Dataset for the medication dosage study of DataTools4Heart/AI4HF.",
+  "description": "Heart failure related medications prescribed at discharge, their daily doses and the daily doses as a percentage of the target doses, together with gender and CKD severity, for the Clinical Study 1 population of DataTools4Heart and AI4HF projects.",
+  "status": "active",
+  "version": "1.0",
+  "date": "2026-09-28",
+  "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "sampling": [
+    {
+      "description": "Use the end time of encounters as the reference time point",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/encounters",
+          "join": {
+            "on": {
+              "pid": "pid",
+              "encounterId": "encounterId"
+            }
+          },
+          "eventTime": "endTime"
+        }
+      ]
+    }
+  ],
+  "feature": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "gender",
+          "description": "Gender of the patient"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at admission date",
+          "value": {
+            "path": "utl:getPeriod(birthDate, %eventTime, 'years')",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/ckd_severity",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "categorizedValue",
+          "visible": false,
+          "description": "Severity of chronic kidney disease: LOINC 69405-9"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "validSerumCreatinine",
+        "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0').anyTrue() and value >= 0.11 and value <= 22.6"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "visible": false,
+          "description": "Latest serum creatinine value recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "validWeight",
+        "description": "Body weight (kg), restricted to physiologically plausible values (20-300 kg)",
+        "filter": "codes.select($this = '29463-7').anyTrue() and value >= 20 and value <= 300"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest body weight (kg) recorded within the year before discharge, restricted to physiologically plausible values (20-300 kg). Used to choose the carvedilol target dose. Left empty if there is none."
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_captopril",
+        "description": "Prescriptions of captopril (ATC C09AA01, C09BA01)",
+        "filter": "medicationCodes.select($this = 'C09AA01' or $this = 'C09BA01').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether captopril (ATC C09AA01, C09BA01) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_captopril",
+        "description": "Prescriptions of captopril (ATC C09AA01, C09BA01) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09AA01' or $this = 'C09BA01').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of captopril (ATC C09AA01, C09BA01) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of captopril from the same prescription as dailydose, as a percentage of the target daily dose of 150",
+          "value": {
+            "path": "dailyDose / 150 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_enalapril",
+        "description": "Prescriptions of enalapril (ATC C09AA02, C09BA02, C09BB02, C09BB06)",
+        "filter": "medicationCodes.select($this = 'C09AA02' or $this = 'C09BA02' or $this = 'C09BB02' or $this = 'C09BB06').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether enalapril (ATC C09AA02, C09BA02, C09BB02, C09BB06) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_enalapril",
+        "description": "Prescriptions of enalapril (ATC C09AA02, C09BA02, C09BB02, C09BB06) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09AA02' or $this = 'C09BA02' or $this = 'C09BB02' or $this = 'C09BB06').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of enalapril (ATC C09AA02, C09BA02, C09BB02, C09BB06) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of enalapril from the same prescription as dailydose, as a percentage of the minimum target daily dose of 20",
+          "value": {
+            "path": "dailyDose / 20 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of enalapril from the same prescription as dailydose, as a percentage of the maximum target daily dose of 40",
+          "value": {
+            "path": "dailyDose / 40 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_lisinopril",
+        "description": "Prescriptions of lisinopril (ATC C09AA03, C09BA03, C09BB03, C10BX07)",
+        "filter": "medicationCodes.select($this = 'C09AA03' or $this = 'C09BA03' or $this = 'C09BB03' or $this = 'C10BX07').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether lisinopril (ATC C09AA03, C09BA03, C09BB03, C10BX07) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_lisinopril",
+        "description": "Prescriptions of lisinopril (ATC C09AA03, C09BA03, C09BB03, C10BX07) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09AA03' or $this = 'C09BA03' or $this = 'C09BB03' or $this = 'C10BX07').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of lisinopril (ATC C09AA03, C09BA03, C09BB03, C10BX07) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of lisinopril from the same prescription as dailydose, as a percentage of the minimum target daily dose of 20",
+          "value": {
+            "path": "dailyDose / 20 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of lisinopril from the same prescription as dailydose, as a percentage of the maximum target daily dose of 35",
+          "value": {
+            "path": "dailyDose / 35 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_ramipril",
+        "description": "Prescriptions of ramipril (ATC C09AA05, C09BA05, C09BB05, C09BB07, C09BX03, C09BX05, C10BX06, C10BX18, C10BX17, C10BX04)",
+        "filter": "medicationCodes.select($this = 'C09AA05' or $this = 'C09BA05' or $this = 'C09BB05' or $this = 'C09BB07' or $this = 'C09BX03' or $this = 'C09BX05' or $this = 'C10BX06' or $this = 'C10BX18' or $this = 'C10BX17' or $this = 'C10BX04').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether ramipril (ATC C09AA05, C09BA05, C09BB05, C09BB07, C09BX03, C09BX05, C10BX06, C10BX18, C10BX17, C10BX04) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_ramipril",
+        "description": "Prescriptions of ramipril (ATC C09AA05, C09BA05, C09BB05, C09BB07, C09BX03, C09BX05, C10BX06, C10BX18, C10BX17, C10BX04) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09AA05' or $this = 'C09BA05' or $this = 'C09BB05' or $this = 'C09BB07' or $this = 'C09BX03' or $this = 'C09BX05' or $this = 'C10BX06' or $this = 'C10BX18' or $this = 'C10BX17' or $this = 'C10BX04').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of ramipril (ATC C09AA05, C09BA05, C09BB05, C09BB07, C09BX03, C09BX05, C10BX06, C10BX18, C10BX17, C10BX04) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of ramipril from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_trandolapril",
+        "description": "Prescriptions of trandolapril (ATC C09AA10, C09BB10)",
+        "filter": "medicationCodes.select($this = 'C09AA10' or $this = 'C09BB10').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether trandolapril (ATC C09AA10, C09BB10) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "acei_trandolapril",
+        "description": "Prescriptions of trandolapril (ATC C09AA10, C09BB10) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09AA10' or $this = 'C09BB10').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of trandolapril (ATC C09AA10, C09BB10) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of trandolapril from the same prescription as dailydose, as a percentage of the target daily dose of 4",
+          "value": {
+            "path": "dailyDose / 4 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arni_sacuvalsa",
+        "description": "Prescriptions of sacubitril/valsartan (ATC C09DX04)",
+        "filter": "medicationCodes.select($this = 'C09DX04').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether sacubitril/valsartan (ATC C09DX04) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arni_sacuvalsa",
+        "description": "Prescriptions of sacubitril/valsartan (ATC C09DX04) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09DX04').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of sacubitril/valsartan (ATC C09DX04) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of sacubitril/valsartan from the same prescription as dailydose, as a percentage of the target daily dose of 400",
+          "value": {
+            "path": "dailyDose / 400 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_bisoprolol",
+        "description": "Prescriptions of bisoprolol (ATC C07AB07, C07BB07, C07FB07, C07FX04)",
+        "filter": "medicationCodes.select($this = 'C07AB07' or $this = 'C07BB07' or $this = 'C07FB07' or $this = 'C07FX04').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether bisoprolol (ATC C07AB07, C07BB07, C07FB07, C07FX04) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_bisoprolol",
+        "description": "Prescriptions of bisoprolol (ATC C07AB07, C07BB07, C07FB07, C07FX04) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C07AB07' or $this = 'C07BB07' or $this = 'C07FB07' or $this = 'C07FX04').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of bisoprolol (ATC C07AB07, C07BB07, C07FB07, C07FX04) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of bisoprolol from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_carvedilol",
+        "description": "Prescriptions of carvedilol (ATC C07AG02, C07FX06)",
+        "filter": "medicationCodes.select($this = 'C07AG02' or $this = 'C07FX06').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether carvedilol (ATC C07AG02, C07FX06) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_carvedilol",
+        "description": "Prescriptions of carvedilol (ATC C07AG02, C07FX06) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C07AG02' or $this = 'C07FX06').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of carvedilol (ATC C07AG02, C07FX06) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_metoprololsuccinate",
+        "description": "Prescriptions of metoprolol succinate (ATC C07AB02, C07BB02, C07BB52, C07CB02, C07FB02, C07FB13, C07FX03, C07FX05)",
+        "filter": "medicationCodes.select($this = 'C07AB02' or $this = 'C07BB02' or $this = 'C07BB52' or $this = 'C07CB02' or $this = 'C07FB02' or $this = 'C07FB13' or $this = 'C07FX03' or $this = 'C07FX05').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether metoprolol succinate (ATC C07AB02, C07BB02, C07BB52, C07CB02, C07FB02, C07FB13, C07FX03, C07FX05) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_metoprololsuccinate",
+        "description": "Prescriptions of metoprolol succinate (ATC C07AB02, C07BB02, C07BB52, C07CB02, C07FB02, C07FB13, C07FX03, C07FX05) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C07AB02' or $this = 'C07BB02' or $this = 'C07BB52' or $this = 'C07CB02' or $this = 'C07FB02' or $this = 'C07FB13' or $this = 'C07FX03' or $this = 'C07FX05').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of metoprolol succinate (ATC C07AB02, C07BB02, C07BB52, C07CB02, C07FB02, C07FB13, C07FX03, C07FX05) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of metoprolol succinate from the same prescription as dailydose, as a percentage of the target daily dose of 200",
+          "value": {
+            "path": "dailyDose / 200 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_nebivolol",
+        "description": "Prescriptions of nebivolol (ATC C07AB12, C07BB12, C07FB12)",
+        "filter": "medicationCodes.select($this = 'C07AB12' or $this = 'C07BB12' or $this = 'C07FB12').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether nebivolol (ATC C07AB12, C07BB12, C07FB12) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "bb_nebivolol",
+        "description": "Prescriptions of nebivolol (ATC C07AB12, C07BB12, C07FB12) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C07AB12' or $this = 'C07BB12' or $this = 'C07FB12').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of nebivolol (ATC C07AB12, C07BB12, C07FB12) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of nebivolol from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "mra_eplerenone",
+        "description": "Prescriptions of eplerenone (ATC C03DA04)",
+        "filter": "medicationCodes.select($this = 'C03DA04').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether eplerenone (ATC C03DA04) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "mra_eplerenone",
+        "description": "Prescriptions of eplerenone (ATC C03DA04) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03DA04').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of eplerenone (ATC C03DA04) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of eplerenone from the same prescription as dailydose, as a percentage of the target daily dose of 50",
+          "value": {
+            "path": "dailyDose / 50 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "mra_spironolactone",
+        "description": "Prescriptions of spironolactone (ATC C03DA01)",
+        "filter": "medicationCodes.select($this = 'C03DA01').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether spironolactone (ATC C03DA01) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "mra_spironolactone",
+        "description": "Prescriptions of spironolactone (ATC C03DA01) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03DA01').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of spironolactone (ATC C03DA01) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of spironolactone from the same prescription as dailydose, as a percentage of the target daily dose of 50",
+          "value": {
+            "path": "dailyDose / 50 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "sglt2i_dapagliflozin",
+        "description": "Prescriptions of dapagliflozin (ATC A10BK01, A10BD15, A10BD25, A10BD21, A10BD29)",
+        "filter": "medicationCodes.select($this = 'A10BK01' or $this = 'A10BD15' or $this = 'A10BD25' or $this = 'A10BD21' or $this = 'A10BD29').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether dapagliflozin (ATC A10BK01, A10BD15, A10BD25, A10BD21, A10BD29) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "sglt2i_dapagliflozin",
+        "description": "Prescriptions of dapagliflozin (ATC A10BK01, A10BD15, A10BD25, A10BD21, A10BD29) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'A10BK01' or $this = 'A10BD15' or $this = 'A10BD25' or $this = 'A10BD21' or $this = 'A10BD29').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of dapagliflozin (ATC A10BK01, A10BD15, A10BD25, A10BD21, A10BD29) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of dapagliflozin from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "sglt2i_empagliflozin",
+        "description": "Prescriptions of empagliflozin (ATC A10BK03, A10BD19, A10BD20, A10BD27)",
+        "filter": "medicationCodes.select($this = 'A10BK03' or $this = 'A10BD19' or $this = 'A10BD20' or $this = 'A10BD27').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether empagliflozin (ATC A10BK03, A10BD19, A10BD20, A10BD27) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "sglt2i_empagliflozin",
+        "description": "Prescriptions of empagliflozin (ATC A10BK03, A10BD19, A10BD20, A10BD27) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'A10BK03' or $this = 'A10BD19' or $this = 'A10BD20' or $this = 'A10BD27').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of empagliflozin (ATC A10BK03, A10BD19, A10BD20, A10BD27) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of empagliflozin from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arb_candesartan",
+        "description": "Prescriptions of candesartan (ATC C09CA06, C09DA06, C09DB07, C09DX06, C10BX19)",
+        "filter": "medicationCodes.select($this = 'C09CA06' or $this = 'C09DA06' or $this = 'C09DB07' or $this = 'C09DX06' or $this = 'C10BX19').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether candesartan (ATC C09CA06, C09DA06, C09DB07, C09DX06, C10BX19) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arb_candesartan",
+        "description": "Prescriptions of candesartan (ATC C09CA06, C09DA06, C09DB07, C09DX06, C10BX19) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09CA06' or $this = 'C09DA06' or $this = 'C09DB07' or $this = 'C09DX06' or $this = 'C10BX19').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of candesartan (ATC C09CA06, C09DA06, C09DB07, C09DX06, C10BX19) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of candesartan from the same prescription as dailydose, as a percentage of the target daily dose of 32",
+          "value": {
+            "path": "dailyDose / 32 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arb_losartan",
+        "description": "Prescriptions of losartan (ATC C09CA01, C09DA01, C09DB06)",
+        "filter": "medicationCodes.select($this = 'C09CA01' or $this = 'C09DA01' or $this = 'C09DB06').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether losartan (ATC C09CA01, C09DA01, C09DB06) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arb_losartan",
+        "description": "Prescriptions of losartan (ATC C09CA01, C09DA01, C09DB06) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09CA01' or $this = 'C09DA01' or $this = 'C09DB06').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of losartan (ATC C09CA01, C09DA01, C09DB06) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of losartan from the same prescription as dailydose, as a percentage of the target daily dose of 150",
+          "value": {
+            "path": "dailyDose / 150 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arb_valsartan",
+        "description": "Prescriptions of valsartan (ATC C09CA03, C09DA03, C09DB01, C09DB08, C09DX01, C09DX02, C09DX05, C10BX10)",
+        "filter": "medicationCodes.select($this = 'C09CA03' or $this = 'C09DA03' or $this = 'C09DB01' or $this = 'C09DB08' or $this = 'C09DX01' or $this = 'C09DX02' or $this = 'C09DX05' or $this = 'C10BX10').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether valsartan (ATC C09CA03, C09DA03, C09DB01, C09DB08, C09DX01, C09DX02, C09DX05, C10BX10) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "arb_valsartan",
+        "description": "Prescriptions of valsartan (ATC C09CA03, C09DA03, C09DB01, C09DB08, C09DX01, C09DX02, C09DX05, C10BX10) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C09CA03' or $this = 'C09DA03' or $this = 'C09DB01' or $this = 'C09DB08' or $this = 'C09DX01' or $this = 'C09DX02' or $this = 'C09DX05' or $this = 'C10BX10').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of valsartan (ATC C09CA03, C09DA03, C09DB01, C09DB08, C09DX01, C09DX02, C09DX05, C10BX10) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of valsartan from the same prescription as dailydose, as a percentage of the target daily dose of 320",
+          "value": {
+            "path": "dailyDose / 320 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_ivabradine",
+        "description": "Prescriptions of ivabradine (ATC C01EB17, C07FX06, C07FX05)",
+        "filter": "medicationCodes.select($this = 'C01EB17' or $this = 'C07FX06' or $this = 'C07FX05').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether ivabradine (ATC C01EB17, C07FX06, C07FX05) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_ivabradine",
+        "description": "Prescriptions of ivabradine (ATC C01EB17, C07FX06, C07FX05) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C01EB17' or $this = 'C07FX06' or $this = 'C07FX05').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of ivabradine (ATC C01EB17, C07FX06, C07FX05) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of ivabradine from the same prescription as dailydose, as a percentage of the target daily dose of 15",
+          "value": {
+            "path": "dailyDose / 15 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_vericiguat",
+        "description": "Prescriptions of vericiguat (ATC C01DX22)",
+        "filter": "medicationCodes.select($this = 'C01DX22').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether vericiguat (ATC C01DX22) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_vericiguat",
+        "description": "Prescriptions of vericiguat (ATC C01DX22) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C01DX22').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of vericiguat (ATC C01DX22) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of vericiguat from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_digoxin",
+        "description": "Prescriptions of digoxin (ATC C01AA05, C01AA02, C01AA52, C01AA08)",
+        "filter": "medicationCodes.select($this = 'C01AA05' or $this = 'C01AA02' or $this = 'C01AA52' or $this = 'C01AA08').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether digoxin (ATC C01AA05, C01AA02, C01AA52, C01AA08) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_digoxin",
+        "description": "Prescriptions of digoxin (ATC C01AA05, C01AA02, C01AA52, C01AA08) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C01AA05' or $this = 'C01AA02' or $this = 'C01AA52' or $this = 'C01AA08').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of digoxin (ATC C01AA05, C01AA02, C01AA52, C01AA08) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of digoxin from the same prescription as dailydose, as a percentage of the target daily dose of 250",
+          "value": {
+            "path": "dailyDose / 250 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_hydralazine",
+        "description": "Prescriptions of hydralazine (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58)",
+        "filter": "medicationCodes.select($this = 'C02DB02' or $this = 'C02LG02' or $this = 'C01DA08' or $this = 'C05AE02' or $this = 'C01DA58').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether hydralazine (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_hydralazine",
+        "description": "Prescriptions of hydralazine (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C02DB02' or $this = 'C02LG02' or $this = 'C01DA08' or $this = 'C05AE02' or $this = 'C01DA58').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of hydralazine (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of hydralazine from the same prescription as dailydose, as a percentage of the target daily dose of 225",
+          "value": {
+            "path": "dailyDose / 225 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_isosorbidedinitrate",
+        "description": "Prescriptions of isosorbide dinitrate (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58)",
+        "filter": "medicationCodes.select($this = 'C02DB02' or $this = 'C02LG02' or $this = 'C01DA08' or $this = 'C05AE02' or $this = 'C01DA58').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether isosorbide dinitrate (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "other_isosorbidedinitrate",
+        "description": "Prescriptions of isosorbide dinitrate (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C02DB02' or $this = 'C02LG02' or $this = 'C01DA08' or $this = 'C05AE02' or $this = 'C01DA58').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of isosorbide dinitrate (ATC C02DB02, C02LG02, C01DA08, C05AE02, C01DA58) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose",
+          "description": "Daily dose of isosorbide dinitrate from the same prescription as dailydose, as a percentage of the target daily dose of 120",
+          "value": {
+            "path": "dailyDose / 120 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "ld_furosemide",
+        "description": "Prescriptions of furosemide (ATC C03CA01, C03CB01, C03EB01)",
+        "filter": "medicationCodes.select($this = 'C03CA01' or $this = 'C03CB01' or $this = 'C03EB01').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether furosemide (ATC C03CA01, C03CB01, C03EB01) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "ld_furosemide",
+        "description": "Prescriptions of furosemide (ATC C03CA01, C03CB01, C03EB01) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03CA01' or $this = 'C03CB01' or $this = 'C03EB01').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of furosemide (ATC C03CA01, C03CB01, C03EB01) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of furosemide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 40",
+          "value": {
+            "path": "dailyDose / 40 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of furosemide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 240",
+          "value": {
+            "path": "dailyDose / 240 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "ld_bumetanide",
+        "description": "Prescriptions of bumetanide (ATC C03CA02, C03CB02, C03EB02)",
+        "filter": "medicationCodes.select($this = 'C03CA02' or $this = 'C03CB02' or $this = 'C03EB02').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether bumetanide (ATC C03CA02, C03CB02, C03EB02) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "ld_bumetanide",
+        "description": "Prescriptions of bumetanide (ATC C03CA02, C03CB02, C03EB02) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03CA02' or $this = 'C03CB02' or $this = 'C03EB02').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of bumetanide (ATC C03CA02, C03CB02, C03EB02) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of bumetanide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 1",
+          "value": {
+            "path": "dailyDose / 1 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of bumetanide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 5",
+          "value": {
+            "path": "dailyDose / 5 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "ld_torasemide",
+        "description": "Prescriptions of torasemide (ATC C03CA04)",
+        "filter": "medicationCodes.select($this = 'C03CA04').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether torasemide (ATC C03CA04) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "ld_torasemide",
+        "description": "Prescriptions of torasemide (ATC C03CA04) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03CA04').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of torasemide (ATC C03CA04) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of torasemide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of torasemide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 20",
+          "value": {
+            "path": "dailyDose / 20 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "td_bendroflumethiazide",
+        "description": "Prescriptions of bendroflumethiazide (ATC C03EA13)",
+        "filter": "medicationCodes.select($this = 'C03EA13').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether bendroflumethiazide (ATC C03EA13) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "td_bendroflumethiazide",
+        "description": "Prescriptions of bendroflumethiazide (ATC C03EA13) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03EA13').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of bendroflumethiazide (ATC C03EA13) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of bendroflumethiazide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
+          "value": {
+            "path": "dailyDose / 2.5 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of bendroflumethiazide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "td_hydrochlorothiazide",
+        "description": "Prescriptions of hydrochlorothiazide (ATC C03AA01, C03AB01)",
+        "filter": "medicationCodes.select($this = 'C03AA01' or $this = 'C03AB01').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether hydrochlorothiazide (ATC C03AA01, C03AB01) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "td_hydrochlorothiazide",
+        "description": "Prescriptions of hydrochlorothiazide (ATC C03AA01, C03AB01) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03AA01' or $this = 'C03AB01').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of hydrochlorothiazide (ATC C03AA01, C03AB01) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of hydrochlorothiazide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 12.5",
+          "value": {
+            "path": "dailyDose / 12.5 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of hydrochlorothiazide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 100",
+          "value": {
+            "path": "dailyDose / 100 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "td_metolazone",
+        "description": "Prescriptions of metolazone (ATC C03BA08, C03EA12)",
+        "filter": "medicationCodes.select($this = 'C03BA08' or $this = 'C03EA12').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether metolazone (ATC C03BA08, C03EA12) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "td_metolazone",
+        "description": "Prescriptions of metolazone (ATC C03BA08, C03EA12) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03BA08' or $this = 'C03EA12').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of metolazone (ATC C03BA08, C03EA12) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of metolazone from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
+          "value": {
+            "path": "dailyDose / 2.5 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of metolazone from the same prescription as dailydose, as a percentage of the maximum target daily dose of 10",
+          "value": {
+            "path": "dailyDose / 10 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "nts_indapamide",
+        "description": "Prescriptions of indapamide (ATC C03BA11, C09BX01, C09BX06, C10BX13)",
+        "filter": "medicationCodes.select($this = 'C03BA11' or $this = 'C09BX01' or $this = 'C09BX06' or $this = 'C10BX13').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "prescribed",
+          "description": "Whether indapamide (ATC C03BA11, C09BX01, C09BX06, C10BX13) is prescribed, i.e. there is a prescription for it starting within the year up to 1 day after discharge, regardless of its dosage. False if there is none.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "filter": {
+        "name": "nts_indapamide",
+        "description": "Prescriptions of indapamide (ATC C03BA11, C09BX01, C09BX06, C10BX13) with a calculated daily dose",
+        "filter": "medicationCodes.select($this = 'C03BA11' or $this = 'C09BX01' or $this = 'C09BX06' or $this = 'C10BX13').anyTrue() and dailyDose.exists()"
+      },
+      "feature": [
+        {
+          "name": "dailydose",
+          "description": "Daily dose of indapamide (ATC C03BA11, C09BX01, C09BX06, C10BX13) from the prescription closest to 1 day after discharge, i.e. the latest prescription starting within the year up to 1 day after discharge. Calculated as dose × frequency / (period × days in periodUnit), taking a missing frequency and period as 1 and a missing periodUnit as d, and expressed in the unit of the prescribed dose.",
+          "value": {
+            "path": "dailyDose",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_min",
+          "description": "Daily dose of indapamide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
+          "value": {
+            "path": "dailyDose / 2.5 * 100",
+            "dataType": "decimal"
+          }
+        },
+        {
+          "name": "perctargetdose_max",
+          "description": "Daily dose of indapamide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 5",
+          "value": {
+            "path": "dailyDose / 5 * 100",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    }
+  ],
+  "combinedFeature": [
+    {
+      "name": "eGFR_2021_ckd_epi_creatinine",
+      "visible": false,
+      "description": "Estimated glomerular filtration rate (eGFR) calculated from serum creatinine, age and gender using the 2021 CKD-EPI creatinine equation",
+      "combinedFeatures": [
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        },
+        {
+          "alias": "gender",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "lab_results_validSerumCreatinine_value_pET"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%cr.exists() and %age.exists() and %gender.exists(),142.0 * least(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(iif(%gender='male',-0.302,-0.241)) * greatest(%cr/10.0/iif(%gender='male',0.9,0.7), 1.0).power(-1.200) * (0.9938).power(%age) * iif(%gender='male', 1.0, 1.012),{})",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "ckd_severity_from_calculated_egfr",
+      "visible": false,
+      "description": "CKD severity stage derived by categorizing the eGFR calculated with the 2021 CKD-EPI creatinine equation",
+      "combinedFeatures": [
+        {
+          "alias": "egfr",
+          "featureNamePattern": "eGFR_2021_ckd_epi_creatinine"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%egfr.exists(),%egfr.categorize(14 | 29 | 44 | 59 | 89, 'kidney_failure' | 'severe_decrease' | 'moderate_to_severe_decrease' | 'mild_to_moderate_decrease' | 'mildly_decreased' | 'normal_or_high'),{})",
+        "dataType": "string"
+      }
+    },
+    {
+      "name": "ckd_severity_calculated_or_measured",
+      "description": "Final CKD severity stage: uses the stage derived from the calculated CKD-EPI eGFR when available, otherwise falls back to the directly measured GFR category (LOINC 69405-9)",
+      "combinedFeatures": [
+        {
+          "alias": "egfrCategory",
+          "featureNamePattern": "ckd_severity_categorizedValue"
+        },
+        {
+          "alias": "scCategory",
+          "featureNamePattern": "ckd_severity_from_calculated_egfr"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%scCategory.exists(),%scCategory, %egfrCategory)",
+        "dataType": "string"
+      }
+    },
+    {
+      "name": "medication_dosage_bb_carvedilol_perctargetdose_p1a",
+      "description": "Daily dose of carvedilol (medication_dosage_bb_carvedilol_dailydose_p1a) as a percentage of the target daily dose chosen by body weight (vital_signs_validWeight_value_p1a): 50 up to 85 kg, 100 above 85 kg. Left empty if the daily dose or the weight is missing.",
+      "combinedFeatures": [
+        {
+          "alias": "dose",
+          "featureNamePattern": "medication_dosage_bb_carvedilol_dailydose_p1a"
+        },
+        {
+          "alias": "weight",
+          "featureNamePattern": "vital_signs_validWeight_value_p1a"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%dose.exists() and %weight.exists(), %dose / iif(%weight > 85, 100, 50) * 100, {})",
+        "dataType": "decimal"
+      }
+    }
+  ]
+}

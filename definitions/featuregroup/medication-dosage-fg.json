@@ -1,0 +1,98 @@
+{
+  "id": "medication_dosage",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/medication_dosage",
+  "name": "medication_dosage",
+  "title": "Medication requests with their daily dose",
+  "description": "Heart failure related drug prescriptions (MedicationRequest only) together with the dosage fields and the daily dose calculated from them, with the dosing start time shifted 1 day earlier so that prescriptions registered up to 1 day after discharge still fall inside the feature window",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-09-28",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "medicationCodes",
+      "title": "Medication codes (ATC)",
+      "description": "ATC codes for the medication",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://www.whocc.no/atc"
+      }
+    },
+    {
+      "name": "dose",
+      "title": "Dose",
+      "description": "Amount of medication per dose (dosageInstruction.doseAndRate.doseQuantity.value)",
+      "dataType": "decimal"
+    },
+    {
+      "name": "doseUnit",
+      "title": "Dose unit",
+      "description": "Unit of the amount of medication per dose (dosageInstruction.doseAndRate.doseQuantity.unit)",
+      "dataType": "string"
+    },
+    {
+      "name": "frequency",
+      "title": "Frequency",
+      "description": "Number of times the dose is taken within the period (dosageInstruction.timing.repeat.frequency)",
+      "dataType": "integer"
+    },
+    {
+      "name": "period",
+      "title": "Period",
+      "description": "Length of the period in which the dose is taken frequency times (dosageInstruction.timing.repeat.period)",
+      "dataType": "decimal"
+    },
+    {
+      "name": "periodUnit",
+      "title": "Period unit",
+      "description": "Unit of the period (dosageInstruction.timing.repeat.periodUnit): s | min | h | d | wk | mo | a",
+      "dataType": "code"
+    },
+    {
+      "name": "dailyDose",
+      "title": "Daily dose",
+      "description": "Daily dose calculated as dose × frequency / (period × days in periodUnit), where days in periodUnit is h = 1/24, d = 1, wk = 7, mo = 30, a = 365. Missing frequency and period are taken as 1 and a missing periodUnit as d. Not calculated when the dose is missing or the periodUnit is not one of h, d, wk, mo, a. Expressed in the unit of the dose (doseUnit).",
+      "dataType": "decimal"
+    },
+    {
+      "name": "startTime",
+      "title": "MedicationRequest start time",
+      "description": "MedicationRequest start time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "endTime",
+      "title": "MedicationRequest end time",
+      "description": "MedicationRequest end time",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "joinTime",
+      "title": "MedicationRequest start time shifted 1 day earlier",
+      "description": "The MedicationRequest start time shifted 1 day earlier. Used as the event time of this feature group so that records registered up to 1 day after the reference time point still fall inside the feature window. This is not the real time - use startTime for that.",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "joinEndTime",
+      "title": "MedicationRequest end time shifted 1 day earlier",
+      "description": "The MedicationRequest end time shifted 1 day earlier, so that it stays consistent with joinTime. Used as the event time end of this feature group. This is not the real time - use endTime for that.",
+      "dataType": "dateTime"
+    }
+  ],
+  "eventTime": {
+    "start": "joinTime",
+    "end": "joinEndTime"
+  }
+}

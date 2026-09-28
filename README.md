@@ -35,7 +35,7 @@ Pipelines are used to associate feature sets and populations. This indicates tha
 
 ## Repository Layout (Jan 29, 2026)
 - definitions/featuregroup/: Feature group definitions aligned with the Heart Failure CDM (encounters, vital signs, meds, labs, etc.); matching FHIR pipelines live in definitions/featuregroup/pipeline/.
-- definitions/featureset/: Final feature sets including care-heart, maggic-mlp, study1-fs, study2-fs, study3-fs, and synthetic-risk-score.
+- definitions/featureset/: Final feature sets including care-heart, maggic-mlp, study1-fs, study2-fs, study3-fs, med-dosage-study, and synthetic-risk-score.
 - definitions/population/: Cohort definitions (care-heart, maggic, maggic_cprd, study1, study1-vhir, study2, study3) with FHIR pipelines under definitions/population/pipeline/.
 - definitions/datasetqualitycriteria/: Dataset QA rules (e.g., maggic-quality-criteria.json).
 - definitions/valuesets/: Reserved for value set catalogues (currently empty).
@@ -140,6 +140,19 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "name": "DT4H Study3"
+}'
+```
+
+### Medication Dosage Study
+
+Uses the Study 1 population.
+
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/med-dosage-study/Population/study1_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Medication Dosage Study"
 }'
 ```
 
