@@ -1,0 +1,71 @@
+{
+  "id": "cardiac_mri",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+  "name": "cardiac_mri",
+  "title": "Cardiac MRI",
+  "description": "Cardiac MRI",
+  "status": "active",
+  "date": "2026-09-02",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from Cardiac MRI Observation.",
+      "resourceType": "Observation",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-CardiacMRI",
+      "query": "?code=http://loinc.org|24748-6",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Observation.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Observation.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "time",
+          "path": "Observation.effectiveDateTime"
+        },
+        {
+          "name": "bsa",
+          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='3139-3')).valueQuantity.value.first()"
+        },
+        {
+          "name": "lvef",
+          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8811-2')).valueQuantity.value.first()"
+        },
+        {
+          "name": "lvedv",
+          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8821-1')).valueQuantity.value.first()"
+        },
+        {
+          "name": "rvef",
+          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8818-7')).valueQuantity.value.first()"
+        },
+        {
+          "name": "rvedv",
+          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='8822-9')).valueQuantity.value.first()"
+        },
+        {
+          "name": "lge_lv",
+          "path": "Observation.component.where(code.coding.exists(system='https://datatools4heart.eu/fhir/CodeSystem/cardiacmri-parameter' and code='LGE-LV')).first().valueBoolean"
+        },
+        {
+          "name": "lge_rv",
+          "path": "Observation.component.where(code.coding.exists(system='https://datatools4heart.eu/fhir/CodeSystem/cardiacmri-parameter' and code='LGE-RV')).first().valueBoolean"
+        }
+      ]
+    }
+  ]
+}
