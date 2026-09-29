@@ -2198,7 +2198,7 @@
     },
     {
       "name": "eGFR_lt_60_3mo_to_5a_pre_post3d",
-      "description": "Whether the patient has two eGFR values below 60 mL/min/1.73m2, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. A pair may come from directly measured eGFR (LOINC 69405-9) or from two serum creatinine results converted with the 2021 CKD-EPI equation, so the criterion is reachable at sites that report creatinine but not eGFR.",
+      "description": "Whether the patient has two eGFR values below 60 mL/min/1.73m2, the second taken between 3 months and 5 years after the first, at any time up to 3 days after the end of the outpatient visit. A pair may come from directly measured eGFR (LOINC 69405-9) or from two serum creatinine results converted with the 2021 CKD-EPI equation.",
       "combinedFeatures": [
         {
           "alias": "measuredPair",

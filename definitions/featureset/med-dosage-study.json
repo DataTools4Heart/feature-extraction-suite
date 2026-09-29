@@ -192,7 +192,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of captopril from the same prescription as dailydose, as a percentage of the target daily dose of 150",
+          "description": "Daily dose divided by the predefined dose (150), multiplied by 100: medication_dosage_acei_captopril_dailydose_p1a / 150 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 150 * 100).round(6)",
             "dataType": "decimal"
@@ -263,7 +263,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of enalapril from the same prescription as dailydose, as a percentage of the minimum target daily dose of 20",
+          "description": "Daily dose divided by the predefined minimum dose (20), multiplied by 100: medication_dosage_acei_enalapril_dailydose_p1a / 20 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 20 * 100).round(6)",
             "dataType": "decimal"
@@ -271,7 +271,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of enalapril from the same prescription as dailydose, as a percentage of the maximum target daily dose of 40",
+          "description": "Daily dose divided by the predefined maximum dose (40), multiplied by 100: medication_dosage_acei_enalapril_dailydose_p1a / 40 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 40 * 100).round(6)",
             "dataType": "decimal"
@@ -342,7 +342,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of lisinopril from the same prescription as dailydose, as a percentage of the minimum target daily dose of 20",
+          "description": "Daily dose divided by the predefined minimum dose (20), multiplied by 100: medication_dosage_acei_lisinopril_dailydose_p1a / 20 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 20 * 100).round(6)",
             "dataType": "decimal"
@@ -350,7 +350,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of lisinopril from the same prescription as dailydose, as a percentage of the maximum target daily dose of 35",
+          "description": "Daily dose divided by the predefined maximum dose (35), multiplied by 100: medication_dosage_acei_lisinopril_dailydose_p1a / 35 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 35 * 100).round(6)",
             "dataType": "decimal"
@@ -421,7 +421,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of ramipril from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "description": "Daily dose divided by the predefined dose (10), multiplied by 100: medication_dosage_acei_ramipril_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -492,7 +492,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of trandolapril from the same prescription as dailydose, as a percentage of the target daily dose of 4",
+          "description": "Daily dose divided by the predefined dose (4), multiplied by 100: medication_dosage_acei_trandolapril_dailydose_p1a / 4 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 4 * 100).round(6)",
             "dataType": "decimal"
@@ -563,7 +563,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of sacubitril/valsartan from the same prescription as dailydose, as a percentage of the target daily dose of 400",
+          "description": "Daily dose divided by the predefined dose (400), multiplied by 100: medication_dosage_arni_sacuvalsa_dailydose_p1a / 400 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 400 * 100).round(6)",
             "dataType": "decimal"
@@ -634,7 +634,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of bisoprolol from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "description": "Daily dose divided by the predefined dose (10), multiplied by 100: medication_dosage_bb_bisoprolol_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -768,7 +768,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of metoprolol succinate from the same prescription as dailydose, as a percentage of the target daily dose of 200",
+          "description": "Daily dose divided by the predefined dose (200), multiplied by 100: medication_dosage_bb_metoprololsuccinate_dailydose_p1a / 200 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 200 * 100).round(6)",
             "dataType": "decimal"
@@ -839,7 +839,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of nebivolol from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "description": "Daily dose divided by the predefined dose (10), multiplied by 100: medication_dosage_bb_nebivolol_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -910,7 +910,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of eplerenone from the same prescription as dailydose, as a percentage of the target daily dose of 50",
+          "description": "Daily dose divided by the predefined dose (50), multiplied by 100: medication_dosage_mra_eplerenone_dailydose_p1a / 50 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 50 * 100).round(6)",
             "dataType": "decimal"
@@ -981,7 +981,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of spironolactone from the same prescription as dailydose, as a percentage of the target daily dose of 50",
+          "description": "Daily dose divided by the predefined dose (50), multiplied by 100: medication_dosage_mra_spironolactone_dailydose_p1a / 50 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 50 * 100).round(6)",
             "dataType": "decimal"
@@ -1052,7 +1052,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of dapagliflozin from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "description": "Daily dose divided by the predefined dose (10), multiplied by 100: medication_dosage_sglt2i_dapagliflozin_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -1123,7 +1123,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of empagliflozin from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "description": "Daily dose divided by the predefined dose (10), multiplied by 100: medication_dosage_sglt2i_empagliflozin_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -1194,7 +1194,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of candesartan from the same prescription as dailydose, as a percentage of the target daily dose of 32",
+          "description": "Daily dose divided by the predefined dose (32), multiplied by 100: medication_dosage_arb_candesartan_dailydose_p1a / 32 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 32 * 100).round(6)",
             "dataType": "decimal"
@@ -1265,7 +1265,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of losartan from the same prescription as dailydose, as a percentage of the target daily dose of 150",
+          "description": "Daily dose divided by the predefined dose (150), multiplied by 100: medication_dosage_arb_losartan_dailydose_p1a / 150 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 150 * 100).round(6)",
             "dataType": "decimal"
@@ -1336,7 +1336,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of valsartan from the same prescription as dailydose, as a percentage of the target daily dose of 320",
+          "description": "Daily dose divided by the predefined dose (320), multiplied by 100: medication_dosage_arb_valsartan_dailydose_p1a / 320 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 320 * 100).round(6)",
             "dataType": "decimal"
@@ -1407,7 +1407,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of ivabradine from the same prescription as dailydose, as a percentage of the target daily dose of 15",
+          "description": "Daily dose divided by the predefined dose (15), multiplied by 100: medication_dosage_other_ivabradine_dailydose_p1a / 15 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 15 * 100).round(6)",
             "dataType": "decimal"
@@ -1478,7 +1478,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of vericiguat from the same prescription as dailydose, as a percentage of the target daily dose of 10",
+          "description": "Daily dose divided by the predefined dose (10), multiplied by 100: medication_dosage_other_vericiguat_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -1549,7 +1549,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of digoxin from the same prescription as dailydose, as a percentage of the target daily dose of 250",
+          "description": "Daily dose divided by the predefined dose (250), multiplied by 100: medication_dosage_other_digoxin_dailydose_p1a / 250 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 250 * 100).round(6)",
             "dataType": "decimal"
@@ -1620,7 +1620,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of hydralazine from the same prescription as dailydose, as a percentage of the target daily dose of 225",
+          "description": "Daily dose divided by the predefined dose (225), multiplied by 100: medication_dosage_other_hydralazine_dailydose_p1a / 225 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 225 * 100).round(6)",
             "dataType": "decimal"
@@ -1691,7 +1691,7 @@
         },
         {
           "name": "perctargetdose",
-          "description": "Daily dose of isosorbide dinitrate from the same prescription as dailydose, as a percentage of the target daily dose of 120",
+          "description": "Daily dose divided by the predefined dose (120), multiplied by 100: medication_dosage_other_isosorbidedinitrate_dailydose_p1a / 120 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 120 * 100).round(6)",
             "dataType": "decimal"
@@ -1762,7 +1762,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of furosemide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 40",
+          "description": "Daily dose divided by the predefined minimum dose (40), multiplied by 100: medication_dosage_ld_furosemide_dailydose_p1a / 40 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 40 * 100).round(6)",
             "dataType": "decimal"
@@ -1770,7 +1770,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of furosemide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 240",
+          "description": "Daily dose divided by the predefined maximum dose (240), multiplied by 100: medication_dosage_ld_furosemide_dailydose_p1a / 240 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 240 * 100).round(6)",
             "dataType": "decimal"
@@ -1841,7 +1841,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of bumetanide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 1",
+          "description": "Daily dose divided by the predefined minimum dose (1), multiplied by 100: medication_dosage_ld_bumetanide_dailydose_p1a / 1 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 1 * 100).round(6)",
             "dataType": "decimal"
@@ -1849,7 +1849,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of bumetanide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 5",
+          "description": "Daily dose divided by the predefined maximum dose (5), multiplied by 100: medication_dosage_ld_bumetanide_dailydose_p1a / 5 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 5 * 100).round(6)",
             "dataType": "decimal"
@@ -1920,7 +1920,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of torasemide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 10",
+          "description": "Daily dose divided by the predefined minimum dose (10), multiplied by 100: medication_dosage_ld_torasemide_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -1928,7 +1928,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of torasemide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 20",
+          "description": "Daily dose divided by the predefined maximum dose (20), multiplied by 100: medication_dosage_ld_torasemide_dailydose_p1a / 20 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 20 * 100).round(6)",
             "dataType": "decimal"
@@ -1999,7 +1999,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of bendroflumethiazide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
+          "description": "Daily dose divided by the predefined minimum dose (2.5), multiplied by 100: medication_dosage_td_bendroflumethiazide_dailydose_p1a / 2.5 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 2.5 * 100).round(6)",
             "dataType": "decimal"
@@ -2007,7 +2007,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of bendroflumethiazide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 10",
+          "description": "Daily dose divided by the predefined maximum dose (10), multiplied by 100: medication_dosage_td_bendroflumethiazide_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -2078,7 +2078,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of hydrochlorothiazide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 12.5",
+          "description": "Daily dose divided by the predefined minimum dose (12.5), multiplied by 100: medication_dosage_td_hydrochlorothiazide_dailydose_p1a / 12.5 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 12.5 * 100).round(6)",
             "dataType": "decimal"
@@ -2086,7 +2086,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of hydrochlorothiazide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 100",
+          "description": "Daily dose divided by the predefined maximum dose (100), multiplied by 100: medication_dosage_td_hydrochlorothiazide_dailydose_p1a / 100 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 100 * 100).round(6)",
             "dataType": "decimal"
@@ -2157,7 +2157,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of metolazone from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
+          "description": "Daily dose divided by the predefined minimum dose (2.5), multiplied by 100: medication_dosage_td_metolazone_dailydose_p1a / 2.5 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 2.5 * 100).round(6)",
             "dataType": "decimal"
@@ -2165,7 +2165,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of metolazone from the same prescription as dailydose, as a percentage of the maximum target daily dose of 10",
+          "description": "Daily dose divided by the predefined maximum dose (10), multiplied by 100: medication_dosage_td_metolazone_dailydose_p1a / 10 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
@@ -2236,7 +2236,7 @@
         },
         {
           "name": "perctargetdose_min",
-          "description": "Daily dose of indapamide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
+          "description": "Daily dose divided by the predefined minimum dose (2.5), multiplied by 100: medication_dosage_nts_indapamide_dailydose_p1a / 2.5 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 2.5 * 100).round(6)",
             "dataType": "decimal"
@@ -2244,7 +2244,7 @@
         },
         {
           "name": "perctargetdose_max",
-          "description": "Daily dose of indapamide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 5",
+          "description": "Daily dose divided by the predefined maximum dose (5), multiplied by 100: medication_dosage_nts_indapamide_dailydose_p1a / 5 × 100. Empty when the daily dose is empty.",
           "value": {
             "path": "(dailyDose / 5 * 100).round(6)",
             "dataType": "decimal"
@@ -2312,7 +2312,7 @@
     },
     {
       "name": "medication_dosage_bb_carvedilol_perctargetdose_p1a",
-      "description": "Daily dose of carvedilol (medication_dosage_bb_carvedilol_dailydose_p1a) as a percentage of the target daily dose chosen by body weight (vital_signs_validWeight_value_p1a): 50 up to 85 kg, 100 above 85 kg. Left empty if the daily dose or the weight is missing.",
+      "description": "Daily dose divided by the predefined dose, multiplied by 100: medication_dosage_bb_carvedilol_dailydose_p1a / predefined dose × 100. The predefined dose depends on body weight (vital_signs_validWeight_value_p1a): 50 up to 85 kg, 100 above 85 kg. Empty when the daily dose or the weight is missing.",
       "combinedFeatures": [
         {
           "alias": "dose",
