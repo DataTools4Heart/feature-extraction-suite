@@ -5,8 +5,8 @@
   "title": "Care Heart Outpatient Visit Features",
   "description": "Set of extracted features for Care Heart Outpatient Visit",
   "status": "active",
-  "version": "1.7",
-  "date": "2026-09-16",
+  "version": "1.8",
+  "date": "2026-09-18",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -1034,6 +1034,11 @@
         "on": {
           "pid": "pid"
         }
+      },
+      "filter": {
+        "name": "lvef",
+        "description": "Restrict to echocardiograph records where LVEF was recorded",
+        "filter": "lvef.exists()"
       },
       "feature": [
         {
@@ -4053,7 +4058,7 @@
         },
         {
           "alias": "lvef",
-          "featureNamePattern": "echocardiographs_lvef"
+          "featureNamePattern": "echocardiographs_lvef_lvef"
         },
         {
           "alias": "sbp",
