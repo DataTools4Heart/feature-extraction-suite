@@ -1,0 +1,2031 @@
+{
+  "id": "study4-fs",
+  "url": "https://datatools4heart.eu/feature-sets/study4",
+  "name": "study4-fs",
+  "title": "Dataset for Clinical Study 4 of AI4HF.",
+  "description": "Dataset for Clinical Study 4 of AI4HF projects.",
+  "status": "active",
+  "version": "1.0",
+  "date": "2026-09-18",
+  "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "sampling": [
+    {
+      "description": "Use the start time of encounters as the reference time point",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/encounters",
+          "join": {
+            "on": {
+              "pid": "pid",
+              "encounterId": "encounterId"
+            }
+          },
+          "eventTime": "startTime"
+        }
+      ]
+    }
+  ],
+  "secondaryTimePoint": [
+    {
+      "name": "lastRecordDate",
+      "description": "The latest recorded end time from the patient's encounters.",
+      "isPast": false,
+      "select": "latest",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/encounters",
+          "join": {
+            "on": {
+              "pid": "pid"
+            }
+          },
+          "eventTime": "endTime"
+        }
+      ]
+    }
+  ],
+  "feature": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "gender",
+          "description": "Gender of the patient"
+        },
+        {
+          "name": "age",
+          "description": "Age of the patient at admission date",
+          "value": {
+            "path": "utl:getPeriod(birthDate, %eventTime, 'years')",
+            "dataType": "integer"
+          }
+        },
+        {
+          "name": "birthYear",
+          "description": "Birth year of the patient.",
+          "value": {
+            "path": "birthDate.toString().substring(0,4).toInteger()",
+            "dataType": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Vital signs collected within 6 months before referenceTimePoint (encounter date)",
+        "values": [
+          {
+            "name": "weight",
+            "value": "29463-7",
+            "description": "Weight (kg)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "1a"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Vital signs collected within 1 year before referenceTimePoint (encounter date)",
+        "values": [
+          {
+            "name": "height",
+            "value": "8302-2",
+            "description": "Height (cm)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Vital signs collected in an encounter",
+        "values": [
+          {
+            "name": "systolicBp",
+            "value": "8480-6",
+            "description": "Systolic blood pressure (mmHg)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the vital sign",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Lab results collected during the encounter",
+        "values": [
+          {
+            "name": "ntProBnp",
+            "value": "33762-6",
+            "description": "Natriuretic peptide.B prohormone N-Terminal [Mass/volume] in Serum or Plasma (pg/mL)"
+          },
+          {
+            "name": "bnp",
+            "value": "30934-4",
+            "description": "Natriuretic peptide B [Mass/volume] in Serum or Plasma (pg/mL)"
+          },
+          {
+            "name": "creatBS",
+            "value": "2160-0",
+            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "systolicBpDuringEncounter",
+        "description": "Systolic blood pressure (mmHg)",
+        "filter": "codes.select($this = '8480-6').anyTrue() and value >= 20 and value <= 250"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest value of the systolic blood pressure measured during the encounter, restricted to physiologically plausible readings (20-250 mmHg) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/vital_signs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "bmi",
+        "description": "BMI (kg/m2)",
+        "filter": "codes.select($this = '39156-5').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest BMI recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the normal BMI range (18.5-25 kg/m2).",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "randomRange",
+                "min": 18.5,
+                "max": 25.0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime"
+      },
+      "filter": {
+        "name": "validSerumCreatinine",
+        "description": "Filter valid creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0').anyTrue() and value >= 0.11 and value <= 22.6"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Latest serum creatinine value recorded during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "temporalAggregate",
+                "windowSize": "3a",
+                "aggOp": "avg",
+                "lastN": 2
+              },
+              {
+                "type": "populationStatistic",
+                "statistic": "iqrSample"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "lvef",
+        "description": "Restrict to echocardiograph records where LVEF was recorded",
+        "filter": "lvef.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "The most recent left ventricular ejection fraction (LVEF) recorded prior to the reference time point.",
+          "value": {
+            "path": "lvef",
+            "dataType": "decimal"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 6mo"
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "LVEF (Left ventricular ejection fraction, LOINC 8806-2 (%)) values measured within the 6 months leading up to and including the encounter",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 1mo"
+      },
+      "feature": [
+        {
+          "name": "ecg_qrs_duration",
+          "description": "QRS wave (LOINC: 8633-0 (ms)) duration values measured within the 1 month leading up to and including the encounter",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qrs_axis",
+          "description": "QRS wave axis (LOINC: 8632-2 (deg)) values measured within the 1 month leading up to and including the encounter",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qt_duration_corrected",
+          "description": "QT wave corrected: (DT4H: bazett (ms)) duration values measured within the 1 month leading up to and including the encounter",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_type_of_rhythms",
+          "description": "Type of rhythm (LOINC 76281-5) value within the 1 month leading up to and including the encounter",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "ecg_qrs_duration",
+          "description": "QRS wave (LOINC: 8633-0 (ms)) duration values measured during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qrs_axis",
+          "description": "QRS wave axis (LOINC: 8632-2 (deg)) values measured during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_qt_duration_corrected",
+          "description": "QT wave corrected: (DT4H: bazett (ms)) duration values measured during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last",
+                "avg",
+                "min",
+                "max",
+                "stddev"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ecg_type_of_rhythms",
+          "description": "Type of rhythm (LOINC 76281-5) value observed during the encounter.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first",
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/smoking_status",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "smoker",
+          "description": "Determines if the patient is currently smoking. A patient is considered a current smoker if their last recorded smoking status is one of the following: 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either has no recorded end date or the end date is after the reference time point. If the last recorded status is 'Former smoker' and it has an end date before the reference time point, the patient is considered a current smoker. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker. If missing (including when no smoking-status information is recorded at all), defaults to false (non-smoker).",
+          "value": {
+            "path": "iif((code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001') and (endTime.exists().not() or endTime > %referenceTimePoint),true,iif(code = '8517006' and endTime.exists() and endTime < %referenceTimePoint,true,iif(code = '266927001',{},false)))",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "missing": {
+            "strategies": [
+              {
+                "type": "constant",
+                "value": false
+              }
+            ]
+          }
+        },
+        {
+          "name": "formerSmoker",
+          "description": "Whether the patient smoked within 1 year prior to the reference time point. The patient is considered to have smoked if their most recent smoking status is 'Current every day smoker,' 'Current some day smoker,' 'Smoker, current status unknown,' 'Current heavy tobacco smoker,' or 'Current light tobacco smoker' and either: 1. The recorded start date is within 365 days of the reference time point, 2. There is no recorded end date, or 3. The recorded end date is within 365 days of the reference time point. If the last recorded status is 'Former smoker,' the patient is considered to have smoked in the past year if either the smoking start date is within 365 days of the reference time point or the smoking end date is before the reference time point. If the status is 'Unknown if ever smoked,' the result is empty; otherwise, the patient is considered a non-smoker.",
+          "value": {
+            "path": "iif(code = '449868002' or code = '428041000124106' or code = '77176002' or code = '230063004' or code = '230060001',iif(utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() <= 365 or endTime.exists().not() or utl:getPeriod(endTime, %referenceTimePoint, 'days').toInteger() <= 365,true, false),iif(code = '8517006' and ((startTime.exists() and utl:getPeriod(startTime, %referenceTimePoint, 'days').toInteger() < 365) or (endTime.exists() and endTime < %referenceTimePoint)), true,iif(code = '266927001',{},false)))",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "af",
+          "description": "Whether the patient has atrial fibrillation in their clinical history prior to the reference time point",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "copd",
+          "description": "Whether the patient has COPD in their clinical history prior to the reference time point",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "diabetes",
+          "description": "Whether the patient has diabetes mellitus in their clinical history prior to the reference time point",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/med_admins",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "offset": "%eventTime"
+      },
+      "filter": {
+        "name": "history",
+        "description": "This filter is here for only avoid column name clash with the one in the previous feature group",
+        "filter": "true"
+      },
+      "feature": [
+        {
+          "name": "acei",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors administered in their clinical history prior to the reference time point",
+          "value": {
+            "path": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "arb",
+          "description": "Whether angiotensin receptor blocker (ARB) administered in their clinical history prior to the reference time point",
+          "value": {
+            "path": "medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "bb",
+          "description": "Whether beta blockers administered in their clinical history prior to the reference time point",
+          "value": {
+            "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "heart_failure",
+        "description": "Find the Heart Failures.",
+        "filter": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I25.5') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "occurred_prior_to_18_months",
+          "description": "Indicates whether the condition was diagnosed 18 months or more before the reference time point, corresponding to the criteria for 'Heart Failure (HF) ≥ 18 Months Prior.'",
+          "value": {
+            "path": "utl:getPeriod(date, %referenceTimePoint, 'months') >= 18",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/nyha",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "nyha",
+          "description": "The latest value of the New York Heart Assessment as LOINC Code"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/med_requests",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "activeDuringEncounter",
+        "description": "This filter is here for only avoid column name clash with the ones in the previous feature groups",
+        "filter": "true"
+      },
+      "feature": [
+        {
+          "name": "bb",
+          "description": "Whether beta blockers were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "(medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ace_inhibitors_arb_use",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors or angiotensin receptor blocker (ARB) were started before the encounter and not stopped before or during it, or started during the encounter",
+          "value": {
+            "path": "(medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "filter": {
+        "name": "creatinine",
+        "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)",
+        "filter": "codes.select($this = '2160-0').anyTrue() and value > 0 and value < 250"
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "The average value recorded over the three years preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "3a"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Important lab results to be evaluated features",
+        "values": [
+          {
+            "name": "creatBS",
+            "value": "2160-0",
+            "description": "Creatinine [Mass/volume] in Serum or Plasma (mg/L)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "lastN": 2,
+              "aggOp": [
+                "avg"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "ecg_lbbb",
+          "description": "Whether LBBB is observed on any ECG recorded up to the reference time point (encounter start).",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "visible": false
+        },
+        {
+          "name": "ecg_rbbb",
+          "description": "Whether RBBB is observed on any ECG recorded up to the reference time point (encounter start).",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "ecg_heart_rate",
+        "description": "Restrict to ECG records where heart rate was recorded",
+        "filter": "ecg_heart_rate.exists()"
+      },
+      "feature": [
+        {
+          "name": "ecg_heart_rate",
+          "description": "Last heart rate (LOINC 76282-3, ECG-derived) value recorded within the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "tapse",
+        "description": "Restrict to echocardiograph records where TAPSE was recorded",
+        "filter": "tapse.exists()"
+      },
+      "feature": [
+        {
+          "name": "tapse",
+          "description": "TAPSE (LOINC 77903-3) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "la_dim",
+        "description": "Restrict to echocardiograph records where left atrial dimension was recorded",
+        "filter": "la_dim.exists()"
+      },
+      "feature": [
+        {
+          "name": "la_dim",
+          "description": "Left atrial dimension (LOINC 29469-4 | 79975-9) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "lvedd",
+        "description": "Restrict to echocardiograph records where LVEDD was recorded",
+        "filter": "lvedd.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvedd",
+          "description": "LVEDD (LOINC 29436-3) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Lab results measured within 12 months preceding the reference time point",
+        "values": [
+          {
+            "name": "labRDW",
+            "value": "30385-9",
+            "description": "Erythrocyte distribution width [Ratio] by Automated count (RDW, %)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Value of the lab result",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "bsa",
+        "description": "Restrict to cardiac MRI records where BSA was recorded",
+        "filter": "bsa.exists()"
+      },
+      "feature": [
+        {
+          "name": "bsa",
+          "description": "Body surface area (LOINC 3139-3) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "lvef",
+        "description": "Restrict to cardiac MRI records where LVEF was recorded",
+        "filter": "lvef.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "LVEF (LOINC 8811-2) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "lvedv",
+        "description": "Restrict to cardiac MRI records where LVEDV was recorded",
+        "filter": "lvedv.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvedv",
+          "description": "LVEDV (LOINC 8821-1) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "rvef",
+        "description": "Restrict to cardiac MRI records where RVEF was recorded",
+        "filter": "rvef.exists()"
+      },
+      "feature": [
+        {
+          "name": "rvef",
+          "description": "RVEF (LOINC 8818-7) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "rvedv",
+        "description": "Restrict to cardiac MRI records where RVEDV was recorded",
+        "filter": "rvedv.exists()"
+      },
+      "feature": [
+        {
+          "name": "rvedv",
+          "description": "RVEDV (LOINC 8822-9) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "lge_lv",
+        "description": "Restrict to cardiac MRI records where LGE-LV was recorded",
+        "filter": "lge_lv.exists()"
+      },
+      "feature": [
+        {
+          "name": "lge_lv",
+          "description": "Whether LGE in the LV (CDM-DT4H: LGE-LV) is observed on the MRI closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 12mo"
+      },
+      "filter": {
+        "name": "lge_rv",
+        "description": "Restrict to cardiac MRI records where LGE-RV was recorded",
+        "filter": "lge_rv.exists()"
+      },
+      "feature": [
+        {
+          "name": "lge_rv",
+          "description": "Whether LGE in the RV (CDM-DT4H: LGE-RV) is observed on the MRI closest to the reference time point, considering measurements up to 12 months before it.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "last"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "combinedFeature": [
+    {
+      "name": "maggic_total_score",
+      "description": "Sum of MAGGIC points incl. SBP×EF and Age×EF extras.",
+      "combinedFeatures": [
+        {
+          "alias": "gndr",
+          "featureNamePattern": "patient_demographics_gender"
+        },
+        {
+          "alias": "nyha",
+          "featureNamePattern": "nyha_nyha"
+        },
+        {
+          "alias": "smk",
+          "featureNamePattern": "smoking_status_smoker_last"
+        },
+        {
+          "alias": "dia",
+          "featureNamePattern": "conditions_diabetes_any"
+        },
+        {
+          "alias": "hf18",
+          "featureNamePattern": "conditions_heart_failure_occurred_prior_to_18_months_any"
+        },
+        {
+          "alias": "bb",
+          "featureNamePattern": "med_requests_activeDuringEncounter_bb_any"
+        },
+        {
+          "alias": "ace",
+          "featureNamePattern": "med_requests_activeDuringEncounter_ace_inhibitors_arb_use_any"
+        },
+        {
+          "alias": "bmi",
+          "featureNamePattern": "vital_signs_bmi_value_pET"
+        },
+        {
+          "alias": "copd",
+          "featureNamePattern": "conditions_copd_any"
+        },
+        {
+          "alias": "cr",
+          "featureNamePattern": "lab_results_validSerumCreatinine_value_pET"
+        },
+        {
+          "alias": "lvef",
+          "featureNamePattern": "echocardiographs_lvef_lvef"
+        },
+        {
+          "alias": "sbp",
+          "featureNamePattern": "vital_signs_systolicBpDuringEncounter_value_pET"
+        },
+        {
+          "alias": "age",
+          "featureNamePattern": "patient_demographics_age"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%gndr.exists(), iif(%gndr = 'male', 1, 0), {}) + iif(%nyha.exists(), iif(%nyha = 'LA28404-4', 0, iif(%nyha = 'LA28405-1', 2, iif(%nyha = 'LA28406-9', 6, iif(%nyha = 'LA28407-7', 8, 0)))), {}) + iif(%smk.exists(), iif((%smk = '1') or (%smk = true), 1, 0), {}) + iif(%dia.exists(), iif(%dia, 3, 0), {}) + iif(%hf18.exists(), iif(%hf18, 2, 0), {}) + iif(%bb.exists(), iif(%bb = true, 0, 3), {}) + iif(%ace.exists(), iif(%ace = true, 0, 1), {}) + iif(%bmi.exists(), iif(%bmi < 15, 6, iif(%bmi < 20, 5, iif(%bmi < 25, 3, iif(%bmi < 30, 2, 0)))), {}) + iif(%copd.exists(), iif(%copd, 2, 0), {}) + iif(%cr.exists(), iif(%cr < 10.1808, 0, iif(%cr < 12.4432, 1, iif(%cr < 14.7056, 2, iif(%cr < 16.968, 3, iif(%cr < 19.2304, 4, iif(%cr < 23.7552, 5, iif(%cr < 28.28, 6, 8))))))), {}) + iif(%lvef.exists(), iif(%lvef < 20, 7, iif(%lvef < 25, 6, iif(%lvef < 30, 5, iif(%lvef < 35, 3, iif(%lvef < 40, 2, 0))))), {}) + iif(%age.exists() and %lvef.exists(), iif(%lvef < 30, iif(%age < 55, 0, iif(%age < 60, 1, iif(%age < 65, 2, iif(%age < 70, 4, iif(%age < 75, 6, iif(%age < 80, 8, 10)))))), iif(%lvef < 40, iif(%age < 55, 0, iif(%age < 60, 2, iif(%age < 65, 4, iif(%age < 70, 6, iif(%age < 75, 8, iif(%age < 80, 10, 13)))))), iif(%age < 55, 0, iif(%age < 60, 3, iif(%age < 65, 5, iif(%age < 70, 7, iif(%age < 75, 9, iif(%age < 80, 12, 15)))))))), {}) + iif(%sbp.exists() and %lvef.exists(), iif(%lvef < 30, iif(%sbp < 110, 5, iif(%sbp < 120, 4, iif(%sbp < 130, 3, iif(%sbp < 140, 2, iif(%sbp < 150, 1, 0))))), iif(%lvef < 40, iif(%sbp < 110, 3, iif(%sbp < 120, 2, iif(%sbp < 130, 1, iif(%sbp < 140, 1, 0)))), iif(%sbp < 110, 2, iif(%sbp < 120, 1, iif(%sbp < 130, 1, 0))))), {})",
+        "dataType": "integer"
+      }
+    },
+    {
+      "name": "ecgLBBB",
+      "description": "Whether LBBB is observed on the ECG any time before the current encounter or during the encounter assigned.",
+      "combinedFeatures": [
+        {
+          "alias": "bef",
+          "featureNamePattern": "electrocardiographs_ecg_lbbb_any"
+        },
+        {
+          "alias": "dur",
+          "featureNamePattern": "electrocardiographs_ecg_lbbb_f_any"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif((%bef | %dur).exists(), (%bef | %dur).anyTrue(), %bef)",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "ecgRBBB",
+      "description": "Whether RBBB is observed on the ECG any time before the current encounter or during the encounter assigned.",
+      "combinedFeatures": [
+        {
+          "alias": "bef",
+          "featureNamePattern": "electrocardiographs_ecg_rbbb_any"
+        },
+        {
+          "alias": "dur",
+          "featureNamePattern": "electrocardiographs_ecg_rbbb_f_any"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif((%bef | %dur).exists(), (%bef | %dur).anyTrue(), %bef)",
+        "dataType": "boolean"
+      }
+    },
+    {
+      "name": "ecgHR",
+      "description": "Heart rate closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "electrocardiographs_ecg_heart_rate_ecg_heart_rate_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "electrocardiographs_ecg_heart_rate_ecg_heart_rate_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "echoTAPSE",
+      "description": "TAPSE closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "echocardiographs_tapse_tapse_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "echocardiographs_tapse_tapse_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "echoLAdim",
+      "description": "Left atrial dimension closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "echocardiographs_la_dim_la_dim_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "echocardiographs_la_dim_la_dim_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "echoLVEDD",
+      "description": "LVEDD closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "echocardiographs_lvedd_lvedd_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "echocardiographs_lvedd_lvedd_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "labRDW",
+      "description": "RDW closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "lab_results_labRDW_value_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "lab_results_labRDW_value_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "mriBSA",
+      "description": "Body surface area (cardiac MRI) closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "cardiac_mri_bsa_bsa_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "cardiac_mri_bsa_bsa_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "mriLVEF",
+      "description": "LVEF (cardiac MRI) closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "cardiac_mri_lvef_lvef_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "cardiac_mri_lvef_lvef_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "mriLVEDV",
+      "description": "LVEDV (cardiac MRI) closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "cardiac_mri_lvedv_lvedv_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "cardiac_mri_lvedv_lvedv_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "mriRVEF",
+      "description": "RVEF (cardiac MRI) closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "cardiac_mri_rvef_rvef_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "cardiac_mri_rvef_rvef_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    },
+    {
+      "name": "mriRVEDV",
+      "description": "RVEDV (cardiac MRI) closest to the reference time point: prefers the last value recorded within the 12 months before it, falling back to the earliest value recorded within the 6 months after it when no prior value exists.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "cardiac_mri_rvedv_rvedv_pET_last"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "cardiac_mri_rvedv_rvedv_f6mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "decimal"
+      }
+    }
+  ],
+  "outcome": [
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "isUnspecifiedCause",
+          "description": "Whether the patient dies because of unspecified condition after the encounter",
+          "value": {
+            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).anyTrue())",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "first"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "first"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "first"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "first"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "first"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "first"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_death_for_unspecified_cause",
+          "description": "Number of days from the reference time point until death due to unspecified condition",
+          "value": {
+            "path": "iif(causesOfDeath.select($this.startsWith('R99')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid",
+          "encounterId": "encounterId"
+        }
+      },
+      "feature": [
+        {
+          "name": "ecg_lbbb",
+          "description": "Whether LBBB is observed on any ECG assigned to the current encounter and recorded after its start (the reference time point).",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "visible": false
+        },
+        {
+          "name": "ecg_rbbb",
+          "description": "Whether RBBB is observed on any ECG assigned to the current encounter and recorded after its start (the reference time point).",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "ecg_heart_rate",
+        "description": "Restrict to ECG records where heart rate was recorded",
+        "filter": "ecg_heart_rate.exists()"
+      },
+      "feature": [
+        {
+          "name": "ecg_heart_rate",
+          "description": "Earliest heart rate (LOINC 76282-3, ECG-derived) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "tapse",
+        "description": "Restrict to echocardiograph records where TAPSE was recorded",
+        "filter": "tapse.exists()"
+      },
+      "feature": [
+        {
+          "name": "tapse",
+          "description": "Earliest TAPSE (LOINC 77903-3) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "la_dim",
+        "description": "Restrict to echocardiograph records where left atrial dimension was recorded",
+        "filter": "la_dim.exists()"
+      },
+      "feature": [
+        {
+          "name": "la_dim",
+          "description": "Earliest left atrial dimension (LOINC 29469-4 | 79975-9) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/echocardiographs",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "lvedd",
+        "description": "Restrict to echocardiograph records where LVEDD was recorded",
+        "filter": "lvedd.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvedd",
+          "description": "Earliest LVEDD (LOINC 29436-3) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/lab_results",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "pivot": {
+        "name": "codes",
+        "description": "Lab results measured within 6 months following the reference time point",
+        "values": [
+          {
+            "name": "labRDW",
+            "value": "30385-9",
+            "description": "Erythrocyte distribution width [Ratio] by Automated count (RDW, %)"
+          }
+        ]
+      },
+      "feature": [
+        {
+          "name": "value",
+          "description": "Earliest RDW value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "bsa",
+        "description": "Restrict to cardiac MRI records where BSA was recorded",
+        "filter": "bsa.exists()"
+      },
+      "feature": [
+        {
+          "name": "bsa",
+          "description": "Earliest body surface area (LOINC 3139-3) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "lvef",
+        "description": "Restrict to cardiac MRI records where LVEF was recorded",
+        "filter": "lvef.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvef",
+          "description": "Earliest LVEF (LOINC 8811-2) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "lvedv",
+        "description": "Restrict to cardiac MRI records where LVEDV was recorded",
+        "filter": "lvedv.exists()"
+      },
+      "feature": [
+        {
+          "name": "lvedv",
+          "description": "Earliest LVEDV (LOINC 8821-1) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "rvef",
+        "description": "Restrict to cardiac MRI records where RVEF was recorded",
+        "filter": "rvef.exists()"
+      },
+      "feature": [
+        {
+          "name": "rvef",
+          "description": "Earliest RVEF (LOINC 8818-7) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "6mo"
+      },
+      "filter": {
+        "name": "rvedv",
+        "description": "Restrict to cardiac MRI records where RVEDV was recorded",
+        "filter": "rvedv.exists()"
+      },
+      "feature": [
+        {
+          "name": "rvedv",
+          "description": "Earliest RVEDV (LOINC 8822-9) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/patient_demographics",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "months_to_death_or_last_record_date",
+          "description": "The number of months between the reference time point and the patient’s date of death (if known); otherwise, the number of months between the reference time point and the last known date of recorded activity related to the patient.",
+          "value": {
+            "path": "iif(deceasedDateTime.toDateTime().exists(),utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months'),utl:getPeriod(%referenceTimePoint, %lastRecordDate, 'months'))",
+            "dataType": "integer"
+          }
+        },
+        {
+          "name": "deceased_in_12_months",
+          "description": "Mortality recorded within the 12 months following the reference time point.",
+          "value": {
+            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "deceased_in_24_months",
+          "description": "Mortality recorded within the 24 months following the reference time point.",
+          "value": {
+            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "deceased_in_36_months",
+          "description": "Mortality recorded within the 36 months following the reference time point.",
+          "value": {
+            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
+            "dataType": "boolean"
+          }
+        },
+        {
+          "name": "deceased_in_48_months",
+          "description": "Mortality recorded within the 48 months following the reference time point.",
+          "value": {
+            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
+            "dataType": "boolean"
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "feature": [
+        {
+          "name": "number_of_HF_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to heart failure within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_CV_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to cardiovascular disease within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_non_CV_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to non-cardiovascular disease within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_renal_rehospitalizations_5a",
+          "description": "Total number of hospitalizations due to renal complications within 5 years after the reference/index event",
+          "value": {
+            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), 1)",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

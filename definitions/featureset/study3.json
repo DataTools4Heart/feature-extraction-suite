@@ -5,8 +5,8 @@
   "title": "Dataset for DataTools4Heart project clinical study 3",
   "description": "Dataset for DataTools4Heart project clinical study 3",
   "status": "active",
-  "version": "1.4",
-  "date": "2026-09-28",
+  "version": "1.5",
+  "date": "2026-09-29",
   "publisher": "DT4H WP2 Team (SRDC Corp.)",
   "entity": [
     {
@@ -316,6 +316,11 @@
           "pid": "pid"
         },
         "duration": "%eventTime - 6mo"
+      },
+      "filter": {
+        "name": "lvef",
+        "description": "Restrict to echocardiograph records where LVEF was recorded",
+        "filter": "lvef.exists()"
       },
       "feature": [
         {

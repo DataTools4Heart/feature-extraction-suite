@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 1 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 1 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "2.4",
-  "date": "2026-09-16",
+  "version": "2.5",
+  "date": "2026-09-18",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -876,6 +876,11 @@
           "pid": "pid"
         }
       },
+      "filter": {
+        "name": "lvef",
+        "description": "Restrict to echocardiograph records where LVEF was recorded",
+        "filter": "lvef.exists()"
+      },
       "feature": [
         {
           "name": "lvef",
@@ -1332,7 +1337,7 @@
           "name": "ace_inhibitors_arb_use",
           "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors or angiotensin receptor blocker (ARB) were started before the encounter and not stopped before or during it, or started during the encounter",
           "value": {
-            "path": "((medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue()) or (medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())))) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
+            "path": "(medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())) and ((startTime < %eventTime and (endTime.exists().not() or endTime > %referenceTimePoint)) or startTime >= %eventTime)",
             "dataType": "boolean"
           },
           "temporalAgg": [
@@ -5181,7 +5186,7 @@
         },
         {
           "alias": "nyha",
-          "featureNamePattern": "nyha_nyha_pET"
+          "featureNamePattern": "nyha_nyha"
         },
         {
           "alias": "smk",
@@ -5217,7 +5222,7 @@
         },
         {
           "alias": "lvef",
-          "featureNamePattern": "echocardiographs_lvef_pET_last"
+          "featureNamePattern": "echocardiographs_lvef_lvef"
         },
         {
           "alias": "sbp",

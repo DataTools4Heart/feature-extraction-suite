@@ -1,0 +1,52 @@
+{
+  "id": "study4_cohort",
+  "resourceType": "Population",
+  "url": "https://datatools4heart.eu/cohorts/study4",
+  "name": "study4_cohort",
+  "title": "Cardiology Outpatients with Non-Ischemic Dilated Cardiomyopathy and Reduced LVEF",
+  "description": "This cohort includes all patients with non-ischemic DCM and a clinical encounter at the cardiology out-patient clinic, age >= 18 years. Patients are selected using an ICD-10 code based DCM definition: ICD-10 code (I42.0) and LVEF < 45% (measured using ultrasound only).",
+  "version": "1.0",
+  "date": "2026-09-18",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures cardiology outpatient encounters (ambulatory class) for patients."
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adultDcmReducedEfCohort",
+      "description": "Selects adult patients (>=18 years at the time of encounter) with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0), with an LVEF below 45% measured by ultrasound only.",
+      "criteria": [
+        {
+          "name": "adult",
+          "description": "Excludes patients younger than 18 years at the time of encounter."
+        },
+        {
+          "name": "dcm",
+          "description": "Includes patients with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0) recorded during the outpatient encounter."
+        },
+        {
+          "name": "reducedEf",
+          "description": "Includes patients with a left ventricular ejection fraction below 45%, measured by ultrasound only, during the outpatient encounter."
+        }
+      ]
+    }
+  ],
+  "period": {
+    "description": "Includes all cardiology outpatient encounters for the defined cohort population.",
+    "events": "all"
+  }
+}
