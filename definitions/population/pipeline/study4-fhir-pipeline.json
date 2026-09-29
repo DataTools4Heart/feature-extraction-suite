@@ -1,0 +1,109 @@
+{
+  "id": "study4_cohort",
+  "resourceType": "PopulationPipeline",
+  "url": "https://datatools4heart.eu/cohorts/study4",
+  "name": "study4_cohort",
+  "title": "Cardiology Outpatients with Non-Ischemic Dilated Cardiomyopathy and Reduced LVEF",
+  "description": "This cohort includes all patients with non-ischemic DCM and a clinical encounter at the cardiology out-patient clinic, age >= 18 years. Patients are selected using an ICD-10 code based DCM definition: ICD-10 code (I42.0) and LVEF < 45% (measured using ultrasound only).",
+  "version": "1.0",
+  "date": "2026-09-18",
+  "status": "active",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "entry": [
+    {
+      "name": "patientEncounter",
+      "description": "Captures cardiology outpatient encounters (ambulatory class) for patients.",
+      "resourceType": "Encounter",
+      "query": "?service-type=http://snomed.info/sct|394579002&class=AMB",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "_id",
+          "path": "id"
+        }
+      ],
+      "eventTime": "Encounter.actualPeriod.start",
+      "exitTime": "(Encounter.actualPeriod.end.toDateTime() | (Encounter.actualPeriod.start.toDateTime() + 1 days)).first()"
+    }
+  ],
+  "eligibility": [
+    {
+      "name": "adultDcmReducedEfCohort",
+      "description": "Selects adult patients (>=18 years at the time of encounter) with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0), with an LVEF below 45% measured by ultrasound only.",
+      "criteria": [
+        {
+          "name": "adult",
+          "description": "Excludes patients younger than 18 years at the time of encounter.",
+          "resourceType": "Patient",
+          "category": "exclusion",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "id"
+            }
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        },
+        {
+          "name": "dcm",
+          "description": "Includes patients with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0) recorded during the outpatient encounter.",
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?category=encounter-diagnosis&code=http://hl7.org/fhir/sid/icd-10|I42.0",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Condition.encounter.reference"
+            }
+          ]
+        },
+        {
+          "name": "reducedEf",
+          "description": "Includes patients with a left ventricular ejection fraction below 45%, measured by ultrasound only, during the outpatient encounter.",
+          "resourceType": "Observation",
+          "category": "inclusion",
+          "query": "?code=http://loinc.org|34552-0",
+          "filter": "component.where(code.coding.system='http://loinc.org' and (code.coding.code='79990-8' or code.coding.code='79992-4' or code.coding.code='79993-2' or code.coding.code='79991-6' or code.coding.code='77890-2' or code.coding.code='93644-3' or code.coding.code='93645-0' or code.coding.code='77891-0' or code.coding.code='18049-7')).valueQuantity.value < 45",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "subject.reference"
+            },
+            {
+              "entity": "encounterId",
+              "entityType": "Encounter",
+              "searchParam": "encounter",
+              "path": "Observation.encounter.reference"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

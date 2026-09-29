@@ -31,6 +31,24 @@
       "title": "Left ventricular ejection fraction",
       "description": "Left ventricular Ejection fraction by 2D echo",
       "dataType": "decimal"
+    },
+    {
+      "name": "tapse",
+      "title": "Tricuspid annular plane systolic excursion",
+      "description": "Tricuspid annular plane systolic excursion (TAPSE) by 2D echo",
+      "dataType": "decimal"
+    },
+    {
+      "name": "la_dim",
+      "title": "Left atrial dimension",
+      "description": "Left atrial dimension/diameter by 2D echo",
+      "dataType": "decimal"
+    },
+    {
+      "name": "lvedd",
+      "title": "Left ventricle end-diastolic diameter",
+      "description": "Left ventricle end-diastolic diameter by 2D echo",
+      "dataType": "decimal"
     }
   ],
   "eventTime": {

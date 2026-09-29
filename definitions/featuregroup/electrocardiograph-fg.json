@@ -57,6 +57,24 @@
       "dataType": "boolean"
     },
     {
+      "name": "ecg_lbbb",
+      "title": "Left bundle branch block",
+      "description": "Whether LBBB is observed on the ECG",
+      "dataType": "boolean"
+    },
+    {
+      "name": "ecg_rbbb",
+      "title": "Right bundle branch block",
+      "description": "Whether RBBB is observed on the ECG",
+      "dataType": "boolean"
+    },
+    {
+      "name": "ecg_heart_rate",
+      "title": "Heart rate (ECG)",
+      "description": "Heart rate measured on the ECG (LOINC 76282-3)",
+      "dataType": "decimal"
+    },
+    {
       "name": "ecg_type_of_rhythms",
       "title": "The list of rhythm types",
       "description": "The list of rhythm types",
