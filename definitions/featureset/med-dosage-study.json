@@ -6,7 +6,7 @@
   "description": "Heart failure related medications prescribed at discharge, their daily doses and the daily doses as a percentage of the target doses, together with gender and CKD severity, for the Clinical Study 1 population of DataTools4Heart and AI4HF projects.",
   "status": "active",
   "version": "1.0",
-  "date": "2026-09-28",
+  "date": "2026-09-25",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -194,7 +194,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of captopril from the same prescription as dailydose, as a percentage of the target daily dose of 150",
           "value": {
-            "path": "dailyDose / 150 * 100",
+            "path": "(dailyDose / 150 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -265,7 +265,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of enalapril from the same prescription as dailydose, as a percentage of the minimum target daily dose of 20",
           "value": {
-            "path": "dailyDose / 20 * 100",
+            "path": "(dailyDose / 20 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -273,7 +273,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of enalapril from the same prescription as dailydose, as a percentage of the maximum target daily dose of 40",
           "value": {
-            "path": "dailyDose / 40 * 100",
+            "path": "(dailyDose / 40 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -344,7 +344,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of lisinopril from the same prescription as dailydose, as a percentage of the minimum target daily dose of 20",
           "value": {
-            "path": "dailyDose / 20 * 100",
+            "path": "(dailyDose / 20 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -352,7 +352,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of lisinopril from the same prescription as dailydose, as a percentage of the maximum target daily dose of 35",
           "value": {
-            "path": "dailyDose / 35 * 100",
+            "path": "(dailyDose / 35 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -423,7 +423,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of ramipril from the same prescription as dailydose, as a percentage of the target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -494,7 +494,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of trandolapril from the same prescription as dailydose, as a percentage of the target daily dose of 4",
           "value": {
-            "path": "dailyDose / 4 * 100",
+            "path": "(dailyDose / 4 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -565,7 +565,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of sacubitril/valsartan from the same prescription as dailydose, as a percentage of the target daily dose of 400",
           "value": {
-            "path": "dailyDose / 400 * 100",
+            "path": "(dailyDose / 400 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -636,7 +636,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of bisoprolol from the same prescription as dailydose, as a percentage of the target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -770,7 +770,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of metoprolol succinate from the same prescription as dailydose, as a percentage of the target daily dose of 200",
           "value": {
-            "path": "dailyDose / 200 * 100",
+            "path": "(dailyDose / 200 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -841,7 +841,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of nebivolol from the same prescription as dailydose, as a percentage of the target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -912,7 +912,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of eplerenone from the same prescription as dailydose, as a percentage of the target daily dose of 50",
           "value": {
-            "path": "dailyDose / 50 * 100",
+            "path": "(dailyDose / 50 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -983,7 +983,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of spironolactone from the same prescription as dailydose, as a percentage of the target daily dose of 50",
           "value": {
-            "path": "dailyDose / 50 * 100",
+            "path": "(dailyDose / 50 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1054,7 +1054,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of dapagliflozin from the same prescription as dailydose, as a percentage of the target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1125,7 +1125,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of empagliflozin from the same prescription as dailydose, as a percentage of the target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1196,7 +1196,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of candesartan from the same prescription as dailydose, as a percentage of the target daily dose of 32",
           "value": {
-            "path": "dailyDose / 32 * 100",
+            "path": "(dailyDose / 32 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1267,7 +1267,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of losartan from the same prescription as dailydose, as a percentage of the target daily dose of 150",
           "value": {
-            "path": "dailyDose / 150 * 100",
+            "path": "(dailyDose / 150 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1338,7 +1338,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of valsartan from the same prescription as dailydose, as a percentage of the target daily dose of 320",
           "value": {
-            "path": "dailyDose / 320 * 100",
+            "path": "(dailyDose / 320 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1409,7 +1409,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of ivabradine from the same prescription as dailydose, as a percentage of the target daily dose of 15",
           "value": {
-            "path": "dailyDose / 15 * 100",
+            "path": "(dailyDose / 15 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1480,7 +1480,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of vericiguat from the same prescription as dailydose, as a percentage of the target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1551,7 +1551,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of digoxin from the same prescription as dailydose, as a percentage of the target daily dose of 250",
           "value": {
-            "path": "dailyDose / 250 * 100",
+            "path": "(dailyDose / 250 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1622,7 +1622,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of hydralazine from the same prescription as dailydose, as a percentage of the target daily dose of 225",
           "value": {
-            "path": "dailyDose / 225 * 100",
+            "path": "(dailyDose / 225 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1693,7 +1693,7 @@
           "name": "perctargetdose",
           "description": "Daily dose of isosorbide dinitrate from the same prescription as dailydose, as a percentage of the target daily dose of 120",
           "value": {
-            "path": "dailyDose / 120 * 100",
+            "path": "(dailyDose / 120 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1764,7 +1764,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of furosemide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 40",
           "value": {
-            "path": "dailyDose / 40 * 100",
+            "path": "(dailyDose / 40 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -1772,7 +1772,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of furosemide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 240",
           "value": {
-            "path": "dailyDose / 240 * 100",
+            "path": "(dailyDose / 240 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1843,7 +1843,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of bumetanide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 1",
           "value": {
-            "path": "dailyDose / 1 * 100",
+            "path": "(dailyDose / 1 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -1851,7 +1851,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of bumetanide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 5",
           "value": {
-            "path": "dailyDose / 5 * 100",
+            "path": "(dailyDose / 5 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -1922,7 +1922,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of torasemide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -1930,7 +1930,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of torasemide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 20",
           "value": {
-            "path": "dailyDose / 20 * 100",
+            "path": "(dailyDose / 20 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -2001,7 +2001,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of bendroflumethiazide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
           "value": {
-            "path": "dailyDose / 2.5 * 100",
+            "path": "(dailyDose / 2.5 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -2009,7 +2009,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of bendroflumethiazide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -2080,7 +2080,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of hydrochlorothiazide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 12.5",
           "value": {
-            "path": "dailyDose / 12.5 * 100",
+            "path": "(dailyDose / 12.5 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -2088,7 +2088,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of hydrochlorothiazide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 100",
           "value": {
-            "path": "dailyDose / 100 * 100",
+            "path": "(dailyDose / 100 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -2159,7 +2159,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of metolazone from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
           "value": {
-            "path": "dailyDose / 2.5 * 100",
+            "path": "(dailyDose / 2.5 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -2167,7 +2167,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of metolazone from the same prescription as dailydose, as a percentage of the maximum target daily dose of 10",
           "value": {
-            "path": "dailyDose / 10 * 100",
+            "path": "(dailyDose / 10 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -2238,7 +2238,7 @@
           "name": "perctargetdose_min",
           "description": "Daily dose of indapamide from the same prescription as dailydose, as a percentage of the minimum target daily dose of 2.5",
           "value": {
-            "path": "dailyDose / 2.5 * 100",
+            "path": "(dailyDose / 2.5 * 100).round(6)",
             "dataType": "decimal"
           }
         },
@@ -2246,7 +2246,7 @@
           "name": "perctargetdose_max",
           "description": "Daily dose of indapamide from the same prescription as dailydose, as a percentage of the maximum target daily dose of 5",
           "value": {
-            "path": "dailyDose / 5 * 100",
+            "path": "(dailyDose / 5 * 100).round(6)",
             "dataType": "decimal"
           }
         }
@@ -2324,7 +2324,7 @@
         }
       ],
       "valueExpr": {
-        "path": "iif(%dose.exists() and %weight.exists(), %dose / iif(%weight > 85, 100, 50) * 100, {})",
+        "path": "iif(%dose.exists() and %weight.exists(), (%dose / iif(%weight > 85, 100, 50) * 100).round(6), {})",
         "dataType": "decimal"
       }
     }
