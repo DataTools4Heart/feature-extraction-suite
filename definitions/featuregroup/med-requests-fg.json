@@ -4,10 +4,10 @@
   "url": "https://datatools4heart.eu/feature-groups/med_requests",
   "name": "med_requests",
   "title": "Medication Requests or Prescriptions",
-  "description": "Medication Requests or Prescriptions related features",
+  "description": "Medication Requests or Prescriptions related features. Medication Administrations are also included, since an administered medication is also prescribed.",
   "version": "1.0",
   "status": "active",
-  "date": "2025-08-06",
+  "date": "2026-10-01",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -42,14 +42,14 @@
     },
     {
       "name": "startTime",
-      "title": "MedicationRequest start time",
-      "description": "MedicationRequest start time",
+      "title": "Medication start time",
+      "description": "MedicationRequest effective dose period start, or MedicationAdministration occurrence time",
       "dataType": "dateTime"
     },
     {
       "name": "endTime",
-      "title": "MedicationRequest end time",
-      "description": "MedicationRequest end time",
+      "title": "Medication end time",
+      "description": "MedicationRequest effective dose period end, or MedicationAdministration occurrence period end (equals the start time if the administration has no period end)",
       "dataType": "dateTime"
     }
   ],

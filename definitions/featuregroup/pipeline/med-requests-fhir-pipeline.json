@@ -4,10 +4,10 @@
   "url": "https://datatools4heart.eu/feature-groups/med_requests",
   "name": "med_requests",
   "title": "Medication Requests or Prescriptions",
-  "description": "Medication Requests or Prescriptions",
+  "description": "Medication Requests or Prescriptions. Medication Administrations are also included, since an administered medication is also prescribed.",
   "version": "1.0",
   "status": "active",
-  "date": "2025-08-06",
+  "date": "2026-10-01",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
   "supportedVersions": [
@@ -48,6 +48,43 @@
         {
           "name": "endTime",
           "path": "MedicationRequest.effectiveDosePeriod.end"
+        }
+      ]
+    },
+    {
+      "description": "Extract the features from Medication Administrations, since an administered medication is also prescribed. If the administration has no period end, its end time is set to its start time (point event) so that it is not considered as ongoing.",
+      "resourceType": "MedicationAdministration",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-MedicationAdministration",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "MedicationAdministration.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "MedicationAdministration.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "medicationCodes",
+          "path": "MedicationAdministration.medication.concept.coding.where(system='http://www.whocc.no/atc').code"
+        },
+        {
+          "name": "medicationGroups",
+          "path": "MedicationAdministration.medication.concept.coding.where(system='https://datatools4heart.eu/fhir/CodeSystem/medication-group').code"
+        },
+        {
+          "name": "startTime",
+          "path": "iif(MedicationAdministration.occurenceDateTime.exists(),MedicationAdministration.occurenceDateTime,MedicationAdministration.occurencePeriod.start)"
+        },
+        {
+          "name": "endTime",
+          "path": "iif(MedicationAdministration.occurencePeriod.end.exists(),MedicationAdministration.occurencePeriod.end,iif(MedicationAdministration.occurenceDateTime.exists(),MedicationAdministration.occurenceDateTime,MedicationAdministration.occurencePeriod.start))"
         }
       ]
     }
