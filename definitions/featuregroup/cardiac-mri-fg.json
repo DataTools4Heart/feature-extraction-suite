@@ -1,0 +1,74 @@
+{
+  "id": "cardiac_mri",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/cardiac_mri",
+  "name": "cardiac_mri",
+  "title": "Cardiac MRI",
+  "description": "Cardiac MRI related features",
+  "status": "active",
+  "date": "2026-09-02",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "time",
+      "title": "Observation time",
+      "description": "Time of measurement",
+      "dataType": "dateTime"
+    },
+    {
+      "name": "bsa",
+      "title": "Body surface area",
+      "description": "Body surface area (BSA) measured by cardiac MRI",
+      "dataType": "decimal"
+    },
+    {
+      "name": "lvef",
+      "title": "Left ventricular ejection fraction",
+      "description": "Left ventricular ejection fraction by cardiac MRI",
+      "dataType": "decimal"
+    },
+    {
+      "name": "lvedv",
+      "title": "Left ventricular end-diastolic volume",
+      "description": "Left ventricular end-diastolic volume by cardiac MRI",
+      "dataType": "decimal"
+    },
+    {
+      "name": "rvef",
+      "title": "Right ventricular ejection fraction",
+      "description": "Right ventricular ejection fraction by cardiac MRI",
+      "dataType": "decimal"
+    },
+    {
+      "name": "rvedv",
+      "title": "Right ventricular end-diastolic volume",
+      "description": "Right ventricular end-diastolic volume by cardiac MRI",
+      "dataType": "decimal"
+    },
+    {
+      "name": "lge_lv",
+      "title": "Presence of LGE in LV",
+      "description": "Whether late gadolinium enhancement (LGE) in the left ventricle is observed on the MRI",
+      "dataType": "boolean"
+    },
+    {
+      "name": "lge_rv",
+      "title": "Presence of LGE in RV",
+      "description": "Whether late gadolinium enhancement (LGE) in the right ventricle is observed on the MRI",
+      "dataType": "boolean"
+    }
+  ],
+  "eventTime": {
+    "start": "time"
+  }
+}
