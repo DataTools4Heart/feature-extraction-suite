@@ -35,8 +35,8 @@ Pipelines are used to associate feature sets and populations. This indicates tha
 
 ## Repository Layout (Jan 29, 2026)
 - definitions/featuregroup/: Feature group definitions aligned with the Heart Failure CDM (encounters, vital signs, meds, labs, etc.); matching FHIR pipelines live in definitions/featuregroup/pipeline/.
-- definitions/featureset/: Final feature sets including care-heart, maggic-mlp, study1-fs, study2-fs, study3-fs, med-dosage-study, and synthetic-risk-score.
-- definitions/population/: Cohort definitions (care-heart, maggic, maggic_cprd, study1, study1-vhir, study2, study3) with FHIR pipelines under definitions/population/pipeline/.
+- definitions/featureset/: Final feature sets including care-heart, maggic-mlp, study1-fs, study2-fs, study3-fs, study4-fs, med-dosage-study, and synthetic-risk-score.
+- definitions/population/: Cohort definitions (care-heart, maggic, maggic_cprd, study1, study1-vhir, study2, study3, study4) with FHIR pipelines under definitions/population/pipeline/.
 - definitions/datasetqualitycriteria/: Dataset QA rules (e.g., maggic-quality-criteria.json).
 - definitions/valuesets/: Reserved for value set catalogues (currently empty).
 - docker/: Compose file and helper scripts (pull.sh, run.sh, clean-and-stop.sh, server configs).
@@ -140,6 +140,17 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "name": "DT4H Study3"
+}'
+```
+
+### Study 4
+
+```bash
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/DataSource/myFhirServer/FeatureSet/study4-fs/Population/study4_cohort/$extract?entityMatching=pid|pid,encounterId|encounterId&reset=true' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Study4"
 }'
 ```
 
