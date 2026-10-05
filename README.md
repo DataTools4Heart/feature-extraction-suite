@@ -190,9 +190,17 @@ curl --request POST \
 ```
 
 ### CKD Subsets
+
+> **Note:** To send all the CKD subset requests below at once, use [`scripts/request-subsets.sh`](scripts/request-subsets.sh). It runs them one after another and saves all responses, in order, to `all_subset_responses.json` in the directory you run it from. Run `./scripts/request-subsets.sh --help` for usage.
+>
+> ```bash
+> ./scripts/request-subsets.sh <hostname>/<basePath>/feast <study1_dataset_id>
+> ```
+
 #### Any CKD Male
 ```bash
-curl --request POST \ 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
+curl --request POST \
+  --url 'http://<hostname>/<basePath>/feast/api/Dataset/<study1_dataset_id>/$subset' \
   --header 'Content-Type: application/json' \
   --data '{
   "name": "Male patients subset",
