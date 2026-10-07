@@ -903,7 +903,7 @@
       "feature": [
         {
           "name": "lvef",
-          "description": "LVEF (Left ventricular ejection fraction, LOINC 8806-2 (%)) values measured from 6 months before admission through discharge",
+          "description": "LVEF (Left ventricular ejection fraction, %) values measured from 6 months before admission through discharge",
           "temporalAgg": [
             {
               "aggOp": [
