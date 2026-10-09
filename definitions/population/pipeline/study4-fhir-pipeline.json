@@ -3,10 +3,10 @@
   "resourceType": "PopulationPipeline",
   "url": "https://datatools4heart.eu/cohorts/study4",
   "name": "study4_cohort",
-  "title": "Cardiology Outpatients with Non-Ischemic Dilated Cardiomyopathy and Reduced LVEF",
-  "description": "This cohort includes all patients with non-ischemic DCM and a clinical encounter at the cardiology out-patient clinic, age >= 18 years. Patients are selected using an ICD-10 code based DCM definition: ICD-10 code (I42.0) and LVEF < 45% (measured using ultrasound only).",
-  "version": "1.0",
-  "date": "2026-09-18",
+  "title": "Cardiology Outpatient Visits of Patients with Non-Ischemic Dilated Cardiomyopathy",
+  "description": "This cohort includes cardiology out-patient clinic visits of adult patients (age >= 18 years at the time of the visit) with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0). A visit is included if it took place at most 2 months before, or any time after, the date I42.0 was first registered for the patient. The I42.0 diagnosis does not need to be recorded in the visit itself. Criteria are applied per visit, so a patient can be included through more than one visit.",
+  "version": "1.1",
+  "date": "2026-10-09",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -39,12 +39,12 @@
   ],
   "eligibility": [
     {
-      "name": "adultDcmReducedEfCohort",
-      "description": "Selects adult patients (>=18 years at the time of encounter) with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0), with an LVEF below 45% measured by ultrasound only.",
+      "name": "adultDcmCohort",
+      "description": "Selects visits of adult patients (>=18 years at the time of the visit) with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0) first registered no later than 2 months after the visit.",
       "criteria": [
         {
           "name": "adult",
-          "description": "Excludes patients younger than 18 years at the time of encounter.",
+          "description": "Excludes visits of patients younger than 18 years at the time of the visit.",
           "resourceType": "Patient",
           "category": "exclusion",
           "entityLink": [
@@ -62,46 +62,23 @@
         },
         {
           "name": "dcm",
-          "description": "Includes patients with a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0) recorded during the outpatient encounter.",
+          "description": "Includes visits of patients who have a non-ischemic dilated cardiomyopathy diagnosis (ICD-10 I42.0) registered at any time up to 2 months after the start of the visit, i.e. visits from 2 months before the first I42.0 registration onwards.",
           "resourceType": "Condition",
           "category": "inclusion",
-          "query": "?category=encounter-diagnosis&code=http://hl7.org/fhir/sid/icd-10|I42.0",
+          "query": "?code=http://hl7.org/fhir/sid/icd-10|I42.0",
           "entityLink": [
             {
               "entity": "pid",
               "entityType": "Patient",
               "searchParam": "patient",
               "path": "subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "encounter",
-              "path": "Condition.encounter.reference"
             }
-          ]
-        },
-        {
-          "name": "reducedEf",
-          "description": "Includes patients with a left ventricular ejection fraction below 45%, measured by ultrasound only, during the outpatient encounter.",
-          "resourceType": "Observation",
-          "category": "inclusion",
-          "query": "?code=http://loinc.org|34552-0",
-          "filter": "component.where(code.coding.system='http://loinc.org' and (code.coding.code='79990-8' or code.coding.code='79992-4' or code.coding.code='79993-2' or code.coding.code='79991-6' or code.coding.code='77890-2' or code.coding.code='93644-3' or code.coding.code='93645-0' or code.coding.code='77891-0' or code.coding.code='18049-7')).valueQuantity.value < 45",
-          "entityLink": [
-            {
-              "entity": "pid",
-              "entityType": "Patient",
-              "searchParam": "patient",
-              "path": "subject.reference"
-            },
-            {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "encounter",
-              "path": "Observation.encounter.reference"
-            }
-          ]
+          ],
+          "timeConstraint": {
+            "searchParam": "onset-date",
+            "path": "Condition.onsetDateTime",
+            "end": "(%eligibilityEventTime + 2 months)"
+          }
         }
       ]
     }

@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 4 of AI4HF.",
   "description": "Dataset for Clinical Study 4 of AI4HF projects.",
   "status": "active",
-  "version": "1.0",
-  "date": "2026-09-18",
+  "version": "1.1",
+  "date": "2026-10-09",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -1236,6 +1236,33 @@
           ]
         }
       ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "filter": {
+        "name": "dcm",
+        "description": "Restrict to conditions with a non-ischaemic dilated cardiomyopathy diagnosis (ICD-10 I42.0)",
+        "filter": "icd10Codes.select($this = 'I42.0').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "date",
+          "description": "Date on which I42.0 was first registered for the patient, considering registrations on or before the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
+        }
+      ]
     }
   ],
   "combinedFeature": [
@@ -1533,6 +1560,24 @@
       "valueExpr": {
         "path": "iif(%bw.exists(), %bw, %fw)",
         "dataType": "decimal"
+      }
+    },
+    {
+      "name": "dcmDiagnosisDate",
+      "description": "Date on which the non-ischaemic dilated cardiomyopathy diagnosis (ICD-10 I42.0) was first registered for the patient. Prefers the earliest registration on or before the reference time point, falling back to the earliest registration within the 2 months after it.",
+      "combinedFeatures": [
+        {
+          "alias": "bw",
+          "featureNamePattern": "conditions_dcm_date_first"
+        },
+        {
+          "alias": "fw",
+          "featureNamePattern": "conditions_dcm_date_f2mo_first"
+        }
+      ],
+      "valueExpr": {
+        "path": "iif(%bw.exists(), %bw, %fw)",
+        "dataType": "date"
       }
     }
   ],
@@ -2066,6 +2111,34 @@
               ]
             }
           ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "2mo"
+      },
+      "filter": {
+        "name": "dcm",
+        "description": "Restrict to conditions with a non-ischaemic dilated cardiomyopathy diagnosis (ICD-10 I42.0)",
+        "filter": "icd10Codes.select($this = 'I42.0').anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "date",
+          "description": "Date on which I42.0 was first registered for the patient within the 2 months following the reference time point. Used as a fallback when I42.0 was not registered on or before the reference time point.",
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ],
+          "visible": false
         }
       ]
     }
