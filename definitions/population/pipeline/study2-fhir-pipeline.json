@@ -3,10 +3,10 @@
   "resourceType": "PopulationPipeline",
   "url": "https://datatools4heart.eu/cohorts/study2",
   "name": "study2_cohort",
-  "title": "Hospitalized Patients at Emergency with Primary Diagnosis of Heart Failure",
-  "description": "This cohort includes patients hospitalized at emergency department with a primary discharge diagnosis of heart failure. The primary discharge diagnosis refers to the main clinical condition responsible for the hospital admission.",
-  "version": "1.3",
-  "date": "2026-09-04",
+  "title": "Emergency Department Visits with Diagnosis of Heart Failure",
+  "description": "This cohort includes adult patients visiting the Emergency Department (whether or not the visit led to a hospital admission) with a heart failure diagnosis. The diagnosis is either coded on the Emergency Department encounter itself or registered within the 2 days before or the 2 days after the end of the visit (e.g. HF coded only at the hospital stay that followed the visit). The reference time point is the end of the Emergency Department visit.",
+  "version": "1.4",
+  "date": "2026-10-14",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -33,34 +33,14 @@
           "path": "id"
         }
       ],
-      "eventTime": "Encounter.actualPeriod.start"
-    },
-    {
-      "name": "patientEmergencyDepartmentAdmission",
-      "description": "Captures encounters where the patient was admitted through the Emergency Department.",
-      "resourceType": "Encounter",
-      "query": "?admit-source=emd&class=IMP",
-      "entityLink": [
-        {
-          "entity": "pid",
-          "entityType": "Patient",
-          "searchParam": "patient",
-          "path": "subject.reference"
-        },
-        {
-          "entity": "encounterId",
-          "entityType": "Encounter",
-          "searchParam": "_id",
-          "path": "id"
-        }
-      ],
-      "eventTime": "Encounter.actualPeriod.start"
+      "eventTime": "Encounter.actualPeriod.start",
+      "exitTime": "(Encounter.actualPeriod.end.toDateTime() | Encounter.actualPeriod.start.toDateTime()).first()"
     }
   ],
   "eligibility": [
     {
-      "name": "adultsWithHeartFailure",
-      "description": "Select all Patient resources who has a HF Condition resource categorized as encounter-diagnosis (to indicate the primary admit reason). Exclude Patients who are younger than 18 years old at the time of admission.",
+      "name": "adultsWithHeartFailureAtEdVisit",
+      "description": "Select all Patient resources who have a HF Condition resource categorized as encounter-diagnosis, coded on the Emergency Department encounter itself. Exclude Patients who are younger than 18 years old at the time of the visit.",
       "criteria": [
         {
           "resourceType": "Patient",
@@ -90,19 +70,47 @@
               "path": "encounter.reference"
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "name": "adultsWithHeartFailureAroundEdVisit",
+      "description": "Alternative path for patients whose HF Condition resource (categorized as encounter-diagnosis) is not linked to the Emergency Department encounter, but was registered within the 2 days before or the 2 days after the end of the visit (i.e. a window centred on the reference time point), e.g. HF coded at a visit shortly before the ED visit, or only at a hospital stay or any other visit following it. If the ED visit has no end time, its start time is used as its end. Exclude Patients who are younger than 18 years old at the time of the visit.",
+      "criteria": [
         {
-          "description": "Exclude encounters that are part of another encounter, i.e. exclude emergency visits that lead to a hospitalization",
-          "resourceType": "Encounter",
+          "resourceType": "Patient",
           "category": "exclusion",
           "entityLink": [
             {
-              "entity": "encounterId",
-              "entityType": "Encounter",
-              "searchParam": "part-of",
-              "path": "partOf.reference"
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "_id",
+              "path": "id"
             }
-          ]
+          ],
+          "timeConstraint": {
+            "path": "birthDate.toDate()",
+            "start": "(%eligibilityEventTime - 18 years)"
+          }
+        },
+        {
+          "resourceType": "Condition",
+          "category": "inclusion",
+          "query": "?category=encounter-diagnosis&code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13",
+          "entityLink": [
+            {
+              "entity": "pid",
+              "entityType": "Patient",
+              "searchParam": "patient",
+              "path": "subject.reference"
+            }
+          ],
+          "timeConstraint": {
+            "searchParam": "onset-date",
+            "path": "Condition.onsetDateTime",
+            "start": "(%eligibilityExitTime - 2 days)",
+            "end": "(%eligibilityExitTime + 2 days)"
+          }
         }
       ]
     }

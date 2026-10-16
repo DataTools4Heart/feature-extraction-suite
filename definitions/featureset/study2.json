@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 2 of DataTools4Heart/AI4HF.",
   "description": "Dataset for Clinical Study 2 of DataTools4Heart and AI4HF projects.",
   "status": "active",
-  "version": "2.0",
-  "date": "2026-09-18",
+  "version": "2.1",
+  "date": "2026-10-16",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -31,6 +31,26 @@
             }
           },
           "eventTime": "endTime"
+        }
+      ]
+    }
+  ],
+  "secondaryTimePoint": [
+    {
+      "name": "edWindowStart",
+      "description": "Start of the 'during the ED visit or in the 48 hours before the reference time point' window: the earlier of the ED visit start and 48 hours before the end of the ED visit (the reference time point).",
+      "isPast": true,
+      "select": "earliest",
+      "events": [
+        {
+          "url": "https://datatools4heart.eu/feature-groups/encounters",
+          "join": {
+            "on": {
+              "pid": "pid",
+              "encounterId": "encounterId"
+            }
+          },
+          "eventTime": "iif(%eventTime < %referenceTimePoint - 48 hours, %eventTime, %referenceTimePoint - 48 hours)"
         }
       ]
     }
@@ -263,7 +283,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "systolicBpDuringEncounter",
@@ -273,7 +293,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Latest value of the systolic blood pressure measured during the encounter, restricted to physiologically plausible readings (20-250 mmHg) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "description": "Latest value of the systolic blood pressure measured during the ED visit or in the 48 hours before its end, restricted to physiologically plausible readings (20-250 mmHg) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {
@@ -297,7 +317,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "heartRateDuringEncounter",
@@ -307,7 +327,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Latest value of the heart rate measured during the encounter, restricted to physiologically plausible readings (0-220 bpm) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "description": "Latest value of the heart rate measured during the ED visit or in the 48 hours before its end, restricted to physiologically plausible readings (0-220 bpm) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {
@@ -331,7 +351,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "oxygenSaturationDuringEncounter",
@@ -341,7 +361,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Latest value of the oxygen saturation measured during the encounter, restricted to physiologically plausible readings (0-100%) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "description": "Latest value of the oxygen saturation measured during the ED visit or in the 48 hours before its end, restricted to physiologically plausible readings (0-100%) so an implausible reading can neither be used directly nor contaminate the 3-year fallback average. If missing (including because the only recorded reading was out of range), falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {
@@ -363,9 +383,9 @@
       "url": "https://datatools4heart.eu/feature-groups/vital_signs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "pivot": {
         "name": "codes",
@@ -411,9 +431,9 @@
       "url": "https://datatools4heart.eu/feature-groups/vital_signs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "oxygenSaturation",
@@ -472,7 +492,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "troponin",
@@ -482,7 +502,7 @@
       "feature": [
         {
           "name": "aboveUln",
-          "description": "Whether the last troponin measurement (any of the I/T, high-sensitivity/standard subtypes) recorded during the encounter is above its upper limit of normal, per the lab-reported interpretation flag. If missing, falls back to the same interpretation-based flag for the last troponin measurement of any subtype recorded over the three years preceding the reference time point; if still missing, falls back to a random true/false assignment.",
+          "description": "Whether the last troponin measurement (any of the I/T, high-sensitivity/standard subtypes) recorded during the ED visit or in the 48 hours before its end is above its upper limit of normal, per the lab-reported interpretation flag. If missing, falls back to the same interpretation-based flag for the last troponin measurement of any subtype recorded over the three years preceding the reference time point; if still missing, falls back to a random true/false assignment.",
           "value": {
             "path": "interpretation.select($this = 'HH' or $this = 'H' or $this = 'HU').anyTrue()",
             "dataType": "boolean"
@@ -512,7 +532,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "potassiumDuringEncounter",
@@ -522,7 +542,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Latest value of the potassium measured during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "description": "Latest value of the potassium measured during the ED visit or in the 48 hours before its end. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {
@@ -546,7 +566,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "creatBSDuringEncounter",
@@ -556,7 +576,7 @@
       "feature": [
         {
           "name": "value",
-          "description": "Latest value of the creatinine in Serum or Plasma measured during the encounter. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
+          "description": "Latest value of the creatinine in Serum or Plasma measured during the ED visit or in the 48 hours before its end. If missing, falls back to the average of the last 2 values recorded over the three years preceding the reference time point; if still missing, falls back to a random value drawn from the interquartile range (25th-75th percentile) of this feature within the population currently being extracted.",
           "missing": {
             "strategies": [
               {
@@ -578,9 +598,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "pivot": {
         "name": "codes",
@@ -711,9 +731,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "ldl",
@@ -743,9 +763,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "potassium",
@@ -775,9 +795,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "sodium",
@@ -807,9 +827,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "albuminBS",
@@ -839,9 +859,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "hba1c%",
@@ -871,9 +891,9 @@
       "url": "https://datatools4heart.eu/feature-groups/lab_results",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "filter": {
         "name": "hba1c",
@@ -905,7 +925,7 @@
         "on": {
           "pid": "pid"
         },
-        "duration": "%eventTime - 1d"
+        "duration": "%edWindowStart"
       },
       "pivot": {
         "name": "code",
@@ -1036,7 +1056,7 @@
       "feature": [
         {
           "name": "display",
-          "description": "Whether the symptom was present from 24 hours before admission through discharge",
+          "description": "Whether the symptom was present during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "code.exists()",
             "dataType": "boolean"
@@ -1055,14 +1075,14 @@
       "url": "https://datatools4heart.eu/feature-groups/hyperkalemia_severity",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "feature": [
         {
           "name": "categorizedValue",
-          "description": "Severity of hyperkalemia: LOINC 2823-3"
+          "description": "Severity of hyperkalemia: LOINC 2823-3, latest value during the ED visit or in the 48 hours before its end"
         }
       ]
     },
@@ -1199,14 +1219,14 @@
       "url": "https://datatools4heart.eu/feature-groups/electrocardiographs",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "feature": [
         {
           "name": "ecg_qrs_duration",
-          "description": "QRS wave (LOINC: 8633-0 (ms)) duration values measured during the encounter.",
+          "description": "QRS wave (LOINC: 8633-0 (ms)) duration values measured during the ED visit or in the 48 hours before its end.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1222,7 +1242,7 @@
         },
         {
           "name": "ecg_qrs_axis",
-          "description": "QRS wave axis (LOINC: 8632-2 (deg)) values measured during the encounter.",
+          "description": "QRS wave axis (LOINC: 8632-2 (deg)) values measured during the ED visit or in the 48 hours before its end.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1238,7 +1258,7 @@
         },
         {
           "name": "ecg_qt_duration_corrected",
-          "description": "QT wave corrected: (DT4H: bazett (ms)) duration values measured during the encounter.",
+          "description": "QT wave corrected: (DT4H: bazett (ms)) duration values measured during the ED visit or in the 48 hours before its end.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1254,7 +1274,7 @@
         },
         {
           "name": "ecg_st",
-          "description": "ST-elevation: (SNOMED CT 164931005) value (true/false) observed during the encounter.",
+          "description": "ST-elevation: (SNOMED CT 164931005) value (true/false) observed during the ED visit or in the 48 hours before its end.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1266,7 +1286,7 @@
         },
         {
           "name": "ecg_ischemia_without_st",
-          "description": "Ischemia without st-elevation: (SNOMED CT 52674009) value (true/false) observed during the encounter.",
+          "description": "Ischemia without st-elevation: (SNOMED CT 52674009) value (true/false) observed during the ED visit or in the 48 hours before its end.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1278,7 +1298,7 @@
         },
         {
           "name": "ecg_type_of_rhythms",
-          "description": "Type of rhythm (LOINC 76281-5) value observed during the encounter.",
+          "description": "Type of rhythm (LOINC 76281-5) value observed during the ED visit or in the 48 hours before its end.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1386,7 +1406,14 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "The latest value of the New York Heart Assessment as LOINC Code"
+          "description": "The latest value of the New York Heart Assessment as LOINC Code. If missing, falls back to a value randomly drawn from the categorical distribution of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationCategorical"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1401,12 +1428,61 @@
       "feature": [
         {
           "name": "nyha",
-          "description": "New York Heart Association category from 6 months before admission through discharge"
+          "description": "New York Heart Association category from 6 months before admission through discharge. If missing, falls back to a value randomly drawn from the categorical distribution of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationCategorical"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/nyha",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%eventTime - 48h"
+      },
+      "filter": {
+        "name": "edVisit",
+        "description": "This filter is here only to avoid a column name clash with the previous nyha feature group (both windows are anchored on %eventTime)",
+        "filter": "true"
+      },
+      "feature": [
+        {
+          "name": "nyha",
+          "description": "Most recent New York Heart Association (NYHA) assessment value, recorded as a LOINC code, during the ED visit or in the 48 hours before the ED visit start. If missing, falls back to a value randomly drawn from the categorical distribution of this feature within the population currently being extracted.",
+          "missing": {
+            "strategies": [
+              {
+                "type": "populationCategorical"
+              }
+            ]
+          }
         }
       ]
     },
     {
       "url": "https://datatools4heart.eu/feature-groups/ckd_severity",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
+      },
+      "feature": [
+        {
+          "name": "categorizedValue",
+          "description": "Severity of chronic kidney disease: LOINC 69405-9, latest value during the ED visit or in the 48 hours before its end"
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid",
@@ -1415,8 +1491,20 @@
       },
       "feature": [
         {
-          "name": "categorizedValue",
-          "description": "Severity of chronic kidney disease: LOINC 69405-9"
+          "name": "hfOnEdEncounter",
+          "visible": false,
+          "description": "Whether a heart failure encounter diagnosis (I50, I11.0, I13.0, I13.2, I26.0, I09.81, I97.13) is coded on the Emergency Department encounter itself, i.e. the first study 2 eligibility rule. Used by identifiedFromEdVisit.",
+          "value": {
+            "path": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1479,15 +1567,14 @@
       "url": "https://datatools4heart.eu/feature-groups/conditions",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
+          "pid": "pid"
         },
-        "duration": "%eventTime"
+        "duration": "%edWindowStart"
       },
       "feature": [
         {
           "name": "ap_during",
-          "description": "Whether the patient has angina pectoris within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has angina pectoris during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I20')).anyTrue()",
             "dataType": "boolean"
@@ -1502,7 +1589,7 @@
         },
         {
           "name": "af_during",
-          "description": "Whether the patient has atrial fibrillation within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has atrial fibrillation during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I48')).anyTrue()",
             "dataType": "boolean"
@@ -1517,7 +1604,7 @@
         },
         {
           "name": "cm_during",
-          "description": "Whether the patient has cardiomyopathy within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has cardiomyopathy during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I42') or $this.startsWith('I43')).anyTrue()",
             "dataType": "boolean"
@@ -1532,7 +1619,7 @@
         },
         {
           "name": "dysl_during",
-          "description": "Whether the patient has dyslipidemia within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has dyslipidemia during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E78')).anyTrue()",
             "dataType": "boolean"
@@ -1547,7 +1634,7 @@
         },
         {
           "name": "hf_during",
-          "description": "Whether the patient has heart failure within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has heart failure during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue()",
             "dataType": "boolean"
@@ -1562,7 +1649,7 @@
         },
         {
           "name": "hyp_during",
-          "description": "Whether the patient has hypertension within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has hypertension during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I10') or $this.startsWith('I11.0') or $this.startsWith('I12') or $this.startsWith('I13') or $this.startsWith('I15') or $this.startsWith('I16')).anyTrue()",
             "dataType": "boolean"
@@ -1577,7 +1664,7 @@
         },
         {
           "name": "ihd_during",
-          "description": "Whether the patient has ischemic heart disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has ischemic heart disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I20') or $this.startsWith('I21') or $this.startsWith('I22') or $this.startsWith('I23') or $this.startsWith('I24') or $this.startsWith('I25')).anyTrue()",
             "dataType": "boolean"
@@ -1592,7 +1679,7 @@
         },
         {
           "name": "mi_during",
-          "description": "Whether the patient has myocardial infarction within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has myocardial infarction during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I21') or $this.startsWith('I22')).anyTrue()",
             "dataType": "boolean"
@@ -1607,7 +1694,7 @@
         },
         {
           "name": "pad_during",
-          "description": "Whether the patient has peripheral artery disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has peripheral artery disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I7')).anyTrue() and icd10Codes.select($this.startsWith('C71')).allFalse()",
             "dataType": "boolean"
@@ -1622,7 +1709,7 @@
         },
         {
           "name": "stroke_during",
-          "description": "Whether the patient has stroke within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has stroke during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I60') or $this.startsWith('I61') or $this.startsWith('I62') or $this.startsWith('I63') or $this.startsWith('I64')).anyTrue()",
             "dataType": "boolean"
@@ -1637,7 +1724,7 @@
         },
         {
           "name": "tia_during",
-          "description": "Whether the patient has transient ischemic attack within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has transient ischemic attack during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('G45.8') or $this.startsWith('G45.9') or $this.startsWith('I63.9')).anyTrue()",
             "dataType": "boolean"
@@ -1652,7 +1739,7 @@
         },
         {
           "name": "vd_during",
-          "description": "Whether the patient has valvular disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has valvular disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('A52.0') or $this.startsWith('I05') or $this.startsWith('I06') or $this.startsWith('I07') or $this.startsWith('I08') or $this.startsWith('I09.1') or $this.startsWith('I09.8') or $this.startsWith('I34') or $this.startsWith('I35') or $this.startsWith('I36') or $this.startsWith('I37') or $this.startsWith('I38') or $this.startsWith('I39') or $this.startsWith('Q23.0') or $this.startsWith('Q23.1') or $this.startsWith('Q23.2') or $this.startsWith('Q23.3') or $this.startsWith('Z95.2') or $this.startsWith('Z95.3') or $this.startsWith('Z95.4')).anyTrue()",
             "dataType": "boolean"
@@ -1667,7 +1754,7 @@
         },
         {
           "name": "revasc_during",
-          "description": "Whether the patient has revascularized CABG, PCI within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has revascularized CABG, PCI during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z95.5')).anyTrue()",
             "dataType": "boolean"
@@ -1682,7 +1769,7 @@
         },
         {
           "name": "devices_during",
-          "description": "Whether the patient has cardiac and vascular implants and grafts within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has cardiac and vascular implants and grafts during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z95.0') or $this.startsWith('Z95.8')).anyTrue()",
             "dataType": "boolean"
@@ -1697,7 +1784,7 @@
         },
         {
           "name": "aidshiv_during",
-          "description": "Whether the patient has AIDS or HIV within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has AIDS or HIV during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('B20') or $this.startsWith('B21') or $this.startsWith('B22') or $this.startsWith('B23') or $this.startsWith('B24')).anyTrue()",
             "dataType": "boolean"
@@ -1712,7 +1799,7 @@
         },
         {
           "name": "copd_during",
-          "description": "Whether the patient has COPD within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has COPD during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('J40') or $this.startsWith('J41') or $this.startsWith('J42') or $this.startsWith('J43') or $this.startsWith('J44')).anyTrue()",
             "dataType": "boolean"
@@ -1727,7 +1814,7 @@
         },
         {
           "name": "diabetes_during",
-          "description": "Whether the patient has diabetes mellitus within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has diabetes mellitus during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E10') or $this.startsWith('E11') or $this.startsWith('E12') or $this.startsWith('E13') or $this.startsWith('E14')).anyTrue()",
             "dataType": "boolean"
@@ -1742,7 +1829,7 @@
         },
         {
           "name": "dem_during",
-          "description": "Whether the patient has dementia within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has dementia during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F00') or $this.startsWith('F01') or $this.startsWith('F02') or $this.startsWith('F03') or $this.startsWith('F05.1') or $this.startsWith('G30') or $this.startsWith('G31.1')).anyTrue()",
             "dataType": "boolean"
@@ -1757,7 +1844,7 @@
         },
         {
           "name": "dep_during",
-          "description": "Whether the patient has depression within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has depression during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F20.4') or $this.startsWith('F31.3') or $this.startsWith('F31.4') or $this.startsWith('F31.5') or $this.startsWith('F32') or $this.startsWith('F33') or $this.startsWith('F34.1') or $this.startsWith('F41.2') or $this.startsWith('F43.2')).anyTrue()",
             "dataType": "boolean"
@@ -1772,7 +1859,7 @@
         },
         {
           "name": "dia_during",
-          "description": "Whether the patient has dialysis within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has dialysis during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('Z49.01') or $this.startsWith('Z49.02')).anyTrue()",
             "dataType": "boolean"
@@ -1787,7 +1874,7 @@
         },
         {
           "name": "hyperthyroid_during",
-          "description": "Whether the patient has hyperthyroidism within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has hyperthyroidism during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E05')).anyTrue()",
             "dataType": "boolean"
@@ -1802,7 +1889,7 @@
         },
         {
           "name": "hypothyroid_during",
-          "description": "Whether the patient has hypothyroidism within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has hypothyroidism during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('E00') or $this.startsWith('E01') or $this.startsWith('E02') or $this.startsWith('E03') or $this.startsWith('E89.0')).anyTrue()",
             "dataType": "boolean"
@@ -1817,7 +1904,7 @@
         },
         {
           "name": "ibd_during",
-          "description": "Whether the patient has inflammable bowel disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has inflammable bowel disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('K50') or $this.startsWith('K51') or $this.startsWith('K52')).anyTrue()",
             "dataType": "boolean"
@@ -1832,7 +1919,7 @@
         },
         {
           "name": "ld_during",
-          "description": "Whether the patient has liver disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has liver disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('B18') or $this.startsWith('I85') or $this.startsWith('I86.4') or $this.startsWith('I98.2') or $this.startsWith('K70') or $this.startsWith('K71.1') or $this.startsWith('K71.3') or $this.startsWith('K71.4') or $this.startsWith('K71.5') or $this.startsWith('K71.7') or $this.startsWith('K72') or $this.startsWith('K73') or $this.startsWith('K74') or $this.startsWith('K76.0') or $this.startsWith('K76.2') or $this.startsWith('K76.3') or $this.startsWith('K76.4') or $this.startsWith('K76.5') or $this.startsWith('K76.6') or $this.startsWith('K76.7') or $this.startsWith('K76.8') or $this.startsWith('K76.9') or $this.startsWith('Z94.4')).anyTrue()",
             "dataType": "boolean"
@@ -1847,7 +1934,7 @@
         },
         {
           "name": "mc_during",
-          "description": "Whether the patient has malignant cancer within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has malignant cancer during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('C0') or $this.startsWith('C1') or $this.startsWith('C2') or $this.startsWith('C3') or $this.startsWith('C4') or $this.startsWith('C5') or $this.startsWith('C6') or $this.startsWith('C9')).anyTrue() or (icd10Codes.select($this.startsWith('C7')).anyTrue() and icd10Codes.select($this.startsWith('C77')).allFalse() and icd10Codes.select($this.startsWith('C78')).allFalse() and icd10Codes.select($this.startsWith('C79')).allFalse())  or (icd10Codes.select($this.startsWith('C8')).anyTrue() and icd10Codes.select($this.startsWith('C80')).allFalse())",
             "dataType": "boolean"
@@ -1862,7 +1949,7 @@
         },
         {
           "name": "osa_during",
-          "description": "Whether the patient has obstructive sleep apnea within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has obstructive sleep apnea during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('G47.3')).anyTrue()",
             "dataType": "boolean"
@@ -1877,7 +1964,7 @@
         },
         {
           "name": "rd_during",
-          "description": "Whether the patient has rheumatic disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has rheumatic disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('M05') or $this.startsWith('M06') or $this.startsWith('M31.5') or $this.startsWith('M32') or $this.startsWith('M33') or $this.startsWith('M34') or $this.startsWith('M35.1') or $this.startsWith('M35.3') or $this.startsWith('M36.0')).anyTrue()",
             "dataType": "boolean"
@@ -1892,7 +1979,7 @@
         },
         {
           "name": "ckd_chronic_during",
-          "description": "Whether the patient has renal disease chronic within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has renal disease chronic during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()",
             "dataType": "boolean"
@@ -1907,7 +1994,7 @@
         },
         {
           "name": "myocarditis_during",
-          "description": "Whether the patient has myocarditis within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has myocarditis during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I40') or $this.startsWith('I41')).anyTrue()",
             "dataType": "boolean"
@@ -1922,7 +2009,7 @@
         },
         {
           "name": "pericardial_during",
-          "description": "Whether the patient has pericardial disease within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has pericardial disease during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('I30') or $this.startsWith('I31') or $this.startsWith('I32')).anyTrue()",
             "dataType": "boolean"
@@ -1937,7 +2024,7 @@
         },
         {
           "name": "substance_abuse_during",
-          "description": "Whether the patient has substance abuse within the hospital admission and discharge timeframe.",
+          "description": "Whether the patient has substance abuse during the ED visit or in the 48 hours before its end.",
           "value": {
             "path": "icd10Codes.select($this.startsWith('F1')).anyTrue()",
             "dataType": "boolean"
@@ -2432,14 +2519,14 @@
       "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
       },
       "feature": [
         {
           "name": "rasi",
-          "description": "Whether renin–angiotensin system inhibitor administered during the admission",
+          "description": "Whether renin–angiotensin system inhibitor administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'RASi').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue())",
             "dataType": "boolean"
@@ -2454,7 +2541,7 @@
         },
         {
           "name": "ace_inhibitors_arb_use",
-          "description": "Whether ACE Inhibitors / ARB administered during the admission",
+          "description": "Whether ACE Inhibitors / ARB administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ACEI' or $this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB02') or $this.startsWith('C09BB03') or $this.startsWith('C09BB04') or $this.startsWith('C09BB05') or $this.startsWith('C09BB06') or $this.startsWith('C09BB07') or $this.startsWith('C09BB08') or $this.startsWith('C09BB09') or $this.startsWith('C09BB010') or $this.startsWith('C09BB011') or $this.startsWith('C09BB012') or $this.startsWith('C09BX01') or $this.startsWith('C09BX02') or $this.startsWith('C09BX03') or $this.startsWith('C09BX04') or $this.startsWith('C09BX05') or $this.startsWith('C09CA') or $this.startsWith('C09DA') or $this.startsWith('C09DB') or $this.startsWith('C09DX01') or $this.startsWith('C09DX02') or $this.startsWith('C09DX03') or $this.startsWith('C09DX05') or $this.startsWith('C09DX06') or $this.startsWith('C09DX07') or $this.startsWith('C09DX04')).anyTrue())",
             "dataType": "boolean"
@@ -2469,7 +2556,7 @@
         },
         {
           "name": "arni",
-          "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) administered during the admission",
+          "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ARNI').anyTrue() or (medicationCodes.select($this = 'C09DX04').anyTrue())",
             "dataType": "boolean"
@@ -2484,7 +2571,7 @@
         },
         {
           "name": "acei",
-          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors administered during the admission",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())",
             "dataType": "boolean"
@@ -2499,7 +2586,7 @@
         },
         {
           "name": "arb",
-          "description": "Whether angiotensin receptor blocker (ARB) administered during the admission",
+          "description": "Whether angiotensin receptor blocker (ARB) administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())",
             "dataType": "boolean"
@@ -2514,7 +2601,7 @@
         },
         {
           "name": "mra",
-          "description": "Whether mineralcorticoid receptor antagonist administered during the admission",
+          "description": "Whether mineralcorticoid receptor antagonist administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'MRA').anyTrue() or (medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue())",
             "dataType": "boolean"
@@ -2529,7 +2616,7 @@
         },
         {
           "name": "diuretics",
-          "description": "Whether diuretics administered during the admission",
+          "description": "Whether diuretics administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Diuretics').anyTrue() or (medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue())",
             "dataType": "boolean"
@@ -2544,7 +2631,7 @@
         },
         {
           "name": "diuretics_loop",
-          "description": "Whether Loop diuretics administered during the admission",
+          "description": "Whether Loop diuretics administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'LD').anyTrue() or (medicationCodes.select($this.startsWith('C03CA')).anyTrue())",
             "dataType": "boolean"
@@ -2559,7 +2646,7 @@
         },
         {
           "name": "anti_coag",
-          "description": "Whether anticoagulant agents administered during the admission",
+          "description": "Whether anticoagulant agents administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('B01AA') or $this.startsWith('B01AB') or $this.startsWith('B01AX04') or $this.startsWith('B01AX05') or $this.startsWith('B01AF') or $this.startsWith('B01AE') or $this.startsWith('B01AX01') or $this.startsWith('B01AD12') or $this.startsWith('B01AB02')).anyTrue())",
             "dataType": "boolean"
@@ -2574,7 +2661,7 @@
         },
         {
           "name": "anti_plat",
-          "description": "Whether antiplatelet agents administered during the admission",
+          "description": "Whether antiplatelet agents administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('B01AC13') or $this.startsWith('B01AC17') or $this.startsWith('B01AC16') or $this.startsWith('B01AC04') or $this.startsWith('B01AC22') or $this.startsWith('B01AC05') or $this.startsWith('B01AC25') or $this.startsWith('B01AC24') or $this.startsWith('B01AC19') or $this.startsWith('B01AC11') or $this.startsWith('B01AC21') or $this.startsWith('B01AC06') or $this.startsWith('B01AC15') or $this.startsWith('B01AC08') or $this.startsWith('B01AC10') or $this.startsWith('B01AC18') or $this.startsWith('B01AC07') or $this.startsWith('B01AC03') or $this.startsWith('B01AC23') or $this.startsWith('B01AC01') or $this.startsWith('B01AC02') or $this.startsWith('B01AC26')).anyTrue()",
             "dataType": "boolean"
@@ -2589,7 +2676,7 @@
         },
         {
           "name": "thrombolytic",
-          "description": "Whether thrombolytic drugs/fibrinolytics administered during the admission",
+          "description": "Whether thrombolytic drugs/fibrinolytics administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('B01AD02') or $this.startsWith('B01AD07') or $this.startsWith('B01AD11') or $this.startsWith('B01AD08') or $this.startsWith('B01AD04') or $this.startsWith('B01AD03') or $this.startsWith('B01AD01') or $this.startsWith('B01AD09') or $this.startsWith('B01AD06') or $this.startsWith('B01AD05')).anyTrue()",
             "dataType": "boolean"
@@ -2604,7 +2691,7 @@
         },
         {
           "name": "bb",
-          "description": "Whether beta blockers administered during the admission",
+          "description": "Whether beta blockers administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
             "dataType": "boolean"
@@ -2619,7 +2706,7 @@
         },
         {
           "name": "ccb",
-          "description": "Whether calcium channel blockers administered during the admission",
+          "description": "Whether calcium channel blockers administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'CCB').anyTrue() or (medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue())",
             "dataType": "boolean"
@@ -2634,7 +2721,7 @@
         },
         {
           "name": "digitalis",
-          "description": "Whether digitalis glycosides administered during the admission",
+          "description": "Whether digitalis glycosides administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Digoxin').anyTrue() or (medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse())",
             "dataType": "boolean"
@@ -2649,7 +2736,7 @@
         },
         {
           "name": "antiarrhytmic",
-          "description": "Whether antiarrhythmic drugs administered during the admission",
+          "description": "Whether antiarrhythmic drugs administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'AAD').anyTrue() or (medicationCodes.select($this.startsWith('C01B')).anyTrue())",
             "dataType": "boolean"
@@ -2664,7 +2751,7 @@
         },
         {
           "name": "inotropes",
-          "description": "Whether inotropes administered during the admission",
+          "description": "Whether inotropes administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()",
             "dataType": "boolean"
@@ -2679,7 +2766,7 @@
         },
         {
           "name": "vasodil",
-          "description": "Whether vasodil administered during the admission",
+          "description": "Whether vasodil administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'VasoD').anyTrue() or (medicationCodes.select($this.startsWith('C01D')).anyTrue())",
             "dataType": "boolean"
@@ -2694,7 +2781,7 @@
         },
         {
           "name": "platelet",
-          "description": "Whether platelet administered during the admission",
+          "description": "Whether platelet administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'PI').anyTrue() or (medicationCodes.select($this.startsWith('B01AC')).anyTrue())",
             "dataType": "boolean"
@@ -2709,7 +2796,7 @@
         },
         {
           "name": "ll",
-          "description": "Whether ll administered during the admission",
+          "description": "Whether ll administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Statins').anyTrue() or (medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue())",
             "dataType": "boolean"
@@ -2724,7 +2811,7 @@
         },
         {
           "name": "ivabradine",
-          "description": "Whether ivabradine administered during the admission",
+          "description": "Whether ivabradine administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Ivabradine').anyTrue() or (medicationCodes.select($this.startsWith('C01EB17')).anyTrue())",
             "dataType": "boolean"
@@ -2739,7 +2826,7 @@
         },
         {
           "name": "potassium_binders",
-          "description": "Whether potassium_binders administered during the admission",
+          "description": "Whether potassium_binders administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()",
             "dataType": "boolean"
@@ -2754,7 +2841,7 @@
         },
         {
           "name": "insulins",
-          "description": "Whether insulins and analogs administered during the admission",
+          "description": "Whether insulins and analogs administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('A10A')).anyTrue()",
             "dataType": "boolean"
@@ -2769,7 +2856,7 @@
         },
         {
           "name": "oral_antidiabetic",
-          "description": "Whether oral_antidiabetic administered during the admission",
+          "description": "Whether oral_antidiabetic administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
             "dataType": "boolean"
@@ -2784,7 +2871,7 @@
         },
         {
           "name": "ari",
-          "description": "Whether ari (drugs to prevent nerve damage in diabetes) administered during the admission",
+          "description": "Whether ari (drugs to prevent nerve damage in diabetes) administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()",
             "dataType": "boolean"
@@ -2799,7 +2886,7 @@
         },
         {
           "name": "rdoad",
-          "description": "Whether respiratory drugs for obstructive airway diseases, inhalants administered during the admission",
+          "description": "Whether respiratory drugs for obstructive airway diseases, inhalants administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()",
             "dataType": "boolean"
@@ -2814,7 +2901,7 @@
         },
         {
           "name": "rdoad_syst",
-          "description": "Whether respiratory drugs for obstructive airway diseases, systemic use administered during the admission",
+          "description": "Whether respiratory drugs for obstructive airway diseases, systemic use administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()",
             "dataType": "boolean"
@@ -2829,7 +2916,7 @@
         },
         {
           "name": "cortico_syst",
-          "description": "Whether corticosteroids systemic administered during the admission",
+          "description": "Whether corticosteroids systemic administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()",
             "dataType": "boolean"
@@ -2844,7 +2931,7 @@
         },
         {
           "name": "antiinfl",
-          "description": "Whether anti-inflammatory drugs administered during the admission",
+          "description": "Whether anti-inflammatory drugs administered during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()",
             "dataType": "boolean"
@@ -2863,14 +2950,19 @@
       "url": "https://datatools4heart.eu/feature-groups/med_requests",
       "join": {
         "on": {
-          "pid": "pid",
-          "encounterId": "encounterId"
-        }
+          "pid": "pid"
+        },
+        "duration": "%edWindowStart"
+      },
+      "filter": {
+        "name": "edWindow",
+        "description": "Only prescriptions started during the ED visit or in the 48 hours before its end. Prescriptions are periods, so without this a prescription started long before the ED visit and still active would also fall in the window.",
+        "filter": "startTime >= %edWindowStart"
       },
       "feature": [
         {
           "name": "rasi",
-          "description": "Whether renin–angiotensin system inhibitor prescribed during the admission",
+          "description": "Whether renin–angiotensin system inhibitor prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'RASi').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09B') or $this.startsWith('C09CA') or $this.startsWith('C09D') or $this.startsWith('C09X')).anyTrue())",
             "dataType": "boolean"
@@ -2885,7 +2977,7 @@
         },
         {
           "name": "arni",
-          "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) prescribed during the admission",
+          "description": "Whether angiotensin receptor-neprilysin inhibitor (ARNi) prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ARNI').anyTrue() or (medicationCodes.select($this = 'C09DX04').anyTrue())",
             "dataType": "boolean"
@@ -2900,7 +2992,7 @@
         },
         {
           "name": "acei",
-          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors prescribed during the admission",
+          "description": "Whether angiotensin-converting enzyme (ACE)-inhibitors prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ACEI').anyTrue() or (medicationCodes.select($this.startsWith('C09AA') or $this.startsWith('C09BA') or $this.startsWith('C09BB') or $this.startsWith('C09BX')).anyTrue())",
             "dataType": "boolean"
@@ -2915,7 +3007,7 @@
         },
         {
           "name": "arb",
-          "description": "Whether angiotensin receptor blocker (ARB) prescribed during the admission",
+          "description": "Whether angiotensin receptor blocker (ARB) prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'ARB').anyTrue() or (medicationCodes.select($this.startsWith('C09C') or $this.startsWith('C09D')).anyTrue())",
             "dataType": "boolean"
@@ -2930,7 +3022,7 @@
         },
         {
           "name": "mra",
-          "description": "Whether mineralcorticoid receptor antagonist prescribed during the admission",
+          "description": "Whether mineralcorticoid receptor antagonist prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'MRA').anyTrue() or (medicationCodes.select($this.startsWith('C03DA') or $this.startsWith('C03EA') or $this.startsWith('C03EB')).anyTrue())",
             "dataType": "boolean"
@@ -2945,7 +3037,7 @@
         },
         {
           "name": "diuretics",
-          "description": "Whether diuretics prescribed during the admission",
+          "description": "Whether diuretics prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Diuretics').anyTrue() or (medicationCodes.select($this.startsWith('C03BA82')).allFalse() and medicationCodes.select($this.startsWith('C03A') or $this.startsWith('C03D') or $this.startsWith('C03E') or $this.startsWith('C03XA') or $this.startsWith('C03BA') or $this.startsWith('C03BB') or $this.startsWith('C03CA') or $this.startsWith('C03CB') or $this.startsWith('C03CC') or $this.startsWith('C03CX') or $this.startsWith('C07BA') or $this.startsWith('C07BB') or $this.startsWith('C07CA') or $this.startsWith('C07CB') or $this.startsWith('C07CG') or $this.startsWith('C07DZ') or $this.startsWith('C07DB') or $this.startsWith('C08GA') or $this.startsWith('C09BA') or $this.startsWith('C09BX') or $this.startsWith('C09DA') or $this.startsWith('C09DX') or $this.startsWith('C02LA') or $this.startsWith('C02LB') or $this.startsWith('C02LC') or $this.startsWith('C02LG') or $this.startsWith('C02LK') or $this.startsWith('C02LL') or $this.startsWith('C02LX')).anyTrue())",
             "dataType": "boolean"
@@ -2960,7 +3052,7 @@
         },
         {
           "name": "diuretics_loop",
-          "description": "Whether Loop diuretics prescribed during the admission",
+          "description": "Whether Loop diuretics prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'LD').anyTrue() or (medicationCodes.select($this.startsWith('C03CA')).anyTrue())",
             "dataType": "boolean"
@@ -2975,7 +3067,7 @@
         },
         {
           "name": "anti_coag",
-          "description": "Whether anticoagulant agents prescribed during the admission",
+          "description": "Whether anticoagulant agents prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'OAC').anyTrue() or (medicationCodes.select($this.startsWith('B01AA') or $this.startsWith('B01AB') or $this.startsWith('B01AX04') or $this.startsWith('B01AX05') or $this.startsWith('B01AF') or $this.startsWith('B01AE') or $this.startsWith('B01AX01') or $this.startsWith('B01AD12') or $this.startsWith('B01AB02')).anyTrue())",
             "dataType": "boolean"
@@ -2990,7 +3082,7 @@
         },
         {
           "name": "anti_plat",
-          "description": "Whether antiplatelet agents prescribed during the admission",
+          "description": "Whether antiplatelet agents prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('B01AC13') or $this.startsWith('B01AC17') or $this.startsWith('B01AC16') or $this.startsWith('B01AC04') or $this.startsWith('B01AC22') or $this.startsWith('B01AC05') or $this.startsWith('B01AC25') or $this.startsWith('B01AC24') or $this.startsWith('B01AC19') or $this.startsWith('B01AC11') or $this.startsWith('B01AC21') or $this.startsWith('B01AC06') or $this.startsWith('B01AC15') or $this.startsWith('B01AC08') or $this.startsWith('B01AC10') or $this.startsWith('B01AC18') or $this.startsWith('B01AC07') or $this.startsWith('B01AC03') or $this.startsWith('B01AC23') or $this.startsWith('B01AC01') or $this.startsWith('B01AC02') or $this.startsWith('B01AC26')).anyTrue()",
             "dataType": "boolean"
@@ -3005,7 +3097,7 @@
         },
         {
           "name": "thrombolytic",
-          "description": "Whether thrombolytic drugs/fibrinolytics prescribed during the admission",
+          "description": "Whether thrombolytic drugs/fibrinolytics prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('B01AD02') or $this.startsWith('B01AD07') or $this.startsWith('B01AD11') or $this.startsWith('B01AD08') or $this.startsWith('B01AD04') or $this.startsWith('B01AD03') or $this.startsWith('B01AD01') or $this.startsWith('B01AD09') or $this.startsWith('B01AD06') or $this.startsWith('B01AD05')).anyTrue()",
             "dataType": "boolean"
@@ -3020,7 +3112,7 @@
         },
         {
           "name": "bb",
-          "description": "Whether beta blockers prescribed during the admission",
+          "description": "Whether beta blockers prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'BB').anyTrue() or (medicationCodes.select($this.startsWith('C07')).anyTrue() and medicationCodes.select($this.startsWith('C07E')).allFalse())",
             "dataType": "boolean"
@@ -3035,7 +3127,7 @@
         },
         {
           "name": "ccb",
-          "description": "Whether calcium channel blockers prescribed during the admission",
+          "description": "Whether calcium channel blockers prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'CCB').anyTrue() or (medicationCodes.select($this.startsWith('C08C') or $this.startsWith('C08D') or $this.startsWith('C08E') or $this.startsWith('C08GA')).anyTrue())",
             "dataType": "boolean"
@@ -3050,7 +3142,7 @@
         },
         {
           "name": "digitalis",
-          "description": "Whether digitalis glycosides prescribed during the admission",
+          "description": "Whether digitalis glycosides prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Digoxin').anyTrue() or (medicationCodes.select($this.startsWith('C01AA')).anyTrue() and medicationCodes.select($this.startsWith('C01AA09') or $this.startsWith('C01AA52')).allFalse())",
             "dataType": "boolean"
@@ -3065,7 +3157,7 @@
         },
         {
           "name": "antiarrhytmic",
-          "description": "Whether antiarrhythmic drugs prescribed during the admission",
+          "description": "Whether antiarrhythmic drugs prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'AAD').anyTrue() or (medicationCodes.select($this.startsWith('C01B')).anyTrue())",
             "dataType": "boolean"
@@ -3080,7 +3172,7 @@
         },
         {
           "name": "inotropes",
-          "description": "Whether inotropes prescribed during the admission",
+          "description": "Whether inotropes prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('C01CA') or $this.startsWith('C01CE') or $this.startsWith('C01CX')).anyTrue()",
             "dataType": "boolean"
@@ -3095,7 +3187,7 @@
         },
         {
           "name": "vasodil",
-          "description": "Whether vasodil prescribed during the admission",
+          "description": "Whether vasodil prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'VasoD').anyTrue() or (medicationCodes.select($this.startsWith('C01D')).anyTrue())",
             "dataType": "boolean"
@@ -3110,7 +3202,7 @@
         },
         {
           "name": "platelet",
-          "description": "Whether platelet prescribed during the admission",
+          "description": "Whether platelet prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'PI').anyTrue() or (medicationCodes.select($this.startsWith('B01AC')).anyTrue())",
             "dataType": "boolean"
@@ -3125,7 +3217,7 @@
         },
         {
           "name": "ll",
-          "description": "Whether ll prescribed during the admission",
+          "description": "Whether ll prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Statins').anyTrue() or (medicationCodes.select($this.startsWith('C10AA') or $this.startsWith('C10BA') or $this.startsWith('C10BX') or $this.startsWith('C10AX13') or $this.startsWith('C10AX14') or $this.startsWith('C10AC16') or $this.startsWith('C10AX09')).anyTrue())",
             "dataType": "boolean"
@@ -3140,7 +3232,7 @@
         },
         {
           "name": "ivabradine",
-          "description": "Whether ivabradine prescribed during the admission",
+          "description": "Whether ivabradine prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'Ivabradine').anyTrue() or (medicationCodes.select($this.startsWith('C01EB17')).anyTrue())",
             "dataType": "boolean"
@@ -3155,7 +3247,7 @@
         },
         {
           "name": "potassium_binders",
-          "description": "Whether potassium_binders prescribed during the admission",
+          "description": "Whether potassium_binders prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('V03AE01') or $this.startsWith('V03AE10') or $this.startsWith('V03AE09')).anyTrue()",
             "dataType": "boolean"
@@ -3170,7 +3262,7 @@
         },
         {
           "name": "insulins",
-          "description": "Whether insulins and analogs prescribed during the admission",
+          "description": "Whether insulins and analogs prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('A10A')).anyTrue()",
             "dataType": "boolean"
@@ -3185,7 +3277,7 @@
         },
         {
           "name": "oral_antidiabetic",
-          "description": "Whether oral_antidiabetic prescribed during the admission",
+          "description": "Whether oral_antidiabetic prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationGroups.select($this = 'SGLT2I').anyTrue() or (medicationCodes.select($this.startsWith('A10BA') or $this.startsWith('A10BB') or $this.startsWith('A10BG') or $this.startsWith('A10BF') or $this.startsWith('A10BH') or $this.startsWith('A10BJ') or $this.startsWith('A10BD') or $this.startsWith('A10BX09') or $this.startsWith('A10BK01') or $this.startsWith('A10BX12') or $this.startsWith('A10BK03')).anyTrue())",
             "dataType": "boolean"
@@ -3200,7 +3292,7 @@
         },
         {
           "name": "ari",
-          "description": "Whether ari (drugs to prevent nerve damage in diabetes) prescribed during the admission",
+          "description": "Whether ari (drugs to prevent nerve damage in diabetes) prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('A10XA')).anyTrue()",
             "dataType": "boolean"
@@ -3215,7 +3307,7 @@
         },
         {
           "name": "rdoad",
-          "description": "Whether respiratory drugs for obstructive airway diseases, inhalants prescribed during the admission",
+          "description": "Whether respiratory drugs for obstructive airway diseases, inhalants prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('R03A') or $this.startsWith('R03B')).anyTrue()",
             "dataType": "boolean"
@@ -3230,7 +3322,7 @@
         },
         {
           "name": "rdoad_syst",
-          "description": "Whether respiratory drugs for obstructive airway diseases, systemic use prescribed during the admission",
+          "description": "Whether respiratory drugs for obstructive airway diseases, systemic use prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('R03C') or $this.startsWith('R03D')).anyTrue()",
             "dataType": "boolean"
@@ -3245,7 +3337,7 @@
         },
         {
           "name": "cortico_syst",
-          "description": "Whether corticosteroids systemic prescribed during the admission",
+          "description": "Whether corticosteroids systemic prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('H02A') or $this.startsWith('H02BX') or $this.startsWith('H02C')).anyTrue()",
             "dataType": "boolean"
@@ -3260,7 +3352,7 @@
         },
         {
           "name": "antiinfl",
-          "description": "Whether anti-inflammatory drugs prescribed during the admission",
+          "description": "Whether anti-inflammatory drugs prescribed during the ED visit or in the 48 hours before its end",
           "value": {
             "path": "medicationCodes.select($this.startsWith('M01AB') or $this.startsWith('M01AX') or $this.startsWith('C01EB16')).anyTrue()",
             "dataType": "boolean"
@@ -4719,7 +4811,7 @@
         },
         {
           "alias": "cr",
-          "featureNamePattern": "lab_results_creatBS_value_last"
+          "featureNamePattern": "lab_results_creatBS_value_pEWS_last"
         }
       ],
       "valueExpr": {
@@ -4747,7 +4839,7 @@
       "combinedFeatures": [
         {
           "alias": "egfrCategory",
-          "featureNamePattern": "ckd_severity_categorizedValue"
+          "featureNamePattern": "ckd_severity_categorizedValue_pEWS"
         },
         {
           "alias": "scCategory",
@@ -4769,23 +4861,23 @@
         },
         {
           "alias": "sysBp",
-          "featureNamePattern": "vital_signs_systolicBpDuringEncounter_value_pET"
+          "featureNamePattern": "vital_signs_systolicBpDuringEncounter_value_pEWS"
         },
         {
           "alias": "hr",
-          "featureNamePattern": "vital_signs_heartRateDuringEncounter_value_pET"
+          "featureNamePattern": "vital_signs_heartRateDuringEncounter_value_pEWS"
         },
         {
           "alias": "oxy",
-          "featureNamePattern": "vital_signs_oxygenSaturationDuringEncounter_value_pET"
+          "featureNamePattern": "vital_signs_oxygenSaturationDuringEncounter_value_pEWS"
         },
         {
           "alias": "creatBS",
-          "featureNamePattern": "lab_results_creatBSDuringEncounter_value_pET"
+          "featureNamePattern": "lab_results_creatBSDuringEncounter_value_pEWS"
         },
         {
           "alias": "potassium",
-          "featureNamePattern": "lab_results_potassiumDuringEncounter_value_pET"
+          "featureNamePattern": "lab_results_potassiumDuringEncounter_value_pEWS"
         },
         {
           "alias": "cancer",
@@ -4801,12 +4893,26 @@
         },
         {
           "alias": "troponin",
-          "featureNamePattern": "lab_results_troponin_aboveUln_pET"
+          "featureNamePattern": "lab_results_troponin_aboveUln_pEWS"
         }
       ],
       "valueExpr": {
         "path": "iif(%age.exists(),%age * 2,{}) + iif(%ems.exists(),iif(%ems = true,60,0),{}) + iif(%sysBp.exists(),iif(%sysBp > 160,-160.0,%sysBp * -1),{}) + iif(%hr.exists(),iif(%hr > 120,120.0,iif(%hr < 80,80.0, %hr)),{}) + iif(%oxy.exists(),iif(%oxy > 92,-184.0,%oxy * -2),{}) + iif(%creatBS.exists(),%creatBS * 2,{}) + iif(%potassium.exists(),iif(%potassium >= 4.6,30,iif(%potassium >= 4 and %potassium <= 4.5,0,5)),{}) + iif(%troponin.exists(),iif(%troponin,60,0),{}) + iif(%cancer.exists(),iif(%cancer = true,45,0),{}) + iif(%diuretics.exists(),iif(%diuretics = true,60,0),{}) + 12",
         "dataType": "integer"
+      }
+    },
+    {
+      "name": "identifiedFromEdVisit",
+      "description": "Encounter identified from the ED visit or via the post-ED hospitalization, i.e. which study 2 eligibility rule the Emergency Department visit qualifies through. True (Rule A): a heart failure encounter diagnosis is coded on the Emergency Department encounter itself. False (Rule B): no heart failure diagnosis is coded on the Emergency Department encounter, so the visit qualifies only through a heart failure encounter diagnosis registered within the 2 days before or the 2 days after the end of the visit (e.g. coded at the hospital stay that followed it). A visit meeting both rules is reported as Rule A.",
+      "combinedFeatures": [
+        {
+          "alias": "hfOnEd",
+          "featureNamePattern": "encounter_primary_reason_hfOnEdEncounter_any"
+        }
+      ],
+      "valueExpr": {
+        "path": "%hfOnEd.exists() and %hfOnEd",
+        "dataType": "boolean"
       }
     }
   ]
