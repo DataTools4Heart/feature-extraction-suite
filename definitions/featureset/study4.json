@@ -997,7 +997,7 @@
       "feature": [
         {
           "name": "lvedd",
-          "description": "LVEDD (LOINC 29436-3) value closest to the reference time point, considering measurements up to 12 months before it.",
+          "description": "LVEDD (LOINC 29436-3, 18083-6) value closest to the reference time point, considering measurements up to 12 months before it.",
           "temporalAgg": [
             {
               "aggOp": [
@@ -1807,7 +1807,7 @@
       "feature": [
         {
           "name": "lvedd",
-          "description": "Earliest LVEDD (LOINC 29436-3) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
+          "description": "Earliest LVEDD (LOINC 29436-3, 18083-6) value recorded within the 6 months following the reference time point. Used as a fallback when no value is recorded in the 12 months preceding the reference time point.",
           "temporalAgg": [
             {
               "aggOp": [

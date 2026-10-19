@@ -48,7 +48,7 @@
         },
         {
           "name": "lvedd",
-          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and code='29436-3')).valueQuantity.value.first()"
+          "path": "Observation.component.where(code.coding.exists(system='http://loinc.org' and (code='29436-3' or code='18083-6'))).valueQuantity.value.first()"
         },
         {
           "name": "time",
