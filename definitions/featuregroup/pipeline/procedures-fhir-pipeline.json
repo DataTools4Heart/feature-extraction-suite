@@ -35,7 +35,7 @@
       "feature": [
         {
           "name": "performedDate",
-          "path": "Procedure.performedDateTime"
+          "path": "(Procedure.occurrenceDateTime.toDateTime() | Procedure.occurrencePeriod.start.toDateTime()).first()"
         },
         {
           "name": "icd10PcsCode",
