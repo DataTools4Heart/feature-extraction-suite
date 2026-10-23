@@ -4324,7 +4324,7 @@
         },
         {
           "name": "number_of_days_to_rehospitalization",
-          "description": "Number of days from discharge until rehospitalization due to heart failure",
+          "description": "Number of days from discharge until rehospitalization due to heart failure. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
           "value": {
             "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
@@ -4332,7 +4332,7 @@
           "temporalAgg": [
             {
               "aggOp": [
-                "first"
+                "min"
               ]
             }
           ]
@@ -4422,7 +4422,7 @@
         },
         {
           "name": "number_of_days_to_rehospitalization",
-          "description": "Number of days from discharge until rehospitalization due to CV disease",
+          "description": "Number of days from discharge until rehospitalization due to CV disease. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
           "value": {
             "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
@@ -4430,7 +4430,7 @@
           "temporalAgg": [
             {
               "aggOp": [
-                "first"
+                "min"
               ]
             }
           ]
@@ -4520,7 +4520,7 @@
         },
         {
           "name": "number_of_days_to_rehospitalization",
-          "description": "Number of days from discharge until rehospitalization due to non-CV disease",
+          "description": "Number of days from discharge until rehospitalization due to non-CV disease. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
           "value": {
             "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
@@ -4528,7 +4528,7 @@
           "temporalAgg": [
             {
               "aggOp": [
-                "first"
+                "min"
               ]
             }
           ]
