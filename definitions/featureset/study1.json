@@ -4452,7 +4452,7 @@
       "feature": [
         {
           "name": "rehospitalized",
-          "description": "Whether the patient is hospitalized because of heart failure after the discharge",
+          "description": "Whether the patient is hospitalized because of heart failure after the discharge. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
           "value": {
             "path": "true",
             "dataType": "boolean"
@@ -4550,7 +4550,7 @@
       "feature": [
         {
           "name": "rehospitalized",
-          "description": "Whether the patient is hospitalized because of any cardiovascular condition after the discharge",
+          "description": "Whether the patient is hospitalized because of any cardiovascular condition after the discharge. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
           "value": {
             "path": "true",
             "dataType": "boolean"
@@ -4648,7 +4648,7 @@
       "feature": [
         {
           "name": "rehospitalized",
-          "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the discharge",
+          "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the discharge. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
           "value": {
             "path": "true",
             "dataType": "boolean"
@@ -4746,7 +4746,7 @@
       "feature": [
         {
           "name": "rehospitalized",
-          "description": "Whether the patient is hospitalized because of any renal complication after the discharge",
+          "description": "Whether the patient is hospitalized because of any renal complication after the discharge. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
           "value": {
             "path": "true",
             "dataType": "boolean"
