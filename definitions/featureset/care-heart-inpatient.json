@@ -5,8 +5,8 @@
   "title": "Care Heart Inpatient Visit Features",
   "description": "Set of extracted features for Care Heart Inpatient Visit",
   "status": "active",
-  "version": "1.8",
-  "date": "2026-09-18",
+  "version": "1.9",
+  "date": "2026-10-23",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -4134,64 +4134,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "unspecifiedCause",
+        "description": "Filter the causes of death due to an unspecified condition.",
+        "filter": "causesOfDeath.select($this.startsWith('R99')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "isUnspecifiedCause",
+          "name": "died",
           "description": "Whether the patient dies because of unspecified condition after the discharge",
           "value": {
-            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).anyTrue())",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_death_for_unspecified_cause",
+          "name": "number_of_days_to_death",
           "description": "Number of days from discharge until death due to unspecified condition",
           "value": {
-            "path": "iif(causesOfDeath.select($this.startsWith('R99')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [

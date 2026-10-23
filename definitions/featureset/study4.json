@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 4 of AI4HF.",
   "description": "Dataset for Clinical Study 4 of AI4HF projects.",
   "status": "active",
-  "version": "1.1",
-  "date": "2026-10-09",
+  "version": "1.2",
+  "date": "2026-10-23",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -1590,64 +1590,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "unspecifiedCause",
+        "description": "Filter the causes of death due to an unspecified condition.",
+        "filter": "causesOfDeath.select($this.startsWith('R99')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "isUnspecifiedCause",
+          "name": "died",
           "description": "Whether the patient dies because of unspecified condition after the encounter",
           "value": {
-            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).anyTrue())",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_death_for_unspecified_cause",
+          "name": "number_of_days_to_death",
           "description": "Number of days from the reference time point until death due to unspecified condition",
           "value": {
-            "path": "iif(causesOfDeath.select($this.startsWith('R99')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [
