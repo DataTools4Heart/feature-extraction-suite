@@ -4519,15 +4519,15 @@
         },
         {
           "name": "number_of_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to heart failure within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to heart failure within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "1",
-            "dataType": "integer"
+            "path": "encounterRef",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
@@ -4617,15 +4617,15 @@
         },
         {
           "name": "number_of_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to cardiovascular disease within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "1",
-            "dataType": "integer"
+            "path": "encounterRef",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
@@ -4715,15 +4715,15 @@
         },
         {
           "name": "number_of_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to non-cardiovascular disease within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to non-cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "1",
-            "dataType": "integer"
+            "path": "encounterRef",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
@@ -4813,15 +4813,15 @@
         },
         {
           "name": "number_of_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to renal complications within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to renal complications within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "1",
-            "dataType": "integer"
+            "path": "encounterRef",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]

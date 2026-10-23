@@ -35,6 +35,12 @@
       "title": "The date of the condition.",
       "description": "The date of the condition.",
       "dataType": "date"
+    },
+    {
+      "name": "encounterRef",
+      "title": "Encounter reference",
+      "description": "Reference to the encounter the condition was diagnosed in (Condition.encounter). A feature rather than the encounterId entity, because in a feature set join the population's encounterId (the index encounter) takes the place of the feature group's own encounterId column. Used to count distinct encounters instead of diagnoses.",
+      "dataType": "string"
     }
   ],
   "eventTime": {
