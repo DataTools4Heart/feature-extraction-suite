@@ -1,0 +1,49 @@
+{
+  "id": "inpatient_encounter_primary_reason",
+  "resourceType": "FeatureGroup",
+  "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
+  "name": "inpatient_encounter_primary_reason",
+  "title": "Inpatient Encounter Primary Reason",
+  "description": "Encounter diagnoses of inpatient (IMP) encounters only, i.e. the diagnoses of hospitalizations. Same features as encounter_primary_reason, which covers encounters of every class (emergency, ambulatory, etc.). Use this one for hospitalization features and outcomes.",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-10-23",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "entity": [
+    {
+      "name": "pid",
+      "description": "A unique identifier assigned to each patient in the cohort."
+    },
+    {
+      "name": "encounterId",
+      "description": "A unique identifier for each hospital encounter."
+    }
+  ],
+  "feature": [
+    {
+      "name": "primaryReasonCodes",
+      "title": "Condition codes (ICD-10)",
+      "description": "ICD-10 codes for the conditions which are the main reasons of the inpatient encounter.",
+      "dataType": "code",
+      "isArray": true,
+      "valueSet": {
+        "url": "http://hl7.org/fhir/ValueSet/icd-10-cm"
+      }
+    },
+    {
+      "name": "date",
+      "title": "The date of the condition.",
+      "description": "The date of the condition.",
+      "dataType": "date"
+    },
+    {
+      "name": "encounterRef",
+      "title": "Encounter reference",
+      "description": "Reference to the inpatient encounter the condition was diagnosed in (Condition.encounter). A feature rather than the encounterId entity, because in a feature set join the population's encounterId (the index encounter) takes the place of the feature group's own encounterId column. Used to count distinct hospitalizations instead of diagnoses.",
+      "dataType": "string"
+    }
+  ],
+  "eventTime": {
+    "start": "date"
+  }
+}

@@ -4257,7 +4257,7 @@
   ],
   "outcome": [
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -4355,7 +4355,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -4453,7 +4453,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -4551,7 +4551,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"

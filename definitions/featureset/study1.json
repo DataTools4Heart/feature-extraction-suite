@@ -125,7 +125,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -135,7 +135,7 @@
       "feature": [
         {
           "name": "numOfPreviousHFStays",
-          "description": "Number of previous hospital stays for HF: distinct encounters, other than the index encounter, with at least one heart failure encounter diagnosis (same ICD-10 list as the heartFailure filter) whose onset is before the admission date. Each encounter is counted once, however many HF diagnoses it has. The index encounter is excluded by id, since its own HF diagnosis may have an onset before admission. The encounter class isn't available on the diagnosis, so previous non-inpatient encounters with an HF encounter diagnosis are counted too.",
+          "description": "Number of previous hospital stays for HF: distinct inpatient (IMP) encounters, other than the index encounter, with at least one heart failure encounter diagnosis (same ICD-10 list as the heartFailure filter) whose onset is before the admission date. Each encounter is counted once, however many HF diagnoses it has. The index encounter is excluded by id, since its own HF diagnosis may have an onset before admission. Diagnoses of other encounter classes (emergency, ambulatory, etc.) are excluded by the inpatient_encounter_primary_reason feature group.",
           "value": {
             "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0') or $this.startsWith('I09.81') or $this.startsWith('I97.13') or $this.startsWith('I25.5')).anyTrue() and encounterRef != ('Encounter/' & encounterId), encounterRef)",
             "dataType": "string"
@@ -4437,7 +4437,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -4535,7 +4535,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -4633,7 +4633,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -4731,7 +4731,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
