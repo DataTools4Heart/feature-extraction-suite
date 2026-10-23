@@ -4444,64 +4444,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "HF",
+        "description": "Filter the hospitalizations due to heart failure.",
+        "filter": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "HF_Disease",
+          "name": "rehospitalized",
           "description": "Whether the patient is hospitalized because of heart failure after the discharge",
           "value": {
-            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue() )",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_rehosp_for_heart_failure",
+          "name": "number_of_days_to_rehospitalization",
           "description": "Number of days from discharge until rehospitalization due to heart failure",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4513,10 +4518,10 @@
           ]
         },
         {
-          "name": "number_of_HF_rehospitalizations_5a",
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of hospitalizations due to heart failure within 5 years after the reference/index event",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), 1)",
+            "path": "1",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4537,64 +4542,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "CV",
+        "description": "Filter the hospitalizations due to any cardiovascular condition.",
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "CV_Disease",
+          "name": "rehospitalized",
           "description": "Whether the patient is hospitalized because of any cardiovascular condition after the discharge",
           "value": {
-            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue() )",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_rehosp_for_CV",
+          "name": "number_of_days_to_rehospitalization",
           "description": "Number of days from discharge until rehospitalization due to CV disease",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4606,10 +4616,10 @@
           ]
         },
         {
-          "name": "number_of_CV_rehospitalizations_5a",
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of hospitalizations due to cardiovascular disease within 5 years after the reference/index event",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), 1)",
+            "path": "1",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4630,64 +4640,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "nonCV",
+        "description": "Filter the hospitalizations due to any non-cardiovascular condition.",
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse()"
+      },
       "feature": [
         {
-          "name": "non_CV_Disease",
+          "name": "rehospitalized",
           "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the discharge",
           "value": {
-            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse() )",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_rehosp_for_non_CV",
+          "name": "number_of_days_to_rehospitalization",
           "description": "Number of days from discharge until rehospitalization due to non-CV disease",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4699,10 +4714,10 @@
           ]
         },
         {
-          "name": "number_of_non_CV_rehospitalizations_5a",
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of hospitalizations due to non-cardiovascular disease within 5 years after the reference/index event",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), 1)",
+            "path": "1",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4723,64 +4738,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "renal",
+        "description": "Filter the hospitalizations due to any renal complication.",
+        "filter": "primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "renal_complications",
+          "name": "rehospitalized",
           "description": "Whether the patient is hospitalized because of any renal complication after the discharge",
           "value": {
-            "path": "iif(primaryReasonCodes.exists(), primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue() )",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_rehosp_for_renal_complications",
+          "name": "number_of_days_to_rehospitalization",
           "description": "Number of days from discharge until rehospitalization due to renal complications",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), utl:getPeriod(%referenceTimePoint, date, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -4792,10 +4812,10 @@
           ]
         },
         {
-          "name": "number_of_renal_rehospitalizations_5a",
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of hospitalizations due to renal complications within 5 years after the reference/index event",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), 1)",
+            "path": "1",
             "dataType": "integer"
           },
           "temporalAgg": [
