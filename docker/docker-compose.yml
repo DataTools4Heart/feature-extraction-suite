@@ -33,6 +33,7 @@ services:
     restart: always
     environment:
       APP_CONF_FILE: /usr/local/onfhir-feast/conf/docker/feast-server.conf
+      #JAVA_OPTIONS: "-Xms4g -Xmx16g"
     ports:
       - "6095:8085"
     volumes:
