@@ -2018,7 +2018,7 @@
           "name": "deceased_in_12_months",
           "description": "Mortality recorded within the 12 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
             "dataType": "boolean"
           }
         },
@@ -2026,7 +2026,7 @@
           "name": "deceased_in_24_months",
           "description": "Mortality recorded within the 24 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
             "dataType": "boolean"
           }
         },
@@ -2034,7 +2034,7 @@
           "name": "deceased_in_36_months",
           "description": "Mortality recorded within the 36 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
             "dataType": "boolean"
           }
         },
@@ -2042,7 +2042,7 @@
           "name": "deceased_in_48_months",
           "description": "Mortality recorded within the 48 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
             "dataType": "boolean"
           }
         }
