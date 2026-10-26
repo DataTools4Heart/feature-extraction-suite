@@ -5,8 +5,8 @@
   "title": "Dataset for Clinical Study 4 of AI4HF.",
   "description": "Dataset for Clinical Study 4 of AI4HF projects.",
   "status": "active",
-  "version": "1.1",
-  "date": "2026-10-09",
+  "version": "1.2",
+  "date": "2026-10-23",
   "publisher": "DT4H/AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -1590,64 +1590,69 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "unspecifiedCause",
+        "description": "Filter the causes of death due to an unspecified condition.",
+        "filter": "causesOfDeath.select($this.startsWith('R99')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "isUnspecifiedCause",
+          "name": "died",
           "description": "Whether the patient dies because of unspecified condition after the encounter",
           "value": {
-            "path": "iif(causesOfDeath.exists(), causesOfDeath.select($this.startsWith('R99')).anyTrue())",
+            "path": "true",
             "dataType": "boolean"
           },
           "temporalAgg": [
             {
               "windowSize": "7d",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "6mo",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "1a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "3a",
               "aggOp": [
-                "first"
+                "any"
               ]
             },
             {
               "windowSize": "5a",
               "aggOp": [
-                "first"
+                "any"
               ]
             }
           ]
         },
         {
-          "name": "number_of_days_to_death_for_unspecified_cause",
+          "name": "number_of_days_to_death",
           "description": "Number of days from the reference time point until death due to unspecified condition",
           "value": {
-            "path": "iif(causesOfDeath.select($this.startsWith('R99')).anyTrue(), utl:getPeriod(%referenceTimePoint, time, 'days') )",
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
             "dataType": "integer"
           },
           "temporalAgg": [
@@ -2013,7 +2018,7 @@
           "name": "deceased_in_12_months",
           "description": "Mortality recorded within the 12 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
             "dataType": "boolean"
           }
         },
@@ -2021,7 +2026,7 @@
           "name": "deceased_in_24_months",
           "description": "Mortality recorded within the 24 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
             "dataType": "boolean"
           }
         },
@@ -2029,7 +2034,7 @@
           "name": "deceased_in_36_months",
           "description": "Mortality recorded within the 36 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
             "dataType": "boolean"
           }
         },
@@ -2037,14 +2042,14 @@
           "name": "deceased_in_48_months",
           "description": "Mortality recorded within the 48 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
             "dataType": "boolean"
           }
         }
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -2054,60 +2059,60 @@
       "feature": [
         {
           "name": "number_of_HF_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to heart failure within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to heart failure within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
         },
         {
           "name": "number_of_CV_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to cardiovascular disease within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
         },
         {
           "name": "number_of_non_CV_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to non-cardiovascular disease within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to non-cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
         },
         {
           "name": "number_of_renal_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to renal complications within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to renal complications within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]

@@ -1,0 +1,52 @@
+{
+  "id": "inpatient_encounter_primary_reason",
+  "resourceType": "FeatureGroupPipeline",
+  "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
+  "name": "inpatient_encounter_primary_reason",
+  "title": "Inpatient Encounter Primary Reason",
+  "description": "Inpatient Encounter Primary Reason",
+  "version": "1.0",
+  "status": "active",
+  "date": "2026-10-23",
+  "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
+  "interface": "fhir",
+  "supportedVersions": [
+    "R5"
+  ],
+  "pipeline": [
+    {
+      "description": "Extract the features from the encounter-diagnosis Conditions of inpatient (IMP) encounters. The chained search encounter.class=IMP drops diagnoses of other encounter classes and diagnoses without an encounter reference.",
+      "resourceType": "Condition",
+      "targetProfile": "https://datatools4heart.eu/fhir/StructureDefinition/HFR-Condition",
+      "query": "?category=encounter-diagnosis&encounter.class=IMP",
+      "entityLink": [
+        {
+          "entity": "pid",
+          "entityType": "Patient",
+          "searchParam": "patient",
+          "path": "Condition.subject.reference"
+        },
+        {
+          "entity": "encounterId",
+          "entityType": "Encounter",
+          "searchParam": "encounter",
+          "path": "Condition.encounter.reference"
+        }
+      ],
+      "feature": [
+        {
+          "name": "primaryReasonCodes",
+          "path": "Condition.code.coding.where(system='http://hl7.org/fhir/sid/icd-10').code"
+        },
+        {
+          "name": "date",
+          "path": "Condition.onsetDateTime"
+        },
+        {
+          "name": "encounterRef",
+          "path": "Condition.encounter.reference"
+        }
+      ]
+    }
+  ]
+}

@@ -5,8 +5,8 @@
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
-  "version": "1.8",
-  "date": "2026-09-18",
+  "version": "1.9",
+  "date": "2026-10-23",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -478,7 +478,7 @@
           "name": "deceased_in_12_months",
           "description": "Whether the patient dies within the 12 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 12",
             "dataType": "boolean"
           }
         },
@@ -486,7 +486,7 @@
           "name": "deceased_in_24_months",
           "description": "Whether the patient dies within the 24 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 24",
             "dataType": "boolean"
           }
         },
@@ -494,7 +494,7 @@
           "name": "deceased_in_36_months",
           "description": "Whether the patient dies within the 36 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 36",
             "dataType": "boolean"
           }
         },
@@ -502,14 +502,14 @@
           "name": "deceased_in_48_months",
           "description": "Whether the patient dies within the 48 months following the reference time point.",
           "value": {
-            "path": "deceasedDateTime.exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
+            "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
             "dataType": "boolean"
           }
         }
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -519,15 +519,15 @@
       "feature": [
         {
           "name": "number_of_HF_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to heart failure within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to heart failure within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
@@ -535,7 +535,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -545,15 +545,15 @@
       "feature": [
         {
           "name": "number_of_CV_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to cardiovascular disease within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
@@ -561,7 +561,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -571,15 +571,15 @@
       "feature": [
         {
           "name": "number_of_non_CV_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to non-cardiovascular disease within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to non-cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]
@@ -587,7 +587,7 @@
       ]
     },
     {
-      "url": "https://datatools4heart.eu/feature-groups/encounter_primary_reason",
+      "url": "https://datatools4heart.eu/feature-groups/inpatient_encounter_primary_reason",
       "join": {
         "on": {
           "pid": "pid"
@@ -597,15 +597,15 @@
       "feature": [
         {
           "name": "number_of_renal_rehospitalizations_5a",
-          "description": "Total number of hospitalizations due to renal complications within 5 years after the reference/index event",
+          "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to renal complications within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), 1)",
-            "dataType": "integer"
+            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), encounterRef)",
+            "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
-                "count"
+                "count_distinct"
               ]
             }
           ]

@@ -41,6 +41,10 @@
         {
           "name": "date",
           "path": "Condition.onsetDateTime"
+        },
+        {
+          "name": "encounterRef",
+          "path": "Condition.encounter.reference"
         }
       ]
     }
