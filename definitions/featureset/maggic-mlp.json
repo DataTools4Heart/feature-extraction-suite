@@ -5,8 +5,8 @@
   "title": "MAGGIC-MLP Features",
   "description": "Set of extracted features for MAGGIC-MLP",
   "status": "active",
-  "version": "1.9",
-  "date": "2026-10-23",
+  "version": "2.0",
+  "date": "2026-11-03",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -516,12 +516,84 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "HF",
+        "description": "Filter the hospitalizations due to heart failure.",
+        "filter": "primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "number_of_HF_rehospitalizations_5a",
+          "name": "rehospitalized",
+          "description": "Whether the patient is hospitalized because of heart failure after the reference time point. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_rehospitalization",
+          "description": "Number of days from the reference time point until rehospitalization due to heart failure. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "min"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to heart failure within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I50') or $this.startsWith('I11.0') or $this.startsWith('I13.0') or $this.startsWith('I13.2') or $this.startsWith('I26.0')).anyTrue(), encounterRef)",
+            "path": "encounterRef",
             "dataType": "string"
           },
           "temporalAgg": [
@@ -542,12 +614,84 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "CV",
+        "description": "Filter the hospitalizations due to any cardiovascular condition.",
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "number_of_CV_rehospitalizations_5a",
+          "name": "rehospitalized",
+          "description": "Whether the patient is hospitalized because of any cardiovascular condition after the reference time point. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_rehospitalization",
+          "description": "Number of days from the reference time point until rehospitalization due to CV disease. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "min"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue(), encounterRef)",
+            "path": "encounterRef",
             "dataType": "string"
           },
           "temporalAgg": [
@@ -568,12 +712,84 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "nonCV",
+        "description": "Filter the hospitalizations due to any non-cardiovascular condition.",
+        "filter": "primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse()"
+      },
       "feature": [
         {
-          "name": "number_of_non_CV_rehospitalizations_5a",
+          "name": "rehospitalized",
+          "description": "Whether the patient is hospitalized because of any non-cardiovascular condition after the reference time point. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_rehospitalization",
+          "description": "Number of days from the reference time point until rehospitalization due to non-CV disease. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "min"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to non-cardiovascular disease within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyFalse(), encounterRef)",
+            "path": "encounterRef",
             "dataType": "string"
           },
           "temporalAgg": [
@@ -594,18 +810,422 @@
         },
         "duration": "5a"
       },
+      "filter": {
+        "name": "renal",
+        "description": "Filter the hospitalizations due to any renal complication.",
+        "filter": "primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()"
+      },
       "feature": [
         {
-          "name": "number_of_renal_rehospitalizations_5a",
+          "name": "rehospitalized",
+          "description": "Whether the patient is hospitalized because of any renal complication after the reference time point. A window is true when at least one diagnosis of an inpatient encounter in it matches, whatever its order (aggregated with any), and false when none matches or there is no hospitalization.",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_rehospitalization",
+          "description": "Number of days from the reference time point until rehospitalization due to renal complications. Computed as the minimum over the matching diagnoses of inpatient encounters (min ignores non-matching rows and doesn't depend on row order); empty when there is no matching hospitalization.",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, date, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "min"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_rehospitalizations_5a",
           "description": "Total number of distinct hospitalizations (encounters) with at least one encounter diagnosis due to renal complications within 5 years after the reference/index event. Each encounter is counted once, however many matching diagnoses it has",
           "value": {
-            "path": "iif(primaryReasonCodes.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue(), encounterRef)",
+            "path": "encounterRef",
             "dataType": "string"
           },
           "temporalAgg": [
             {
               "aggOp": [
                 "count_distinct"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "CV",
+        "description": "Filter the causes of death due to any cardiovascular condition.",
+        "filter": "causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "died",
+          "description": "Whether the patient dies because of any cardiovascular condition after the reference time point",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_death",
+          "description": "Number of days from the reference time point until death due to CV disease",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "renal",
+        "description": "Filter the causes of death due to any renal complication.",
+        "filter": "causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "died",
+          "description": "Whether the patient dies because of any renal complication after the reference time point",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_death",
+          "description": "Number of days from the reference time point until death due to renal complications",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "nonRenalAndNonCV",
+        "description": "Filter the causes of death due to any non-cardiovascular and non-renal condition (excluding unspecified causes).",
+        "filter": "causesOfDeath.exists() and causesOfDeath.select($this.startsWith('R99')).allFalse() and causesOfDeath.select($this.startsWith('N18') or $this.startsWith('N19') or $this.startsWith('Z99.2') or $this.startsWith('Z49')).allFalse() and causesOfDeath.select($this.startsWith('I') or $this.startsWith('G45') or $this.startsWith('J81') or $this.startsWith('K76.1') or $this.startsWith('R57')).allFalse()"
+      },
+      "feature": [
+        {
+          "name": "died",
+          "description": "Whether the patient dies because of any non-cardiovascular and non-renal condition after the reference time point",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_death",
+          "description": "Number of days from the reference time point until death due to non-CV and non-renal complications",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://datatools4heart.eu/feature-groups/cause_of_death",
+      "join": {
+        "on": {
+          "pid": "pid"
+        },
+        "duration": "5a"
+      },
+      "filter": {
+        "name": "unspecifiedCause",
+        "description": "Filter the causes of death due to an unspecified condition.",
+        "filter": "causesOfDeath.select($this.startsWith('R99')).anyTrue()"
+      },
+      "feature": [
+        {
+          "name": "died",
+          "description": "Whether the patient dies because of unspecified condition after the reference time point",
+          "value": {
+            "path": "true",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "windowSize": "7d",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "6mo",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "1a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "3a",
+              "aggOp": [
+                "any"
+              ]
+            },
+            {
+              "windowSize": "5a",
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "number_of_days_to_death",
+          "description": "Number of days from the reference time point until death due to unspecified condition",
+          "value": {
+            "path": "utl:getPeriod(%referenceTimePoint, time, 'days')",
+            "dataType": "integer"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "first"
               ]
             }
           ]
