@@ -5,8 +5,8 @@
   "title": "Care Heart Outpatient Visit Features",
   "description": "Set of extracted features for Care Heart Outpatient Visit",
   "status": "active",
-  "version": "2.0",
-  "date": "2026-11-03",
+  "version": "2.1",
+  "date": "2026-11-04",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
     {
@@ -2224,6 +2224,31 @@
       ]
     },
     {
+      "url": "https://datatools4heart.eu/feature-groups/conditions",
+      "join": {
+        "on": {
+          "pid": "pid"
+        }
+      },
+      "feature": [
+        {
+          "name": "icm_history",
+          "description": "Whether the patient has a condition coded with ICD-10 I25.5 (ischaemic cardiomyopathy) or any of its sub-codes at any time in their history up to the reference time point.",
+          "value": {
+            "path": "icd10Codes.select($this.startsWith('I25.5')).anyTrue()",
+            "dataType": "boolean"
+          },
+          "temporalAgg": [
+            {
+              "aggOp": [
+                "any"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "url": "https://datatools4heart.eu/feature-groups/med_admins",
       "join": {
         "on": {
@@ -4122,6 +4147,14 @@
           "value": {
             "path": "deceasedDateTime.toDateTime().exists() and utl:getPeriod(%referenceTimePoint, deceasedDateTime, 'months') <= 48",
             "dataType": "boolean"
+          }
+        },
+        {
+          "name": "date_of_death",
+          "description": "Date of death of the patient (Patient.deceasedDateTime); empty if the patient is not known to have died.",
+          "value": {
+            "path": "deceasedDateTime.toDateTime()",
+            "dataType": "dateTime"
           }
         }
       ]
