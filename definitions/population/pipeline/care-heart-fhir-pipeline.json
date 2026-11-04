@@ -4,9 +4,9 @@
   "url": "https://ai4hf.eu/cohorts/care_heart",
   "name": "care_heart_cohort",
   "title": "Adult Patients with Cardiology Encounters (Inpatient or Outpatient) After First Heart Failure Diagnosis",
-  "description": "This cohort includes patients aged 18 years or older who have a diagnosis of heart failure and at least one cardiology-related encounter (inpatient admission or outpatient visit) occurring after their first heart failure diagnosis.",
-  "version": "1.3",
-  "date": "2026-10-23",
+  "description": "This cohort includes cardiology-related inpatient admissions and outpatient visits of patients with heart failure who were 18 years or older at their first heart failure diagnosis. Patients first diagnosed with heart failure before the age of 18 are excluded entirely. An encounter is included when the patient's first heart failure diagnosis occurred on or before the encounter reference time: the discharge date for inpatient admissions and the visit date for outpatient visits.",
+  "version": "1.4",
+  "date": "2026-11-04",
   "status": "active",
   "publisher": "DataTools4Heart/AI4HF Team (SRDC Corp.)",
   "interface": "fhir",
@@ -33,34 +33,33 @@
           "path": "id"
         }
       ],
-      "eventTime": "Encounter.actualPeriod.start"
+      "eventTime": "Encounter.actualPeriod.start",
+      "exitTime": "iif(Encounter.class.coding.where(system='http://terminology.hl7.org/CodeSystem/v3-ActCode' and code='IMP').exists(), Encounter.actualPeriod.end, Encounter.actualPeriod.start)"
     }
   ],
   "eligibility": [
     {
       "name": "adultsWithHeartFailure",
-      "description": "Restricts the cohort to adult patients whose first heart failure diagnosis occurred before the encounter admission date.",
+      "description": "Restricts the cohort to patients whose first heart failure diagnosis occurred when they were 18 years or older, and to their encounters whose reference time (discharge date for inpatient encounters, visit date for outpatient encounters) is on or after that first heart failure diagnosis.",
       "criteria": [
         {
-          "resourceType": "Patient",
+          "resourceType": "Condition",
           "category": "exclusion",
+          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13,http://hl7.org/fhir/sid/icd-10|I25.5&_include=Condition:subject:Patient",
           "entityLink": [
             {
               "entity": "pid",
               "entityType": "Patient",
-              "searchParam": "_id",
-              "path": "id"
+              "searchParam": "patient",
+              "path": "Condition.subject.reference"
             }
           ],
-          "timeConstraint": {
-            "path": "birthDate.toDate()",
-            "start": "(%eligibilityEventTime - 18 years)"
-          }
+          "filter": "onsetDateTime.toDateTime() < (_includedPatient.birthDate.toDate().toDateTime() + 18 years)"
         },
         {
           "resourceType": "Condition",
           "category": "inclusion",
-          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13,http://hl7.org/fhir/sid/icd-10|I25.5&_sort=onset-date&_count=1",
+          "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13,http://hl7.org/fhir/sid/icd-10|I25.5",
           "entityLink": [
             {
               "entity": "pid",
@@ -73,7 +72,7 @@
           "timeConstraint": {
             "searchParam": "onset-date",
             "path": "Condition.onsetDateTime",
-            "end": "%eligibilityEventTime"
+            "end": "%eligibilityExitTime"
           }
         }
       ]
