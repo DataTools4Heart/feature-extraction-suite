@@ -4,9 +4,9 @@
   "url": "https://ai4hf.eu/cohorts/care_heart",
   "name": "care_heart_cohort",
   "title": "Adult Patients with Cardiology Encounters (Inpatient or Outpatient) After First Heart Failure Diagnosis",
-  "description": "This cohort includes patients aged 18 years or older who have a diagnosis of heart failure and at least one cardiology-related encounter (inpatient admission or outpatient visit) occurring after their first heart failure diagnosis.",
-  "version": "1.3",
-  "date": "2026-10-23",
+  "description": "This cohort includes cardiology-related inpatient admissions and outpatient visits of patients with heart failure. An encounter is included when the patient is 18 years or older at the start of the encounter and their first heart failure diagnosis occurred on or before the encounter reference time: the discharge date for inpatient admissions and the visit date for outpatient visits.",
+  "version": "1.4",
+  "date": "2026-11-04",
   "status": "active",
   "publisher": "AI4HF Team (SRDC Corp.)",
   "entity": [
@@ -28,15 +28,15 @@
   "eligibility": [
     {
       "name": "adultsWithHeartFailure",
-      "description": "Restricts the cohort to adult patients whose first heart failure diagnosis occurred before the encounter admission date.",
+      "description": "Restricts the cohort to encounters of patients who are 18 years or older at the start of the encounter and whose first heart failure diagnosis occurred on or before the encounter reference time (discharge date for inpatient encounters, visit date for outpatient encounters).",
       "criteria": [
         {
           "name": "adults",
-          "description": "Include only adults patients (age is 18 or older)"
+          "description": "Include only patients who are 18 years or older at the start of the encounter."
         },
         {
-          "name": "firstHeartFailureDiagnosisBeforeAdmission",
-          "description": "The patient’s first heart failure diagnosis must occur before the encounter admission date."
+          "name": "firstHeartFailureDiagnosisBeforeReferenceTime",
+          "description": "The patient’s first heart failure diagnosis must occur on or before the encounter reference time: the discharge date for inpatient encounters and the visit date for outpatient encounters."
         }
       ]
     }
