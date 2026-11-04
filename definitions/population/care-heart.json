@@ -4,7 +4,7 @@
   "url": "https://ai4hf.eu/cohorts/care_heart",
   "name": "care_heart_cohort",
   "title": "Adult Patients with Cardiology Encounters (Inpatient or Outpatient) After First Heart Failure Diagnosis",
-  "description": "This cohort includes cardiology-related inpatient admissions and outpatient visits of patients with heart failure. An encounter is included when the patient is 18 years or older at the start of the encounter and their first heart failure diagnosis occurred on or before the encounter reference time: the discharge date for inpatient admissions and the visit date for outpatient visits.",
+  "description": "This cohort includes cardiology-related inpatient admissions and outpatient visits of patients with heart failure who were 18 years or older at their first heart failure diagnosis. Patients first diagnosed with heart failure before the age of 18 are excluded entirely. An encounter is included when the patient's first heart failure diagnosis occurred on or before the encounter reference time: the discharge date for inpatient admissions and the visit date for outpatient visits.",
   "version": "1.4",
   "date": "2026-11-04",
   "status": "active",
@@ -28,11 +28,11 @@
   "eligibility": [
     {
       "name": "adultsWithHeartFailure",
-      "description": "Restricts the cohort to encounters of patients who are 18 years or older at the start of the encounter and whose first heart failure diagnosis occurred on or before the encounter reference time (discharge date for inpatient encounters, visit date for outpatient encounters).",
+      "description": "Restricts the cohort to patients whose first heart failure diagnosis occurred when they were 18 years or older, and to their encounters whose reference time (discharge date for inpatient encounters, visit date for outpatient encounters) is on or after that first heart failure diagnosis.",
       "criteria": [
         {
           "name": "adults",
-          "description": "Include only patients who are 18 years or older at the start of the encounter."
+          "description": "Exclude patients who were younger than 18 at their first heart failure diagnosis (patient level: all of their encounters are excluded)."
         },
         {
           "name": "firstHeartFailureDiagnosisBeforeReferenceTime",
