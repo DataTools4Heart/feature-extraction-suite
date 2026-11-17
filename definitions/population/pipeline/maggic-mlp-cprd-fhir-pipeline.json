@@ -3,8 +3,8 @@
   "resourceType": "PopulationPipeline",
   "url": "https://ai4hf.eu/cohorts/maggic_cprd",
   "name": "maggic_cprd_cohort",
-  "title": "Patients with a first diagnosis of heart failure between 2010 and 2020, using the time of their initial diagnosis as the event time.",
-  "description": "This population finds patients diagnosed with heart failure between 2010 and 2020 from FHIR, excluding those with a diagnosis before 2010.",
+  "title": "Patients with a first diagnosis of heart failure between 2010 and 2019, using the time of their initial diagnosis as the event time.",
+  "description": "This population finds patients diagnosed with heart failure between 2010 and 2019 from FHIR, excluding those with a diagnosis before 2010.",
   "version": "1.3",
   "date": "2026-06-05",
   "fhirVersion": "5.0.0",
@@ -16,7 +16,7 @@
   "entry": [
     {
       "name": "withHeartFailure",
-      "description": "Patients diagnosed with heart failure between 2010 and 2020, using the time of their initial diagnosis as the event time.",
+      "description": "Patients diagnosed with heart failure between 2010 and 2019, using the time of their initial diagnosis as the event time.",
       "resourceType": "Condition",
       "query": "?code:below=http://hl7.org/fhir/sid/icd-10|I50,http://hl7.org/fhir/sid/icd-10|I11.0,http://hl7.org/fhir/sid/icd-10|I13.0,http://hl7.org/fhir/sid/icd-10|I13.2,http://hl7.org/fhir/sid/icd-10|I26.0,http://hl7.org/fhir/sid/icd-10|I25.5,http://hl7.org/fhir/sid/icd-10|I09.81,http://hl7.org/fhir/sid/icd-10|I97.13&onset-date=ge2010-01-01&onset-date=lt2020-01-01",
       "entityLink": [
