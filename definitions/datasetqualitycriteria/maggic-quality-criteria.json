@@ -6,13 +6,13 @@
   "description": "Quality criteria for datasets created using the MAGGIC feature-set.",
   "version": "1.0.0",
   "status": "active",
-  "date": "2025-05-10",
+  "date": "2026-11-14",
   "criteria": [
     {
       "name": "validLVEF",
       "description": "Percentage of records that has valid LVEF value",
       "language": "application/sql",
-      "expression": "SELECT count(*) as num_valid FROM dataset WHERE echocardiographs_lvef IS NOT NULL",
+      "expression": "SELECT count(*) as num_valid FROM dataset WHERE echocardiographs_lvef_lvef IS NOT NULL",
       "category": {
         "context": "verification",
         "category": "completeness"
@@ -108,9 +108,9 @@
     },
     {
       "name": "creatinineBelowThreshold",
-      "description": "Percentage of records with creatinine levels less than 0.6",
+      "description": "Percentage of records with creatinine levels less than 6 mg/L",
       "language": "application/sql",
-      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE lab_results_creatinine_value_p3a_avg < 0.6 AND lab_results_creatinine_value_p3a_avg IS NOT NULL",
+      "expression": "SELECT COUNT(*) AS num_below_threshold FROM dataset WHERE lab_results_creatinine_value_p3a_avg < 6 AND lab_results_creatinine_value_p3a_avg IS NOT NULL",
       "category": {
         "context": "validation",
         "category": "plausibility"
@@ -122,9 +122,9 @@
     },
     {
       "name": "creatinineAboveThreshold",
-      "description": "Percentage of records with creatinine levels more than 1.5",
+      "description": "Percentage of records with creatinine levels more than 15 mg/L",
       "language": "application/sql",
-      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE lab_results_creatinine_value_p3a_avg > 1.5 AND lab_results_creatinine_value_p3a_avg IS NOT NULL",
+      "expression": "SELECT COUNT(*) AS num_above_threshold FROM dataset WHERE lab_results_creatinine_value_p3a_avg > 15 AND lab_results_creatinine_value_p3a_avg IS NOT NULL",
       "category": {
         "context": "validation",
         "category": "plausibility"
