@@ -1,0 +1,182 @@
+{
+  "id": "study1-quality-criteria",
+  "url": "https://datatools4heart.eu/quality-criteria/study1",
+  "name": "study1-quality-criteria",
+  "title": "Study 1 Dataset Quality Criteria",
+  "description": "Fitness-for-use quality criteria for datasets created using the Study 1 feature set (medication prescription in patients hospitalised for acute heart failure with chronic kidney disease or hyperkalaemia). Criteria follow the harmonised Kahn framework: completeness criteria in the verification context and plausibility criteria in the validation context.",
+  "version": "1.0.0",
+  "status": "active",
+  "date": "2026-11-17",
+  "criteria": [
+    {
+      "name": "lvefCompleteness",
+      "description": "Percentage of records with a recorded LVEF value (most recent before discharge). LVEF is needed to distinguish HFrEF from HFpEF when assessing guideline-directed medication.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_valid FROM dataset WHERE echocardiographs_lvef_lvef IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "(num_valid / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 50.0
+      }
+    },
+    {
+      "name": "potassiumCompleteness",
+      "description": "Percentage of records with at least one potassium measurement during the hospital stay. Potassium defines the hyperkalaemia subgroup of the study.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_valid FROM dataset WHERE lab_results_potassium_value_last IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "(num_valid / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 90.0
+      }
+    },
+    {
+      "name": "systolicBloodPressureCompleteness",
+      "description": "Percentage of records with at least one systolic blood pressure measurement during the hospital stay.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_valid FROM dataset WHERE vital_signs_systolicBp_value_last IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "(num_valid / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 70.0
+      }
+    },
+    {
+      "name": "natriureticPeptideCompleteness",
+      "description": "Percentage of records with at least one natriuretic peptide measurement (NT-proBNP or BNP) during the hospital stay.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_valid FROM dataset WHERE lab_results_ntProBnp_value_last IS NOT NULL OR lab_results_bnp_value_last IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "(num_valid / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 50.0
+      }
+    },
+    {
+      "name": "inHospitalDiureticCapture",
+      "description": "Percentage of records with a diuretic prescribed or administered during the hospital stay. Diuretics are given to the large majority of patients hospitalised for acute heart failure, so a low value indicates that in-hospital medication is not captured in the source data.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_with_diuretic FROM dataset WHERE med_requests_diuretics_any = true OR med_admins_diuretics_any = true",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "(num_with_diuretic / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 50.0
+      }
+    },
+    {
+      "name": "nyhaCardinality",
+      "description": "Having all 4 NYHA classes represented in the dataset (nyha_nyha)",
+      "language": "application/sql",
+      "expression": "SELECT count(DISTINCT nyha_nyha) AS nyha_count FROM dataset WHERE nyha_nyha IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "nyha_count",
+        "low": 4.0
+      }
+    },
+    {
+      "name": "smokingStatusCardinality",
+      "description": "Having both smokers and non-smokers in the dataset (smoking_status_smoker_last). A single value indicates that smoking status is not captured in the source data.",
+      "language": "application/sql",
+      "expression": "SELECT count(DISTINCT smoking_status_smoker_last) AS smoking_status_count FROM dataset WHERE smoking_status_smoker_last IS NOT NULL",
+      "category": {
+        "context": "verification",
+        "category": "completeness"
+      },
+      "rule": {
+        "expression": "smoking_status_count",
+        "low": 2.0
+      }
+    },
+    {
+      "name": "serumCreatininePlausibleMedian",
+      "description": "Median serum creatinine of the cohort, expected in mg/L. A median outside 6-20 mg/L indicates a unit mismatch in the source mapping (e.g. values delivered in mg/dL), which also invalidates the calculated eGFR and the CKD staging.",
+      "language": "application/sql",
+      "expression": "SELECT percentile_approx(lab_results_validSerumCreatinine_value_pET, 0.5) AS median_creatinine FROM dataset WHERE lab_results_validSerumCreatinine_value_pET IS NOT NULL",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "median_creatinine",
+        "low": 6.0,
+        "high": 20.0
+      }
+    },
+    {
+      "name": "potassiumPhysiologicallyImpossible",
+      "description": "Number of records whose last potassium value during the stay is below 1 or above 12 mmol/L. Such values are not compatible with life and indicate placeholder or mis-entered results.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_impossible FROM dataset WHERE lab_results_potassium_value_last < 1 OR lab_results_potassium_value_last > 12",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "num_impossible",
+        "high": 0.0
+      }
+    },
+    {
+      "name": "lvefOutOfRange",
+      "description": "Number of records with an LVEF value below 0% or above 100%.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_out_of_range FROM dataset WHERE echocardiographs_lvef_lvef < 0 OR echocardiographs_lvef_lvef > 100",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "num_out_of_range",
+        "high": 0.0
+      }
+    },
+    {
+      "name": "plausibleSexDistribution",
+      "description": "Percentage of male patients, expected between 40% and 70% for a cohort hospitalised for heart failure.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_males FROM dataset WHERE patient_demographics_gender = 'male'",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "(num_males / %stats.dataset.numOfEntries * 1.0) * 100",
+        "low": 40.0,
+        "high": 70.0
+      }
+    },
+    {
+      "name": "lengthOfStayPlausible",
+      "description": "Number of records with a hospital stay longer than 365 days. Such stays indicate encounters whose end date is missing or wrongly mapped.",
+      "language": "application/sql",
+      "expression": "SELECT count(*) AS num_implausible FROM dataset WHERE encounters_lengthOfStay > 365",
+      "category": {
+        "context": "validation",
+        "category": "plausibility"
+      },
+      "rule": {
+        "expression": "num_implausible",
+        "high": 0.0
+      }
+    }
+  ]
+}
